@@ -1,0 +1,45 @@
+{
+  "name": "selectable-score-demo",
+  "version": "0.0.1",
+  "description": "TROMPA selectable score component",
+  "main": "index.js",
+  "scripts": {
+    "start": "PORT=8080 react-scripts start",
+    "build": "babel src --out-dir lib",
+    "build-dev": "babel src --out-dir lib --source-maps inline"
+  },
+  "author": "David M. Weigl, IWK, University of Music and Performing Arts Vienna",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "@babel/cli": "^7.6.0",
+    "@babel/core": "^7.6.0",
+    "@babel/preset-react": "^7.0.0"
+  },
+  "dependencies": {
+    "browserslist": "^4.10.0",
+    "dragselect": "^1.13.1",
+    "selectable-score": "trompamusic/selectable-score#updateDependencies",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-player": "^1.11.0",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "^3.1.1",
+    "redux": "^3.0.4",
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.3.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

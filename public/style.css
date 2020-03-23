@@ -1,0 +1,10 @@
+body { 
+  font-family: sans-serif;
+  user-select: none;
+}
+
+.selected {
+  fill:darkorange;
+  stroke:darkorange;
+}
+
