@@ -3,28 +3,15 @@ import SelectableScore from 'selectable-score/lib/selectable-score';
 import NextPageButton from 'selectable-score/lib/next-page-button.js';
 import PrevPageButton from 'selectable-score/lib/prev-page-button.js';
 
-// Parameters for SelectableScore component
-// ****************************************
-// MEI_URI: Can be a full URI, e.g. obtained from the TROMPA Contributor Environment 
-const MEI_URI = "test.mei" 
-// vrvOptions: If not supplied to <SelectableScore>, will default to predefined options
-const vrvOptions = {  
-  scale: 45,
-  adjustPageHeight: 1,
-  pageHeight: 2500,
-  pageWidth: 2200,
-  noFooter: 1,
-  unit: 6
-}
 // selectionString: CSS selector for all elements to be selectable (e.g. ".measure", ".note")
 const selectorString = ".measure";
 
-export default class TestApp extends Component { 
+export default class SelectableScoreApp extends Component { 
   constructor(props) { 
     super(props);
     this.state = { 
       selection: [],
-      uri: MEI_URI /* you can set this dynamically if your app requires dynamic MEI updates */
+      uri: this.props.uri /* you can set this dynamically if your app requires dynamic MEI updates */
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
   }
@@ -57,7 +44,7 @@ export default class TestApp extends Component {
 
         <SelectableScore 
           uri={ this.state.uri } 
-          options={ vrvOptions } 
+          options={ this.props.vrvOptions } 
           onSelectionChange={ this.handleSelectionChange } 
           selectorString = { selectorString }
         />
