@@ -14,6 +14,7 @@ export default class SelectableScoreApp extends Component {
       uri: this.props.uri /* you can set this dynamically if your app requires dynamic MEI updates */
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
+    this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
   }
 
   handleSelectionChange(selection) { 
@@ -21,6 +22,9 @@ export default class SelectableScoreApp extends Component {
     /* and anything else your app needs to do when the selection changes */
   }
 
+  handleScoreUpdate(scoreElement) { 
+    console.log("Received updated score DOM element: ", scoreElement)
+  }
   render() {
     return(
       <div>
@@ -47,6 +51,7 @@ export default class SelectableScoreApp extends Component {
           options={ this.props.vrvOptions } 
           onSelectionChange={ this.handleSelectionChange } 
           selectorString = { selectorString }
+          handleScoreUpdate = { this.handleScoreUpdate }
         />
       </div>
     )
