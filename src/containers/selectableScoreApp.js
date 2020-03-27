@@ -51,7 +51,7 @@ export default class SelectableScoreApp extends Component {
           options={ this.props.vrvOptions } 
           onSelectionChange={ this.handleSelectionChange } 
           selectorString = { selectorString }
-          handleScoreUpdate = { this.handleScoreUpdate }
+          onScoreUpdate = { this.handleScoreUpdate }
         />
       </div>
     )
