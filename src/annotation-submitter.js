@@ -2,7 +2,6 @@ import React from "react";
 import uuid from "uuid";
 import Annotations from "./annotations/Annotations.js";
 import Addannotations from "./annotations/Addannotation.js";
-//import RadioButton from "./annotations/RadioButton";
 
 export class AnnotationSubmitter extends React.Component {
   state = {
@@ -33,9 +32,6 @@ export class AnnotationSubmitter extends React.Component {
               <Annotations annotationlist={this.state.annotationlist} />
             </div>
           </div>
-          {/* <div>
-            <RadioButton />
-          </div> */}
         </div>
       </div>
     );
