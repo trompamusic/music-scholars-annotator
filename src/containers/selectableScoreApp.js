@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SelectableScore from 'selectable-score/lib/selectable-score';
 import NextPageButton from 'selectable-score/lib/next-page-button.js';
 import PrevPageButton from 'selectable-score/lib/prev-page-button.js';
+import AnnotationSubmitter from '../annotation-submitter.js'
 
 // selectionString: CSS selector for all elements to be selectable (e.g. ".measure", ".note")
 const selectorString = ".measure";
@@ -45,6 +46,8 @@ export default class SelectableScoreApp extends Component {
           buttonContent = { <span>Prev</span> }
           uri = { this.state.uri }
         />
+
+        <AnnotationSubmitter />
 
         <SelectableScore 
           uri={ this.state.uri } 
