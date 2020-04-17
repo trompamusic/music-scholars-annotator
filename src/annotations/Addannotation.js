@@ -3,11 +3,11 @@ import React, { Component } from "react";
 export class Addannotation extends Component {
   state = {
     annotation: "",
-    measureid: ""
+    measureid: "",
   };
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
-  onSubmit = e => {
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+  onSubmit = (e) => {
     e.preventDefault();
     this.props.addannotation(this.state.measureid, this.state.annotation);
     this.setState({ measureid: "" });

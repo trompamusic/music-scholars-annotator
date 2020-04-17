@@ -7,21 +7,7 @@ import Addannotations from "./annotations/Addannotation.js";
 export class AnnotationSubmitter extends React.Component {
   state = {
     annotationlist: [
-      {
-        id: uuid.v4(),
-        annotation: "this is an annotation",
-        measureid: "123213123"
-      },
-      {
-        id: uuid.v4(),
-        annotation: "this is an annotation",
-        measureid: "123213123"
-      },
-      {
-        id: uuid.v4(),
-        annotation: "this is an annotation",
-        measureid: "123213123"
-      }
+     
     ]
   };
 

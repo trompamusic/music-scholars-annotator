@@ -8,3 +8,6 @@ body {
   stroke:darkorange;
 }
 
+input:focus::placeholder {
+  color: transparent;
+}
