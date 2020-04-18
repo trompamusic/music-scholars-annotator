@@ -5,9 +5,7 @@ import Addannotations from "./annotations/Addannotation.js";
 
 export class AnnotationSubmitter extends React.Component {
   state = {
-    annotationlist: [
-     
-    ]
+    annotationlist: []
   };
 
   addannotation = (measureid, annotation) => {

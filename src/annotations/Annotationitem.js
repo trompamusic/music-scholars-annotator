@@ -6,7 +6,7 @@ export class Annotationitem extends Component {
     return (
       <div>
         <p>
-          {this.props.annotation.annotation}, the measure id is:
+          {this.props.annotation.annotation}, 
           {this.props.annotation.measureid}
         </p>
       </div>
