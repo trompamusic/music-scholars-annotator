@@ -13,9 +13,9 @@ export default class SelectableScoreApp extends Component {
     super(props);
     this.state = {
       selection: [],
-      uri: this.props.uri 
-      /* you can set this dynamically if your app requires dynamic MEI updates */,
-      annotation: "",
+      uri: this.props.uri,
+      /* you can set this dynamically if your app requires dynamic MEI updates */ annotation:
+        "",
       measureid: "",
       annotationlist: [],
     };
@@ -77,9 +77,18 @@ export default class SelectableScoreApp extends Component {
               value="add annotation to selection"
               className="btn"
             />
+            <input
+              type="text"
+              name="measureid"
+              placeholder="no measure selected"
+              value={this.state.selection
+                .map((elem) => elem.getAttribute("id"))
+                .join(", ")}
+              onChange={this.onChange}
+            />
           </form>
         </div>
-        {/*list component for the annotations */ }
+        {/*list component for the annotations */}
         <div className="ScrollerContainer">
           <div className="list">
             <Annotations annotationlist={this.state.annotationlist} />
