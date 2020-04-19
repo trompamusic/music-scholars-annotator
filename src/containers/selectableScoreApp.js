@@ -72,12 +72,6 @@ export default class SelectableScoreApp extends Component {
               onChange={this.onChange}
             />
             <input
-              type="submit"
-              name="submit"
-              value="add annotation to selection"
-              className="btn"
-            />
-            <input
               type="text"
               name="measureid"
               placeholder="no measure selected"
@@ -85,6 +79,12 @@ export default class SelectableScoreApp extends Component {
                 .map((elem) => elem.getAttribute("id"))
                 .join(", ")}
               onChange={this.onChange}
+            />
+            <input
+              type="submit"
+              name="submit"
+              value="add annotation to selection"
+              className="btn"
             />
           </form>
         </div>
