@@ -28,9 +28,7 @@ export class Addannotation extends Component {
           type="text"
           name="measureid"
           placeholder="select measure id..."
-          value={this.props.selection
-            .map((elem) => elem.getAttribute("id"))
-            .join(", ")}
+          value={this.props.selection.map((elem) => elem.getAttribute("id")).join(", ")}
           onChange={this.onChange}
         />
         <input type="submit" name="submit" className="btn" />
