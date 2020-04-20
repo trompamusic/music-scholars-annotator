@@ -24,7 +24,7 @@ export class AnnotationSubmitter extends React.Component {
       <div className="App">
         <div className="container">
           <h3>Annotation submission demo</h3>
-          <Addannotations addannotation={this.addannotation} />
+          <Addannotations addannotation={this.addannotation} selection= {this.props.selection}/>
           <div className="ScrollerContainer">
             <div className="list">
               <Annotations annotationlist={this.state.annotationlist} />

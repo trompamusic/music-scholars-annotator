@@ -9,7 +9,7 @@ export class Addannotation extends Component {
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
   onSubmit = (e) => {
     e.preventDefault();
-    this.props.addannotation(this.state.measureid, this.state.annotation);
+    this.props.addannotation(this.props.selection.map((elem) => elem.getAttribute("id")).join(", "), this.state.annotation);
     this.setState({ measureid: "" });
     this.setState({ annotation: "" });
   };
@@ -28,7 +28,9 @@ export class Addannotation extends Component {
           type="text"
           name="measureid"
           placeholder="select measure id..."
-          value={this.state.measureid}
+          value={this.props.selection
+            .map((elem) => elem.getAttribute("id"))
+            .join(", ")}
           onChange={this.onChange}
         />
         <input type="submit" name="submit" className="btn" />
