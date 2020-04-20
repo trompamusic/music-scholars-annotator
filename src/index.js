@@ -12,6 +12,10 @@ import AuthButton from './solid/components/AuthButton';
 import Value from './solid/components/Value';
 import Image from './solid/components/Image';
 import SelectableScoreWrapper from './containers/selectableScoreWrapper';
+import UpdateContext from './UpdateContext';
+import useWebId from './solid/hooks/useWebId';
+import useLDflexList from './solid/hooks/useLDflexList';
+import useLiveUpdate from './solid/hooks/useLiveUpdate';
 
 // Parameters for SelectableScore component
 // ****************************************
@@ -37,6 +41,9 @@ export{
   useLDflexValue,
   useLoggedIn,
   useLoggedOut,
+  useWebId,
+  useLDflexList,
+  useLiveUpdate,
   LoggedIn,
   LoggedOut,
   LoginButton,
@@ -44,4 +51,5 @@ export{
   AuthButton,
   Value,
   Image,
+  UpdateContext,
 };

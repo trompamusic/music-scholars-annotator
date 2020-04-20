@@ -13,5 +13,5 @@ export default function useLatestUpdate(...urls) {
     tracker.subscribe(...urls);
     return () => tracker.unsubscribe(...urls);
   }, urls);
-  return latestUpdate; 
+  return latestUpdate;
 }

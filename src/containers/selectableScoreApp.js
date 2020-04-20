@@ -3,6 +3,7 @@ import SelectableScore from "selectable-score/lib/selectable-score";
 import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
 import AnnotationSubmitter from "../annotation-submitter.js";
+import RadioButton from "../annotations/RadioButton.js"
 import AuthButton from "../solid/components/AuthButton.jsx"
 import LoggedIn from "../solid/components/LoggedIn.jsx"
 import LoggedOut from "../solid/components/LoggedOut"
@@ -23,6 +24,8 @@ export default class SelectableScoreApp extends Component {
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
   }
+
+  
 
   handleSelectionChange(selection) {
     this.setState({ selection });
@@ -48,21 +51,27 @@ export default class SelectableScoreApp extends Component {
           <p>You are logged out.</p>
         </LoggedOut>
       </main>
-        <p>
+
+      <p>
           This is a minimal example demonstrating the use of the TROMPA
           selectable-score component.
-        </p>
+      </p>
+
         {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
         <NextPageButton
           buttonContent={<span>Next</span>}
           uri={this.state.uri}
         />
+
         {/* pass anything as buttonContent that you'd like to function as a clickable prev page button */}
         <PrevPageButton
           buttonContent={<span>Prev</span>}
           uri={this.state.uri}
         />
+        <RadioButton/>
+
         <AnnotationSubmitter selection={this.state.selection} />
+
         <SelectableScore
           uri={this.state.uri}
           options={this.props.vrvOptions}
