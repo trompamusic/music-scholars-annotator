@@ -6,12 +6,12 @@ export default class RadioButton extends Component {
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
-  onSubmit = (e) => {
-   e.preventDefault();
-   this.props.handleStringChange(this.props.selectorString, this.state.selectorString);
+   onSubmit = (e) => {
+    e.preventDefault();
+   this.props.handleStringChange ();
    this.setState({ selectorString: ""});
    console.log(this.state.selectorString)
-  };
+   };
 
   render() {
     return (

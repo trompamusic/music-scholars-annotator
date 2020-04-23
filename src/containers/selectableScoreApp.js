@@ -20,15 +20,15 @@ export default class SelectableScoreApp extends Component {
       selection: [],
       /* you can set this dynamically if your app requires dynamic MEI updates */
       uri: this.props.uri,
-      selectorString: "",
+      selectorString: ".measure", //doesn't seem to change... does it need to reload the score?
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
     this.handleStringChange = this.handleStringChange.bind(this);
   }
 
-  handleStringChange(selectorString) {
-    this.setState({ selectorString: this.state.selectorString, selectorString });
+  handleStringChange() {
+    this.setState({ selectorString: ".note"});
     console.log(this.state.selectorString);
   }
 
