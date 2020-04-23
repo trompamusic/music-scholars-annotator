@@ -31,7 +31,7 @@ export class Addannotation extends Component {
           value={this.props.selection.map((elem) => elem.getAttribute("id")).join(", ")}
           onChange={this.onChange}
         />
-        <input type="submit" name="submit" className="btn" />
+        <input type="submit" name="submit" className="btn" value= "submit your annotation" />
       </form>
     );
   }

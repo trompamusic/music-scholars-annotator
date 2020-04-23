@@ -4,13 +4,6 @@ import useLoggedIn from './solid/hooks/useLoggedIn';
 import useLoggedOut from './solid/hooks/useLoggedOut';
 import useLDflex from './solid/hooks/useLDflex';
 import useLDflexValue from './solid/hooks/useLDflexValue';
-import LoggedIn from './solid/components/LoggedIn';
-import LoggedOut from './solid/components/LoggedOut';
-import LoginButton from './solid/components/LoginButton';
-import LogoutButton from './solid/components/LogoutButton';
-import AuthButton from './solid/components/AuthButton';
-import Value from './solid/components/Value';
-import Image from './solid/components/Image';
 import SelectableScoreWrapper from './containers/selectableScoreWrapper';
 import UpdateContext from './UpdateContext';
 import useWebId from './solid/hooks/useWebId';
@@ -44,12 +37,5 @@ export{
   useWebId,
   useLDflexList,
   useLiveUpdate,
-  LoggedIn,
-  LoggedOut,
-  LoginButton,
-  LogoutButton,
-  AuthButton,
-  Value,
-  Image,
   UpdateContext,
 };

@@ -6,18 +6,17 @@ export default class RadioButton extends Component {
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
-   onSubmit = (e) => {
+  onSubmit = (e) => {
     e.preventDefault();
-   this.props.handleStringChange ();
-   this.setState({ selectorString: ""});
-   console.log(this.state.selectorString)
-   };
+    this.props.handleStringChange(this.state.selectorString);
+    this.setState({ selectorString: "" });
+  };
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
-        <h3>Choose your type of selection (wip, currently not working)</h3>
-        <div className="radio">
+      <div>
+        <h3>Choose your type of selection</h3>
+        <form onSubmit={this.onSubmit}>
           <label>
             <input
               type="radio"
@@ -28,21 +27,27 @@ export default class RadioButton extends Component {
             />
             Note
           </label>
-        </div>
-        <div className="radio">
+
           <label>
             <input
               type="radio"
-              name= "selectorString"
+              name="selectorString"
               value=".measure"
               //checked={this.props.selectorString === ".measure"}
               onChange={this.onChange}
             />
             Measure
           </label>
-        </div>
-        <input type="submit" name="submit" className="btn" />
-      </form>
+          <div>
+            <input
+              type="submit"
+              name="submit"
+              className="btn"
+              value="choose your selection"
+            />
+          </div>
+        </form>
+      </div>
     );
   }
 }

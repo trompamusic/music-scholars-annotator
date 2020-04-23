@@ -4,13 +4,14 @@ import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
 import AnnotationSubmitter from "../annotation-submitter.js";
 import RadioButton from "../annotations/RadioButton.js";
-import {
-  AuthButton,
-  Value,
-  LoggedIn,
-  LoggedOut,
-  Image,
-} from "@solid/react";
+import SolidLoginComponent from "../SolidLoginComponent.js";
+// import {
+//   AuthButton,
+//   Value,
+//   LoggedIn,
+//   LoggedOut,
+//   Image,
+// } from "@solid/react";
 
 // selectionString: CSS selector for all elements to be selectable (e.g. ".measure", ".note")
 // const selectorString = ".measure";
@@ -29,9 +30,8 @@ export default class SelectableScoreApp extends Component {
     this.handleStringChange = this.handleStringChange.bind(this);
   }
 
-  handleStringChange() {
-    this.setState({ selectorString: ".note" });
-    console.log(this.state.selectorString);
+  handleStringChange(selectorString) {
+    this.setState({ selectorString });
   }
 
   handleSelectionChange(selection) {
@@ -45,28 +45,6 @@ export default class SelectableScoreApp extends Component {
   render() {
     return (
       <div>
-        <header>
-          <h1>Solid integration test</h1>
-          <p>
-            <AuthButton popup="/popup.html" />
-          </p>
-        </header>
-        <main>
-          <LoggedIn>
-            <Image
-              src="user.image"
-              defaultSrc="profile.svg"
-              className="profile"
-            />
-            <p>
-              Welcome back, <Value src="user.name" />.
-            </p>
-          </LoggedIn>
-          <LoggedOut>
-            <p>You are logged out.</p>
-          </LoggedOut>
-        </main>
-
         <p>
           This is a minimal example demonstrating the use of the TROMPA
           selectable-score component.
@@ -83,6 +61,9 @@ export default class SelectableScoreApp extends Component {
           buttonContent={<span>Prev</span>}
           uri={this.state.uri}
         />
+
+        <SolidLoginComponent />
+
         <RadioButton
           selectorString={this.state.selectorString}
           handleStringChange={this.handleStringChange}
