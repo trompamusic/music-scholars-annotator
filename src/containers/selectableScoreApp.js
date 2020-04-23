@@ -4,11 +4,13 @@ import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
 import AnnotationSubmitter from "../annotation-submitter.js";
 import RadioButton from "../annotations/RadioButton.js";
-import AuthButton from "../solid/components/AuthButton.jsx";
-import LoggedIn from "../solid/components/LoggedIn.jsx";
-import LoggedOut from "../solid/components/LoggedOut";
-import Value from "../solid/components/Value.jsx";
-import Image from "../solid/components/Image.jsx";
+import {
+  AuthButton,
+  Value,
+  LoggedIn,
+  LoggedOut,
+  Image,
+} from "@solid/react";
 
 // selectionString: CSS selector for all elements to be selectable (e.g. ".measure", ".note")
 // const selectorString = ".measure";
@@ -28,7 +30,7 @@ export default class SelectableScoreApp extends Component {
   }
 
   handleStringChange() {
-    this.setState({ selectorString: ".note"});
+    this.setState({ selectorString: ".note" });
     console.log(this.state.selectorString);
   }
 
@@ -81,8 +83,11 @@ export default class SelectableScoreApp extends Component {
           buttonContent={<span>Prev</span>}
           uri={this.state.uri}
         />
-        <RadioButton selectorString = {this.state.selectorString} handleStringChange = {this.handleStringChange}/>
-      
+        <RadioButton
+          selectorString={this.state.selectorString}
+          handleStringChange={this.handleStringChange}
+        />
+
         <AnnotationSubmitter selection={this.state.selection} />
 
         <SelectableScore
