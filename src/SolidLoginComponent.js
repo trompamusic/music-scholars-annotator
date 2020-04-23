@@ -6,7 +6,7 @@ export class SolidLoginComponent extends Component {
     return (
       <div>
         <header>
-          <h3>Solid integration test</h3>
+          <h3>Solid integration</h3>
           <p>
             <AuthButton popup="/popup.html" />
           </p>

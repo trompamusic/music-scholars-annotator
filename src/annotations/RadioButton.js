@@ -16,13 +16,13 @@ export default class RadioButton extends Component {
     return (
       <div>
         <h3>Choose your type of selection</h3>
+        <p> (debug) current selection : {this.props.selectorString}</p>
         <form onSubmit={this.onSubmit}>
           <label>
             <input
               type="radio"
               value=".note"
               name="selectorString"
-              //checked={this.props.selectorString === ".note"}
               onChange={this.onChange}
             />
             Note
@@ -33,7 +33,6 @@ export default class RadioButton extends Component {
               type="radio"
               name="selectorString"
               value=".measure"
-              //checked={this.props.selectorString === ".measure"}
               onChange={this.onChange}
             />
             Measure

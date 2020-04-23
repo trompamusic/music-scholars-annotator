@@ -23,7 +23,7 @@ export default class SelectableScoreApp extends Component {
       selection: [],
       /* you can set this dynamically if your app requires dynamic MEI updates */
       uri: this.props.uri,
-      selectorString: ".measure", //doesn't seem to change... does it need to reload the score?
+      selectorString: ".note",
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
@@ -45,6 +45,7 @@ export default class SelectableScoreApp extends Component {
   render() {
     return (
       <div>
+        <h2>Selectable score component demo</h2>
         <p>
           This is a minimal example demonstrating the use of the TROMPA
           selectable-score component.
