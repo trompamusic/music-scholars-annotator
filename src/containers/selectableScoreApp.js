@@ -3,7 +3,7 @@ import SelectableScore from "selectable-score/lib/selectable-score";
 import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
 import AnnotationSubmitter from "../annotation-submitter.js";
-import RadioButton from "../annotations/RadioButton.js";
+import SelectionHandler from "../annotations/SelectionHandler.js";
 import SolidLoginComponent from "../SolidLoginComponent.js";
 // import {
 //   AuthButton,
@@ -63,13 +63,16 @@ export default class SelectableScoreApp extends Component {
           uri={this.state.uri}
         />
 
+        {/*solid pod login handler*/}
         <SolidLoginComponent />
 
-        <RadioButton
+        {/*selector for the component selection*/}
+        <SelectionHandler
           selectorString={this.state.selectorString}
           handleStringChange={this.handleStringChange}
         />
 
+        {/*annotation submission component*/}
         <AnnotationSubmitter selection={this.state.selection} />
 
         <SelectableScore
