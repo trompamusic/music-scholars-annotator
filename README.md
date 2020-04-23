@@ -1,4 +1,4 @@
-# TROMPA Selectable Score Demo application
+# TROMPA Selectable Score Demo application, the expanded version!
 
 ![Screenshot demonstrating selectable score](selectable-score.png)
 
