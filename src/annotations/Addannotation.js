@@ -2,16 +2,22 @@ import React, { Component } from "react";
 
 export class Addannotation extends Component {
   state = {
-    annotation: "",
-    measureid: "",
+    value: "",
+    target: "",
+    uri: "",
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
   onSubmit = (e) => {
     e.preventDefault();
-    this.props.addannotation(this.props.selection.map((elem) => elem.getAttribute("id")).join(", "), this.state.annotation);
-    this.setState({ measureid: "" });
-    this.setState({ annotation: "" });
+    this.props.addannotation(
+      this.props.selection.map((elem) => elem.getAttribute("id")).join(", "),
+      this.state.value,
+      this.state.uri
+    );
+    this.setState({ target: "" });
+    this.setState({ value: "" });
+    this.setState({ uri: this.props.uri });
   };
 
   render() {
@@ -19,19 +25,26 @@ export class Addannotation extends Component {
       <form onSubmit={this.onSubmit} style={{ display: "flex" }}>
         <input
           type="text"
-          name="annotation"
+          name="value"
           placeholder="Add your annotation"
-          value={this.state.annotation}
+          value={this.state.value}
           onChange={this.onChange}
         />
         <input
           type="text"
-          name="measureid"
+          name="target"
           placeholder="measure id..."
-          value={this.props.selection.map((elem) => elem.getAttribute("id")).join(", ")}
+          value={this.props.selection
+            .map((elem) => elem.getAttribute("id"))
+            .join(", ")}
           onChange={this.onChange}
         />
-        <input type="submit" name="submit" className="btn" value= "submit your annotation" />
+        <input
+          type="submit"
+          name="submit"
+          className="btn"
+          value="submit your annotation"
+        />
       </form>
     );
   }

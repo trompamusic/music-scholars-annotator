@@ -6,15 +6,14 @@ export class Annotationitem extends Component {
     return (
       <div>
         <p>
-          {this.props.annotation.annotation}, 
-          {this.props.annotation.measureid}
+          {this.props.annotation.value},{this.props.annotation.target}
         </p>
       </div>
     );
   }
 }
 Annotationitem.propTypes = {
-  annotation: PropTypes.object.isRequired
+  value: PropTypes.object.isRequired,
 };
 
 export default Annotationitem;

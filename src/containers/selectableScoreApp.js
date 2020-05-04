@@ -73,7 +73,10 @@ export default class SelectableScoreApp extends Component {
         />
 
         {/*annotation submission component*/}
-        <AnnotationSubmitter selection={this.state.selection} />
+        <AnnotationSubmitter
+          uri={this.state.uri}
+          selection={this.state.selection}
+        />
 
         <SelectableScore
           uri={this.state.uri}

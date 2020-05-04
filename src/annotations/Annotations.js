@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
 
 export class Annotations extends Component {
   render() {
-    var annotationComponents = this.props.annotationlist.map(annotation => {
+    var annotationComponents = this.props.annotationlist.map((value) => {
       return (
         <div>
-          <Annotationitem key={annotation.id} annotation={annotation} />
+          <Annotationitem key={value.id} annotation={value} />
         </div>
       );
     });
@@ -15,7 +15,7 @@ export class Annotations extends Component {
   }
 }
 Annotations.propTypes = {
-  annotationlist: PropTypes.array.isRequired
+  annotationlist: PropTypes.array.isRequired,
 };
 
 export default Annotations;

@@ -5,18 +5,23 @@ import Addannotations from "./annotations/Addannotation.js";
 
 export class AnnotationSubmitter extends React.Component {
   state = {
-    annotationlist: []
+    annotationlist: [],
   };
 
-  addannotation = (measureid, annotation) => {
+  addannotation = (target, value, uri) => {
     const newAnnotation = {
-      id: uuid.v4(),
-      annotation,
-      measureid
+      context: "@context: http://www.w3.org/ns/anno.jsonld",
+      id: uuid.v4(), //temporary dummy
+      uri, //this as you suggested takes the uri prop passed to the selectable score
+      target, //this takes the measure id selected by the user
+      type: "TextualBody",
+      value, //this takes the user input
+      motivation: "describing",
     };
     this.setState({
-      annotationlist: [...this.state.annotationlist, newAnnotation]
+      annotationlist: [...this.state.annotationlist, newAnnotation],
     });
+    console.log(newAnnotation);
   };
 
   render() {
@@ -24,7 +29,11 @@ export class AnnotationSubmitter extends React.Component {
       <div className="App">
         <div className="container">
           <h3>Annotation submission demo</h3>
-          <Addannotations addannotation={this.addannotation} selection= {this.props.selection}/>
+          <Addannotations
+            addannotation={this.addannotation}
+            selection={this.props.selection}
+            uri={this.props.uri}
+          />
           <div className="ScrollerContainer">
             <div className="list">
               <Annotations annotationlist={this.state.annotationlist} />
