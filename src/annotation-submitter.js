@@ -15,7 +15,7 @@ export class AnnotationSubmitter extends React.Component {
       uri, //this as you suggested takes the uri prop passed to the selectable score
       target, //this takes the measure id selected by the user
       type: "TextualBody",
-      value, //this takes the user input
+      value, //this takes the user inpuSt
       motivation: "describing",
     };
     this.setState({
