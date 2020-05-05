@@ -8,19 +8,19 @@ export class AnnotationSubmitter extends React.Component {
     annotationlist: [],
   };
 
-  addannotation = (target, value, uri) => {
+  addannotation = (target, value) => {
     const newAnnotation = {
-      context: "@context: http://www.w3.org/ns/anno.jsonld",
+      "@context": "http://www.w3.org/ns/anno.jsonld",
       id: uuid.v4(), //temporary dummy
-      uri, //this as you suggested takes the uri prop passed to the selectable score
-      target, //this takes the measure id selected by the user
+      target: [target], //this takes the measure id selected by the user
       type: "TextualBody",
-      value, //this takes the user inpuSt
+      body: [value], //this takes the user input
       motivation: "describing",
     };
     this.setState({
       annotationlist: [...this.state.annotationlist, newAnnotation],
     });
+
     console.log(newAnnotation);
   };
 
@@ -34,11 +34,11 @@ export class AnnotationSubmitter extends React.Component {
             selection={this.props.selection}
             uri={this.props.uri}
           />
-          <div className="ScrollerContainer">
+          {/* <div className="ScrollerContainer">
             <div className="list">
               <Annotations annotationlist={this.state.annotationlist} />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     );

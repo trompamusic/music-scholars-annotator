@@ -3,19 +3,21 @@ import React, { Component } from "react";
 export class Addannotation extends Component {
   state = {
     value: "",
-    target: "",
-    uri: "",
+    target: [],
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
   onSubmit = (e) => {
     e.preventDefault();
     this.props.addannotation(
-      this.props.selection.map((elem) => elem.getAttribute("id")).join(", "),
-      this.state.value,
-      this.state.uri
+      this.props.selection
+        .map((elem) => "@id:" + this.props.uri + "#" + elem.getAttribute("id"))
+        .join(", "),
+      this.state.value
     );
-    this.setState({ target: "" });
+    this.setState({
+      target: [...this.state.target],
+    });
     this.setState({ value: "" });
     this.setState({ uri: this.props.uri });
   };
@@ -30,7 +32,7 @@ export class Addannotation extends Component {
           value={this.state.value}
           onChange={this.onChange}
         />
-        <input
+        {/* <input
           type="text"
           name="target"
           placeholder="measure id..."
@@ -38,7 +40,7 @@ export class Addannotation extends Component {
             .map((elem) => elem.getAttribute("id"))
             .join(", ")}
           onChange={this.onChange}
-        />
+        /> */}
         <input
           type="submit"
           name="submit"
