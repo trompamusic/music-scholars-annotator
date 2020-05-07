@@ -1,6 +1,6 @@
 import React from "react";
 import uuid from "uuid";
-import Annotations from "./annotations/Annotations.js";
+//import Annotations from "./annotations/Annotations.js";
 import Addannotations from "./annotations/Addannotation.js";
 
 export class AnnotationSubmitter extends React.Component {
@@ -13,15 +13,13 @@ export class AnnotationSubmitter extends React.Component {
       "@context": "http://www.w3.org/ns/anno.jsonld",
       id: uuid.v4(), //temporary dummy
       target: [target], //this takes the measure id selected by the user
-      type: "TextualBody",
-      body: [value], //this takes the user input
+      type: "Annotation",
+      body: ["{type: TextualBody, value: " + value + "}"], //this takes the user input
       motivation: "describing",
     };
     this.setState({
       annotationlist: [...this.state.annotationlist, newAnnotation],
     });
-
-    console.log(newAnnotation);
   };
 
   render() {

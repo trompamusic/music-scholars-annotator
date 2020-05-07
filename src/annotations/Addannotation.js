@@ -11,15 +11,22 @@ export class Addannotation extends Component {
     e.preventDefault();
     this.props.addannotation(
       this.props.selection
-        .map((elem) => "@id:" + this.props.uri + "#" + elem.getAttribute("id"))
+        .map((elem) => {
+          return (
+            <li key={elem.getAttribute("id")}>
+              {'{id:"' + this.props.uri + "#" + elem.getAttribute("id") + '"}'}
+            </li>
+          );
+        })
         .join(", "),
       this.state.value
     );
     this.setState({
       target: [...this.state.target],
     });
-    this.setState({ value: "" });
-    this.setState({ uri: this.props.uri });
+    this.setState({
+      value: "",
+    });
   };
 
   render() {
