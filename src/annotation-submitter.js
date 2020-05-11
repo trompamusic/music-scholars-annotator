@@ -20,6 +20,7 @@ export class AnnotationSubmitter extends React.Component {
     this.setState({
       annotationlist: [...this.state.annotationlist, newAnnotation],
     });
+    console.log(newAnnotation);
   };
 
   render() {
