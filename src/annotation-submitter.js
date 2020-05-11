@@ -12,9 +12,9 @@ export class AnnotationSubmitter extends React.Component {
     const newAnnotation = {
       "@context": "http://www.w3.org/ns/anno.jsonld",
       id: uuid.v4(), //temporary dummy
-      target: [target], //this takes the measure id selected by the user
+      target: [{ target }], //this takes the measure id selected by the user
       type: "Annotation",
-      body: ["{type: TextualBody, value: " + value + "}"], //this takes the user input
+      body: [{ type: "TextualBody", value: value }], //this takes the user input
       motivation: "describing",
     };
     this.setState({
