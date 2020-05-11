@@ -14,10 +14,12 @@ export class Addannotation extends Component {
       value: "",
     });
     this.props.addannotation(
-      this.props.selection.map(
-        (elem) =>
-          "{id:" + '"' + this.props.uri + "#" + elem.getAttribute("id") + '"}'
-      ),
+      this.props.selection.map((elem, index) => (
+        <target
+          key={index}
+          id={this.props.uri + "#" + elem.getAttribute("id")}
+        />
+      )),
       this.state.value
     );
   };
