@@ -5,16 +5,6 @@ import PrevPageButton from "selectable-score/lib/prev-page-button.js";
 import AnnotationSubmitter from "../annotation-submitter.js";
 import SelectionHandler from "../annotations/SelectionHandler.js";
 import SolidLoginComponent from "../SolidLoginComponent.js";
-// import {
-//   AuthButton,
-//   Value,
-//   LoggedIn,
-//   LoggedOut,
-//   Image,
-// } from "@solid/react";
-
-// selectionString: CSS selector for all elements to be selectable (e.g. ".measure", ".note")
-// const selectorString = ".measure";
 
 export default class SelectableScoreApp extends Component {
   constructor(props) {

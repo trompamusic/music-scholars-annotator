@@ -1,6 +1,5 @@
 import React from "react";
 import uuid from "uuid";
-//import Annotations from "./annotations/Annotations.js";
 import Addannotations from "./annotations/Addannotation.js";
 
 export class AnnotationSubmitter extends React.Component {
@@ -27,7 +26,6 @@ export class AnnotationSubmitter extends React.Component {
       this.setState({
         annotationlist: [...this.state.annotationlist, newDescribingAnnotation],
       });
-      console.log(newDescribingAnnotation);
     } else if (this.state.annotationType === "linking") {
       const newLinkingAnnotation = {
         "@context": "http://www.w3.org/ns/anno.jsonld",
@@ -40,7 +38,6 @@ export class AnnotationSubmitter extends React.Component {
       this.setState({
         annotationlist: [...this.state.annotationlist, newLinkingAnnotation],
       });
-      console.log(newLinkingAnnotation);
     }
   };
 
@@ -50,7 +47,6 @@ export class AnnotationSubmitter extends React.Component {
         <div className="container">
           <h3>Annotation submission demo</h3>
           <p>please select the annotation type:</p>
-          <p>(debug) current selection: {this.state.annotationType}</p>
           <label>
             <input
               type="radio"
@@ -66,7 +62,7 @@ export class AnnotationSubmitter extends React.Component {
               type="radio"
               value="linking"
               name="annotationType"
-              placeholder="instert your URL link..."
+              placeholder="instert your URI link..."
               onChange={this.onChange}
             />
             linking
