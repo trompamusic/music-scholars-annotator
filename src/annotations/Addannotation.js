@@ -9,16 +9,19 @@ export class Addannotation extends Component {
   onChange = (e) => this.setState({ value: e.target.value });
   onSubmit = (e) => {
     e.preventDefault();
-    this.setState({
-      target: [...this.state.target]
-    }, () => { 
-      this.props.addannotation(
-        this.props.selection.map((elem) => { 
-          return { id: this.props.uri + "#" + elem.getAttribute("id") } 
-        }),
-        this.state.value
-      )
-    });
+    this.setState(
+      {
+        target: [...this.state.target],
+      },
+      () => {
+        this.props.addannotation(
+          this.props.selection.map((elem) => {
+            return { id: this.props.uri + "#" + elem.getAttribute("id") };
+          }),
+          this.state.value
+        );
+      }
+    );
   };
 
   render() {
@@ -27,7 +30,7 @@ export class Addannotation extends Component {
         <input
           type="text"
           name="value"
-          placeholder="Add your annotation"
+          placeholder={this.props.placeholder}
           onChange={this.onChange}
         />
         {/* <input

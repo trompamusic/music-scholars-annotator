@@ -6,21 +6,42 @@ import Addannotations from "./annotations/Addannotation.js";
 export class AnnotationSubmitter extends React.Component {
   state = {
     annotationlist: [],
+    annotationType: "",
+    placeholder: "",
   };
-
-  addannotation = (target, value) => {
-    const newAnnotation = {
-      "@context": "http://www.w3.org/ns/anno.jsonld",
-      id: uuid.v4(), //temporary dummy
-      target, //this takes the measure id selected by the user
-      type: "Annotation",
-      body: [{ type: "TextualBody", value: value }], //this takes the user input
-      motivation: "describing",
-    };
+  onChange = (e) =>
     this.setState({
-      annotationlist: [...this.state.annotationlist, newAnnotation],
+      annotationType: e.target.value,
+      placeholder: e.target.placeholder,
     });
-    console.log(newAnnotation);
+  addannotation = (target, value) => {
+    if (this.state.annotationType === "describing") {
+      const newDescribingAnnotation = {
+        "@context": "http://www.w3.org/ns/anno.jsonld",
+        id: uuid.v4(), //temporary dummy
+        target, //this takes the measure id selected by the user
+        type: "Annotation",
+        body: [{ type: "TextualBody", value: value }], //this takes the user input
+        motivation: "describing",
+      };
+      this.setState({
+        annotationlist: [...this.state.annotationlist, newDescribingAnnotation],
+      });
+      console.log(newDescribingAnnotation);
+    } else if (this.state.annotationType === "linking") {
+      const newLinkingAnnotation = {
+        "@context": "http://www.w3.org/ns/anno.jsonld",
+        id: uuid.v4(), //temporary dummy
+        target, //this takes the measure id selected by the user
+        type: "Annotation",
+        body: [{ id: value }], //this takes the user input
+        motivation: "linking",
+      };
+      this.setState({
+        annotationlist: [...this.state.annotationlist, newLinkingAnnotation],
+      });
+      console.log(newLinkingAnnotation);
+    }
   };
 
   render() {
@@ -28,11 +49,37 @@ export class AnnotationSubmitter extends React.Component {
       <div className="App">
         <div className="container">
           <h3>Annotation submission demo</h3>
-          <Addannotations
-            addannotation={this.addannotation}
-            selection={this.props.selection}
-            uri={this.props.uri}
-          />
+          <p>please select the annotation type:</p>
+          <p>(debug) current selection: {this.state.annotationType}</p>
+          <label>
+            <input
+              type="radio"
+              name="annotationType"
+              value="describing"
+              placeholder="Add your annotation..."
+              onChange={this.onChange}
+            />
+            describing
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="linking"
+              name="annotationType"
+              placeholder="instert your URL link..."
+              onChange={this.onChange}
+            />
+            linking
+          </label>
+          <div className="addAnnotations">
+            <Addannotations
+              addannotation={this.addannotation}
+              selection={this.props.selection}
+              uri={this.props.uri}
+              placeholder={this.state.placeholder}
+            />
+          </div>
+
           {/* <div className="ScrollerContainer">
             <div className="list">
               <Annotations annotationlist={this.state.annotationlist} />
