@@ -22,6 +22,7 @@ export class Addannotation extends Component {
         );
       }
     );
+    this.setState({ value: "" });
   };
 
   render() {
@@ -30,18 +31,10 @@ export class Addannotation extends Component {
         <input
           type="text"
           name="value"
+          value={this.state.value}
           placeholder={this.props.placeholder}
           onChange={this.onChange}
         />
-        {/* <input
-          type="text"
-          name="target"
-          placeholder="measure id..."
-          value={this.props.selection
-            .map((elem) => elem.getAttribute("id"))
-            .join(", ")}
-          onChange={this.onChange}
-        /> */}
         <input
           type="submit"
           name="submit"

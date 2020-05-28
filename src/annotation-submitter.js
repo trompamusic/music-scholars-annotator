@@ -26,6 +26,7 @@ export class AnnotationSubmitter extends React.Component {
       this.setState({
         annotationlist: [...this.state.annotationlist, newDescribingAnnotation],
       });
+      console.log(newDescribingAnnotation);
     } else if (this.state.annotationType === "linking") {
       const newLinkingAnnotation = {
         "@context": "http://www.w3.org/ns/anno.jsonld",
@@ -38,6 +39,7 @@ export class AnnotationSubmitter extends React.Component {
       this.setState({
         annotationlist: [...this.state.annotationlist, newLinkingAnnotation],
       });
+      console.log(newLinkingAnnotation);
     }
   };
 
@@ -75,12 +77,6 @@ export class AnnotationSubmitter extends React.Component {
               placeholder={this.state.placeholder}
             />
           </div>
-
-          {/* <div className="ScrollerContainer">
-            <div className="list">
-              <Annotations annotationlist={this.state.annotationlist} />
-            </div>
-          </div> */}
         </div>
       </div>
     );
