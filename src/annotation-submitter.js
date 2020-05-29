@@ -1,6 +1,7 @@
 import React from "react";
 import uuid from "uuid";
 import Addannotations from "./annotations/Addannotation.js";
+import { element } from "prop-types";
 
 export class AnnotationSubmitter extends React.Component {
   state = {
@@ -13,6 +14,15 @@ export class AnnotationSubmitter extends React.Component {
       annotationType: e.target.value,
       placeholder: e.target.placeholder,
     });
+
+  descAnnotation = () => {
+    console.log("desc");
+  };
+
+  linkAnnotation = () => {
+    console.log("link");
+  };
+
   addannotation = (target, value) => {
     if (this.state.annotationType === "describing") {
       const newDescribingAnnotation = {
@@ -26,6 +36,7 @@ export class AnnotationSubmitter extends React.Component {
       this.setState({
         annotationlist: [...this.state.annotationlist, newDescribingAnnotation],
       });
+
       console.log(newDescribingAnnotation);
     } else if (this.state.annotationType === "linking") {
       const newLinkingAnnotation = {
@@ -75,6 +86,9 @@ export class AnnotationSubmitter extends React.Component {
               selection={this.props.selection}
               uri={this.props.uri}
               placeholder={this.state.placeholder}
+              annotationType={this.state.annotationType}
+              descAnnotation={this.descAnnotation}
+              linkAnnotation={this.linkAnnotation}
             />
           </div>
         </div>
