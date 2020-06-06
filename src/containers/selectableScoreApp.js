@@ -11,7 +11,6 @@ export default class SelectableScoreApp extends Component {
     super(props);
     this.state = {
       selection: [],
-      /* you can set this dynamically if your app requires dynamic MEI updates */
       uri: this.props.uri,
       selectorString: ".note",
     };

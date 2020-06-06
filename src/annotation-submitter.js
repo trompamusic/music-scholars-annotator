@@ -6,7 +6,7 @@ export class AnnotationSubmitter extends React.Component {
   state = {
     annotationlist: [],
     annotationType: "",
-    placeholder: "",
+    placeholder: "", //placeholder text for the input field
   };
   onChange = (e) =>
     this.setState({
@@ -15,12 +15,14 @@ export class AnnotationSubmitter extends React.Component {
     });
 
   placeAnnotation = () => {
-    function iterate(item) {
-      const bodies = item.body;
-      const targetId = item.target[0].id;
+    //places the user annotation to the selected element
+    function iterate(annotation) {
+      const bodies = annotation.body;
+      const targetId = annotation.target[0].id;
       const fragment = targetId.substr(targetId.lastIndexOf("#"));
       const element = document.querySelector(fragment);
-      switch (item.motivation) {
+      //checks what's the motivation of the target
+      switch (annotation.motivation) {
         case "describing":
           if (bodies.length) {
             if ("value" in bodies[0]) {
@@ -28,7 +30,7 @@ export class AnnotationSubmitter extends React.Component {
                 "http://www.w3.org/2000/svg",
                 "title"
               );
-              // Enter the annotation text into this title node
+              // Embeds the annotation text into this title node
               title.innerHTML = bodies[0]["value"];
               element.insertBefore(title, element.firstChild);
             }
@@ -56,6 +58,7 @@ export class AnnotationSubmitter extends React.Component {
   };
 
   addannotation = (target, value) => {
+    //adds different annotations based on selection
     switch (this.state.annotationType) {
       case "describing":
         const newDescribingAnnotation = {
@@ -77,7 +80,6 @@ export class AnnotationSubmitter extends React.Component {
             this.placeAnnotation();
           }
         );
-
         console.log(newDescribingAnnotation);
         break;
       case "linking":
@@ -86,7 +88,7 @@ export class AnnotationSubmitter extends React.Component {
           id: uuid.v4(), //temporary dummy
           target, //this takes the measure id selected by the user
           type: "Annotation",
-          body: [{ id: value }], //this takes the user input
+          body: [{ id: value }], //this takes the user URI
           motivation: "linking",
         };
         this.setState(
@@ -100,7 +102,6 @@ export class AnnotationSubmitter extends React.Component {
             this.placeAnnotation();
           }
         );
-
         console.log(newLinkingAnnotation);
         break;
       default:
@@ -108,12 +109,6 @@ export class AnnotationSubmitter extends React.Component {
           "no annotation found, have you selected the annotation type?"
         );
     }
-
-    // if (this.state.annotationType === "describing") {
-
-    // } else if (this.state.annotationType === "linking") {
-
-    // }
   };
 
   render() {
@@ -149,9 +144,6 @@ export class AnnotationSubmitter extends React.Component {
               uri={this.props.uri}
               placeholder={this.state.placeholder}
               annotationType={this.state.annotationType}
-              //descAnnotation={this.descAnnotation}
-              //linkAnnotation={this.linkAnnotation}
-              //placeAnnotation={this.placeAnnotation}
             />
           </div>
         </div>

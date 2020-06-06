@@ -20,17 +20,13 @@ export class Addannotation extends Component {
           }),
           this.state.value
         );
+        this.reset();
       }
     );
-
-    //this.props.placeAnnotation();
-
-    //this.setState({ value: "" });
-    // if (this.props.annotationType === "describing") {
-    //   this.props.descAnnotation();
-    // } else if (this.props.annotationType === "linking") {
-    //   this.props.linkAnnotation();
-    // }
+  };
+  //clears input field
+  reset = () => {
+    this.setState({ value: "" });
   };
 
   render() {
