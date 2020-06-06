@@ -33,6 +33,7 @@ export class AnnotationSubmitter extends React.Component {
               // Embeds the annotation text into this title node
               title.innerHTML = bodies[0]["value"];
               element.insertBefore(title, element.firstChild);
+              element.style.fill = "magenta";
             }
           }
           break;
@@ -48,6 +49,7 @@ export class AnnotationSubmitter extends React.Component {
             );
             // and turn the cursor into a pointer as a hint that it's clickable
             element.style.cursor = "pointer";
+            element.style.fill = "darkcyan";
           }
           break;
         default:
@@ -137,6 +139,10 @@ export class AnnotationSubmitter extends React.Component {
             />
             linking
           </label>
+          <p>
+            magenta highlighting is for describing and cyan highlighting is for
+            linking
+          </p>
           <div className="addAnnotations">
             <Addannotations
               addannotation={this.addannotation}
