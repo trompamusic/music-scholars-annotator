@@ -14,53 +14,46 @@ export class AnnotationSubmitter extends React.Component {
       placeholder: e.target.placeholder,
     });
 
-  descAnnotation = () => {
-    console.log("desc");
+  placeAnnotation = () => {
     function iterate(item) {
-      const targetId = item.target;
-      const fragment = targetId.substr(targetId.lastIndexOf("#"));
-      console.log(fragment);
       const bodies = item.body;
+      const targetId = item.target[0].id;
+      const fragment = targetId.substr(targetId.lastIndexOf("#"));
       const element = document.querySelector(fragment);
-      if (bodies.length) {
-        if ("value" in bodies[0]) {
-          const title = document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "title"
-          );
-          // Enter the annotation text into this title node
-          title.innerHTML = bodies[0]["value"];
-          element.insertBefore(title, element.firstChild);
-        }
+      switch (item.motivation) {
+        case "describing":
+          if (bodies.length) {
+            if ("value" in bodies[0]) {
+              const title = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "title"
+              );
+              // Enter the annotation text into this title node
+              title.innerHTML = bodies[0]["value"];
+              element.insertBefore(title, element.firstChild);
+            }
+          }
+          break;
+        case "linking":
+          if (bodies.length) {
+            // make the target clickable, linking to the (first) body URI
+            element.addEventListener(
+              "click",
+              function () {
+                window.open(bodies[0]["id"]);
+              },
+              true
+            );
+            // and turn the cursor into a pointer as a hint that it's clickable
+            element.style.cursor = "pointer";
+          }
+          break;
+        default:
+          console.log("sorry, don't know what to do for this annotation boss");
       }
     }
     this.state.annotationlist.forEach(iterate);
   };
-
-  linkAnnotation = () => {
-    console.log("link");
-    function iterate(item) {
-      const targetId = item.target;
-      const fragment = targetId.substr(targetId.lastIndexOf("#"));
-      console.log(fragment);
-      const bodies = item.body;
-      const element = document.querySelector(fragment);
-      if (bodies.length) {
-        // make the target clickable, linking to the (first) body URI
-        element.addEventListener(
-          "click",
-          function () {
-            window.open(bodies[0]["@id"], "_blank");
-          },
-          true
-        );
-        // and turn the cursor into a pointer as a hint that it's clickable
-        element.style.pointer = "cursor";
-      }
-    }
-    this.state.annotationlist.forEach(iterate);
-  };
-
   addannotation = (target, value) => {
     if (this.state.annotationType === "describing") {
       const newDescribingAnnotation = {
@@ -125,8 +118,9 @@ export class AnnotationSubmitter extends React.Component {
               uri={this.props.uri}
               placeholder={this.state.placeholder}
               annotationType={this.state.annotationType}
-              descAnnotation={this.descAnnotation}
-              linkAnnotation={this.linkAnnotation}
+              //descAnnotation={this.descAnnotation}
+              //linkAnnotation={this.linkAnnotation}
+              placeAnnotation={this.placeAnnotation}
             />
           </div>
         </div>

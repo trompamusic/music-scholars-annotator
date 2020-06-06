@@ -22,12 +22,15 @@ export class Addannotation extends Component {
         );
       }
     );
+
+    this.props.placeAnnotation();
+
     //this.setState({ value: "" });
-    if (this.props.annotationType === "describing") {
-      this.props.descAnnotation();
-    } else if (this.props.annotationType === "linking") {
-      this.props.linkAnnotation();
-    }
+    // if (this.props.annotationType === "describing") {
+    //   this.props.descAnnotation();
+    // } else if (this.props.annotationType === "linking") {
+    //   this.props.linkAnnotation();
+    // }
   };
 
   render() {
