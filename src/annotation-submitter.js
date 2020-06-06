@@ -40,7 +40,7 @@ export class AnnotationSubmitter extends React.Component {
             element.addEventListener(
               "click",
               function () {
-                window.open(bodies[0]["id"]);
+                window.open(bodies[0]["id"], "_blank");
               },
               true
             );
@@ -54,35 +54,66 @@ export class AnnotationSubmitter extends React.Component {
     }
     this.state.annotationlist.forEach(iterate);
   };
-  addannotation = (target, value) => {
-    if (this.state.annotationType === "describing") {
-      const newDescribingAnnotation = {
-        "@context": "http://www.w3.org/ns/anno.jsonld",
-        id: uuid.v4(), //temporary dummy
-        target, //this takes the measure id selected by the user
-        type: "Annotation",
-        body: [{ type: "TextualBody", value: value }], //this takes the user input
-        motivation: "describing",
-      };
-      this.setState({
-        annotationlist: [...this.state.annotationlist, newDescribingAnnotation],
-      });
 
-      console.log(newDescribingAnnotation);
-    } else if (this.state.annotationType === "linking") {
-      const newLinkingAnnotation = {
-        "@context": "http://www.w3.org/ns/anno.jsonld",
-        id: uuid.v4(), //temporary dummy
-        target, //this takes the measure id selected by the user
-        type: "Annotation",
-        body: [{ id: value }], //this takes the user input
-        motivation: "linking",
-      };
-      this.setState({
-        annotationlist: [...this.state.annotationlist, newLinkingAnnotation],
-      });
-      console.log(newLinkingAnnotation);
+  addannotation = (target, value) => {
+    switch (this.state.annotationType) {
+      case "describing":
+        const newDescribingAnnotation = {
+          "@context": "http://www.w3.org/ns/anno.jsonld",
+          id: uuid.v4(), //temporary dummy
+          target, //this takes the measure id selected by the user
+          type: "Annotation",
+          body: [{ type: "TextualBody", value: value }], //this takes the user input
+          motivation: "describing",
+        };
+        this.setState(
+          {
+            annotationlist: [
+              ...this.state.annotationlist,
+              newDescribingAnnotation,
+            ],
+          },
+          () => {
+            this.placeAnnotation();
+          }
+        );
+
+        console.log(newDescribingAnnotation);
+        break;
+      case "linking":
+        const newLinkingAnnotation = {
+          "@context": "http://www.w3.org/ns/anno.jsonld",
+          id: uuid.v4(), //temporary dummy
+          target, //this takes the measure id selected by the user
+          type: "Annotation",
+          body: [{ id: value }], //this takes the user input
+          motivation: "linking",
+        };
+        this.setState(
+          {
+            annotationlist: [
+              ...this.state.annotationlist,
+              newLinkingAnnotation,
+            ],
+          },
+          () => {
+            this.placeAnnotation();
+          }
+        );
+
+        console.log(newLinkingAnnotation);
+        break;
+      default:
+        console.log(
+          "no annotation found, have you selected the annotation type?"
+        );
     }
+
+    // if (this.state.annotationType === "describing") {
+
+    // } else if (this.state.annotationType === "linking") {
+
+    // }
   };
 
   render() {
@@ -120,7 +151,7 @@ export class AnnotationSubmitter extends React.Component {
               annotationType={this.state.annotationType}
               //descAnnotation={this.descAnnotation}
               //linkAnnotation={this.linkAnnotation}
-              placeAnnotation={this.placeAnnotation}
+              //placeAnnotation={this.placeAnnotation}
             />
           </div>
         </div>

@@ -23,7 +23,7 @@ export class Addannotation extends Component {
       }
     );
 
-    this.props.placeAnnotation();
+    //this.props.placeAnnotation();
 
     //this.setState({ value: "" });
     // if (this.props.annotationType === "describing") {
