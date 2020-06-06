@@ -22,7 +22,7 @@ export class Addannotation extends Component {
         );
       }
     );
-    this.setState({ value: "" });
+    //this.setState({ value: "" });
     if (this.props.annotationType === "describing") {
       this.props.descAnnotation();
     } else if (this.props.annotationType === "linking") {

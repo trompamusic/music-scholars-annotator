@@ -1,7 +1,6 @@
 import React from "react";
 import uuid from "uuid";
 import Addannotations from "./annotations/Addannotation.js";
-import { element } from "prop-types";
 
 export class AnnotationSubmitter extends React.Component {
   state = {
@@ -17,10 +16,49 @@ export class AnnotationSubmitter extends React.Component {
 
   descAnnotation = () => {
     console.log("desc");
+    function iterate(item) {
+      const targetId = item.target;
+      const fragment = targetId.substr(targetId.lastIndexOf("#"));
+      console.log(fragment);
+      const bodies = item.body;
+      const element = document.querySelector(fragment);
+      if (bodies.length) {
+        if ("value" in bodies[0]) {
+          const title = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "title"
+          );
+          // Enter the annotation text into this title node
+          title.innerHTML = bodies[0]["value"];
+          element.insertBefore(title, element.firstChild);
+        }
+      }
+    }
+    this.state.annotationlist.forEach(iterate);
   };
 
   linkAnnotation = () => {
     console.log("link");
+    function iterate(item) {
+      const targetId = item.target;
+      const fragment = targetId.substr(targetId.lastIndexOf("#"));
+      console.log(fragment);
+      const bodies = item.body;
+      const element = document.querySelector(fragment);
+      if (bodies.length) {
+        // make the target clickable, linking to the (first) body URI
+        element.addEventListener(
+          "click",
+          function () {
+            window.open(bodies[0]["@id"], "_blank");
+          },
+          true
+        );
+        // and turn the cursor into a pointer as a hint that it's clickable
+        element.style.pointer = "cursor";
+      }
+    }
+    this.state.annotationlist.forEach(iterate);
   };
 
   addannotation = (target, value) => {
