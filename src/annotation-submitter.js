@@ -17,8 +17,8 @@ export class AnnotationSubmitter extends React.Component {
   placeAnnotation = () => {
     //places the user annotation to the selected element
     function iterate(annotation) {
-      const bodies = annotation.body;
       const targets = annotation.target.map((id) => {
+        const bodies = annotation.body;
         const targetId = id.id;
         const fragment = targetId.substr(targetId.lastIndexOf("#"));
         const element = document.querySelector(fragment);
