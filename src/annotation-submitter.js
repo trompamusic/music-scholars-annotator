@@ -17,9 +17,9 @@ export class AnnotationSubmitter extends React.Component {
   placeAnnotation = () => {
     //places the user annotation to the selected element
     function iterate(annotation) {
-      const targets = annotation.target.map((id) => {
+      annotation.target.map((jsonTarget) => {
         const bodies = annotation.body;
-        const targetId = id.id;
+        const targetId = jsonTarget.id;
         const fragment = targetId.substr(targetId.lastIndexOf("#"));
         const element = document.querySelector(fragment);
         //checks what's the motivation of the target
