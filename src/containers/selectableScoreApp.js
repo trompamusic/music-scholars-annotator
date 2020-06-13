@@ -5,6 +5,7 @@ import PrevPageButton from "selectable-score/lib/prev-page-button.js";
 import AnnotationSubmitter from "../annotation-submitter.js";
 import SelectionHandler from "../annotations/SelectionHandler.js";
 import SolidLoginComponent from "../SolidLoginComponent.js";
+//import SubmitButton from "../submit-button.js";
 
 export default class SelectableScoreApp extends Component {
   constructor(props) {
@@ -54,6 +55,8 @@ export default class SelectableScoreApp extends Component {
 
         {/*solid pod login handler*/}
         <SolidLoginComponent />
+
+        {/* <SubmitButton /> */}
 
         {/*selector for the component selection*/}
         <SelectionHandler
