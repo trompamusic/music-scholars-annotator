@@ -64,9 +64,10 @@ export class AnnotationSubmitter extends React.Component {
 
   addannotation = (target, value) => {
     //adds different annotations based on selection
+    var anno = "";
     switch (this.state.annotationType) {
       case "describing":
-        const newDescribingAnnotation = {
+        anno = {
           "@context": "http://www.w3.org/ns/anno.jsonld",
           target, //this takes the measure id selected by the user
           type: "Annotation",
@@ -75,19 +76,17 @@ export class AnnotationSubmitter extends React.Component {
         };
         this.setState(
           {
-            annotationlist: [
-              ...this.state.annotationlist,
-              newDescribingAnnotation,
-            ],
+            annotationlist: [...this.state.annotationlist, anno],
           },
           () => {
             this.placeAnnotation();
+            this.props.handleSubmit(anno);
           }
         );
-        console.log(newDescribingAnnotation);
+        console.log(anno);
         break;
       case "linking":
-        const newLinkingAnnotation = {
+        anno = {
           "@context": "http://www.w3.org/ns/anno.jsonld",
           target, //this takes the measure id selected by the user
           type: "Annotation",
@@ -96,16 +95,14 @@ export class AnnotationSubmitter extends React.Component {
         };
         this.setState(
           {
-            annotationlist: [
-              ...this.state.annotationlist,
-              newLinkingAnnotation,
-            ],
+            annotationlist: [...this.state.annotationlist, anno],
           },
           () => {
             this.placeAnnotation();
+            this.props.handleSubmit(anno);
           }
         );
-        console.log(newLinkingAnnotation);
+        console.log(anno);
         break;
       default:
         console.log(
@@ -151,6 +148,7 @@ export class AnnotationSubmitter extends React.Component {
               uri={this.props.uri}
               placeholder={this.state.placeholder}
               annotationType={this.state.annotationType}
+              submitHandler={this.props.handleSubmit}
             />
           </div>
         </div>

@@ -30,15 +30,13 @@ export default class SelectableScoreApp extends Component {
     /* and anything else your app needs to do when the selection changes */
   }
 
-  handleSubmit() {
+  handleSubmit(anno) {
     /* do any app-specific actions and return the object (e.g. a Web Annotation)
      * to be submitted to the user POD */
     return {
-      "@context": "http://www.w3.org/ns/anno.jsonld",
-      target: this.state.selection.map(
-        (elem) => this.state.uri + "#" + elem.getAttribute("id")
-      ),
-      motivation: "highlighting",
+      "@context": anno.context,
+      target: anno.target,
+      motivation: anno.motivation,
     };
   }
 
