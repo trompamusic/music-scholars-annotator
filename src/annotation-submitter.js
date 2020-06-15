@@ -1,5 +1,5 @@
 import React from "react";
-import uuid from "uuid";
+import { v4 as uuid }from "uuid";
 import Addannotations from "./annotations/Addannotation.js";
 
 export class AnnotationSubmitter extends React.Component {
@@ -69,7 +69,7 @@ export class AnnotationSubmitter extends React.Component {
       case "describing":
         const newDescribingAnnotation = {
           "@context": "http://www.w3.org/ns/anno.jsonld",
-          id: uuid.v4(), //temporary dummy
+          id: uuid(), //temporary dummy
           target, //this takes the measure id selected by the user
           type: "Annotation",
           body: [{ type: "TextualBody", value: value }], //this takes the user input
@@ -91,7 +91,7 @@ export class AnnotationSubmitter extends React.Component {
       case "linking":
         const newLinkingAnnotation = {
           "@context": "http://www.w3.org/ns/anno.jsonld",
-          id: uuid.v4(), //temporary dummy
+          id: uuid(), //temporary dummy
           target, //this takes the measure id selected by the user
           type: "Annotation",
           body: [{ id: value }], //this takes the user URI
