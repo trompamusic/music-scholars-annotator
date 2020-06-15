@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import SelectableScore from "selectable-score/lib/selectable-score";
 import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
+import SubmitButton from "selectable-score/lib/submit-button.js";
 import AnnotationSubmitter from "../annotation-submitter.js";
 import SelectionHandler from "../annotations/SelectionHandler.js";
-import SolidLoginComponent from "../SolidLoginComponent.js";
-//import SubmitButton from "../submit-button.js";
+//import SolidLoginComponent from "../SolidLoginComponent.js";
 
 export default class SelectableScoreApp extends Component {
   constructor(props) {
@@ -18,6 +18,7 @@ export default class SelectableScoreApp extends Component {
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
     this.handleStringChange = this.handleStringChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleStringChange(selectorString) {
@@ -27,6 +28,18 @@ export default class SelectableScoreApp extends Component {
   handleSelectionChange(selection) {
     this.setState({ selection });
     /* and anything else your app needs to do when the selection changes */
+  }
+
+  handleSubmit() {
+    /* do any app-specific actions and return the object (e.g. a Web Annotation)
+     * to be submitted to the user POD */
+    return {
+      "@context": "http://www.w3.org/ns/anno.jsonld",
+      target: this.state.selection.map(
+        (elem) => this.state.uri + "#" + elem.getAttribute("id")
+      ),
+      motivation: "highlighting",
+    };
   }
 
   handleScoreUpdate(scoreElement) {
@@ -54,9 +67,13 @@ export default class SelectableScoreApp extends Component {
         />
 
         {/*solid pod login handler*/}
-        <SolidLoginComponent />
+        {/* <SolidLoginComponent /> */}
 
-        {/* <SubmitButton /> */}
+        <SubmitButton
+          buttonContent="Submit to Solid POD"
+          submitUri={this.props.submitUri}
+          submitHandler={this.handleSubmit}
+        />
 
         {/*selector for the component selection*/}
         <SelectionHandler
