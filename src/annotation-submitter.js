@@ -80,8 +80,8 @@ export class AnnotationSubmitter extends React.Component {
           },
           () => {
             this.placeAnnotation();
-            this.props.handleSubmit(anno);
-          }
+          },
+          this.props.currentAnnotation(anno)
         );
         console.log(anno);
         break;
@@ -99,8 +99,8 @@ export class AnnotationSubmitter extends React.Component {
           },
           () => {
             this.placeAnnotation();
-            this.props.handleSubmit(anno);
-          }
+          },
+          this.props.currentAnnotation(anno)
         );
         console.log(anno);
         break;
@@ -148,7 +148,6 @@ export class AnnotationSubmitter extends React.Component {
               uri={this.props.uri}
               placeholder={this.state.placeholder}
               annotationType={this.state.annotationType}
-              submitHandler={this.props.handleSubmit}
             />
           </div>
         </div>

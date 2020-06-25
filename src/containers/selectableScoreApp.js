@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import SelectableScore from "selectable-score/lib/selectable-score";
 import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
-import SubmitButton from "selectable-score/lib/submit-button.js";
 import AnnotationSubmitter from "../annotation-submitter.js";
 import SelectionHandler from "../annotations/SelectionHandler.js";
-//import SolidLoginComponent from "../SolidLoginComponent.js";
+import SubmitButton from "selectable-score/lib/submit-button.js";
 
 export default class SelectableScoreApp extends Component {
   constructor(props) {
@@ -14,11 +13,13 @@ export default class SelectableScoreApp extends Component {
       selection: [],
       uri: this.props.uri,
       selectorString: ".note",
+      currentAnnotation: [],
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
     this.handleStringChange = this.handleStringChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.currentAnnotation = this.currentAnnotation.bind(this);
   }
 
   handleStringChange(selectorString) {
@@ -30,13 +31,17 @@ export default class SelectableScoreApp extends Component {
     /* and anything else your app needs to do when the selection changes */
   }
 
-  handleSubmit(anno) {
-    /* do any app-specific actions and return the object (e.g. a Web Annotation)
-     * to be submitted to the user POD */
+  currentAnnotation(anno) {
+    this.setState({ currentAnnotation: anno });
+  }
+
+  handleSubmit(currentAnnotation) {
     return {
-      "@context": anno.context,
-      target: anno.target,
-      motivation: anno.motivation,
+      "@context": "http://www.w3.org/ns/anno.jsonld",
+      target: currentAnnotation.target,
+      type: currentAnnotation.type,
+      body: currentAnnotation.body,
+      motivation: currentAnnotation.motivation,
     };
   }
 
@@ -64,15 +69,12 @@ export default class SelectableScoreApp extends Component {
           uri={this.state.uri}
         />
 
-        {/*solid pod login handler*/}
-        {/* <SolidLoginComponent /> */}
-
         <SubmitButton
           buttonContent="Submit to Solid POD"
           submitUri={this.props.submitUri}
           submitHandler={this.handleSubmit}
+          submitHandlerArgs={this.state.currentAnnotation}
         />
-
         {/*selector for the component selection*/}
         <SelectionHandler
           selectorString={this.state.selectorString}
@@ -83,6 +85,8 @@ export default class SelectableScoreApp extends Component {
         <AnnotationSubmitter
           uri={this.state.uri}
           selection={this.state.selection}
+          passAnnotation={this.passAnnotation}
+          currentAnnotation={this.currentAnnotation}
         />
 
         <SelectableScore
