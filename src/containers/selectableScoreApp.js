@@ -69,12 +69,6 @@ export default class SelectableScoreApp extends Component {
           uri={this.state.uri}
         />
 
-        <SubmitButton
-          buttonContent="Submit to Solid POD"
-          submitUri={this.props.submitUri}
-          submitHandler={this.handleSubmit}
-          submitHandlerArgs={this.state.currentAnnotation}
-        />
         {/*selector for the component selection*/}
         <SelectionHandler
           selectorString={this.state.selectorString}
@@ -87,6 +81,13 @@ export default class SelectableScoreApp extends Component {
           selection={this.state.selection}
           passAnnotation={this.passAnnotation}
           currentAnnotation={this.currentAnnotation}
+        />
+
+        <SubmitButton
+          buttonContent="Submit to Solid POD"
+          submitUri={this.props.submitUri}
+          submitHandler={this.handleSubmit}
+          submitHandlerArgs={this.state.currentAnnotation}
         />
 
         <SelectableScore
