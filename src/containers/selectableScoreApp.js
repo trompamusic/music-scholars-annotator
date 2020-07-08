@@ -14,12 +14,15 @@ export default class SelectableScoreApp extends Component {
       uri: this.props.uri,
       selectorString: ".note",
       currentAnnotation: [],
+      buttonState: "disabledSubmitButton",
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
     this.handleStringChange = this.handleStringChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleAnnotation = this.handleAnnotation.bind(this);
+    this.buttonEnabler = this.buttonEnabler.bind(this);
+    this.buttonDisable = this.buttonDisable.bind(this);
   }
 
   handleStringChange(selectorString) {
@@ -32,10 +35,22 @@ export default class SelectableScoreApp extends Component {
   }
 
   handleAnnotation(anno) {
-    this.setState({ currentAnnotation: anno });
+    //var joined = this.state.currentAnnotation.concat(anno);
+    this.setState({ currentAnnotation: anno }, () => {
+      console.log(this.state.currentAnnotation);
+    });
+  }
+
+  buttonEnabler() {
+    this.setState({ buttonState: "enabledSubmitButton" });
+  }
+
+  buttonDisable() {
+    this.setState({ buttonState: "disabledSubmitButton" });
   }
 
   handleSubmit(currentAnnotation) {
+    this.buttonDisable();
     return {
       "@context": "http://www.w3.org/ns/anno.jsonld",
       target: currentAnnotation.target,
@@ -51,11 +66,10 @@ export default class SelectableScoreApp extends Component {
   render() {
     return (
       <div>
-        <h2>Selectable score component demo</h2>
         <h3>Page selector</h3>
 
         {/* pass anything as buttonContent that you'd like to function as a clickable prev page button */}
-        <div className="selectionButton">
+        <div className="pageButton">
           <PrevPageButton
             buttonContent={<span>Previous page</span>}
             uri={this.state.uri}
@@ -63,7 +77,7 @@ export default class SelectableScoreApp extends Component {
         </div>
 
         {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
-        <div className="selectionButton">
+        <div className="pageButton">
           <NextPageButton
             buttonContent={<span>Next page</span>}
             uri={this.state.uri}
@@ -82,21 +96,18 @@ export default class SelectableScoreApp extends Component {
           selection={this.state.selection}
           passAnnotation={this.passAnnotation}
           currentAnnotation={this.handleAnnotation}
+          buttonEnabler={this.buttonEnabler}
         />
 
-        <div></div>
-        <h3>Post to Solid</h3>
-
         {/*button that submits the annotation to the user solid pod*/}
-        <div className="submitButton">
+        <div className={this.state.buttonState}>
           <SubmitButton
-            buttonContent="click to submit to Solid POD"
+            buttonContent="Submit to your Solid POD"
             submitUri={this.props.submitUri}
             submitHandler={this.handleSubmit}
             submitHandlerArgs={this.state.currentAnnotation}
           />
         </div>
-
         <SelectableScore
           uri={this.state.uri}
           options={this.props.vrvOptions}

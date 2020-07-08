@@ -21,6 +21,7 @@ export class Addannotation extends Component {
           this.state.value
         );
         this.reset();
+        this.props.buttonEnabler();
       }
     );
   };
@@ -42,8 +43,9 @@ export class Addannotation extends Component {
         <input
           type="submit"
           name="submit"
+          disabled={!this.state.value}
           className="selectionButton"
-          value="load your annotation"
+          value="confirm your annotation"
         />
       </form>
     );

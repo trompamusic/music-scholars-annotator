@@ -4,8 +4,8 @@ body {
 }
 
 .selected {
-  fill: darkorange;
-  stroke: darkorange;
+  fill: rgb(35, 144, 194);
+  stroke: rgb(35, 144, 194);
 }
 
 input:focus::placeholder {
@@ -25,20 +25,17 @@ input:focus::placeholder {
 .submitButton {
   border: none;
   background-color: rgb(215, 215, 215);
-  padding: 10px 24px;
+  padding: 10px 20px;
   border-radius: 4px;
   text-align: center;
   font-size: 16px;
   cursor: pointer;
   display: inline-block;
   transition-duration: 0.4s;
+  width: 315px;
 }
 
-.submitButton:hover {
-  background-color: rgb(175, 175, 175);
-}
-
-.selectionButton {
+.pageButton {
   border: 1px solid white;
   background-color: rgb(215, 215, 215);
   padding: 5px 12px;
@@ -49,7 +46,61 @@ input:focus::placeholder {
   transition-duration: 0.4s;
 }
 
-.selectionButton:hover {
+.pageButton:hover {
+  background-color: rgb(175, 175, 175);
+}
+
+.enabledSubmitButton {
+  border: none;
+  background-color: rgb(161, 219, 161);
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+  transition-duration: 0.4s;
+  width: 315px;
+  opacity: 1;
+  color: white;
+}
+
+.enabledSubmitButton:hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+.disabledSubmitButton {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+  transition-duration: 0.4s;
+  width: 315px;
+  background-color: rgb(215, 215, 215);
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.selectionButton {
+  border: none;
+  background-color: rgb(215, 215, 215);
+  padding: 10px 12px;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-block;
+  transition-duration: 0.4s;
+}
+
+.selectionButton:hover:disabled {
+  cursor: not-allowed;
+}
+
+.selectionButton:hover:enabled {
   background-color: rgb(175, 175, 175);
 }
 

@@ -30,6 +30,7 @@ export default function SolidWrapper(props) {
         </div>
       </LoggedOut>
       <LoggedIn>
+        <h2>Annotation submitter demo</h2>
         <p>
           You are logged in as <Value src="user.name" />
         </p>

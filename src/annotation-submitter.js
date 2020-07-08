@@ -1,6 +1,5 @@
 import React from "react";
 import Addannotations from "./annotations/Addannotation.js";
-
 export class AnnotationSubmitter extends React.Component {
   state = {
     annotationlist: [],
@@ -14,6 +13,7 @@ export class AnnotationSubmitter extends React.Component {
     });
 
   placeAnnotation = () => {
+    this.state.annotationlist.forEach(iterate);
     //places the user annotation to the selected element
     function iterate(annotation) {
       annotation.target.map((jsonTarget) => {
@@ -33,7 +33,7 @@ export class AnnotationSubmitter extends React.Component {
                 // Embeds the annotation text into this title node
                 title.innerHTML = bodies[0]["value"];
                 element.insertBefore(title, element.firstChild);
-                element.style.fill = "magenta";
+                element.style.fill = "darkorange";
               }
             }
             break;
@@ -49,7 +49,7 @@ export class AnnotationSubmitter extends React.Component {
               );
               // and turn the cursor into a pointer as a hint that it's clickable
               element.style.cursor = "pointer";
-              element.style.fill = "darkcyan";
+              element.style.fill = "darkorange";
             }
             break;
           default:
@@ -59,7 +59,6 @@ export class AnnotationSubmitter extends React.Component {
         }
       });
     }
-    this.state.annotationlist.forEach(iterate);
   };
 
   addannotation = (target, value) => {
@@ -115,8 +114,7 @@ export class AnnotationSubmitter extends React.Component {
     return (
       <div className="App">
         <div className="container">
-          <h3>Annotation submission demo</h3>
-          <p>please select the annotation type:</p>
+          <h3>Annotation type</h3>
           <label>
             <input
               type="radio"
@@ -137,10 +135,7 @@ export class AnnotationSubmitter extends React.Component {
             />
             Linking
           </label>
-          <p>
-            magenta highlighting is for describing and cyan highlighting is for
-            linking
-          </p>
+          <p>please submit to solid one annotation at a time</p>
           <div className="addAnnotations">
             <Addannotations
               addannotation={this.addannotation}
@@ -148,6 +143,7 @@ export class AnnotationSubmitter extends React.Component {
               uri={this.props.uri}
               placeholder={this.state.placeholder}
               annotationType={this.state.annotationType}
+              buttonEnabler={this.props.buttonEnabler}
             />
           </div>
         </div>
