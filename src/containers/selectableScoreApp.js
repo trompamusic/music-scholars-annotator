@@ -83,13 +83,16 @@ export default class SelectableScoreApp extends Component {
           currentAnnotation={this.handleAnnotation}
         />
 
+        <div></div>
+        <h3>Post to Solid</h3>
+        <div></div>
+        {/*button that submits the annotation to the user solid pod*/}
         <SubmitButton
-          buttonContent="Submit to Solid POD"
+          buttonContent="click to submit to Solid POD"
           submitUri={this.props.submitUri}
           submitHandler={this.handleSubmit}
           submitHandlerArgs={this.state.currentAnnotation}
         />
-
         <SelectableScore
           uri={this.state.uri}
           options={this.props.vrvOptions}
