@@ -125,7 +125,7 @@ export class AnnotationSubmitter extends React.Component {
               placeholder="Add your annotation..."
               onChange={this.onChange}
             />
-            describing
+            Describing
           </label>
           <label>
             <input
@@ -135,7 +135,7 @@ export class AnnotationSubmitter extends React.Component {
               placeholder="instert your URI link..."
               onChange={this.onChange}
             />
-            linking
+            Linking
           </label>
           <p>
             magenta highlighting is for describing and cyan highlighting is for
