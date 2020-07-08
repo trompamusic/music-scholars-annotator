@@ -19,7 +19,7 @@ export default class SelectableScoreApp extends Component {
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
     this.handleStringChange = this.handleStringChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.currentAnnotation = this.currentAnnotation.bind(this);
+    this.handleAnnotation = this.handleAnnotation.bind(this);
   }
 
   handleStringChange(selectorString) {
@@ -31,7 +31,7 @@ export default class SelectableScoreApp extends Component {
     /* and anything else your app needs to do when the selection changes */
   }
 
-  currentAnnotation(anno) {
+  handleAnnotation(anno) {
     this.setState({ currentAnnotation: anno });
   }
 
@@ -80,7 +80,7 @@ export default class SelectableScoreApp extends Component {
           uri={this.state.uri}
           selection={this.state.selection}
           passAnnotation={this.passAnnotation}
-          currentAnnotation={this.currentAnnotation}
+          currentAnnotation={this.handleAnnotation}
         />
 
         <SubmitButton

@@ -83,7 +83,7 @@ export class AnnotationSubmitter extends React.Component {
           },
           this.props.currentAnnotation(anno)
         );
-        console.log(anno);
+        console.log("annotation has been loaded, ready to post");
         break;
       case "linking":
         anno = {
@@ -102,7 +102,7 @@ export class AnnotationSubmitter extends React.Component {
           },
           this.props.currentAnnotation(anno)
         );
-        console.log(anno);
+        console.log("annotation has been loaded, ready to post");
         break;
       default:
         console.log(
