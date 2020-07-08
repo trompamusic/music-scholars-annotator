@@ -42,8 +42,8 @@ export class Addannotation extends Component {
         <input
           type="submit"
           name="submit"
-          className="btn"
-          value="submit your annotation"
+          className="selectionButton"
+          value="load your annotation"
         />
       </form>
     );

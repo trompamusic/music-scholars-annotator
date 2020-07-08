@@ -23,14 +23,18 @@ export default function SolidWrapper(props) {
       <LoggedOut>
         <div>
           <p>
-            <LoginButton popup="auth-popup.html">Log in with Solid</LoginButton>
+            <LoginButton className="loginButton" popup="auth-popup.html">
+              Log in with Solid
+            </LoginButton>
           </p>
         </div>
       </LoggedOut>
       <LoggedIn>
         <p>
-          <LogoutButton>Log out</LogoutButton> You are logged in as{" "}
-          <Value src="user.name" />
+          You are logged in as <Value src="user.name" />
+        </p>
+        <p>
+          <LogoutButton className="logoutButton">Log out</LogoutButton>
         </p>
         {typeof userPOD !== "undefined" ? (
           <SelectableScoreApp

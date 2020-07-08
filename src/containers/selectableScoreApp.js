@@ -52,22 +52,23 @@ export default class SelectableScoreApp extends Component {
     return (
       <div>
         <h2>Selectable score component demo</h2>
-        <p>
-          This is a minimal example demonstrating the use of the TROMPA
-          selectable-score component.
-        </p>
-
-        {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
-        <NextPageButton
-          buttonContent={<span>Next</span>}
-          uri={this.state.uri}
-        />
+        <h3>Page selector</h3>
 
         {/* pass anything as buttonContent that you'd like to function as a clickable prev page button */}
-        <PrevPageButton
-          buttonContent={<span>Prev</span>}
-          uri={this.state.uri}
-        />
+        <div className="selectionButton">
+          <PrevPageButton
+            buttonContent={<span>Previous page</span>}
+            uri={this.state.uri}
+          />
+        </div>
+
+        {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
+        <div className="selectionButton">
+          <NextPageButton
+            buttonContent={<span>Next page</span>}
+            uri={this.state.uri}
+          />
+        </div>
 
         {/*selector for the component selection*/}
         <SelectionHandler
@@ -85,14 +86,17 @@ export default class SelectableScoreApp extends Component {
 
         <div></div>
         <h3>Post to Solid</h3>
-        <div></div>
+
         {/*button that submits the annotation to the user solid pod*/}
-        <SubmitButton
-          buttonContent="click to submit to Solid POD"
-          submitUri={this.props.submitUri}
-          submitHandler={this.handleSubmit}
-          submitHandlerArgs={this.state.currentAnnotation}
-        />
+        <div className="submitButton">
+          <SubmitButton
+            buttonContent="click to submit to Solid POD"
+            submitUri={this.props.submitUri}
+            submitHandler={this.handleSubmit}
+            submitHandlerArgs={this.state.currentAnnotation}
+          />
+        </div>
+
         <SelectableScore
           uri={this.state.uri}
           options={this.props.vrvOptions}

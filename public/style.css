@@ -17,15 +17,75 @@ input:focus::placeholder {
   height: auto;
   display: inline-block;
 }
+
 .addAnnotations {
   padding: 5px;
 }
 
 .submitButton {
   border: none;
-  background-color: inherit;
-  padding: 14px 28px;
+  background-color: rgb(215, 215, 215);
+  padding: 10px 24px;
+  border-radius: 4px;
+  text-align: center;
   font-size: 16px;
   cursor: pointer;
   display: inline-block;
+  transition-duration: 0.4s;
+}
+
+.submitButton:hover {
+  background-color: rgb(175, 175, 175);
+}
+
+.selectionButton {
+  border: none;
+  background-color: rgb(215, 215, 215);
+  padding: 5px 12px;
+  text-align: center;
+  font-size: 12px;
+  cursor: pointer;
+  display: inline-block;
+  transition-duration: 0.4s;
+}
+
+.selectionButton:hover {
+  background-color: rgb(175, 175, 175);
+}
+
+.logoutButton {
+  background-color: #f4511e;
+  border: none;
+  padding: 5px 12px;
+  text-align: center;
+  font-size: 12px;
+  cursor: pointer;
+  display: inline-block;
+  transition-duration: 0.4s;
+  opacity: 0.5;
+  color: white;
+  border-radius: 4px;
+}
+
+.logoutButton:hover {
+  opacity: 1;
+}
+
+.loginButton {
+  background-color: #4caf50;
+  border: none;
+  padding: 14px 40px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+  transition-duration: 0.4s;
+  opacity: 0.5;
+  color: white;
+  border-radius: 4px;
+  width: 250px;
+}
+
+.loginButton:hover {
+  opacity: 1;
 }
