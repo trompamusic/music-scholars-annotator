@@ -5,7 +5,7 @@ export class Addannotation extends Component {
     value: "",
     target: [],
   };
-
+ 
   onChange = (e) => this.setState({ value: e.target.value });
   onSubmit = (e) => {
     e.preventDefault();
