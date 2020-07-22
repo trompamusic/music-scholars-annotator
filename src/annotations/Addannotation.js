@@ -1,11 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
+import SubmitButton from "selectable-score/lib/submit-button.js";
 
-export class Addannotation extends Component {
+export class Addannotation extends React.Component {
   state = {
     value: "",
     target: [],
+    buttonState: "enabledSubmitButton",
   };
- 
+
   onChange = (e) => this.setState({ value: e.target.value });
   onSubmit = (e) => {
     e.preventDefault();
@@ -21,7 +23,7 @@ export class Addannotation extends Component {
           this.state.value
         );
         this.reset();
-        this.props.buttonEnabler();
+        //this.props.buttonEnabler();
       }
     );
   };
@@ -32,7 +34,7 @@ export class Addannotation extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit} style={{ display: "flex" }}>
+      <form id="my-form" onSubmit={this.onSubmit} style={{ display: "flex" }}>
         <input
           type="text"
           name="value"
@@ -40,13 +42,23 @@ export class Addannotation extends Component {
           placeholder={this.props.placeholder}
           onChange={this.onChange}
         />
-        <input
+        {/* <input
           type="submit"
           name="submit"
           disabled={!this.state.value}
           className="selectionButton"
           value="confirm your annotation"
-        />
+        /> */}
+        <div className={this.state.buttonState}>
+          <SubmitButton
+            form="my-form"
+            type="submit"
+            buttonContent="Submit to your Solid POD"
+            submitUri={this.props.submitUri}
+            submitHandler={this.props.handleSubmit}
+            submitHandlerArgs={this.props.currentAnnotation}
+          />
+        </div>
       </form>
     );
   }

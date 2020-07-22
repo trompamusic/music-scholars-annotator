@@ -144,6 +144,8 @@ export class AnnotationSubmitter extends React.Component {
               placeholder={this.state.placeholder}
               annotationType={this.state.annotationType}
               buttonEnabler={this.props.buttonEnabler}
+              submitHandler={this.props.handleSubmit}
+              submitHandlerArgs={this.state.currentAnnotation}
             />
           </div>
         </div>

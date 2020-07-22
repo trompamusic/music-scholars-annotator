@@ -4,7 +4,7 @@ import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
 import AnnotationSubmitter from "../annotation-submitter.js";
 import SelectionHandler from "../annotations/SelectionHandler.js";
-import SubmitButton from "selectable-score/lib/submit-button.js";
+//import SubmitButton from "selectable-score/lib/submit-button.js";
 
 export default class SelectableScoreApp extends Component {
   constructor(props) {
@@ -49,15 +49,16 @@ export default class SelectableScoreApp extends Component {
     this.setState({ buttonState: "disabledSubmitButton" });
   }
 
-  handleSubmit(currentAnnotation) {
-    this.buttonDisable();
-    return {
-      "@context": "http://www.w3.org/ns/anno.jsonld",
-      target: currentAnnotation.target,
-      type: currentAnnotation.type,
-      body: currentAnnotation.body,
-      motivation: currentAnnotation.motivation,
-    };
+  handleSubmit() {
+    // this.buttonDisable();
+    // return {
+    //   "@context": "http://www.w3.org/ns/anno.jsonld",
+    //   target: currentAnnotation.target,
+    //   type: currentAnnotation.type,
+    //   body: currentAnnotation.body,
+    //   motivation: currentAnnotation.motivation,
+    // };
+    console.log("test");
   }
 
   handleScoreUpdate(scoreElement) {
@@ -97,17 +98,19 @@ export default class SelectableScoreApp extends Component {
           passAnnotation={this.passAnnotation}
           currentAnnotation={this.handleAnnotation}
           buttonEnabler={this.buttonEnabler}
+          submitHandler={this.handleSubmit}
+          submitHandlerArgs={this.state.currentAnnotation}
         />
 
         {/*button that submits the annotation to the user solid pod*/}
-        <div className={this.state.buttonState}>
+        {/* <div className={this.state.buttonState}>
           <SubmitButton
             buttonContent="Submit to your Solid POD"
             submitUri={this.props.submitUri}
             submitHandler={this.handleSubmit}
             submitHandlerArgs={this.state.currentAnnotation}
           />
-        </div>
+        </div> */}
         <SelectableScore
           uri={this.state.uri}
           options={this.props.vrvOptions}
