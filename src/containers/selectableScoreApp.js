@@ -4,7 +4,6 @@ import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
 import AnnotationSubmitter from "../annotation-submitter.js";
 import SelectionHandler from "../annotations/SelectionHandler.js";
-//import SubmitButton from "selectable-score/lib/submit-button.js";
 
 export default class SelectableScoreApp extends Component {
   constructor(props) {
@@ -14,15 +13,15 @@ export default class SelectableScoreApp extends Component {
       uri: this.props.uri,
       selectorString: ".note",
       currentAnnotation: [],
-      buttonState: "disabledSubmitButton",
+      //buttonState: "disabledSubmitButton",
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
     this.handleStringChange = this.handleStringChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.submitHandler = this.submitHandler.bind(this);
     this.handleAnnotation = this.handleAnnotation.bind(this);
-    this.buttonEnabler = this.buttonEnabler.bind(this);
-    this.buttonDisable = this.buttonDisable.bind(this);
+    // this.buttonEnabler = this.buttonEnabler.bind(this);
+    // this.buttonDisable = this.buttonDisable.bind(this);
   }
 
   handleStringChange(selectorString) {
@@ -36,30 +35,26 @@ export default class SelectableScoreApp extends Component {
 
   handleAnnotation(anno) {
     //var joined = this.state.currentAnnotation.concat(anno);
-    this.setState({ currentAnnotation: anno }, () => {
-      console.log(this.state.currentAnnotation);
-    });
+    this.setState({ currentAnnotation: anno });
   }
 
-  buttonEnabler() {
-    this.setState({ buttonState: "enabledSubmitButton" });
+  submitHandler(currentAnnotation) {
+    return {
+      "@context": "http://www.w3.org/ns/anno.jsonld",
+      target: currentAnnotation.target,
+      type: currentAnnotation.type,
+      body: currentAnnotation.body,
+      motivation: currentAnnotation.motivation,
+    };
   }
 
-  buttonDisable() {
-    this.setState({ buttonState: "disabledSubmitButton" });
-  }
+  // buttonEnabler() {
+  //   this.setState({ buttonState: "enabledSubmitButton" });
+  // }
 
-  handleSubmit() {
-    // this.buttonDisable();
-    // return {
-    //   "@context": "http://www.w3.org/ns/anno.jsonld",
-    //   target: currentAnnotation.target,
-    //   type: currentAnnotation.type,
-    //   body: currentAnnotation.body,
-    //   motivation: currentAnnotation.motivation,
-    // };
-    console.log("test");
-  }
+  // buttonDisable() {
+  //   this.setState({ buttonState: "disabledSubmitButton" });
+  // }
 
   handleScoreUpdate(scoreElement) {
     console.log("Received updated score DOM element: ", scoreElement);
@@ -67,24 +62,6 @@ export default class SelectableScoreApp extends Component {
   render() {
     return (
       <div>
-        <h3>Page selector</h3>
-
-        {/* pass anything as buttonContent that you'd like to function as a clickable prev page button */}
-        <div className="pageButton">
-          <PrevPageButton
-            buttonContent={<span>Previous page</span>}
-            uri={this.state.uri}
-          />
-        </div>
-
-        {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
-        <div className="pageButton">
-          <NextPageButton
-            buttonContent={<span>Next page</span>}
-            uri={this.state.uri}
-          />
-        </div>
-
         {/*selector for the component selection*/}
         <SelectionHandler
           selectorString={this.state.selectorString}
@@ -97,8 +74,8 @@ export default class SelectableScoreApp extends Component {
           selection={this.state.selection}
           passAnnotation={this.passAnnotation}
           currentAnnotation={this.handleAnnotation}
-          buttonEnabler={this.buttonEnabler}
-          submitHandler={this.handleSubmit}
+          //buttonEnabler={this.buttonEnabler}
+          submitHandler={this.submitHandler}
           submitHandlerArgs={this.state.currentAnnotation}
         />
 
@@ -111,6 +88,25 @@ export default class SelectableScoreApp extends Component {
             submitHandlerArgs={this.state.currentAnnotation}
           />
         </div> */}
+
+        {/* pass anything as buttonContent that you'd like to function as a clickable prev page button */}
+        <div className="pageButton">
+          <PrevPageButton
+            buttonContent={<span>Previous page</span>}
+            uri={this.state.uri}
+          />
+        </div>
+
+        <div className="divider"></div>
+
+        {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
+        <div className="pageButton">
+          <NextPageButton
+            buttonContent={<span>Next page</span>}
+            uri={this.state.uri}
+          />
+        </div>
+
         <SelectableScore
           uri={this.state.uri}
           options={this.props.vrvOptions}

@@ -135,7 +135,6 @@ export class AnnotationSubmitter extends React.Component {
             />
             Linking
           </label>
-          <p>please submit to solid one annotation at a time</p>
           <div className="addAnnotations">
             <Addannotations
               addannotation={this.addannotation}
@@ -144,8 +143,8 @@ export class AnnotationSubmitter extends React.Component {
               placeholder={this.state.placeholder}
               annotationType={this.state.annotationType}
               buttonEnabler={this.props.buttonEnabler}
-              submitHandler={this.props.handleSubmit}
-              submitHandlerArgs={this.state.currentAnnotation}
+              submitHandler={this.props.submitHandler}
+              submitHandlerArgs={this.props.submitHandlerArgs}
             />
           </div>
         </div>

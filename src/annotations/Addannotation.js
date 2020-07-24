@@ -34,7 +34,7 @@ export class Addannotation extends React.Component {
 
   render() {
     return (
-      <form id="my-form" onSubmit={this.onSubmit} style={{ display: "flex" }}>
+      <form id="myform" onSubmit={this.onSubmit} style={{ display: "flex" }}>
         <input
           type="text"
           name="value"
@@ -49,16 +49,18 @@ export class Addannotation extends React.Component {
           className="selectionButton"
           value="confirm your annotation"
         /> */}
-        <div className={this.state.buttonState}>
+        <button className={this.state.buttonState} form="myform" type="submit">
           <SubmitButton
-            form="my-form"
-            type="submit"
             buttonContent="Submit to your Solid POD"
             submitUri={this.props.submitUri}
-            submitHandler={this.props.handleSubmit}
-            submitHandlerArgs={this.props.currentAnnotation}
+            submitHandler={this.props.submitHandler}
+            submitHandlerArgs={this.props.submitHandlerArgs}
           />
-        </div>
+        </button>
+
+        {/* <button className={this.state.buttonState} form="myform" type="submit">
+         
+        </button> */}
       </form>
     );
   }

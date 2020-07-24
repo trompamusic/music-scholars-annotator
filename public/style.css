@@ -12,14 +12,10 @@ input:focus::placeholder {
   color: transparent;
 }
 
-.divider {
-  width: 5px;
-  height: auto;
-  display: inline-block;
-}
-
 .addAnnotations {
   padding: 5px;
+  margin-top: 10px;
+  margin-bottom: 25px;
 }
 
 .submitButton {
@@ -40,6 +36,7 @@ input:focus::placeholder {
   background-color: rgb(215, 215, 215);
   padding: 5px 12px;
   text-align: center;
+  border-radius: 4px;
   font-size: 12px;
   cursor: pointer;
   display: inline-block;
@@ -83,6 +80,12 @@ input:focus::placeholder {
   background-color: rgb(215, 215, 215);
   pointer-events: none;
   opacity: 0.4;
+}
+
+.divider {
+  width: 775px;
+  height: auto;
+  display: inline-block;
 }
 
 .selectionButton {

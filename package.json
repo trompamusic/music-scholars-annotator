@@ -18,7 +18,7 @@
   "dependencies": {
     "@solid/react": "^1.9.0",
     "browserslist": "^4.11.0",
-    "fibers": "^4.0.2",
+    "fibers": "^5.0.0",
     "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
