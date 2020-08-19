@@ -41,7 +41,7 @@ export default function SolidWrapper(props) {
           <SelectableScoreApp
             uri={props.uri}
             vrvOptions={props.vrvOptions}
-            submitUri={`${userPOD}public/`}
+            submitUri={`${userPOD}public/annotation`}
           />
         ) : (
           <div>Loading... </div>

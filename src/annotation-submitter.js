@@ -61,14 +61,16 @@ export class AnnotationSubmitter extends React.Component {
     }
   };
   //the folllowing logic should be handled from the button
-  addannotation = (target, value) => {
+  addannotation = (value) => {
     //adds different annotations based on selection
     var anno = "";
     switch (this.state.annotationType) {
       case "describing":
         anno = {
           "@context": "http://www.w3.org/ns/anno.jsonld",
-          target, //this takes the measure id selected by the user
+          target: this.props.selection.map((elem) => {
+            return { id: this.props.uri + "#" + elem.getAttribute("id") };
+          }), //this takes the measure id selected by the user
           type: "Annotation",
           body: [{ type: "TextualBody", value: value }], //this takes the user input
           motivation: "describing",
@@ -91,7 +93,9 @@ export class AnnotationSubmitter extends React.Component {
       case "linking":
         anno = {
           "@context": "http://www.w3.org/ns/anno.jsonld",
-          target, //this takes the measure id selected by the user
+          target: this.props.selection.map((elem) => {
+            return { id: this.props.uri + "#" + elem.getAttribute("id") };
+          }), //this takes the measure id selected by the user
           type: "Annotation",
           body: [{ id: value }], //this takes the user URI
           motivation: "linking",
