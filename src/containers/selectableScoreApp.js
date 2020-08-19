@@ -75,8 +75,8 @@ export default class SelectableScoreApp extends Component {
           passAnnotation={this.passAnnotation}
           currentAnnotation={this.handleAnnotation}
           //buttonEnabler={this.buttonEnabler}
-          submitHandler={this.submitHandler}
-          submitHandlerArgs={this.state.currentAnnotation}
+          //submitHandler={this.submitHandler}
+          //submitHandlerArgs={this.state.currentAnnotation}
         />
 
         {/*button that submits the annotation to the user solid pod*/}

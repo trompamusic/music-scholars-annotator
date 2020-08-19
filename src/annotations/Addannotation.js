@@ -54,7 +54,7 @@ export class Addannotation extends React.Component {
             buttonContent="Submit to your Solid POD"
             submitUri={this.props.submitUri}
             submitHandler={this.props.submitHandler}
-            submitHandlerArgs={this.props.submitHandlerArgs}
+            //submitHandlerArgs={this.props.submitHandlerArgs}
           />
         </button>
 

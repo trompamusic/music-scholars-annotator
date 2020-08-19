@@ -60,7 +60,7 @@ export class AnnotationSubmitter extends React.Component {
       });
     }
   };
-
+  //the folllowing logic should be handled from the button
   addannotation = (target, value) => {
     //adds different annotations based on selection
     var anno = "";
@@ -73,17 +73,21 @@ export class AnnotationSubmitter extends React.Component {
           body: [{ type: "TextualBody", value: value }], //this takes the user input
           motivation: "describing",
         };
-        this.setState(
-          {
-            annotationlist: [...this.state.annotationlist, anno],
-          },
-          () => {
-            this.placeAnnotation();
-          },
-          this.props.currentAnnotation(anno)
-        );
-        console.log("annotation has been loaded, ready to post");
-        break;
+        //no set state nothing that goes up beyond this point
+        console.log(anno);
+        return {
+          anno,
+        };
+      // this.setState(
+      //   {
+      //     annotationlist: [...this.state.annotationlist, anno],
+      //   },
+      //   () => {
+      //     this.placeAnnotation();
+      //   },
+      //   this.props.currentAnnotation(anno)
+      // );
+
       case "linking":
         anno = {
           "@context": "http://www.w3.org/ns/anno.jsonld",
@@ -92,17 +96,20 @@ export class AnnotationSubmitter extends React.Component {
           body: [{ id: value }], //this takes the user URI
           motivation: "linking",
         };
-        this.setState(
-          {
-            annotationlist: [...this.state.annotationlist, anno],
-          },
-          () => {
-            this.placeAnnotation();
-          },
-          this.props.currentAnnotation(anno)
-        );
-        console.log("annotation has been loaded, ready to post");
-        break;
+        console.log(anno);
+        return {
+          anno,
+        };
+      // this.setState(
+      //   {
+      //     annotationlist: [...this.state.annotationlist, anno],
+      //   },
+      //   () => {
+      //     this.placeAnnotation();
+      //   },
+      //   this.props.currentAnnotation(anno)
+      // );
+
       default:
         console.log(
           "no annotation found, have you selected the annotation type?"
@@ -143,8 +150,8 @@ export class AnnotationSubmitter extends React.Component {
               placeholder={this.state.placeholder}
               annotationType={this.state.annotationType}
               buttonEnabler={this.props.buttonEnabler}
-              submitHandler={this.props.submitHandler}
-              submitHandlerArgs={this.props.submitHandlerArgs}
+              submitHandler={this.addannotation}
+              //submitHandlerArgs={this.props.submitHandlerArgs}
             />
           </div>
         </div>
