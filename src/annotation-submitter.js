@@ -7,59 +7,64 @@ export class AnnotationSubmitter extends React.Component {
     placeholder: "", //placeholder text for the input field
   };
   onChange = (e) =>
-    this.setState({
-      annotationType: e.target.value,
-      placeholder: e.target.placeholder,
-    });
+    this.setState(
+      {
+        annotationType: e.target.value,
+        placeholder: e.target.placeholder,
+      },
+      () => {
+        console.log(this.state.annotationType);
+      }
+    );
 
-  placeAnnotation = () => {
-    this.state.annotationlist.forEach(iterate);
-    //places the user annotation to the selected element
-    function iterate(annotation) {
-      annotation.target.map((jsonTarget) => {
-        const bodies = annotation.body;
-        const targetId = jsonTarget.id;
-        const fragment = targetId.substr(targetId.lastIndexOf("#"));
-        const element = document.querySelector(fragment);
-        //checks what's the motivation of the target
-        switch (annotation.motivation) {
-          case "describing":
-            if (bodies.length) {
-              if ("value" in bodies[0]) {
-                const title = document.createElementNS(
-                  "http://www.w3.org/2000/svg",
-                  "title"
-                );
-                // Embeds the annotation text into this title node
-                title.innerHTML = bodies[0]["value"];
-                element.insertBefore(title, element.firstChild);
-                element.style.fill = "darkorange";
-              }
-            }
-            break;
-          case "linking":
-            if (bodies.length) {
-              // make the target clickable, linking to the (first) body URI
-              element.addEventListener(
-                "click",
-                function () {
-                  window.open(bodies[0]["id"], "_blank");
-                },
-                true
-              );
-              // and turn the cursor into a pointer as a hint that it's clickable
-              element.style.cursor = "pointer";
-              element.style.fill = "darkorange";
-            }
-            break;
-          default:
-            console.log(
-              "sorry, don't know what to do for this annotation boss"
-            );
-        }
-      });
-    }
-  };
+  // placeAnnotation = () => {
+  //   this.state.annotationlist.forEach(iterate);
+  //   //places the user annotation to the selected element
+  //   function iterate(annotation) {
+  //     annotation.target.map((jsonTarget) => {
+  //       const bodies = annotation.body;
+  //       const targetId = jsonTarget.id;
+  //       const fragment = targetId.substr(targetId.lastIndexOf("#"));
+  //       const element = document.querySelector(fragment);
+  //       //checks what's the motivation of the target
+  //       switch (annotation.motivation) {
+  //         case "describing":
+  //           if (bodies.length) {
+  //             if ("value" in bodies[0]) {
+  //               const title = document.createElementNS(
+  //                 "http://www.w3.org/2000/svg",
+  //                 "title"
+  //               );
+  //               // Embeds the annotation text into this title node
+  //               title.innerHTML = bodies[0]["value"];
+  //               element.insertBefore(title, element.firstChild);
+  //               element.style.fill = "darkorange";
+  //             }
+  //           }
+  //           break;
+  //         case "linking":
+  //           if (bodies.length) {
+  //             // make the target clickable, linking to the (first) body URI
+  //             element.addEventListener(
+  //               "click",
+  //               function () {
+  //                 window.open(bodies[0]["id"], "_blank");
+  //               },
+  //               true
+  //             );
+  //             // and turn the cursor into a pointer as a hint that it's clickable
+  //             element.style.cursor = "pointer";
+  //             element.style.fill = "darkorange";
+  //           }
+  //           break;
+  //         default:
+  //           console.log(
+  //             "sorry, don't know what to do for this annotation boss"
+  //           );
+  //       }
+  //     });
+  //   }
+  // };
   //the folllowing logic should be handled from the button
   submitHandler = (value) => {
     //adds different annotations based on selection
@@ -76,9 +81,12 @@ export class AnnotationSubmitter extends React.Component {
           motivation: "describing",
         };
         //no set state nothing that goes up beyond this point
-        console.log(anno);
         return {
-          anno,
+          "@context": "http://www.w3.org/ns/anno.jsonld",
+          target: anno.target,
+          type: anno.type,
+          body: anno.body,
+          motivation: "describing",
         };
       // this.setState(
       //   {
