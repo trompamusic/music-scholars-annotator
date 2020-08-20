@@ -61,7 +61,7 @@ export class AnnotationSubmitter extends React.Component {
     }
   };
   //the folllowing logic should be handled from the button
-  addannotation = (value) => {
+  submitHandler = (value) => {
     //adds different annotations based on selection
     var anno = "";
     switch (this.state.annotationType) {
@@ -148,13 +148,13 @@ export class AnnotationSubmitter extends React.Component {
           </label>
           <div className="addAnnotations">
             <Addannotations
-              addannotation={this.addannotation}
+              //addannotation={this.addannotation}
               selection={this.props.selection}
               uri={this.props.uri}
               placeholder={this.state.placeholder}
               annotationType={this.state.annotationType}
               buttonEnabler={this.props.buttonEnabler}
-              submitHandler={this.addannotation}
+              submitHandler={this.submitHandler}
               //submitHandlerArgs={this.props.submitHandlerArgs}
             />
           </div>

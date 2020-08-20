@@ -35,7 +35,7 @@ export class Addannotation extends React.Component {
   render() {
     return (
       <div>
-        <form id="myform" style={{ display: "inline-block" }}>
+        <form style={{ display: "inline-block" }}>
           <input
             type="text"
             name="value"

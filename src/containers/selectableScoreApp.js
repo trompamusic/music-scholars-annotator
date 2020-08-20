@@ -18,8 +18,8 @@ export default class SelectableScoreApp extends Component {
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
     this.handleStringChange = this.handleStringChange.bind(this);
-    this.submitHandler = this.submitHandler.bind(this);
-    this.handleAnnotation = this.handleAnnotation.bind(this);
+    // this.submitHandler = this.submitHandler.bind(this);
+    // this.handleAnnotation = this.handleAnnotation.bind(this);
     // this.buttonEnabler = this.buttonEnabler.bind(this);
     // this.buttonDisable = this.buttonDisable.bind(this);
   }
@@ -33,20 +33,20 @@ export default class SelectableScoreApp extends Component {
     /* and anything else your app needs to do when the selection changes */
   }
 
-  handleAnnotation(anno) {
-    //var joined = this.state.currentAnnotation.concat(anno);
-    this.setState({ currentAnnotation: anno });
-  }
+  // handleAnnotation(anno) {
+  //   //var joined = this.state.currentAnnotation.concat(anno);
+  //   this.setState({ currentAnnotation: anno });
+  // }
 
-  submitHandler(currentAnnotation) {
-    return {
-      "@context": "http://www.w3.org/ns/anno.jsonld",
-      target: currentAnnotation.target,
-      type: currentAnnotation.type,
-      body: currentAnnotation.body,
-      motivation: currentAnnotation.motivation,
-    };
-  }
+  // submitHandler(currentAnnotation) {
+  //   return {
+  //     "@context": "http://www.w3.org/ns/anno.jsonld",
+  //     target: currentAnnotation.target,
+  //     type: currentAnnotation.type,
+  //     body: currentAnnotation.body,
+  //     motivation: currentAnnotation.motivation,
+  //   };
+  // }
 
   // buttonEnabler() {
   //   this.setState({ buttonState: "enabledSubmitButton" });
@@ -72,8 +72,8 @@ export default class SelectableScoreApp extends Component {
         <AnnotationSubmitter
           uri={this.state.uri}
           selection={this.state.selection}
-          passAnnotation={this.passAnnotation}
-          currentAnnotation={this.handleAnnotation}
+          //passAnnotation={this.passAnnotation}
+          // currentAnnotation={this.handleAnnotation}
           //buttonEnabler={this.buttonEnabler}
           //submitHandler={this.submitHandler}
           //submitHandlerArgs={this.state.currentAnnotation}
