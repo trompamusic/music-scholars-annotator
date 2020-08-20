@@ -43,6 +43,10 @@ input:focus::placeholder {
   transition-duration: 0.4s;
 }
 
+.form {
+  display: inline-block;
+}
+
 .pageButton:hover {
   background-color: rgb(175, 175, 175);
 }
