@@ -158,6 +158,7 @@ export class AnnotationSubmitter extends React.Component {
             <Addannotations
               //addannotation={this.addannotation}
               selection={this.props.selection}
+              submitUri={this.props.submitUri}
               uri={this.props.uri}
               placeholder={this.state.placeholder}
               annotationType={this.state.annotationType}
