@@ -13,15 +13,17 @@ export default class SelectableScoreApp extends Component {
       uri: this.props.uri,
       selectorString: ".note",
       currentAnnotation: [],
+      toggleAnnotationRetrieval: false,
       //buttonState: "disabledSubmitButton",
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
     this.handleStringChange = this.handleStringChange.bind(this);
-    // this.submitHandler = this.submitHandler.bind(this);
-    // this.handleAnnotation = this.handleAnnotation.bind(this);
-    // this.buttonEnabler = this.buttonEnabler.bind(this);
-    // this.buttonDisable = this.buttonDisable.bind(this);
+
+    // //this.onReceiveAnnotationContainerContent = this.onReceiveAnnotationContainerContent.bind(
+    //   this
+    // );
+    this.onResponse = this.onResponse.bind(this);
   }
 
   handleStringChange(selectorString) {
@@ -32,29 +34,67 @@ export default class SelectableScoreApp extends Component {
     this.setState({ selection });
     /* and anything else your app needs to do when the selection changes */
   }
+  onResponse(resp) {
+    console.log(resp);
+    if (resp.status === 201) {
+      this.setState(
+        {
+          toggleAnnotationRetrieval: true,
+        },
+        () => {
+          this.setState({ toggleAnnotationRetrieval: false });
+        }
+      );
+    }
+  }
 
-  // handleAnnotation(anno) {
-  //   //var joined = this.state.currentAnnotation.concat(anno);
-  //   this.setState({ currentAnnotation: anno });
-  // }
-
-  // submitHandler(currentAnnotation) {
-  //   return {
-  //     "@context": "http://www.w3.org/ns/anno.jsonld",
-  //     target: currentAnnotation.target,
-  //     type: currentAnnotation.type,
-  //     body: currentAnnotation.body,
-  //     motivation: currentAnnotation.motivation,
-  //   };
-  // }
-
-  // buttonEnabler() {
-  //   this.setState({ buttonState: "enabledSubmitButton" });
-  // }
-
-  // buttonDisable() {
-  //   this.setState({ buttonState: "disabledSubmitButton" });
-  // }
+  onReceiveAnnotationContainerContent(content) {
+    console.log("iteration succeded");
+    content.map((anno) => {
+      anno.anno.target.map((jSonTarget) => {
+        const bodies = anno.anno.body;
+        const targetId = jSonTarget.id;
+        const fragment = targetId.substr(targetId.lastIndexOf("#"));
+        const element = document.querySelector(fragment);
+        //checks what's the motivation of the target
+        switch (anno.anno.motivation) {
+          case "describing":
+            if (bodies.length) {
+              if ("value" in bodies[0]) {
+                const title = document.createElementNS(
+                  "http://www.w3.org/2000/svg",
+                  "title"
+                );
+                // Embeds the annotation text into this title node
+                title.innerHTML = bodies[0]["value"];
+                element.insertBefore(title, element.firstChild);
+                element.style.fill = "darkorange";
+              }
+            }
+            break;
+          case "linking":
+            if (bodies.length) {
+              // make the target clickable, linking to the (first) body URI
+              element.addEventListener(
+                "click",
+                function () {
+                  window.open(bodies[0]["id"], "_blank");
+                },
+                true
+              );
+              // and turn the cursor into a pointer as a hint that it's clickable
+              element.style.cursor = "pointer";
+              element.style.fill = "magenta";
+            }
+            break;
+          default:
+            console.log(
+              "sorry, don't know what to do for this annotation boss"
+            );
+        }
+      });
+    });
+  }
 
   handleScoreUpdate(scoreElement) {
     console.log("Received updated score DOM element: ", scoreElement);
@@ -73,22 +113,8 @@ export default class SelectableScoreApp extends Component {
           uri={this.state.uri}
           submitUri={this.props.submitUri}
           selection={this.state.selection}
-          //passAnnotation={this.passAnnotation}
-          // currentAnnotation={this.handleAnnotation}
-          //buttonEnabler={this.buttonEnabler}
-          //submitHandler={this.submitHandler}
-          //submitHandlerArgs={this.state.currentAnnotation}
+          onResponse={this.onResponse}
         />
-
-        {/*button that submits the annotation to the user solid pod*/}
-        {/* <div className={this.state.buttonState}>
-          <SubmitButton
-            buttonContent="Submit to your Solid POD"
-            submitUri={this.props.submitUri}
-            submitHandler={this.handleSubmit}
-            submitHandlerArgs={this.state.currentAnnotation}
-          />
-        </div> */}
 
         {/* pass anything as buttonContent that you'd like to function as a clickable prev page button */}
         <div className="pageButton">
@@ -110,10 +136,15 @@ export default class SelectableScoreApp extends Component {
 
         <SelectableScore
           uri={this.state.uri}
+          annotationContainerUri={this.props.submitUri}
           options={this.props.vrvOptions}
           onSelectionChange={this.handleSelectionChange}
           selectorString={this.state.selectorString}
           onScoreUpdate={this.handleScoreUpdate}
+          onReceiveAnnotationContainerContent={
+            this.onReceiveAnnotationContainerContent
+          }
+          toggleAnnotationRetrieval={this.state.toggleAnnotationRetrieval}
         />
       </div>
     );

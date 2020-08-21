@@ -2,20 +2,14 @@ import React from "react";
 import Addannotations from "./annotations/Addannotation.js";
 export class AnnotationSubmitter extends React.Component {
   state = {
-    annotationlist: [],
     annotationType: "",
     placeholder: "", //placeholder text for the input field
   };
   onChange = (e) =>
-    this.setState(
-      {
-        annotationType: e.target.value,
-        placeholder: e.target.placeholder,
-      },
-      () => {
-        console.log(this.state.annotationType);
-      }
-    );
+    this.setState({
+      annotationType: e.target.value,
+      placeholder: e.target.placeholder,
+    });
 
   // placeAnnotation = () => {
   //   this.state.annotationlist.forEach(iterate);
@@ -77,26 +71,13 @@ export class AnnotationSubmitter extends React.Component {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
           }), //this takes the measure id selected by the user
           type: "Annotation",
-          body: [{ type: "TextualBody", value: value }], //this takes the user input
+          body: [{ type: "TextualBody", value }], //this takes the user input
           motivation: "describing",
         };
         //no set state nothing that goes up beyond this point
         return {
-          "@context": "http://www.w3.org/ns/anno.jsonld",
-          target: anno.target,
-          type: anno.type,
-          body: anno.body,
-          motivation: "describing",
+          anno,
         };
-      // this.setState(
-      //   {
-      //     annotationlist: [...this.state.annotationlist, anno],
-      //   },
-      //   () => {
-      //     this.placeAnnotation();
-      //   },
-      //   this.props.currentAnnotation(anno)
-      // );
 
       case "linking":
         anno = {
@@ -108,19 +89,10 @@ export class AnnotationSubmitter extends React.Component {
           body: [{ id: value }], //this takes the user URI
           motivation: "linking",
         };
-        console.log(anno);
+        // console.log(anno);
         return {
           anno,
         };
-      // this.setState(
-      //   {
-      //     annotationlist: [...this.state.annotationlist, anno],
-      //   },
-      //   () => {
-      //     this.placeAnnotation();
-      //   },
-      //   this.props.currentAnnotation(anno)
-      // );
 
       default:
         console.log(
@@ -156,7 +128,6 @@ export class AnnotationSubmitter extends React.Component {
           </label>
           <div className="addAnnotations">
             <Addannotations
-              //addannotation={this.addannotation}
               selection={this.props.selection}
               submitUri={this.props.submitUri}
               uri={this.props.uri}
@@ -164,7 +135,7 @@ export class AnnotationSubmitter extends React.Component {
               annotationType={this.state.annotationType}
               buttonEnabler={this.props.buttonEnabler}
               submitHandler={this.submitHandler}
-              //submitHandlerArgs={this.props.submitHandlerArgs}
+              onResponse={this.props.onResponse}
             />
           </div>
         </div>

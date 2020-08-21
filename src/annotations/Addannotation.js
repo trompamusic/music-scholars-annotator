@@ -5,32 +5,10 @@ export class Addannotation extends React.Component {
   state = {
     value: "",
     target: [],
-    buttonState: "enabledSubmitButton",
+    //buttonState: "enabledSubmitButton",
   };
 
   onChange = (e) => this.setState({ value: e.target.value });
-  // onSubmit = (e) => {
-  //   e.preventDefault();
-  //   this.setState(
-  //     {
-  //       target: [...this.state.target],
-  //     },
-  //     () => {
-  //       this.props.addannotation(
-  //         this.props.selection.map((elem) => {
-  //           return { id: this.props.uri + "#" + elem.getAttribute("id") };
-  //         }),
-  //         this.state.value
-  //       );
-  //       this.reset();
-  //       //this.props.buttonEnabler();
-  //     }
-  //   );
-  // };
-  //clears input field
-  // reset = () => {
-  //   this.setState({ value: "" });
-  // };
 
   render() {
     return (
@@ -49,7 +27,8 @@ export class Addannotation extends React.Component {
             buttonContent="Submit to your Solid POD"
             submitUri={this.props.submitUri}
             submitHandler={this.props.submitHandler}
-            submitHandlerArgs={{ value: this.state.value }}
+            submitHandlerArgs={this.state.value}
+            onResponse={this.props.onResponse}
           />
         </div>
       </div>
