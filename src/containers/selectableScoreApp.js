@@ -14,16 +14,12 @@ export default class SelectableScoreApp extends Component {
       selectorString: ".note",
       currentAnnotation: [],
       toggleAnnotationRetrieval: false,
-      //buttonState: "disabledSubmitButton",
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
     this.handleStringChange = this.handleStringChange.bind(this);
-
-    // //this.onReceiveAnnotationContainerContent = this.onReceiveAnnotationContainerContent.bind(
-    //   this
-    // );
     this.onResponse = this.onResponse.bind(this);
+    this.onRefreshClick = this.onRefreshClick.bind(this);
   }
 
   handleStringChange(selectorString) {
@@ -34,6 +30,7 @@ export default class SelectableScoreApp extends Component {
     this.setState({ selection });
     /* and anything else your app needs to do when the selection changes */
   }
+
   onResponse(resp) {
     console.log(resp);
     if (resp.status === 201) {
@@ -46,6 +43,17 @@ export default class SelectableScoreApp extends Component {
         }
       );
     }
+  }
+
+  onRefreshClick() {
+    this.setState(
+      {
+        toggleAnnotationRetrieval: true,
+      },
+      () => {
+        this.setState({ toggleAnnotationRetrieval: false });
+      }
+    );
   }
 
   onReceiveAnnotationContainerContent(content) {
@@ -99,6 +107,7 @@ export default class SelectableScoreApp extends Component {
   handleScoreUpdate(scoreElement) {
     console.log("Received updated score DOM element: ", scoreElement);
   }
+
   render() {
     return (
       <div>
@@ -114,6 +123,7 @@ export default class SelectableScoreApp extends Component {
           submitUri={this.props.submitUri}
           selection={this.state.selection}
           onResponse={this.onResponse}
+          onRefreshClick={this.onRefreshClick}
         />
 
         {/* pass anything as buttonContent that you'd like to function as a clickable prev page button */}

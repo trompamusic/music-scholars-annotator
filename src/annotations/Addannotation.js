@@ -5,7 +5,6 @@ export class Addannotation extends React.Component {
   state = {
     value: "",
     target: [],
-    //buttonState: "enabledSubmitButton",
   };
 
   onChange = (e) => this.setState({ value: e.target.value });
@@ -13,7 +12,7 @@ export class Addannotation extends React.Component {
   render() {
     return (
       <div>
-        <form style={{ display: "inline-block" }}>
+        <form className="form">
           <input
             type="text"
             name="value"
@@ -31,6 +30,9 @@ export class Addannotation extends React.Component {
             onResponse={this.props.onResponse}
           />
         </div>
+        <button onClick={this.props.onRefreshClick} className="refreshButton">
+          <p>Fetch Annotations</p>
+        </button>
       </div>
     );
   }

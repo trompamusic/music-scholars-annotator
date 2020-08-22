@@ -66,6 +66,27 @@ input:focus::placeholder {
   color: white;
 }
 
+.refreshButton {
+  border: none;
+  background-color: rgb(166, 201, 255);
+  height: 39px;
+  line-height: 5px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+  transition-duration: 0.4s;
+  width: 250px;
+  opacity: 1;
+  color: white;
+}
+
+.refreshButton:hover {
+  background-color: #0084ff;
+  color: white;
+}
+
 .enabledSubmitButton:hover {
   background-color: #4caf50;
   color: white;

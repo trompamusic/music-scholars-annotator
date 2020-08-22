@@ -13,7 +13,7 @@ export default class RadioButton extends Component {
   render() {
     return (
       <div>
-        <h3>selection type</h3>
+        <h3>Selection Type</h3>
         <form>
           <label>
             <input

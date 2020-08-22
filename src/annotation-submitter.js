@@ -79,14 +79,11 @@ export class AnnotationSubmitter extends React.Component {
           </label>
           <div className="addAnnotations">
             <Addannotations
-              selection={this.props.selection}
               submitUri={this.props.submitUri}
-              uri={this.props.uri}
               placeholder={this.state.placeholder}
-              annotationType={this.state.annotationType}
-              buttonEnabler={this.props.buttonEnabler}
               submitHandler={this.submitHandler}
               onResponse={this.props.onResponse}
+              onRefreshClick={this.props.onRefreshClick}
             />
           </div>
         </div>
