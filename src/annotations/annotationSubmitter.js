@@ -1,5 +1,5 @@
 import React from "react";
-import Addannotations from "./annotations/Addannotation.js";
+import Addannotations from "./addAnnotation.js";
 export class AnnotationSubmitter extends React.Component {
   state = {
     annotationType: "",
