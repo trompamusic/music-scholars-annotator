@@ -12,15 +12,15 @@ export class Addannotation extends React.Component {
   render() {
     return (
       <div>
-        <form className="form">
-          <input
-            type="text"
-            name="value"
-            value={this.state.value}
-            placeholder={this.props.placeholder}
-            onChange={this.onChange}
-          />
-        </form>
+        <label htmlFor="annotationContent">Insert your annotation</label>
+        <textarea
+          className="textArea"
+          id="annotationContent"
+          name="value"
+          value={this.state.value}
+          placeholder={this.props.placeholder}
+          onChange={this.onChange}
+        ></textarea>
         <div className="enabledSubmitButton">
           <SubmitButton
             buttonContent="Submit to your Solid POD"

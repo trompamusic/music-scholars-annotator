@@ -26,7 +26,7 @@ input:focus::placeholder {
   text-align: center;
   font-size: 16px;
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
   transition-duration: 0.4s;
   width: 315px;
 }
@@ -57,25 +57,34 @@ input:focus::placeholder {
   padding: 10px 20px;
   border-radius: 4px;
   text-align: center;
+  text-anchor: center;
   font-size: 16px;
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
   transition-duration: 0.4s;
   width: 315px;
   opacity: 1;
   color: white;
 }
 
+.textArea{
+  height: 100px;
+  width: 600px;
+  display: flex;
+  
+}
+
 .refreshButton {
   border: none;
   background-color: rgb(166, 201, 255);
+  text-anchor: center;
   height: 39px;
   line-height: 5px;
   border-radius: 4px;
   text-align: center;
   font-size: 16px;
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
   transition-duration: 0.4s;
   width: 250px;
   opacity: 1;
