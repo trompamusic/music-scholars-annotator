@@ -1,6 +1,6 @@
 # TROMPA Selectable Score Demo application, the expanded version!
 
-![Screenshot demonstrating selectable score](annotation-submitter.png)
+[Screenshot demonstrating selectable score](annotation-submitter.png)
 
 This repository contains a minimal example React application integrating the TROMPA [selectable-score](https://github.com/trompamusic/selectable-score) React component. To run it, clone this repository, then:
 
