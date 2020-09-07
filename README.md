@@ -1,4 +1,4 @@
-# TROMPA Selectable Score Demo application, the expanded version!
+# TROMPA Annotation submitter demo application
 
 ![Screenshot demonstrating selectable score](annotation-submitter.png)
 
