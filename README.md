@@ -2,7 +2,7 @@
 
 ![Screenshot demonstrating selectable score](annotation-submitter.png)
 
-This repository contains a minimal example React application integrating the TROMPA [selectable-score](https://github.com/trompamusic/selectable-score) React component. To run it, clone this repository, then:
+This repository contains a minimal example React application integrating the TROMPA [selectable-score](https://github.com/trompamusic/selectable-score) React component and is an expanded version of the [selectable-score-demo](https://github.com/trompamusic/selectable-score-demo). To run it, clone this repository, then:
 
 ```
 cd annotation-submitter-demo
@@ -10,9 +10,9 @@ npm install
 npm start
 ```
 
-Now point your web browser at https://localhost:8080. Wait a few moments for the solid login prompt, instert your crendentials and then let [Verovio](http://www.verovio.org) render the score.
+Now point your web browser at https://localhost:8080. Wait a few moments for the solid login prompt, insert your crendentials and then let [Verovio](http://www.verovio.org) render the score.
 
-Click and drag to select MEI elements (in this example, notes); hold down shift or ctrl to select discontinuous regions. The app lets you insert your annotation comments, choose what type of annotation you would like to insert (either a URI link or a plain text comment) and then POST them to your solid pod annotation.
+Click and drag to select MEI elements (either notes or measures in this example); hold down shift or ctrl to select discontinuous regions. The app lets you insert your annotation comments, choose what type of annotation you would like to insert (either a URI link or a plain text comment) and then POST them to your solid pod annotation.
 
 ## Known issues
 
