@@ -1,4 +1,4 @@
-# TROMPA Annotation submitter demo application
+# TROMPA Annotation Submitter Demo Application
 
 ![Screenshot demonstrating selectable score](annotation-submitter.png)
 
