@@ -46,9 +46,7 @@ export class AnnotationSubmitter extends React.Component {
         };
 
       default:
-        console.log(
-          "no annotation found, have you selected the annotation type?"
-        );
+        console.log("no annotation found, did you select the annotation type?");
     }
   };
 
