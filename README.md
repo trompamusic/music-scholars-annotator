@@ -1,4 +1,4 @@
-# TROMPA Scholars Annotator Component Application demo
+# TROMPA Scholars Annotator Component application demo
 
 ![Screenshot demonstrating selectable score](annotation-submitter.png)
 
