@@ -1,6 +1,6 @@
 # TROMPA Music Scholars Annotator application demo
 
-![Screenshot demonstrating selectable score](annotation-submitter.png)
+![Screenshot demonstrating selectable score](scholars-demo.png)
 
 ## Introduction
 
