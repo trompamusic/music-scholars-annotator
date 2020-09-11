@@ -3,7 +3,6 @@ import SelectableScore from "selectable-score/lib/selectable-score";
 import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
 import AnnotationSubmitter from "../annotations/annotationSubmitter.js";
-import SelectionHandler from "../annotations/selectionHandler.js";
 
 export default class SelectableScoreApp extends Component {
   constructor(props) {
@@ -111,12 +110,6 @@ export default class SelectableScoreApp extends Component {
   render() {
     return (
       <div>
-        {/*selector for the component selection*/}
-        <SelectionHandler
-          selectorString={this.state.selectorString}
-          handleStringChange={this.handleStringChange}
-        />
-
         {/*annotation submission component*/}
         <AnnotationSubmitter
           uri={this.state.uri}
@@ -124,6 +117,8 @@ export default class SelectableScoreApp extends Component {
           selection={this.state.selection}
           onResponse={this.onResponse}
           onRefreshClick={this.onRefreshClick}
+          selectorString={this.state.selectorString}
+          handleStringChange={this.handleStringChange}
         />
 
         {/* pass anything as buttonContent that you'd like to function as a clickable prev page button */}

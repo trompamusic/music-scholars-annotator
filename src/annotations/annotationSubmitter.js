@@ -4,12 +4,19 @@ export class AnnotationSubmitter extends React.Component {
   state = {
     annotationType: "",
     placeholder: "", //placeholder text for the input field
+    selectorString: "",
   };
   onChange = (e) =>
-    this.setState({
-      annotationType: e.target.value,
-      placeholder: e.target.placeholder,
-    });
+    this.setState(
+      {
+        annotationType: e.target.value,
+        placeholder: e.target.placeholder,
+        selectorString: e.target.value,
+      },
+      () => {
+        this.props.handleStringChange(this.state.selectorString);
+      }
+    );
 
   submitHandler = (value) => {
     //adds different annotations based on selection
@@ -53,6 +60,31 @@ export class AnnotationSubmitter extends React.Component {
   render() {
     return (
       <div className="App">
+        <div>
+          <h3>Selection Type</h3>
+          <form>
+            <label>
+              <input
+                type="radio"
+                defaultChecked={this.props.selectorString}
+                value=".note"
+                name="selectorString"
+                onChange={this.onChange}
+              />
+              Note
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="selectorString"
+                value=".measure"
+                onChange={this.onChange}
+              />
+              Measure
+            </label>
+          </form>
+        </div>
         <div className="container">
           <h3>Annotation type</h3>
           <label>
