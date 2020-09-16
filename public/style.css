@@ -18,6 +18,12 @@ input:focus::placeholder {
   margin-bottom: 25px;
 }
 
+.textArea {
+  height: 100px;
+  width: 600px;
+  display: flex;
+}
+
 .submitButton {
   border: none;
   background-color: rgb(215, 215, 215);
@@ -26,7 +32,7 @@ input:focus::placeholder {
   text-align: center;
   font-size: 16px;
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
   transition-duration: 0.4s;
   width: 315px;
 }
@@ -59,7 +65,7 @@ input:focus::placeholder {
   text-align: center;
   font-size: 16px;
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
   transition-duration: 0.4s;
   width: 315px;
   opacity: 1;
@@ -75,7 +81,7 @@ input:focus::placeholder {
   text-align: center;
   font-size: 16px;
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
   transition-duration: 0.4s;
   width: 250px;
   opacity: 1;
