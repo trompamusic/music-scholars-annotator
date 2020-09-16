@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SelectableScore from "selectable-score/lib/selectable-score";
 import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
-import AnnotationSubmitter from "../annotation-submitter.js";
+import AnnotationSubmitter from "../annotations/annotation-submitter.js";
 import SelectionHandler from "../annotations/SelectionHandler.js";
 
 export default class SelectableScoreApp extends Component {
