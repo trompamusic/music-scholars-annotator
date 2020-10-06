@@ -20,6 +20,9 @@ export default class SelectableScoreApp extends Component {
     this.handleStringChange = this.handleStringChange.bind(this);
     this.onResponse = this.onResponse.bind(this);
     this.onRefreshClick = this.onRefreshClick.bind(this);
+    this.onReceiveAnnotationContainerContent = this.onReceiveAnnotationContainerContent.bind(
+      this
+    );
   }
 
   handleStringChange(selectorString) {
@@ -57,6 +60,9 @@ export default class SelectableScoreApp extends Component {
   }
 
   onReceiveAnnotationContainerContent(content) {
+    this.setState({ currentAnnotation: content }, () => {
+      console.log(this.state.currentAnnotation);
+    });
     console.log("iteration succeded");
     content.map((anno) => {
       anno.anno.target.map((jSonTarget) => {
@@ -142,6 +148,14 @@ export default class SelectableScoreApp extends Component {
             buttonContent={<span>Next page</span>}
             uri={this.state.uri}
           />
+        </div>
+
+        <div>
+          <ul>
+            {this.state.currentAnnotation.map((item) => (
+              <li key={item["@id"]}>{item["@id"]}</li>
+            ))}
+          </ul>
         </div>
 
         <SelectableScore
