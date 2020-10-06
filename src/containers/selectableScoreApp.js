@@ -4,6 +4,7 @@ import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
 import AnnotationSubmitter from "../annotations/annotation-submitter.js";
 import SelectionHandler from "../annotations/SelectionHandler.js";
+import AnnotationList from "../annotations/AnnotationList.js";
 
 export default class SelectableScoreApp extends Component {
   constructor(props) {
@@ -150,13 +151,7 @@ export default class SelectableScoreApp extends Component {
           />
         </div>
 
-        <div>
-          <ul>
-            {this.state.currentAnnotation.map((item) => (
-              <li key={item["@id"]}>{item["@id"]}</li>
-            ))}
-          </ul>
-        </div>
+        <AnnotationList entries={this.state.currentAnnotation} />
 
         <SelectableScore
           uri={this.state.uri}

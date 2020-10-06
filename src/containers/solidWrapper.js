@@ -11,7 +11,10 @@ import {
 } from "@solid/react";
 
 import SelectableScoreApp from "./selectableScoreApp";
-
+// state = {
+//   userURI: "",
+// };
+// onChange = (e) => this.setState({ userURI: e.target.value });
 export default function SolidWrapper(props) {
   data.context.extend({
     trompa: "http://vocab.trompamusic.eu/vocab#",
@@ -37,6 +40,15 @@ export default function SolidWrapper(props) {
         <p>
           <LogoutButton className="logoutButton">Log out</LogoutButton>
         </p>
+        <p>insert your pod URI</p>
+        <form>
+          <input
+            placeholder="enter pod URI..."
+            //onChange={this.onChange}
+            //value={this.state.userURI}
+            name="value"
+          ></input>
+        </form>
         {typeof userPOD !== "undefined" ? (
           <SelectableScoreApp
             uri={props.uri}

@@ -7,7 +7,23 @@ body {
   fill: rgb(35, 144, 194);
   stroke: rgb(35, 144, 194);
 }
+.listContainer {
+  overflow: auto;
+  overflow-x: hidden;
+  max-height: 150px;
+  max-width: 1000px;
+  padding: 5px;
+}
+.annoList {
+  display: block;
+  border-top: 1px solid #888;
+  list-style-type: none;
+  padding: 5px 0;
+}
 
+.annoList:hover {
+  background: #eee;
+}
 input:focus::placeholder {
   color: transparent;
 }
