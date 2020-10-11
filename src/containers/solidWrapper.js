@@ -22,7 +22,6 @@ export default function SolidWrapper(props) {
   var testInput = "";
   const handleClick = () => {
     testInput = userInput.current;
-    alert(`${testInput["value"].value}`);
     console.log(`${userInput.current.value.value}`);
     return testInput;
   };
