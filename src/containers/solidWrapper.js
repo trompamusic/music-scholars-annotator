@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import data from "@solid/query-ldflex";
+import InputField from "./InputField.js";
 
 import {
   LoginButton,
@@ -11,15 +12,20 @@ import {
 } from "@solid/react";
 
 import SelectableScoreApp from "./selectableScoreApp";
-// state = {
-//   userURI: "",
-// };
-// onChange = (e) => this.setState({ userURI: e.target.value });
+
 export default function SolidWrapper(props) {
   data.context.extend({
     trompa: "http://vocab.trompamusic.eu/vocab#",
   });
   const userPOD = useLDflexValue("user.storage");
+  const userInput = useRef(null);
+  var testInput = "";
+  const handleClick = () => {
+    testInput = userInput.current;
+    alert(`${testInput["value"].value}`);
+    console.log(`${userInput.current.value.value}`);
+    return testInput;
+  };
   return (
     <div id="authWrapper">
       <LoggedOut>
@@ -40,19 +46,21 @@ export default function SolidWrapper(props) {
           <LogoutButton className="logoutButton">Log out</LogoutButton>
         </p>
         <p>insert your pod URI</p>
-        <form>
-          <input
-            placeholder="Enter pod URI..."
-            //onChange={this.onChange}
-            //value={this.state.userURI}
-            name="value"
-          ></input>
-        </form>
+        <div>
+          <form ref={userInput}>
+            <InputField
+              placeholder="Enter pod URI..."
+              type="text"
+              name="value"
+            />
+            <input type="button" value="store ref" onClick={handleClick} />
+          </form>
+        </div>
         {typeof userPOD !== "undefined" ? (
           <SelectableScoreApp
             uri={props.uri}
             vrvOptions={props.vrvOptions}
-            submitUri={`${userPOD}public/`}
+            submitUri={`${userInput.current.value.value}`}
           />
         ) : (
           <div>Loading... </div>

@@ -123,7 +123,6 @@ export default class SelectableScoreApp extends Component {
           selectorString={this.state.selectorString}
           handleStringChange={this.handleStringChange}
         />
-
         {/*annotation submission component*/}
         <AnnotationSubmitter
           uri={this.state.uri}
@@ -132,17 +131,15 @@ export default class SelectableScoreApp extends Component {
           onResponse={this.onResponse}
           onRefreshClick={this.onRefreshClick}
         />
-
-        {/* pass anything as buttonContent that you'd like to function as a clickable prev page button */}
+        {/*as buttonContent that you'd like to function as a clickable prev page
+        button */}
         <div className="pageButton">
           <PrevPageButton
             buttonContent={<span>Previous page</span>}
             uri={this.state.uri}
           />
         </div>
-
         <div className="divider"></div>
-
         {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
         <div className="pageButton">
           <NextPageButton

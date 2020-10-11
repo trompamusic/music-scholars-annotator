@@ -20,7 +20,7 @@ export class Addannotation extends React.Component {
           placeholder={this.props.placeholder}
           onChange={this.onChange}
         ></textarea>
-        <div className="enabledSubmitButton">
+        <button className="enabledSubmitButton">
           <SubmitButton
             buttonContent="Submit to your Solid POD"
             submitUri={this.props.submitUri}
@@ -28,7 +28,7 @@ export class Addannotation extends React.Component {
             submitHandlerArgs={this.state.value}
             onResponse={this.props.onResponse}
           />
-        </div>
+        </button>
         <button onClick={this.props.onRefreshClick} className="refreshButton">
           <p>Fetch Annotations</p>
         </button>

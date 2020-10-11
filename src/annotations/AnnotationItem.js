@@ -3,13 +3,12 @@ import PropTypes from "prop-types";
 
 class AnnotationItem extends React.Component {
   render() {
+    const date = this.props.annotation.anno.created;
+    const body = this.props.annotation.anno.body[0].value;
     return (
       <div className="annoList">
-        <p>
-          the content of this annotation is{" "}
-          {this.props.annotation.anno.body[0].value} and it has been created on:{" "}
-          {this.props.annotation.anno.created}
-        </p>
+        <p>The content of this annotation is {body}</p>
+        <p className="date">date created: {date}</p>
       </div>
     );
   }

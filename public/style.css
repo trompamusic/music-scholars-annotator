@@ -12,13 +12,16 @@ body {
   overflow-x: hidden;
   max-height: 150px;
   max-width: 1000px;
-  padding: 5px;
 }
 .annoList {
   display: block;
   border-top: 1px solid #888;
   list-style-type: none;
-  padding: 5px 0;
+}
+
+.date {
+  font-size: x-small;
+  font-style: italic;
 }
 
 .annoList:hover {
@@ -31,26 +34,12 @@ input:focus::placeholder {
 .addAnnotations {
   padding: 5px;
   margin-top: 10px;
-  margin-bottom: 25px;
 }
 
 .textArea {
   height: 100px;
-  width: 600px;
+  width: 625px;
   display: flex;
-}
-
-.submitButton {
-  border: none;
-  background-color: rgb(215, 215, 215);
-  padding: 10px 20px;
-  border-radius: 4px;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
-  display: inline-flex;
-  transition-duration: 0.4s;
-  width: 315px;
 }
 
 .pageButton {
@@ -76,12 +65,12 @@ input:focus::placeholder {
 .enabledSubmitButton {
   border: none;
   background-color: rgb(161, 219, 161);
-  padding: 10px 20px;
+  padding: 16px;
   border-radius: 4px;
   text-align: center;
   font-size: 16px;
   cursor: pointer;
-  display: inline-flex;
+  display: inline-flexbox;
   transition-duration: 0.4s;
   width: 315px;
   opacity: 1;
@@ -91,15 +80,15 @@ input:focus::placeholder {
 .refreshButton {
   border: none;
   background-color: rgb(166, 201, 255);
-  height: 39px;
-  line-height: 5px;
+
   border-radius: 4px;
   text-align: center;
+  display: inline-flexbox;
   font-size: 16px;
   cursor: pointer;
-  display: inline-flex;
   transition-duration: 0.4s;
-  width: 250px;
+  width: 315px;
+
   opacity: 1;
   color: white;
 }
