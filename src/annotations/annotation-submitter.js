@@ -24,6 +24,7 @@ export class AnnotationSubmitter extends React.Component {
           type: "Annotation",
           body: [{ type: "TextualBody", value }], //this takes the user input
           motivation: "describing",
+          created: new Date().toISOString(),
         };
         //no set state nothing that goes up beyond this point
         return {
@@ -39,6 +40,7 @@ export class AnnotationSubmitter extends React.Component {
           type: "Annotation",
           body: [{ id: value }], //this takes the user URI
           motivation: "linking",
+          created: new Date().toISOString(),
         };
         // console.log(anno);
         return {

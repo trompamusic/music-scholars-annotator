@@ -20,7 +20,6 @@ export default function SolidWrapper(props) {
     trompa: "http://vocab.trompamusic.eu/vocab#",
   });
   const userPOD = useLDflexValue("user.storage");
-
   return (
     <div id="authWrapper">
       <LoggedOut>
@@ -43,7 +42,7 @@ export default function SolidWrapper(props) {
         <p>insert your pod URI</p>
         <form>
           <input
-            placeholder="enter pod URI..."
+            placeholder="Enter pod URI..."
             //onChange={this.onChange}
             //value={this.state.userURI}
             name="value"
