@@ -18,13 +18,10 @@ export default function SolidWrapper(props) {
     trompa: "http://vocab.trompamusic.eu/vocab#",
   });
   const userPOD = useLDflexValue("user.storage");
-  const userInput = useRef(null);
-  var testInput = "";
-  const handleClick = () => {
-    testInput = userInput.current;
-    console.log(`${userInput.current.value.value}`);
-    return testInput;
-  };
+  const [userInput, setUserInput] = useState("");
+
+  const handleUserInput = e => setUserInput(e.target.value);
+
   return (
     <div id="authWrapper">
       <LoggedOut>
@@ -46,20 +43,17 @@ export default function SolidWrapper(props) {
         </p>
         <p>insert your pod URI</p>
         <div>
-          <form ref={userInput}>
-            <InputField
-              placeholder="Enter pod URI..."
+            <input
               type="text"
-              name="value"
+              placeholder="Enter pod URI..."
+              onChange = { handleUserInput }
             />
-            <input type="button" value="store ref" onClick={handleClick} />
-          </form>
         </div>
         {typeof userPOD !== "undefined" ? (
           <SelectableScoreApp
             uri={props.uri}
             vrvOptions={props.vrvOptions}
-            submitUri={`${userInput.current.value.value}`}
+            submitUri={ userInput }
           />
         ) : (
           <div>Loading... </div>
