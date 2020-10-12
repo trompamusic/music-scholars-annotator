@@ -18,9 +18,13 @@ export default function SolidWrapper(props) {
     trompa: "http://vocab.trompamusic.eu/vocab#",
   });
   const userPOD = useLDflexValue("user.storage");
-  const [userInput, setUserInput] = useState("");
+  const [userInput, setUserInput] = useState("public/");
 
-  const handleUserInput = e => setUserInput(e.target.value);
+  const handleUserInput = e => { 
+    const containerPath = e.target.value 
+      ? setUserInput(e.target.value) 
+      : "public/" 
+  };
 
   return (
     <div id="authWrapper">
@@ -41,11 +45,11 @@ export default function SolidWrapper(props) {
         <p>
           <LogoutButton className="logoutButton">Log out</LogoutButton>
         </p>
-        <p>insert your pod URI</p>
+        <p>Specify annotation container path inside your Pod:</p>
         <div>
             <input
               type="text"
-              placeholder="Enter pod URI..."
+              placeholder="public/"
               onChange = { handleUserInput }
             />
         </div>
@@ -53,7 +57,7 @@ export default function SolidWrapper(props) {
           <SelectableScoreApp
             uri={props.uri}
             vrvOptions={props.vrvOptions}
-            submitUri={ userInput }
+            submitUri={ `${userPOD}`+userInput }
           />
         ) : (
           <div>Loading... </div>
