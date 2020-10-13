@@ -38,7 +38,7 @@ export class AnnotationSubmitter extends React.Component {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
           }), //this takes the measure id selected by the user
           type: "Annotation",
-          body: [{ id: value }], //this takes the user URI
+          body: [{ id: "value" }], //this takes the user URI
           motivation: "linking",
           created: new Date().toISOString(),
         };

@@ -3,16 +3,17 @@ import AnnotationItem from "./AnnotationItem";
 import PropTypes from "prop-types";
 export class AnnotationList extends React.Component {
   render() {
+    function onClick() {
+      const test = document.getElementsByClassName("focus-");
+      console.log(test);
+    }
     return (
       <div className="listContainer">
         {this.props.entries.map((item) => {
           return (
-            <AnnotationItem
-              key={item["@id"]}
-              annotation={item}
-              id={item["@id"]}
-              target={item.anno.target}
-            />
+            <div className={"focus-" + item["@id"]} onClick={onClick}>
+              <AnnotationItem key={item["@id"]} annotation={item} />
+            </div>
           );
         })}
       </div>
