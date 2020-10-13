@@ -72,7 +72,7 @@ export default class SelectableScoreApp extends Component {
         const fragment = targetId.substr(targetId.lastIndexOf("#"));
         const element = document.querySelector(fragment);
         const annoId = anno["@id"];
-        const annoIdFragment = annoId.substr(annoId.lastIndexOf("/"));
+        const annoIdFragment = annoId.substr(annoId.lastIndexOf("/")+1);
         //checks what's the motivation of the target
         switch (anno.anno.motivation) {
           case "describing":
