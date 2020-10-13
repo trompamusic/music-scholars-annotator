@@ -6,7 +6,7 @@ import SelectableScoreWrapper from "./containers/selectableScoreWrapper";
 // Parameters for SelectableScore component
 // ****************************************
 // MEI_URI: Can be a full URI, e.g. obtained from the TROMPA Contributor Environment
-const MEI_URI = "test.mei";
+//const MEI_URI = "test.mei";
 // vrvOptions: If not supplied to <SelectableScore>, will default to predefined options
 const vrvOptions = {
   scale: 45,
@@ -18,6 +18,6 @@ const vrvOptions = {
 };
 
 ReactDOM.render(
-  <SelectableScoreWrapper uri={MEI_URI} vrvOptions={vrvOptions} />,
+  <SelectableScoreWrapper vrvOptions={vrvOptions} />,
   document.querySelector(".container")
 );

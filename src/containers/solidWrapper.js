@@ -1,6 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import data from "@solid/query-ldflex";
-import InputField from "./InputField.js";
 
 import {
   LoginButton,
@@ -20,10 +19,10 @@ export default function SolidWrapper(props) {
   const userPOD = useLDflexValue("user.storage");
   const [userInput, setUserInput] = useState("public/");
 
-  const handleUserInput = e => { 
-    const containerPath = e.target.value 
-      ? setUserInput(e.target.value) 
-      : "public/" 
+  const handleUserInput = (e) => {
+    const containerPath = e.target.value
+      ? setUserInput(e.target.value)
+      : "public/";
   };
 
   return (
@@ -47,17 +46,13 @@ export default function SolidWrapper(props) {
         </p>
         <p>Specify annotation container path inside your Pod:</p>
         <div>
-            <input
-              type="text"
-              placeholder="public/"
-              onChange = { handleUserInput }
-            />
+          <input type="text" placeholder="public/" onChange={handleUserInput} />
         </div>
         {typeof userPOD !== "undefined" ? (
           <SelectableScoreApp
             uri={props.uri}
             vrvOptions={props.vrvOptions}
-            submitUri={ `${userPOD}`+userInput }
+            submitUri={`${userPOD}` + userInput}
           />
         ) : (
           <div>Loading... </div>
