@@ -15,6 +15,7 @@ export default class SelectableScoreApp extends Component {
       selectorString: ".note",
       currentAnnotation: [],
       toggleAnnotationRetrieval: false,
+      hasContent: true,
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
@@ -72,7 +73,7 @@ export default class SelectableScoreApp extends Component {
         const fragment = targetId.substr(targetId.lastIndexOf("#"));
         const element = document.querySelector(fragment);
         const annoId = anno["@id"];
-        const annoIdFragment = annoId.substr(annoId.lastIndexOf("/")+1);
+        const annoIdFragment = annoId.substr(annoId.lastIndexOf("/") + 1);
         //checks what's the motivation of the target
         switch (anno.anno.motivation) {
           case "describing":
@@ -85,7 +86,7 @@ export default class SelectableScoreApp extends Component {
                 // Embeds the annotation text into this title node
                 title.innerHTML = bodies[0]["value"];
                 element.insertBefore(title, element.firstChild);
-                element.style.fill = "darkorange";
+                element.classList.add(anno.anno.motivation);
                 element.classList.add("focus-" + annoIdFragment);
                 //element.classlist.add or .remove
                 //use clickhandler, use queryselector to iterate across
@@ -104,8 +105,7 @@ export default class SelectableScoreApp extends Component {
               );
               // and turn the cursor into a pointer as a hint that it's clickable
               element.classList.add("focus-" + annoIdFragment);
-              element.style.cursor = "pointer";
-              element.style.fill = "magenta";
+              element.classList.add(anno.anno.motivation);
             }
             break;
           default:

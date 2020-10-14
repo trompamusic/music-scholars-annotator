@@ -19,6 +19,17 @@ body {
   list-style-type: none;
 }
 
+.describing {
+  fill: darkorange;
+}
+
+.linking {
+  fill: magenta;
+  cursor: pointer;
+}
+.inFocus {
+  fill: green !important;
+}
 .date {
   font-size: x-small;
   font-style: italic;
