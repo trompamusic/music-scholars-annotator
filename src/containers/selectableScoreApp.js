@@ -61,6 +61,7 @@ export default class SelectableScoreApp extends Component {
   }
 
   onReceiveAnnotationContainerContent(content) {
+    content = content.filter(c => c["@id"].endsWith(".jsonld"));
     this.setState({ currentAnnotation: content }, () => {
       console.log(this.state.currentAnnotation);
     });
