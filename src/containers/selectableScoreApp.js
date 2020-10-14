@@ -47,22 +47,40 @@ export default class SelectableScoreApp extends Component {
           this.setState({ toggleAnnotationRetrieval: false });
         }
       );
+    } else if (resp.status === 404) {
+      alert("folder not found, check your annotation container path!");
     }
   }
 
   onRefreshClick() {
-    this.setState(
-      {
-        toggleAnnotationRetrieval: true,
-      },
-      () => {
-        this.setState({ toggleAnnotationRetrieval: false });
-      }
-    );
+    if (this.state.hasContent === false) {
+      return;
+    } else
+      this.setState(
+        {
+          toggleAnnotationRetrieval: true,
+        },
+        () => {
+          this.setState({ toggleAnnotationRetrieval: false });
+        }
+      );
   }
 
   onReceiveAnnotationContainerContent(content) {
-    content = content.filter(c => c["@id"].endsWith(".jsonld"));
+    if (!content || !content.length) {
+      alert("no annotation to retrieve");
+      this.setState(
+        {
+          hasContent: false,
+        },
+        () => {
+          console.log(this.state.hasContent);
+          this.setState({ hasContent: true });
+        }
+      );
+    }
+    content = content.filter((c) => c["@id"].endsWith(".jsonld"));
+
     this.setState({ currentAnnotation: content }, () => {
       console.log(this.state.currentAnnotation);
     });
