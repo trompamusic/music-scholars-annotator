@@ -6,7 +6,7 @@ class AnnotationItem extends React.Component {
     const date = this.props.annotation.anno.created;
     const body = this.props.annotation.anno.body[0].value;
     const annoId = this.props.annotation["@id"];
-    const annoIdFragment = annoId.substr(annoId.lastIndexOf("/")+1);
+    const annoIdFragment = annoId.substr(annoId.lastIndexOf("/") + 1);
 
     return (
       <div className={"annoList focus-" + annoIdFragment}>

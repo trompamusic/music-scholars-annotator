@@ -25,6 +25,8 @@ export class AnnotationList extends React.Component {
       inFocusList.forEach((focusElement) =>
         focusElement.classList.add("inFocus")
       );
+
+      document.querySelector(".inFocus").scrollIntoView({ behavior: "smooth" });
     }
 
     return (

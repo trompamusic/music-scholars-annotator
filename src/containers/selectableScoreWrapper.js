@@ -25,9 +25,19 @@ export default class SelectableScoreWrapper extends Component {
   render() {
     return (
       <Provider store={createStoreWithMiddleware(reducers)}>
+        <p>Specify your MEI link here</p>
+        <div>
+          <form>
+            <input type="text" name="value" v placeholder="link..." />
+            <input type="submit" />
+          </form>
+        </div>
         <SolidWrapper
           uri={this.state.MEI_URI}
           vrvOptions={this.props.vrvOptions}
+          handleMEIInput={this.handleMEIInput}
+          onChange={this.onChange}
+          value={this.state.value}
         />
       </Provider>
     );

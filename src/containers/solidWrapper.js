@@ -18,7 +18,6 @@ export default function SolidWrapper(props) {
   });
   const userPOD = useLDflexValue("user.storage");
   const [userInput, setUserInput] = useState("public/");
-
   const handleUserInput = (e) => {
     const containerPath = e.target.value
       ? setUserInput(e.target.value)

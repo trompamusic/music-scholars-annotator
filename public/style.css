@@ -10,11 +10,11 @@ body {
 .listContainer {
   overflow: auto;
   overflow-x: hidden;
-  max-height: 150px;
-  max-width: 1000px;
+  max-height: 151px;
+  max-width: 972px;
 }
 .annoList {
-  display: block;
+  display: flexbox;
   border-top: 1px solid #888;
   list-style-type: none;
 }
