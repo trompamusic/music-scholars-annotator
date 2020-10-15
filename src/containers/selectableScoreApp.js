@@ -115,6 +115,9 @@ export default class SelectableScoreApp extends Component {
         const targetId = jSonTarget.id;
         const fragment = targetId.substr(targetId.lastIndexOf("#"));
         const element = document.querySelector(fragment);
+        if (!element) {
+          return;
+        }
         const annoId = anno["@id"];
         const annoIdFragment = annoId.substr(annoId.lastIndexOf("/") + 1);
         //checks what's the motivation of the target
@@ -131,8 +134,6 @@ export default class SelectableScoreApp extends Component {
                 element.insertBefore(title, element.firstChild);
                 element.classList.add(anno.anno.motivation);
                 element.classList.add("focus-" + annoIdFragment);
-                //element.classlist.add or .remove
-                //use clickhandler, use queryselector to iterate across
               }
             }
             break;
@@ -142,7 +143,7 @@ export default class SelectableScoreApp extends Component {
               element.addEventListener(
                 "click",
                 function () {
-                  window.open(bodies[0]["id"], "_blank");
+                  window.open(bodies[0]["id"]);
                 },
                 true
               );

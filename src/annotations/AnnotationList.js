@@ -1,6 +1,6 @@
 import React from "react";
 import AnnotationItem from "./AnnotationItem";
-import PropTypes from "prop-types";
+import PropTypes, { element } from "prop-types";
 export class AnnotationList extends React.Component {
   render() {
     function onClick(e) {
@@ -26,7 +26,12 @@ export class AnnotationList extends React.Component {
         focusElement.classList.add("inFocus")
       );
 
-      document.querySelector(".inFocus").scrollIntoView({ behavior: "smooth" });
+      var isFocus = document.getElementsByClassName("inFocus");
+      if (isFocus) {
+        document
+          .querySelector(".inFocus")
+          .scrollIntoView({ behavior: "smooth" });
+      }
     }
 
     return (
