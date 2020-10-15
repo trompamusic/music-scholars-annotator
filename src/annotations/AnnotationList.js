@@ -2,7 +2,16 @@ import React from "react";
 import AnnotationItem from "./AnnotationItem";
 import PropTypes from "prop-types";
 export class AnnotationList extends React.Component {
+  state = {
+    order: "desc",
+  };
+
   render() {
+    const { order } = this.state;
+    const sortedAnno = this.props.entries.sort((a, b) => {
+      const isReverse = order === "asc" ? 1 : -1;
+      return isReverse * a.anno.created.localeCompare(b.anno.created);
+    });
     function onClick(e) {
       // figure out this element's focus Id
       const focusId = Array.from(e.currentTarget.classList).filter((c) =>
@@ -31,7 +40,7 @@ export class AnnotationList extends React.Component {
 
     return (
       <div className="listContainer">
-        {this.props.entries.map((item) => {
+        {sortedAnno.map((item) => {
           const annoIdFragment = item["@id"].substr(
             item["@id"].lastIndexOf("/") + 1
           );
