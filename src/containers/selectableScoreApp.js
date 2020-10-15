@@ -11,11 +11,14 @@ export default class SelectableScoreApp extends Component {
     super(props);
     this.state = {
       selection: [],
-      uri: this.props.uri,
+      uri:
+        "https://raw.githubusercontent.com/trompamusic-encodings/Schumann-Clara_Romanze-in-a-Moll/master/Schumann-Clara_Romanze-ohne-Opuszahl_a-Moll.mei",
       selectorString: ".note",
       currentAnnotation: [],
       toggleAnnotationRetrieval: false,
       hasContent: true,
+      isClicked: false,
+      showMEIInput: true,
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
@@ -25,6 +28,9 @@ export default class SelectableScoreApp extends Component {
     this.onReceiveAnnotationContainerContent = this.onReceiveAnnotationContainerContent.bind(
       this
     );
+    this.onSubmitMEI = this.onSubmitMEI.bind(this);
+    this.onMEIInputChange = this.onMEIInputChange.bind(this);
+    this.hideMEIInput = this.hideMEIInput.bind(this);
   }
 
   handleStringChange(selectorString) {
@@ -36,6 +42,24 @@ export default class SelectableScoreApp extends Component {
     /* and anything else your app needs to do when the selection changes */
   }
 
+  onMEIInputChange = (e) => {
+    this.setState({ uri: e.target.value });
+  };
+
+  hideMEIInput() {
+    this.setState({ showMEIInput: !this.state.showMEIInput });
+  }
+
+  onSubmitMEI = () => {
+    this.setState(
+      {
+        isClicked: true,
+      },
+      () => {
+        this.hideMEIInput();
+      }
+    );
+  };
   onResponse(resp) {
     console.log(resp);
     if (resp.status === 201) {
@@ -143,6 +167,23 @@ export default class SelectableScoreApp extends Component {
   render() {
     return (
       <div>
+        {this.state.showMEIInput && (
+          <div>
+            <p>Select your MEI file:</p>
+            <input
+              type="text"
+              onChange={this.onMEIInputChange}
+              placeholder={this.state.uri}
+            />
+            <input
+              className="MEIButton"
+              type="button"
+              onClick={this.onSubmitMEI}
+              value="render"
+            />
+          </div>
+        )}
+
         {/*selector for the component selection*/}
         <SelectionHandler
           selectorString={this.state.selectorString}
@@ -175,18 +216,20 @@ export default class SelectableScoreApp extends Component {
 
         <AnnotationList entries={this.state.currentAnnotation} />
 
-        <SelectableScore
-          uri={this.state.uri}
-          annotationContainerUri={this.props.submitUri}
-          options={this.props.vrvOptions}
-          onSelectionChange={this.handleSelectionChange}
-          selectorString={this.state.selectorString}
-          onScoreUpdate={this.handleScoreUpdate}
-          onReceiveAnnotationContainerContent={
-            this.onReceiveAnnotationContainerContent
-          }
-          toggleAnnotationRetrieval={this.state.toggleAnnotationRetrieval}
-        />
+        {this.state.isClicked === true && (
+          <SelectableScore
+            uri={this.state.uri}
+            annotationContainerUri={this.props.submitUri}
+            options={this.props.vrvOptions}
+            onSelectionChange={this.handleSelectionChange}
+            selectorString={this.state.selectorString}
+            onScoreUpdate={this.handleScoreUpdate}
+            onReceiveAnnotationContainerContent={
+              this.onReceiveAnnotationContainerContent
+            }
+            toggleAnnotationRetrieval={this.state.toggleAnnotationRetrieval}
+          />
+        )}
       </div>
     );
   }
