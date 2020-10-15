@@ -15,13 +15,23 @@ const createStoreWithMiddleware = applyMiddleware(
 export default class SelectableScoreWrapper extends Component {
   constructor(props) {
     super(props);
+    // MEI_URI: Can be a full URI, e.g. obtained from the TROMPA Contributor Environment
+    this.state = {
+      MEI_URI: "test.mei",
+    };
     this.store = createStore(reducers);
   }
 
   render() {
     return (
       <Provider store={createStoreWithMiddleware(reducers)}>
-        <SolidWrapper uri={this.props.uri} vrvOptions={this.props.vrvOptions} />
+        <SolidWrapper
+          uri={this.state.MEI_URI}
+          vrvOptions={this.props.vrvOptions}
+          handleMEIInput={this.handleMEIInput}
+          onChange={this.onChange}
+          value={this.state.value}
+        />
       </Provider>
     );
   }

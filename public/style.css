@@ -10,15 +10,42 @@ body {
 .listContainer {
   overflow: auto;
   overflow-x: hidden;
-  max-height: 150px;
-  max-width: 1000px;
+  max-height: 151px;
+  max-width: 972px;
 }
 .annoList {
-  display: block;
+  display: flexbox;
   border-top: 1px solid #888;
   list-style-type: none;
 }
 
+.describing {
+  fill: darkorange;
+}
+.MEIButton {
+  background-color: rgb(241, 145, 0);
+  border: none;
+  padding: 10px 10px;
+  text-align: center;
+  font-size: 15px;
+  cursor: pointer;
+  display: inline-block;
+  transition-duration: 0.4s;
+  opacity: 0.5;
+  color: white;
+  border-radius: 4px;
+}
+
+.MEIButton:hover {
+  opacity: 1;
+}
+.linking {
+  fill: magenta;
+  cursor: pointer;
+}
+.inFocus {
+  fill: green !important;
+}
 .date {
   font-size: x-small;
   font-style: italic;

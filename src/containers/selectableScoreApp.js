@@ -11,10 +11,14 @@ export default class SelectableScoreApp extends Component {
     super(props);
     this.state = {
       selection: [],
-      uri: this.props.uri,
+      uri:
+        "https://raw.githubusercontent.com/trompamusic-encodings/Schumann-Clara_Romanze-in-a-Moll/master/Schumann-Clara_Romanze-ohne-Opuszahl_a-Moll.mei",
       selectorString: ".note",
       currentAnnotation: [],
       toggleAnnotationRetrieval: false,
+      hasContent: true,
+      isClicked: false,
+      showMEIInput: true,
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
@@ -24,6 +28,9 @@ export default class SelectableScoreApp extends Component {
     this.onReceiveAnnotationContainerContent = this.onReceiveAnnotationContainerContent.bind(
       this
     );
+    this.onSubmitMEI = this.onSubmitMEI.bind(this);
+    this.onMEIInputChange = this.onMEIInputChange.bind(this);
+    this.hideMEIInput = this.hideMEIInput.bind(this);
   }
 
   handleStringChange(selectorString) {
@@ -35,6 +42,24 @@ export default class SelectableScoreApp extends Component {
     /* and anything else your app needs to do when the selection changes */
   }
 
+  onMEIInputChange = (e) => {
+    this.setState({ uri: e.target.value });
+  };
+
+  hideMEIInput() {
+    this.setState({ showMEIInput: !this.state.showMEIInput });
+  }
+
+  onSubmitMEI = () => {
+    this.setState(
+      {
+        isClicked: true,
+      },
+      () => {
+        this.hideMEIInput();
+      }
+    );
+  };
   onResponse(resp) {
     console.log(resp);
     if (resp.status === 201) {
@@ -46,21 +71,40 @@ export default class SelectableScoreApp extends Component {
           this.setState({ toggleAnnotationRetrieval: false });
         }
       );
+    } else if (resp.status === 404) {
+      alert("folder not found, check your annotation container path!");
     }
   }
 
   onRefreshClick() {
-    this.setState(
-      {
-        toggleAnnotationRetrieval: true,
-      },
-      () => {
-        this.setState({ toggleAnnotationRetrieval: false });
-      }
-    );
+    if (this.state.hasContent === false) {
+      return;
+    } else
+      this.setState(
+        {
+          toggleAnnotationRetrieval: true,
+        },
+        () => {
+          this.setState({ toggleAnnotationRetrieval: false });
+        }
+      );
   }
 
   onReceiveAnnotationContainerContent(content) {
+    if (!content || !content.length) {
+      alert("no annotation to retrieve");
+      this.setState(
+        {
+          hasContent: false,
+        },
+        () => {
+          console.log(this.state.hasContent);
+          this.setState({ hasContent: true });
+        }
+      );
+    }
+    content = content.filter((c) => c["@id"].endsWith(".jsonld"));
+
     this.setState({ currentAnnotation: content }, () => {
       console.log(this.state.currentAnnotation);
     });
@@ -71,6 +115,11 @@ export default class SelectableScoreApp extends Component {
         const targetId = jSonTarget.id;
         const fragment = targetId.substr(targetId.lastIndexOf("#"));
         const element = document.querySelector(fragment);
+        if (!element) {
+          return;
+        }
+        const annoId = anno["@id"];
+        const annoIdFragment = annoId.substr(annoId.lastIndexOf("/") + 1);
         //checks what's the motivation of the target
         switch (anno.anno.motivation) {
           case "describing":
@@ -83,7 +132,8 @@ export default class SelectableScoreApp extends Component {
                 // Embeds the annotation text into this title node
                 title.innerHTML = bodies[0]["value"];
                 element.insertBefore(title, element.firstChild);
-                element.style.fill = "darkorange";
+                element.classList.add(anno.anno.motivation);
+                element.classList.add("focus-" + annoIdFragment);
               }
             }
             break;
@@ -93,13 +143,20 @@ export default class SelectableScoreApp extends Component {
               element.addEventListener(
                 "click",
                 function () {
-                  window.open(bodies[0]["id"], "_blank");
+                  //appends http fragment to avoid partial linking error
+                  const URL = bodies[0]["id"];
+                  if (URL.startsWith("http")) {
+                    window.open(URL, "_blank");
+                  } else {
+                    const appendURL = "https://" + URL;
+                    window.open(appendURL, "_blank");
+                  }
                 },
                 true
               );
               // and turn the cursor into a pointer as a hint that it's clickable
-              element.style.cursor = "pointer";
-              element.style.fill = "magenta";
+              element.classList.add("focus-" + annoIdFragment);
+              element.classList.add(anno.anno.motivation);
             }
             break;
           default:
@@ -118,6 +175,23 @@ export default class SelectableScoreApp extends Component {
   render() {
     return (
       <div>
+        {this.state.showMEIInput && (
+          <div>
+            <p>Select your MEI file:</p>
+            <input
+              type="text"
+              onChange={this.onMEIInputChange}
+              placeholder={this.state.uri}
+            />
+            <input
+              className="MEIButton"
+              type="button"
+              onClick={this.onSubmitMEI}
+              value="render"
+            />
+          </div>
+        )}
+
         {/*selector for the component selection*/}
         <SelectionHandler
           selectorString={this.state.selectorString}
@@ -150,18 +224,20 @@ export default class SelectableScoreApp extends Component {
 
         <AnnotationList entries={this.state.currentAnnotation} />
 
-        <SelectableScore
-          uri={this.state.uri}
-          annotationContainerUri={this.props.submitUri}
-          options={this.props.vrvOptions}
-          onSelectionChange={this.handleSelectionChange}
-          selectorString={this.state.selectorString}
-          onScoreUpdate={this.handleScoreUpdate}
-          onReceiveAnnotationContainerContent={
-            this.onReceiveAnnotationContainerContent
-          }
-          toggleAnnotationRetrieval={this.state.toggleAnnotationRetrieval}
-        />
+        {this.state.isClicked === true && (
+          <SelectableScore
+            uri={this.state.uri}
+            annotationContainerUri={this.props.submitUri}
+            options={this.props.vrvOptions}
+            onSelectionChange={this.handleSelectionChange}
+            selectorString={this.state.selectorString}
+            onScoreUpdate={this.handleScoreUpdate}
+            onReceiveAnnotationContainerContent={
+              this.onReceiveAnnotationContainerContent
+            }
+            toggleAnnotationRetrieval={this.state.toggleAnnotationRetrieval}
+          />
+        )}
       </div>
     );
   }
