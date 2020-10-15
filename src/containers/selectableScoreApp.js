@@ -115,15 +115,6 @@ export default class SelectableScoreApp extends Component {
         const targetId = jSonTarget.id;
         const fragment = targetId.substr(targetId.lastIndexOf("#"));
         const element = document.querySelector(fragment);
-
-        // const url = Array.from(bodies[0]["id"]).filter((c) =>
-        //   c.startsWith("http")
-        // );
-        // if (url.length < 1) {
-        //   bodies[0]["id"].concat("https://");
-        //   return url;
-        // }
-        // console.log(url);
         if (!element) {
           return;
         }
@@ -152,19 +143,14 @@ export default class SelectableScoreApp extends Component {
               element.addEventListener(
                 "click",
                 function () {
-                  var URL = bodies[0]["id"];
+                  //appends http fragment to avoid partial linking error
+                  const URL = bodies[0]["id"];
                   if (URL.startsWith("http")) {
                     window.open(URL, "_blank");
                   } else {
-                    var appendURL = "https://" + URL;
+                    const appendURL = "https://" + URL;
                     window.open(appendURL, "_blank");
                   }
-                  // const URL = bodies[0]["id"].startsWith("http");
-                  // if (URL === false) {
-                  //   "https://" + bodies[0]["id"];
-                  //   return URL;
-                  // }
-                  // console.log(URL);
                 },
                 true
               );
