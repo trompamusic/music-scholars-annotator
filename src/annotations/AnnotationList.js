@@ -26,8 +26,9 @@ export class AnnotationList extends React.Component {
         focusElement.classList.add("inFocus")
       );
 
-      var isFocus = document.getElementsByClassName("inFocus");
-      if (isFocus) {
+      if (!inFocusList) {
+        return;
+      } else {
         document
           .querySelector(".inFocus")
           .scrollIntoView({ behavior: "smooth" });
