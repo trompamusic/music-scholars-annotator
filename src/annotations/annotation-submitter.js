@@ -74,7 +74,7 @@ export class AnnotationSubmitter extends React.Component {
               type="radio"
               value="linking"
               name="annotationType"
-              placeholder="instert your URI link..."
+              placeholder="insert your URI link..."
               onChange={this.onChange}
             />
             Linking
