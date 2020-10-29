@@ -11,8 +11,7 @@ export default class SelectableScoreApp extends Component {
     super(props);
     this.state = {
       selection: [],
-      uri:
-        "https://raw.githubusercontent.com/trompamusic-encodings/Schumann-Clara_Romanze-in-a-Moll/master/Schumann-Clara_Romanze-ohne-Opuszahl_a-Moll.mei",
+      uri: "Mahler.mei",
       selectorString: ".note",
       currentAnnotation: [],
       toggleAnnotationRetrieval: false,

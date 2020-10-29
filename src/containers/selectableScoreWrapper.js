@@ -17,7 +17,7 @@ export default class SelectableScoreWrapper extends Component {
     super(props);
     // MEI_URI: Can be a full URI, e.g. obtained from the TROMPA Contributor Environment
     this.state = {
-      MEI_URI: "test.mei",
+      MEI_URI: "Mahler.mei",
     };
     this.store = createStore(reducers);
   }
