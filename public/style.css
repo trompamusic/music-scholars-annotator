@@ -12,11 +12,28 @@ body {
   overflow-x: hidden;
   max-height: 151px;
   max-width: 972px;
+  display: flexbox;
 }
+
+.replyButton {
+  border: 1px solid white;
+  background-color: rgb(218, 218, 218);
+  padding: 5px 12px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+}
+
 .annoList {
   display: flexbox;
   border-top: 1px solid #888;
   list-style-type: none;
+  position: relative;
 }
 
 .describing {
@@ -49,6 +66,7 @@ body {
 .date {
   font-size: x-small;
   font-style: italic;
+  vertical-align: middle;
 }
 
 .annoList:hover {

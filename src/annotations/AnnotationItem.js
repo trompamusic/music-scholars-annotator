@@ -8,11 +8,13 @@ class AnnotationItem extends React.Component {
     const bodyL = this.props.annotation.anno.body[0].id;
     const annoId = this.props.annotation["@id"];
     const annoIdFragment = annoId.substr(annoId.lastIndexOf("/") + 1);
-
     return (
       <div className={"annoList focus-" + annoIdFragment}>
         <p>The content of this annotation is {bodyD || bodyL}</p>
-        <p className="date">date created: {date}</p>
+        <span className="date">date created: {date}</span>
+        <button className="replyButton" name="replyButton">
+          Reply
+        </button>
       </div>
     );
   }

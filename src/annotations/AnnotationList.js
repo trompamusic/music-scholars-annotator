@@ -12,30 +12,39 @@ export class AnnotationList extends React.Component {
       const isReverse = order === "asc" ? 1 : -1;
       return isReverse * a.anno.created.localeCompare(b.anno.created);
     });
+
     function onClick(e) {
-      // figure out this element's focus Id
-      const focusId = Array.from(e.currentTarget.classList).filter((c) =>
-        c.startsWith("focus-")
-      );
-      if (focusId.length > 1) {
-        console.warn("Element with multiple focus Ids!", e.target);
+      if (e.target.name === "listElement") {
+        // figure out this element's focus Id
+        const focusId = Array.from(e.currentTarget.classList).filter((c) =>
+          c.startsWith("focus-")
+        );
+        if (focusId.length > 1) {
+          console.warn("Element with multiple focus Ids!", e.target);
+        }
+        // remove focus off previous inFocus elements (now outdated)
+        const noLongerInFocusList = Array.from(
+          document.getElementsByClassName("inFocus")
+        );
+        noLongerInFocusList.forEach((noFocusElement) =>
+          noFocusElement.classList.remove("inFocus")
+        );
+        // add focus to newly inFocus elements
+        const inFocusList = Array.from(
+          document.getElementsByClassName(focusId[0])
+        );
+        inFocusList.forEach((focusElement) =>
+          focusElement.classList.add("inFocus")
+        );
+        // scroll page to highlighted item
+        document
+          .querySelector(".inFocus")
+          .scrollIntoView({ behavior: "smooth" });
+      } else {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log("console output");
       }
-      // remove focus off previous inFocus elements (now outdated)
-      const noLongerInFocusList = Array.from(
-        document.getElementsByClassName("inFocus")
-      );
-      noLongerInFocusList.forEach((noFocusElement) =>
-        noFocusElement.classList.remove("inFocus")
-      );
-      // add focus to newly inFocus elements
-      const inFocusList = Array.from(
-        document.getElementsByClassName(focusId[0])
-      );
-      inFocusList.forEach((focusElement) =>
-        focusElement.classList.add("inFocus")
-      );
-      // scroll page to highlighted item
-      document.querySelector(".inFocus").scrollIntoView({ behavior: "smooth" });
     }
 
     return (
@@ -49,6 +58,7 @@ export class AnnotationList extends React.Component {
               className={"focus-" + annoIdFragment}
               onClick={onClick}
               key={item["@id"]}
+              name="listElement"
             >
               <AnnotationItem annotation={item} />
             </div>
