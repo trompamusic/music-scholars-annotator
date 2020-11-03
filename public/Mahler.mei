@@ -448,7 +448,7 @@
                            <rest xml:id="rest-0000000099690633" dur.ppq="24" dur="8" />
                         </layer>
                      </staff>
-                     <dir xml:id="dir-0000000917775316" place="above" staff="1" tstamp="1.000000" vgrp="200">Recht gemächlich.</dir>
+                     <dir xml:id="dir-0000000917775316" place="above" staff="1" tstamp="1.000000" vgrp="100">Recht gemächlich.</dir>
                      <dir xml:id="dir-0000001486728965" place="above" staff="1" tstamp="1.000000" vgrp="200">(<rend xml:id="rend-0000001819530397" fontweight="bold">Haupttempo</rend>
                         <rend xml:id="rend-0000000455173490" fontweight="normal">.)</rend>
                      </dir>
@@ -10890,7 +10890,7 @@
                      <dir xml:id="dir-0000001051803125" place="above" staff="3" tstamp="1.000000" vgrp="200">Tempo I.</dir>
                      <dynam xml:id="dynam-0000000190202369" place="below" staff="3" tstamp="1.000000" vgrp="40">p</dynam>
                      <dir xml:id="dir-0000001718173457" place="below" staff="3" tstamp="1.000000" vgrp="40">Die Vorschläge sehr kurz.</dir>
-                     <dir xml:id="dir-0000001819213136" place="below" staff="3" tstamp="1.000000" vgrp="40">
+                     <dir xml:id="dir-0000001819213136" place="below" staff="3" tstamp="1.000000" vgrp="41">
                         <rend xml:id="rend-0000001398576423" fontstyle="italic">staccato</rend>
                      </dir>
                      <slur xml:id="slur-0000001426081198" startid="#note-0000000520228834" endid="#chord-0000001754300075" curvedir="below" />
