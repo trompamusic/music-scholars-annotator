@@ -12,7 +12,15 @@ export class AnnotationList extends React.Component {
       const isReverse = order === "asc" ? 1 : -1;
       return isReverse * a.anno.created.localeCompare(b.anno.created);
     });
-
+    // function buttonClick() {
+    //   sortedAnno.map((item) => {
+    //     const annoIdFragment = item["@id"].substr(
+    //       item["@id"].lastIndexOf("/") + 1
+    //     );
+    //     console.log(item);
+    //     return item;
+    //   });
+    // }
     function onClick(e) {
       if (e.target.name === "listElement") {
         // figure out this element's focus Id
@@ -43,7 +51,8 @@ export class AnnotationList extends React.Component {
       } else {
         e.preventDefault();
         e.stopPropagation();
-        console.log("console output");
+        console.log("need to change structure, this is not working");
+        //buttonClick();
       }
     }
 
