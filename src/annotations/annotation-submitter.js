@@ -1,13 +1,12 @@
 import React from "react";
 import Addannotations from "./Addannotation.js";
 export class AnnotationSubmitter extends React.Component {
-  state = {
-   // annotationType: "",
-    placeholder: "", //placeholder text for the input field
-  };
+  // state = {
+  //  // annotationType: "",
+  //   placeholder: "", //placeholder text for the input field
+  // };
   // onChange = (e) =>
   //   this.setState({
-  //     annotationType: e.target.value,
   //     placeholder: e.target.placeholder,
   //   });
 
@@ -47,9 +46,19 @@ export class AnnotationSubmitter extends React.Component {
           anno,
         };
 
-        case "reply":
-          console.log("test");
-          break
+        case "replying":
+          anno = {
+            "@context": "http://www.w3.org/ns/anno.jsonld",
+            target: this.props.replyAnnotationTarget, //this takes the measure id selected by the user
+            type: "Annotation",
+            body: [{ type: "TextualBody", value }], //this takes the user input
+            motivation: "replying",
+            created: new Date().toISOString(),
+          };
+          //no set state nothing that goes up beyond this point
+          return {
+            anno,
+          };
 
       default:
         console.log(
@@ -86,10 +95,11 @@ export class AnnotationSubmitter extends React.Component {
           <div className="addAnnotations">
             <Addannotations
               submitUri={this.props.submitUri}
-              placeholder={this.state.placeholder}
+              placeholder={this.props.placeholder}
               submitHandler={this.submitHandler}
               onResponse={this.props.onResponse}
               onRefreshClick={this.props.onRefreshClick}
+              buttonContent= {this.props.buttonContent}
             />
           </div>
         </div>

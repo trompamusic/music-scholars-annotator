@@ -10,8 +10,9 @@ class AnnotationItem extends React.Component {
   onClick(e){
     e.preventDefault();
     e.stopPropagation();
-    console.log("test");
-    this.props.onAnnoReplyHandler()
+    console.log(this.props.annotation.anno.target);
+    const replyTarget = this.props.annotation.anno.target
+    this.props.onAnnoReplyHandler(replyTarget)
   }
   
   render() {
@@ -19,10 +20,10 @@ class AnnotationItem extends React.Component {
     const date = this.props.annotation.anno.created;
     const bodyD = this.props.annotation.anno.body[0].value;
     const bodyL = this.props.annotation.anno.body[0].id;
-    const annoId = this.props.annotation["@id"];
+    //const annoId = this.props.annotation["@id"];
     //const annoIdFragment = annoId.substr(annoId.lastIndexOf("/") + 1);
     return (
-      <div className="annoList">
+      <div className="annoItem">
         <p>The content of this annotation is {bodyD || bodyL}</p>
         <span className="date">date created: {date}</span>
         <button className="replyButton" name="replyButton" onClick={this.onClick}>

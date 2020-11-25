@@ -16,9 +16,16 @@ body {
   right: 0;
 }
 
+.replyButton:hover {
+  background-color: gray;
+}
+
+.replyButton:active {
+  background-color: rgb(56, 55, 55);
+}
+
 .selected {
   fill: rgb(35, 144, 194);
-  stroke: rgb(35, 144, 194);
 }
 .listContainer {
   overflow: auto;
@@ -28,11 +35,15 @@ body {
   display: flexbox;
 }
 
-.annoList {
+.annoItem {
   display: flexbox;
   border-top: 1px solid #888;
   list-style-type: none;
   position: relative;
+}
+
+.replying {
+  fill: blue;
 }
 
 .describing {
@@ -56,6 +67,14 @@ body {
   border-radius: 4px;
 }
 
+,
+.MEIButton:active {
+  background-color: rgb(182, 118, 0);
+}
+
+.forReply {
+  fill: blue !important;
+}
 .MEIButton:hover {
   opacity: 1;
 }
@@ -72,7 +91,7 @@ body {
   vertical-align: middle;
 }
 
-.annoList:hover {
+.annoItem:hover {
   background: #eee;
 }
 input:focus::placeholder {
@@ -146,9 +165,17 @@ input:focus::placeholder {
   color: white;
 }
 
+.refreshButton:active {
+  background-color: #005db4;
+}
+
 .enabledSubmitButton:hover {
   background-color: #4caf50;
   color: white;
+}
+
+.enabledSubmitButton:active {
+  background-color: forestgreen;
 }
 
 .disabledSubmitButton {

@@ -12,8 +12,11 @@ export default class SelectableScoreApp extends Component {
     this.state = {
       selection: [],
       annotationType: "",
+      placeholder: "",
       uri: "Mahler.mei",
       selectorString: ".note",
+      buttonContent: "Submit to your Solid POD",
+      replyAnnotationTarget: [],
       currentAnnotation: [],
       toggleAnnotationRetrieval: false,
       hasContent: true,
@@ -38,6 +41,8 @@ export default class SelectableScoreApp extends Component {
   onAnnoTypeChange = (e) =>
     this.setState({
       annotationType: e.target.value,
+      placeholder: e.target.placeholder,
+      buttonContent: "Submit to your Solid POD"
     });
 
   handleStringChange(selectorString) {
@@ -57,8 +62,11 @@ export default class SelectableScoreApp extends Component {
     this.setState({ showMEIInput: !this.state.showMEIInput });
   }
 
-  onAnnoReplyHandler(){
-    this.setState({annotationType: "reply"}, ()=> {console.log(this.state.annotationType)})
+  onAnnoReplyHandler(replyTarget){
+    this.setState({annotationType: "replying", 
+    placeholder: "you are replying to the selected annotation",
+    buttonContent: "Reply to selected Solid annotation",
+  replyAnnotationTarget: replyTarget})
   }
 
   onSubmitMEI = () => {
@@ -149,6 +157,21 @@ export default class SelectableScoreApp extends Component {
               }
             }
             break;
+            case "replying":
+              if (bodies.length) {
+                if ("value" in bodies[0]) {
+                  const title = document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "title"
+                  );
+                  // Embeds the annotation text into this title node
+                  title.innerHTML = bodies[0]["value"];
+                  element.insertBefore(title, element.firstChild);
+                  element.classList.add(anno.anno.motivation);
+                  element.classList.add("focus-" + annoIdFragment);
+                }
+              }
+              break;
           case "linking":
             if (bodies.length) {
               // make the target clickable, linking to the (first) body URI
@@ -218,6 +241,9 @@ export default class SelectableScoreApp extends Component {
           onResponse={this.onResponse}
           onRefreshClick={this.onRefreshClick}
           annotationType={this.state.annotationType}
+          placeholder={this.state.placeholder}
+          replyAnnotationTarget={this.state.replyAnnotationTarget}
+          buttonContent= {this.state.buttonContent}
         />
         {/*as buttonContent that you'd like to function as a clickable prev page
         button */}

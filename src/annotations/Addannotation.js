@@ -5,8 +5,8 @@ export class Addannotation extends React.Component {
   state = {
     value: "",
     target: [],
-  };
-
+    
+  }; 
   onChange = (e) => this.setState({ value: e.target.value });
 
   render() {
@@ -22,7 +22,7 @@ export class Addannotation extends React.Component {
         ></textarea>
         <button className="enabledSubmitButton">
           <SubmitButton
-            buttonContent="Submit to your Solid POD"
+            buttonContent={this.props.buttonContent}
             submitUri={this.props.submitUri}
             submitHandler={this.props.submitHandler}
             submitHandlerArgs={this.state.value}
