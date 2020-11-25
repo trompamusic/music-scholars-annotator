@@ -2,6 +2,7 @@ import React from "react";
 import AnnotationItem from "./AnnotationItem";
 import PropTypes from "prop-types";
 export class AnnotationList extends React.Component {
+  
   state = {
     order: "desc",
   };
@@ -12,17 +13,9 @@ export class AnnotationList extends React.Component {
       const isReverse = order === "asc" ? 1 : -1;
       return isReverse * a.anno.created.localeCompare(b.anno.created);
     });
-    // function buttonClick() {
-    //   sortedAnno.map((item) => {
-    //     const annoIdFragment = item["@id"].substr(
-    //       item["@id"].lastIndexOf("/") + 1
-    //     );
-    //     console.log(item);
-    //     return item;
-    //   });
-    // }
+   
     function onClick(e) {
-      if (e.target.name === "listElement") {
+      e.preventDefault();
         // figure out this element's focus Id
         const focusId = Array.from(e.currentTarget.classList).filter((c) =>
           c.startsWith("focus-")
@@ -48,12 +41,7 @@ export class AnnotationList extends React.Component {
         document
           .querySelector(".inFocus")
           .scrollIntoView({ behavior: "smooth" });
-      } else {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log("need to change structure, this is not working");
-        //buttonClick();
-      }
+      
     }
 
     return (
@@ -67,9 +55,9 @@ export class AnnotationList extends React.Component {
               className={"focus-" + annoIdFragment}
               onClick={onClick}
               key={item["@id"]}
-              name="listElement"
             >
-              <AnnotationItem annotation={item} />
+              <AnnotationItem annotation={item}
+              onAnnoReplyHandler={this.props.onAnnoReplyHandler} />
             </div>
           );
         })}

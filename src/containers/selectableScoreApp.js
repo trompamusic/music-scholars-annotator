@@ -11,6 +11,7 @@ export default class SelectableScoreApp extends Component {
     super(props);
     this.state = {
       selection: [],
+      annotationType: "",
       uri: "Mahler.mei",
       selectorString: ".note",
       currentAnnotation: [],
@@ -30,7 +31,14 @@ export default class SelectableScoreApp extends Component {
     this.onSubmitMEI = this.onSubmitMEI.bind(this);
     this.onMEIInputChange = this.onMEIInputChange.bind(this);
     this.hideMEIInput = this.hideMEIInput.bind(this);
+    this.onAnnoTypeChange = this.onAnnoTypeChange.bind(this);
+    this.onAnnoReplyHandler = this.onAnnoReplyHandler.bind(this);
   }
+
+  onAnnoTypeChange = (e) =>
+    this.setState({
+      annotationType: e.target.value,
+    });
 
   handleStringChange(selectorString) {
     this.setState({ selectorString });
@@ -49,6 +57,10 @@ export default class SelectableScoreApp extends Component {
     this.setState({ showMEIInput: !this.state.showMEIInput });
   }
 
+  onAnnoReplyHandler(){
+    this.setState({annotationType: "reply"}, ()=> {console.log(this.state.annotationType)})
+  }
+
   onSubmitMEI = () => {
     this.setState(
       {
@@ -59,6 +71,7 @@ export default class SelectableScoreApp extends Component {
       }
     );
   };
+
   onResponse(resp) {
     console.log(resp);
     if (resp.status === 201) {
@@ -198,11 +211,13 @@ export default class SelectableScoreApp extends Component {
         />
         {/*annotation submission component*/}
         <AnnotationSubmitter
+          onAnnoTypeChange={this.onAnnoTypeChange}
           uri={this.state.uri}
           submitUri={this.props.submitUri}
           selection={this.state.selection}
           onResponse={this.onResponse}
           onRefreshClick={this.onRefreshClick}
+          annotationType={this.state.annotationType}
         />
         {/*as buttonContent that you'd like to function as a clickable prev page
         button */}
@@ -221,7 +236,10 @@ export default class SelectableScoreApp extends Component {
           />
         </div>
 
-        <AnnotationList entries={this.state.currentAnnotation} />
+        <AnnotationList 
+        entries={this.state.currentAnnotation}
+        onAnnoReplyHandler={this.onAnnoReplyHandler} 
+        />
 
         {this.state.isClicked === true && (
           <SelectableScore

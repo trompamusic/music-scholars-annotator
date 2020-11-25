@@ -2,19 +2,19 @@ import React from "react";
 import Addannotations from "./Addannotation.js";
 export class AnnotationSubmitter extends React.Component {
   state = {
-    annotationType: "",
+   // annotationType: "",
     placeholder: "", //placeholder text for the input field
   };
-  onChange = (e) =>
-    this.setState({
-      annotationType: e.target.value,
-      placeholder: e.target.placeholder,
-    });
+  // onChange = (e) =>
+  //   this.setState({
+  //     annotationType: e.target.value,
+  //     placeholder: e.target.placeholder,
+  //   });
 
   submitHandler = (value) => {
     //adds different annotations based on selection
     var anno = "";
-    switch (this.state.annotationType) {
+    switch (this.props.annotationType) {
       case "describing":
         anno = {
           "@context": "http://www.w3.org/ns/anno.jsonld",
@@ -47,6 +47,10 @@ export class AnnotationSubmitter extends React.Component {
           anno,
         };
 
+        case "reply":
+          console.log("test");
+          break
+
       default:
         console.log(
           "no annotation found, have you selected the annotation type?"
@@ -65,7 +69,7 @@ export class AnnotationSubmitter extends React.Component {
               name="annotationType"
               value="describing"
               placeholder="Add your annotation..."
-              onChange={this.onChange}
+              onChange={this.props.onAnnoTypeChange}
             />
             Describing
           </label>
@@ -75,7 +79,7 @@ export class AnnotationSubmitter extends React.Component {
               value="linking"
               name="annotationType"
               placeholder="insert your URI link..."
-              onChange={this.onChange}
+              onChange={this.props.onAnnoTypeChange}
             />
             Linking
           </label>
