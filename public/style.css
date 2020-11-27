@@ -25,14 +25,36 @@ body {
 }
 
 .selected {
-  fill: rgb(35, 144, 194);
+  fill: rgb(35, 144, 194) !important;
 }
+
+.replying {
+  fill: blue !important;
+}
+
+.describing {
+  fill: darkorange;
+}
+
+.linking {
+  fill: magenta;
+  cursor: pointer;
+}
+
+.inFocus {
+  fill: green !important;
+}
+
 .listContainer {
   overflow: auto;
   overflow-x: hidden;
   max-height: 151px;
   max-width: 972px;
   display: flexbox;
+}
+
+.App {
+  padding-bottom: 5px;
 }
 
 .annoItem {
@@ -42,17 +64,16 @@ body {
   position: relative;
 }
 
-.replying {
-  fill: blue;
+.annoItem:hover {
+  background: #eee;
 }
 
-.describing {
-  fill: darkorange;
+.date {
+  font-size: x-small;
+  font-style: italic;
+  vertical-align: middle;
 }
 
-.focus- {
-  position: static;
-}
 .MEIButton {
   background-color: rgb(241, 145, 0);
   border: none;
@@ -67,35 +88,12 @@ body {
   border-radius: 4px;
 }
 
-,
 .MEIButton:active {
   background-color: rgb(182, 118, 0);
 }
 
-.forReply {
-  fill: blue !important;
-}
 .MEIButton:hover {
   opacity: 1;
-}
-.linking {
-  fill: magenta;
-  cursor: pointer;
-}
-.inFocus {
-  fill: green !important;
-}
-.date {
-  font-size: x-small;
-  font-style: italic;
-  vertical-align: middle;
-}
-
-.annoItem:hover {
-  background: #eee;
-}
-input:focus::placeholder {
-  color: transparent;
 }
 
 .addAnnotations {
@@ -121,12 +119,12 @@ input:focus::placeholder {
   transition-duration: 0.4s;
 }
 
-.form {
-  display: inline-block;
-}
-
 .pageButton:hover {
   background-color: rgb(175, 175, 175);
+}
+
+.form {
+  display: inline-block;
 }
 
 .enabledSubmitButton {
@@ -142,6 +140,15 @@ input:focus::placeholder {
   width: 315px;
   opacity: 1;
   color: white;
+}
+
+.enabledSubmitButton:hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+.enabledSubmitButton:active {
+  background-color: forestgreen;
 }
 
 .refreshButton {
@@ -169,53 +176,10 @@ input:focus::placeholder {
   background-color: #005db4;
 }
 
-.enabledSubmitButton:hover {
-  background-color: #4caf50;
-  color: white;
-}
-
-.enabledSubmitButton:active {
-  background-color: forestgreen;
-}
-
-.disabledSubmitButton {
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
-  display: inline-block;
-  transition-duration: 0.4s;
-  width: 315px;
-  background-color: rgb(215, 215, 215);
-  pointer-events: none;
-  opacity: 0.4;
-}
-
 .divider {
   width: 775px;
   height: auto;
   display: inline-block;
-}
-
-.selectionButton {
-  border: none;
-  background-color: rgb(215, 215, 215);
-  padding: 10px 12px;
-  text-align: center;
-  font-size: 14px;
-  cursor: pointer;
-  display: inline-block;
-  transition-duration: 0.4s;
-}
-
-.selectionButton:hover:disabled {
-  cursor: not-allowed;
-}
-
-.selectionButton:hover:enabled {
-  background-color: rgb(175, 175, 175);
 }
 
 .logoutButton {
@@ -253,4 +217,48 @@ input:focus::placeholder {
 
 .loginButton:hover {
   opacity: 1;
+}
+
+.selectionLegend {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: rgb(35, 144, 194);
+  margin-right: 2px;
+}
+
+.descriptionLegend {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: orange;
+  margin-left: 10px;
+  margin-right: 2px;
+}
+
+.linkingLegend {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: magenta;
+  margin-left: 10px;
+  margin-right: 2px;
+}
+
+.replyLegend {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: blue;
+  margin-left: 10px;
+  margin-right: 2px;
+}
+
+.focusLegend {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: green;
+  margin-left: 10px;
+  margin-right: 2px;
 }

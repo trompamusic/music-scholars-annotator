@@ -5,13 +5,31 @@ export class Addannotation extends React.Component {
   state = {
     value: "",
     target: [],
-    
-  }; 
+  };
   onChange = (e) => this.setState({ value: e.target.value });
-
+  onClick = () => {
+    this.setState({ value: "", target: [] });
+  };
   render() {
     return (
       <div>
+        <h4>Annotation legend</h4>
+
+        <span className="selectionLegend" />
+        <span>currently selected</span>
+
+        <span className="descriptionLegend" />
+        <span>descriptive annotation</span>
+
+        <span className="linkingLegend" />
+        <span>linking annotation</span>
+
+        <span className="replyLegend" />
+        <span>replying annotation</span>
+
+        <span className="focusLegend" />
+        <span>highlighted annotation</span>
+
         <textarea
           className="textArea"
           id="annotationContent"
@@ -20,7 +38,7 @@ export class Addannotation extends React.Component {
           placeholder={this.props.placeholder}
           onChange={this.onChange}
         ></textarea>
-        <button className="enabledSubmitButton">
+        <button className="enabledSubmitButton" onClick={this.onClick}>
           <SubmitButton
             buttonContent={this.props.buttonContent}
             submitUri={this.props.submitUri}

@@ -158,19 +158,8 @@ export default class SelectableScoreApp extends Component {
             }
             break;
             case "replying":
-              if (bodies.length) {
-                if ("value" in bodies[0]) {
-                  const title = document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "title"
-                  );
-                  // Embeds the annotation text into this title node
-                  title.innerHTML = bodies[0]["value"];
-                  element.insertBefore(title, element.firstChild);
-                  element.classList.add(anno.anno.motivation);
+              element.classList.add(anno.anno.motivation);
                   element.classList.add("focus-" + annoIdFragment);
-                }
-              }
               break;
           case "linking":
             if (bodies.length) {
