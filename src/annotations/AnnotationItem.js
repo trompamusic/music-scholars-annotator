@@ -26,7 +26,6 @@ class AnnotationItem extends React.Component {
       <div className="annoItem">
         <p>The content of this annotation is {bodyD || bodyL}</p>
         <span className="date">date created: {date}</span>
-        <span>{motivation}</span>
         <button
           className="replyButton"
           name="replyButton"
