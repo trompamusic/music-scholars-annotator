@@ -17,6 +17,7 @@ export default function SolidWrapper(props) {
     trompa: "http://vocab.trompamusic.eu/vocab#",
   });
   const userPOD = useLDflexValue("user.storage");
+  const userId  = useLDflexValue("user");
   const [userInput, setUserInput] = useState("public/");
   const handleUserInput = (e) => {
     const containerPath = e.target.value
@@ -38,7 +39,7 @@ export default function SolidWrapper(props) {
       <LoggedIn>
         <h2>Annotation submitter demo</h2>
         <p>
-          You are logged in as <Value src="user.name" />
+          You are logged in as <Value src="user.name" /> ({ `${userId}` })
         </p>
         <p>
           <LogoutButton className="logoutButton">Log out</LogoutButton>
@@ -52,6 +53,7 @@ export default function SolidWrapper(props) {
             uri={props.uri}
             vrvOptions={props.vrvOptions}
             submitUri={`${userPOD}` + userInput}
+            userId = { `${userId}` }
           />
         ) : (
           <div>Loading... </div>

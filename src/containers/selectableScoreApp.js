@@ -233,6 +233,7 @@ export default class SelectableScoreApp extends Component {
           placeholder={this.state.placeholder}
           replyAnnotationTarget={this.state.replyAnnotationTarget}
           buttonContent= {this.state.buttonContent}
+          creator = {this.props.userId}
         />
         {/*as buttonContent that you'd like to function as a clickable prev page
         button */}

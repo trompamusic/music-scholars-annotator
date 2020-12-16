@@ -17,6 +17,7 @@ class AnnotationItem extends React.Component {
 
   render() {
     const date = this.props.annotation.anno.created;
+    const creator = this.props.annotation.anno.creator || "unknown";
     const bodyD = this.props.annotation.anno.body[0].value;
     const bodyL = this.props.annotation.anno.body[0].id;
     const motivation = this.props.annotation.anno.motivation;
@@ -25,7 +26,7 @@ class AnnotationItem extends React.Component {
     return (
       <div className="annoItem">
         <p>The content of this annotation is {bodyD || bodyL}</p>
-        <span className="date">date created: {date}</span>
+        <div className="date">Created on: {date} by {creator}</div>
         <button
           className="replyButton"
           name="replyButton"
