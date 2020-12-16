@@ -24,6 +24,9 @@ export class Addannotation extends React.Component {
         <span className="linkingLegend" />
         <span>linking annotation</span>
 
+        <span className="cueMediaLegend" />
+        <span>cue media annotation</span>
+
         <span className="replyLegend" />
         <span>replying annotation</span>
 
