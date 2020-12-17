@@ -35,6 +35,16 @@ export default class RadioButton extends Component {
             />
             Measure
           </label>
+
+          <label>
+            <input
+              type="radio"
+              name="selectorString"
+              value=".dir,.dynam"
+              onChange={this.onChange}
+            />
+            Directive
+          </label>
         </form>
       </div>
     );
