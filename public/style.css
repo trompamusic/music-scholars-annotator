@@ -41,6 +41,11 @@ body {
   cursor: pointer;
 }
 
+.cueMedia { 
+  fill: red;
+  cursor: pointer;
+}
+
 .inFocus {
   fill: green !important;
 }
@@ -241,6 +246,15 @@ body {
   width: 10px;
   height: 10px;
   background: magenta;
+  margin-left: 10px;
+  margin-right: 2px;
+}
+
+.cueMediaLegend { 
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: red;
   margin-left: 10px;
   margin-right: 2px;
 }

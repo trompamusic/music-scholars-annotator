@@ -48,6 +48,23 @@ export class AnnotationSubmitter extends React.Component {
           anno,
         };
 
+      case "cueMedia": 
+        anno = {
+          "@context": "http://www.w3.org/ns/anno.jsonld",
+          target: this.props.selection.map((elem) => {
+            return { id: this.props.uri + "#" + elem.getAttribute("id") };
+          }), //this takes the measure id selected by the user
+          type: "Annotation",
+          body: [{ id: value }], //this takes the user URI
+          motivation: "trompa:cueMedia",
+          created: new Date().toISOString(),
+          creator: this.props.creator
+        };
+        console.log(anno);
+        return {
+          anno,
+        };
+
         case "replying":
           anno = {
             "@context": "http://www.w3.org/ns/anno.jsonld",
@@ -94,6 +111,16 @@ export class AnnotationSubmitter extends React.Component {
               onChange={this.props.onAnnoTypeChange}
             />
             Linking
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="cueMedia"
+              name="annotationType"
+              placeholder="insert a media cue like: http://example.com/example.mp3#t=17 (where t = cue offset in seconds)"
+              onChange={this.props.onAnnoTypeChange}
+            />
+            Cue Media
           </label>
           <div className="addAnnotations">
             <Addannotations

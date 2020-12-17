@@ -5,6 +5,7 @@ import PrevPageButton from "selectable-score/lib/prev-page-button.js";
 import AnnotationSubmitter from "../annotations/annotation-submitter.js";
 import SelectionHandler from "../annotations/SelectionHandler.js";
 import AnnotationList from "../annotations/AnnotationList.js";
+import ReactPlayer from "react-player";
 
 export default class SelectableScoreApp extends Component {
   constructor(props) {
@@ -22,20 +23,21 @@ export default class SelectableScoreApp extends Component {
       hasContent: true,
       isClicked: false,
       showMEIInput: true,
+      currentMedia: this.props.currentMedia || "",
+      seekTo: "",
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
     this.handleStringChange = this.handleStringChange.bind(this);
     this.onResponse = this.onResponse.bind(this);
     this.onRefreshClick = this.onRefreshClick.bind(this);
-    this.onReceiveAnnotationContainerContent = this.onReceiveAnnotationContainerContent.bind(
-      this
-    );
+    this.onReceiveAnnotationContainerContent = this.onReceiveAnnotationContainerContent.bind(this);
     this.onSubmitMEI = this.onSubmitMEI.bind(this);
     this.onMEIInputChange = this.onMEIInputChange.bind(this);
     this.hideMEIInput = this.hideMEIInput.bind(this);
     this.onAnnoTypeChange = this.onAnnoTypeChange.bind(this);
     this.onAnnoReplyHandler = this.onAnnoReplyHandler.bind(this);
+    this.player = React.createRef()
   }
 
   onAnnoTypeChange = (e) =>
@@ -183,6 +185,25 @@ export default class SelectableScoreApp extends Component {
               element.classList.add(anno.anno.motivation);
             }
             break;
+          case "trompa:cueMedia":
+            if (bodies.length) {
+              // make the target clickable, seeking player to the (first) body media cue
+              element.onclick = () => {
+                  //appends http fragment to avoid partial linking error
+                  const mediaCue = bodies[0]["id"];
+                  // TODO validate properly
+                  const currentMedia = mediaCue.split("#")[0];
+                  const seekTo = mediaCue.split("#")[1].replace("t=","");
+                  console.log("Setting up seek to: ", currentMedia, seekTo)
+                  this.setState({currentMedia}, 
+                    () => this.player.current.seekTo(seekTo)
+                  );
+              }
+              // and turn the cursor into a pointer as a hint that it's clickable
+              element.classList.add("focus-" + annoIdFragment);
+              element.classList.add("cueMedia");
+            }
+            break;
           default:
             console.log(
               "sorry, don't know what to do for this annotation boss"
@@ -258,6 +279,7 @@ export default class SelectableScoreApp extends Component {
         />
 
         {this.state.isClicked === true && (
+          <>
           <SelectableScore
             uri={this.state.uri}
             annotationContainerUri={this.props.submitUri}
@@ -270,6 +292,21 @@ export default class SelectableScoreApp extends Component {
             }
             toggleAnnotationRetrieval={this.state.toggleAnnotationRetrieval}
           />
+          <ReactPlayer
+            playing
+            ref={this.player}
+            url={this.state.currentMedia}
+            controls={true}
+            onReady={ () => {
+                if(this.state.seekTo) { 
+                  console.log("Seeking to: ", this.state.seekTo);
+                  this.player.current.seekTo(Math.floor(this.state.seekTo));
+                  this.setState({seekTo:""});
+                }
+              }
+            }
+          />
+        </>
         )}
       </div>
     );
