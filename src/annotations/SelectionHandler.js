@@ -40,10 +40,29 @@ export default class RadioButton extends Component {
             <input
               type="radio"
               name="selectorString"
+              value=".dynam"
+              onChange={this.onChange}
+            />
+            Dynamics
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="selectorString"
+              value=".dir"
+              onChange={this.onChange}
+            />
+            Directives
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="selectorString"
               value=".dir,.dynam"
               onChange={this.onChange}
             />
-            Directive
+            Dyn and Dir
           </label>
         </form>
       </div>
