@@ -32,6 +32,7 @@
     "redux-thunk": "^2.3.0",
     "sass": "^1.26.3",
     "selectable-score": "trompamusic/selectable-score",
+    "meld-clients-core": "oerc-music/meld-clients-core.git#dev-meld-2.0",
     "typescript": "^3.8.3",
     "uuid": "^8.1.0"
   },

@@ -5,6 +5,7 @@ import PrevPageButton from "selectable-score/lib/prev-page-button.js";
 import AnnotationSubmitter from "../annotations/annotation-submitter.js";
 import SelectionHandler from "../annotations/SelectionHandler.js";
 import AnnotationList from "../annotations/AnnotationList.js";
+import OrchestralRibbon from "meld-clients-core/lib/containers/orchestralRibbon";
 import ReactPlayer from "react-player";
 
 export default class SelectableScoreApp extends Component {
@@ -15,6 +16,7 @@ export default class SelectableScoreApp extends Component {
       annotationType: "",
       placeholder: "",
       uri: "Mahler.mei",
+      testuri: "https://meld.linkedmusic.org/companion/mei/full-score/F6.mei",
       selectorString: [],
       buttonContent: "Submit to your Solid POD",
       replyAnnotationTarget: [],
@@ -299,6 +301,8 @@ export default class SelectableScoreApp extends Component {
           entries={this.state.currentAnnotation}
           onAnnoReplyHandler={this.onAnnoReplyHandler}
         />
+
+        {/* <OrchestralRibbon uri={this.state.testuri} width={500} height={600} /> */}
 
         <ReactPlayer
           playing
