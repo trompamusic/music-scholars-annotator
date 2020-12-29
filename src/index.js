@@ -11,7 +11,7 @@ import SelectableScoreWrapper from "./containers/selectableScoreWrapper";
 const vrvOptions = {
   scale: 45,
   adjustPageHeight: 1,
-  pageHeight: 2500,
+  pageHeight: 500,
   pageWidth: 2200,
   noFooter: 1,
   unit: 6,

@@ -1,70 +1,52 @@
 import React, { Component } from "react";
-
+import Checkbox from "./Checkbox";
+const Selectors = [".note", ".measure", ".dynam", ".dir"];
 export default class RadioButton extends Component {
   state = {
-    selectorString: "",
+    selectorString: [],
   };
 
-  onChange = (e) =>
-    this.setState({ selectorString: e.target.value }, () => {
-      this.props.handleStringChange(this.state.selectorString);
-    });
+  updateStateList(e, value) {
+    if (e.target.checked) {
+      //append to array
+      this.setState(
+        {
+          selectorString: this.state.selectorString.concat([value]),
+        },
+        () => {
+          this.props.handleStringChange(this.state.selectorString);
+        }
+      );
+    } else {
+      //remove from array
+      this.setState(
+        {
+          selectorString: this.state.selectorString.filter(function (val) {
+            return val !== value;
+          }),
+        },
+        () => {
+          this.props.handleStringChange(this.state.selectorString);
+        }
+      );
+    }
+  }
+
+  createCheckbox = (option) => (
+    <Checkbox
+      label={option}
+      onClick={(e) => this.updateStateList(e, option)}
+      key={option}
+    />
+  );
+
+  buildCheckboxes = () => Selectors.map(this.createCheckbox);
 
   render() {
     return (
       <div>
         <h3>Selection Type</h3>
-        <form>
-          <label>
-            <input
-              type="radio"
-              defaultChecked={this.props.selectorString}
-              value=".note"
-              name="selectorString"
-              onChange={this.onChange}
-            />
-            Note
-          </label>
-
-          <label>
-            <input
-              type="radio"
-              name="selectorString"
-              value=".measure"
-              onChange={this.onChange}
-            />
-            Measure
-          </label>
-
-          <label>
-            <input
-              type="radio"
-              name="selectorString"
-              value=".dynam"
-              onChange={this.onChange}
-            />
-            Dynamics
-          </label>
-
-          <label>
-            <input
-              type="radio"
-              name="selectorString"
-              value=".dir"
-              onChange={this.onChange}
-            />
-            Directives
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="selectorString"
-              value=".dir,.dynam"
-              onChange={this.onChange}
-            />
-            Dyn and Dir
-          </label>
-        </form>
+        <form>{this.buildCheckboxes()}</form>
       </div>
     );
   }

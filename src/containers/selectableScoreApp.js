@@ -15,7 +15,7 @@ export default class SelectableScoreApp extends Component {
       annotationType: "",
       placeholder: "",
       uri: "Mahler.mei",
-      selectorString: ".note",
+      selectorString: [],
       buttonContent: "Submit to your Solid POD",
       replyAnnotationTarget: [],
       currentAnnotation: [],
@@ -31,24 +31,28 @@ export default class SelectableScoreApp extends Component {
     this.handleStringChange = this.handleStringChange.bind(this);
     this.onResponse = this.onResponse.bind(this);
     this.onRefreshClick = this.onRefreshClick.bind(this);
-    this.onReceiveAnnotationContainerContent = this.onReceiveAnnotationContainerContent.bind(this);
+    this.onReceiveAnnotationContainerContent = this.onReceiveAnnotationContainerContent.bind(
+      this
+    );
     this.onSubmitMEI = this.onSubmitMEI.bind(this);
     this.onMEIInputChange = this.onMEIInputChange.bind(this);
     this.hideMEIInput = this.hideMEIInput.bind(this);
     this.onAnnoTypeChange = this.onAnnoTypeChange.bind(this);
     this.onAnnoReplyHandler = this.onAnnoReplyHandler.bind(this);
-    this.player = React.createRef()
+    this.player = React.createRef();
   }
 
   onAnnoTypeChange = (e) =>
     this.setState({
       annotationType: e.target.value,
       placeholder: e.target.placeholder,
-      buttonContent: "Submit to your Solid POD"
+      buttonContent: "Submit to your Solid POD",
     });
 
   handleStringChange(selectorString) {
-    this.setState({ selectorString });
+    this.setState({ selectorString }, () =>
+      console.log(this.state.selectorString)
+    );
   }
 
   handleSelectionChange(selection) {
@@ -64,11 +68,13 @@ export default class SelectableScoreApp extends Component {
     this.setState({ showMEIInput: !this.state.showMEIInput });
   }
 
-  onAnnoReplyHandler(replyTarget){
-    this.setState({annotationType: "replying", 
-    placeholder: "you are replying to the selected annotation",
-    buttonContent: "Reply to selected Solid annotation",
-  replyAnnotationTarget: replyTarget})
+  onAnnoReplyHandler(replyTarget) {
+    this.setState({
+      annotationType: "replying",
+      placeholder: "you are replying to the selected annotation",
+      buttonContent: "Reply to selected Solid annotation",
+      replyAnnotationTarget: replyTarget,
+    });
   }
 
   onSubmitMEI = () => {
@@ -159,10 +165,10 @@ export default class SelectableScoreApp extends Component {
               }
             }
             break;
-            case "replying":
-              element.classList.add(anno.anno.motivation);
-                  element.classList.add("focus-" + annoIdFragment);
-              break;
+          case "replying":
+            element.classList.add(anno.anno.motivation);
+            element.classList.add("focus-" + annoIdFragment);
+            break;
           case "linking":
             if (bodies.length) {
               // make the target clickable, linking to the (first) body URI
@@ -189,16 +195,16 @@ export default class SelectableScoreApp extends Component {
             if (bodies.length) {
               // make the target clickable, seeking player to the (first) body media cue
               element.onclick = () => {
-                  //appends http fragment to avoid partial linking error
-                  const mediaCue = bodies[0]["id"];
-                  // TODO validate properly
-                  const currentMedia = mediaCue.split("#")[0];
-                  const seekTo = mediaCue.split("#")[1].replace("t=","");
-                  console.log("Setting up seek to: ", currentMedia, seekTo)
-                  this.setState({currentMedia}, 
-                    () => this.player.current.seekTo(seekTo)
-                  );
-              }
+                //appends http fragment to avoid partial linking error
+                const mediaCue = bodies[0]["id"];
+                // TODO validate properly
+                const currentMedia = mediaCue.split("#")[0];
+                const seekTo = mediaCue.split("#")[1].replace("t=", "");
+                console.log("Setting up seek to: ", currentMedia, seekTo);
+                this.setState({ currentMedia }, () =>
+                  this.player.current.seekTo(seekTo)
+                );
+              };
               // and turn the cursor into a pointer as a hint that it's clickable
               element.classList.add("focus-" + annoIdFragment);
               element.classList.add("cueMedia");
@@ -220,6 +226,36 @@ export default class SelectableScoreApp extends Component {
   render() {
     return (
       <div>
+        {this.state.isClicked === true && (
+          <div className="score">
+            <div className="pageButton">
+              <PrevPageButton
+                buttonContent={<span>Previous page</span>}
+                uri={this.state.uri}
+              />
+            </div>
+            <div className="divider"></div>
+            {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
+            <div className="pageButton">
+              <NextPageButton
+                buttonContent={<span>Next page</span>}
+                uri={this.state.uri}
+              />
+            </div>
+            <SelectableScore
+              uri={this.state.uri}
+              annotationContainerUri={this.props.submitUri}
+              options={this.props.vrvOptions}
+              onSelectionChange={this.handleSelectionChange}
+              selectorString={this.state.selectorString}
+              onScoreUpdate={this.handleScoreUpdate}
+              onReceiveAnnotationContainerContent={
+                this.onReceiveAnnotationContainerContent
+              }
+              toggleAnnotationRetrieval={this.state.toggleAnnotationRetrieval}
+            />
+          </div>
+        )}
         {this.state.showMEIInput && (
           <div>
             <p>Select your MEI file:</p>
@@ -253,61 +289,30 @@ export default class SelectableScoreApp extends Component {
           annotationType={this.state.annotationType}
           placeholder={this.state.placeholder}
           replyAnnotationTarget={this.state.replyAnnotationTarget}
-          buttonContent= {this.state.buttonContent}
-          creator = {this.props.userId}
+          buttonContent={this.state.buttonContent}
+          creator={this.props.userId}
         />
         {/*as buttonContent that you'd like to function as a clickable prev page
         button */}
-        <div className="pageButton">
-          <PrevPageButton
-            buttonContent={<span>Previous page</span>}
-            uri={this.state.uri}
-          />
-        </div>
-        <div className="divider"></div>
-        {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
-        <div className="pageButton">
-          <NextPageButton
-            buttonContent={<span>Next page</span>}
-            uri={this.state.uri}
-          />
-        </div>
 
-        <AnnotationList 
-        entries={this.state.currentAnnotation}
-        onAnnoReplyHandler={this.onAnnoReplyHandler} 
+        <AnnotationList
+          entries={this.state.currentAnnotation}
+          onAnnoReplyHandler={this.onAnnoReplyHandler}
         />
 
-        {this.state.isClicked === true && (
-          <>
-          <SelectableScore
-            uri={this.state.uri}
-            annotationContainerUri={this.props.submitUri}
-            options={this.props.vrvOptions}
-            onSelectionChange={this.handleSelectionChange}
-            selectorString={this.state.selectorString}
-            onScoreUpdate={this.handleScoreUpdate}
-            onReceiveAnnotationContainerContent={
-              this.onReceiveAnnotationContainerContent
+        <ReactPlayer
+          playing
+          ref={this.player}
+          url={this.state.currentMedia}
+          controls={true}
+          onReady={() => {
+            if (this.state.seekTo) {
+              console.log("Seeking to: ", this.state.seekTo);
+              this.player.current.seekTo(Math.floor(this.state.seekTo));
+              this.setState({ seekTo: "" });
             }
-            toggleAnnotationRetrieval={this.state.toggleAnnotationRetrieval}
-          />
-          <ReactPlayer
-            playing
-            ref={this.player}
-            url={this.state.currentMedia}
-            controls={true}
-            onReady={ () => {
-                if(this.state.seekTo) { 
-                  console.log("Seeking to: ", this.state.seekTo);
-                  this.player.current.seekTo(Math.floor(this.state.seekTo));
-                  this.setState({seekTo:""});
-                }
-              }
-            }
-          />
-        </>
-        )}
+          }}
+        />
       </div>
     );
   }
