@@ -20,13 +20,15 @@ class AnnotationItem extends React.Component {
     const creator = this.props.annotation.anno.creator || "unknown";
     const bodyD = this.props.annotation.anno.body[0].value;
     const bodyL = this.props.annotation.anno.body[0].id;
-    const motivation = this.props.annotation.anno.motivation;
+    //const motivation = this.props.annotation.anno.motivation;
     //const annoId = this.props.annotation["@id"];
     //const annoIdFragment = annoId.substr(annoId.lastIndexOf("/") + 1);
     return (
       <div className="annoItem">
         <p>The content of this annotation is {bodyD || bodyL}</p>
-        <div className="date">Created on: {date} by {creator}</div>
+        <div className="date">
+          Created on: {date} by {creator}
+        </div>
         <button
           className="replyButton"
           name="replyButton"
