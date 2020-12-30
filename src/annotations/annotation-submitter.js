@@ -12,6 +12,8 @@ export class AnnotationSubmitter extends React.Component {
 
   submitHandler = (value, seconds) => {
     //adds different annotations based on selection
+    console.log(seconds);
+    console.log(value);
     var anno = "";
     switch (this.props.annotationType) {
       case "describing":

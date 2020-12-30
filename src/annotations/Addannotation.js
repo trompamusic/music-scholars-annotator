@@ -8,20 +8,17 @@ export class Addannotation extends React.Component {
     target: [],
     visible: false,
   };
-  onChange = (e) =>
-    this.setState({ value: e.target.value }, () =>
-      console.log(this.state.value)
-    );
+  onChange = (e) => this.setState({ value: e.target.value });
 
   onTimeChange = (e) =>
     this.setState({ seconds: e.target.value }, () =>
       console.log(this.state.seconds)
     );
-  onClick = () => {
-    this.setState({ value: "", target: [] });
-  };
+
   render() {
-    const { visible } = this.state;
+    let value = this.state.value;
+    let seconds = this.state.seconds;
+    const { visible } = this.state.visible;
     return (
       <div>
         <button
@@ -86,7 +83,7 @@ export class Addannotation extends React.Component {
             buttonContent={this.props.buttonContent}
             submitUri={this.props.submitUri}
             submitHandler={this.props.submitHandler}
-            submitHandlerArgs={this.state.value}
+            submitHandlerArgs={(value, seconds)}
             onResponse={this.props.onResponse}
           />
         </button>
