@@ -1,12 +1,33 @@
 import React, { Component } from "react";
 import Checkbox from "./Checkbox";
-const Selectors = [".note", ".measure", ".dynam", ".dir"];
+const Selectors = [
+  {
+    name: "Note",
+    value: ".note",
+  },
+
+  {
+    name: "Measure",
+    value: ".measure",
+  },
+
+  {
+    name: "Dynamics",
+    value: ".dynam",
+  },
+
+  {
+    name: "Directives",
+    value: ".dir",
+  },
+];
+
 export default class RadioButton extends Component {
   state = {
     selectorString: [],
   };
 
-  updateStateList(e, value) {
+  updateSelectorList(e, value) {
     if (e.target.checked) {
       //append to array
       this.setState(
@@ -35,8 +56,8 @@ export default class RadioButton extends Component {
   createCheckbox = (option) => (
     <Checkbox
       label={option}
-      onClick={(e) => this.updateStateList(e, option)}
-      key={option}
+      onClick={(e) => this.updateSelectorList(e, option.value)}
+      key={option.value}
     />
   );
 

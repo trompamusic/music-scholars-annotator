@@ -1,19 +1,10 @@
 import React from "react";
 import Addannotations from "./Addannotation.js";
 export class AnnotationSubmitter extends React.Component {
-  // state = {
-  //  // annotationType: "",
-  //   placeholder: "", //placeholder text for the input field
-  // };
-  // onChange = (e) =>
-  //   this.setState({
-  //     placeholder: e.target.placeholder,
-  //   });
-
-  submitHandler = (value, seconds) => {
+  submitHandler = (handlerArgs) => {
     //adds different annotations based on selection
-    console.log(seconds);
-    console.log(value);
+    let value = handlerArgs.value;
+    let seconds = handlerArgs.seconds;
     var anno = "";
     switch (this.props.annotationType) {
       case "describing":
@@ -28,7 +19,6 @@ export class AnnotationSubmitter extends React.Component {
           created: new Date().toISOString(),
           creator: this.props.creator,
         };
-        //no set state nothing that goes up beyond this point
         return {
           anno,
         };
@@ -45,7 +35,6 @@ export class AnnotationSubmitter extends React.Component {
           created: new Date().toISOString(),
           creator: this.props.creator,
         };
-        // console.log(anno);
         return {
           anno,
         };
@@ -57,7 +46,7 @@ export class AnnotationSubmitter extends React.Component {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
           }), //this takes the measure id selected by the user
           type: "Annotation",
-          body: [{ id: value + "#t=" + seconds }], //this takes the user URI
+          body: [{ id: value + "#t=" + seconds }], //this takes the user link + time offest
           motivation: "trompa:cueMedia",
           created: new Date().toISOString(),
           creator: this.props.creator,
@@ -109,7 +98,7 @@ export class AnnotationSubmitter extends React.Component {
               type="radio"
               value="linking"
               name="annotationType"
-              placeholder="insert your URI link..."
+              placeholder="Insert your URI link..."
               onChange={this.props.onAnnoTypeChange}
             />
             Linking
@@ -119,7 +108,6 @@ export class AnnotationSubmitter extends React.Component {
               type="radio"
               value="cueMedia"
               name="annotationType"
-              placeholder="insert a media cue like: http://example.com/example.mp3#t=17 (where t = cue offset in seconds)"
               onChange={this.props.onAnnoTypeChange}
             />
             Cue Media

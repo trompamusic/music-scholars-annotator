@@ -18,6 +18,10 @@ export class Addannotation extends React.Component {
   render() {
     let value = this.state.value;
     let seconds = this.state.seconds;
+    let handlerArgs = {
+      value,
+      seconds,
+    };
     const { visible } = this.state.visible;
     return (
       <div>
@@ -78,12 +82,12 @@ export class Addannotation extends React.Component {
           </div>
         )}
 
-        <button className="enabledSubmitButton" onClick={this.onClick}>
+        <button className="enabledSubmitButton">
           <SubmitButton
             buttonContent={this.props.buttonContent}
             submitUri={this.props.submitUri}
             submitHandler={this.props.submitHandler}
-            submitHandlerArgs={this.state.value}
+            submitHandlerArgs={handlerArgs}
             onResponse={this.props.onResponse}
           />
         </button>

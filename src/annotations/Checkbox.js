@@ -1,11 +1,18 @@
 import React from "react";
+//const Name = ({ label }) => label.subStr(label.lastIndexOf("."));
 const Checkbox = ({ label, onClick }) => (
-  <div>
+  <span>
     <label>
-      <input type="checkbox" name={label} onClick={onClick} value={label} />
-      {label}
+      <input
+        type="checkbox"
+        name={label.name}
+        onClick={onClick}
+        value={label.value}
+        key={label.value}
+      />
+      {label.name}
     </label>
-  </div>
+  </span>
 );
 
 export default Checkbox;
