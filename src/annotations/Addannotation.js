@@ -83,7 +83,7 @@ export class Addannotation extends React.Component {
             buttonContent={this.props.buttonContent}
             submitUri={this.props.submitUri}
             submitHandler={this.props.submitHandler}
-            submitHandlerArgs={(value, seconds)}
+            submitHandlerArgs={this.state.value}
             onResponse={this.props.onResponse}
           />
         </button>

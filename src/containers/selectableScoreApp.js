@@ -5,7 +5,7 @@ import PrevPageButton from "selectable-score/lib/prev-page-button.js";
 import AnnotationSubmitter from "../annotations/annotation-submitter.js";
 import SelectionHandler from "../annotations/SelectionHandler.js";
 import AnnotationList from "../annotations/AnnotationList.js";
-import OrchestralRibbon from "meld-clients-core/lib/containers/orchestralRibbon";
+//import OrchestralRibbon from "meld-clients-core/lib/containers/orchestralRibbon";
 import ReactPlayer from "react-player";
 
 export default class SelectableScoreApp extends Component {
