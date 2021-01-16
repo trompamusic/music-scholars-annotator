@@ -29,7 +29,7 @@ export class Addannotation extends React.Component {
           style={{ padding: "5px", marginBottom: "5px" }}
           onClick={() => this.setState({ visible: !visible })}
         >
-          toggle legend
+          Toggle legend
         </button>
         {this.state.visible === true && (
           <div>
@@ -82,7 +82,10 @@ export class Addannotation extends React.Component {
           </div>
         )}
 
-        <button className="enabledSubmitButton">
+        <button
+          className="enabledSubmitButton"
+          title="click to post your annotation to your solid POD"
+        >
           <SubmitButton
             buttonContent={this.props.buttonContent}
             submitUri={this.props.submitUri}
@@ -91,7 +94,11 @@ export class Addannotation extends React.Component {
             onResponse={this.props.onResponse}
           />
         </button>
-        <button onClick={this.props.onRefreshClick} className="refreshButton">
+        <button
+          onClick={this.props.onRefreshClick}
+          className="refreshButton"
+          title="click to display the annotation contained in your solid POD"
+        >
           <p>Fetch Annotations</p>
         </button>
       </div>

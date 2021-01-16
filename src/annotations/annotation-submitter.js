@@ -85,6 +85,7 @@ export class AnnotationSubmitter extends React.Component {
           <h3>Annotation type</h3>
           <label>
             <input
+              title="adds a textual content to the annotation"
               type="radio"
               name="annotationType"
               value="describing"
@@ -95,6 +96,7 @@ export class AnnotationSubmitter extends React.Component {
           </label>
           <label>
             <input
+              title="links external resources to the annotation"
               type="radio"
               value="linking"
               name="annotationType"
@@ -105,6 +107,7 @@ export class AnnotationSubmitter extends React.Component {
           </label>
           <label>
             <input
+              title="links a media content to the annotation"
               type="radio"
               value="cueMedia"
               name="annotationType"
