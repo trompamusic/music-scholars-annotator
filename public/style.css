@@ -41,7 +41,7 @@ body {
   cursor: pointer;
 }
 
-.cueMedia { 
+.cueMedia {
   fill: red;
   cursor: pointer;
 }
@@ -53,11 +53,16 @@ body {
 .listContainer {
   overflow: auto;
   overflow-x: hidden;
-  max-height: 151px;
+  max-height: 250px;
   max-width: 972px;
   display: flexbox;
 }
 
+.score {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+}
 .App {
   padding-bottom: 5px;
 }
@@ -250,7 +255,7 @@ body {
   margin-right: 2px;
 }
 
-.cueMediaLegend { 
+.cueMediaLegend {
   display: inline-block;
   width: 10px;
   height: 10px;
@@ -276,3 +281,5 @@ body {
   margin-left: 10px;
   margin-right: 2px;
 }
+
+/* tooltips */

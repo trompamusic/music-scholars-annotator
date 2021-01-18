@@ -6,6 +6,7 @@ import AnnotationSubmitter from "../annotations/annotation-submitter.js";
 import SelectionHandler from "../annotations/SelectionHandler.js";
 import AnnotationList from "../annotations/AnnotationList.js";
 import ReactPlayer from "react-player";
+const AriaModal = require('../modalwindow')
 
 export default class SelectableScoreApp extends Component {
   constructor(props) {
@@ -15,7 +16,8 @@ export default class SelectableScoreApp extends Component {
       annotationType: "",
       placeholder: "",
       uri: "Mahler.mei",
-      selectorString: ".note",
+      testuri: "https://meld.linkedmusic.org/companion/mei/full-score/F6.mei",
+      selectorString: [],
       buttonContent: "Submit to your Solid POD",
       replyAnnotationTarget: [],
       currentAnnotation: [],
@@ -25,30 +27,45 @@ export default class SelectableScoreApp extends Component {
       showMEIInput: true,
       currentMedia: this.props.currentMedia || "",
       seekTo: "",
+      modalActive: false,
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
     this.handleStringChange = this.handleStringChange.bind(this);
     this.onResponse = this.onResponse.bind(this);
     this.onRefreshClick = this.onRefreshClick.bind(this);
-    this.onReceiveAnnotationContainerContent = this.onReceiveAnnotationContainerContent.bind(this);
+    this.onReceiveAnnotationContainerContent = this.onReceiveAnnotationContainerContent.bind(
+      this
+    );
     this.onSubmitMEI = this.onSubmitMEI.bind(this);
     this.onMEIInputChange = this.onMEIInputChange.bind(this);
     this.hideMEIInput = this.hideMEIInput.bind(this);
     this.onAnnoTypeChange = this.onAnnoTypeChange.bind(this);
     this.onAnnoReplyHandler = this.onAnnoReplyHandler.bind(this);
-    this.player = React.createRef()
+    this.player = React.createRef();
+    this.activateModal = this.activateModal.bind(this);
+    this.deactivateModal = this.deactivateModal.bind(this);
   }
+
+  activateModal = () => {
+    this.setState({ modalActive: true });
+  };
+
+  deactivateModal = () => {
+    this.setState({ modalActive: false });
+  };
 
   onAnnoTypeChange = (e) =>
     this.setState({
       annotationType: e.target.value,
       placeholder: e.target.placeholder,
-      buttonContent: "Submit to your Solid POD"
+      buttonContent: "Submit to your Solid POD",
     });
 
   handleStringChange(selectorString) {
-    this.setState({ selectorString });
+    this.setState({ selectorString }, () =>
+      console.log(this.state.selectorString)
+    );
   }
 
   handleSelectionChange(selection) {
@@ -64,11 +81,13 @@ export default class SelectableScoreApp extends Component {
     this.setState({ showMEIInput: !this.state.showMEIInput });
   }
 
-  onAnnoReplyHandler(replyTarget){
-    this.setState({annotationType: "replying", 
-    placeholder: "you are replying to the selected annotation",
-    buttonContent: "Reply to selected Solid annotation",
-  replyAnnotationTarget: replyTarget})
+  onAnnoReplyHandler(replyTarget) {
+    this.setState({
+      annotationType: "replying",
+      placeholder: "you are replying to the selected annotation",
+      buttonContent: "Reply to selected Solid annotation",
+      replyAnnotationTarget: replyTarget,
+    });
   }
 
   onSubmitMEI = () => {
@@ -159,10 +178,10 @@ export default class SelectableScoreApp extends Component {
               }
             }
             break;
-            case "replying":
-              element.classList.add(anno.anno.motivation);
-                  element.classList.add("focus-" + annoIdFragment);
-              break;
+          case "replying":
+            element.classList.add(anno.anno.motivation);
+            element.classList.add("focus-" + annoIdFragment);
+            break;
           case "linking":
             if (bodies.length) {
               // make the target clickable, linking to the (first) body URI
@@ -189,16 +208,16 @@ export default class SelectableScoreApp extends Component {
             if (bodies.length) {
               // make the target clickable, seeking player to the (first) body media cue
               element.onclick = () => {
-                  //appends http fragment to avoid partial linking error
-                  const mediaCue = bodies[0]["id"];
-                  // TODO validate properly
-                  const currentMedia = mediaCue.split("#")[0];
-                  const seekTo = mediaCue.split("#")[1].replace("t=","");
-                  console.log("Setting up seek to: ", currentMedia, seekTo)
-                  this.setState({currentMedia}, 
-                    () => this.player.current.seekTo(seekTo)
-                  );
-              }
+                //appends http fragment to avoid partial linking error
+                const mediaCue = bodies[0]["id"];
+                // TODO validate properly
+                const currentMedia = mediaCue.split("#")[0];
+                const seekTo = mediaCue.split("#")[1].replace("t=", "");
+                console.log("Setting up seek to: ", currentMedia, seekTo);
+                this.setState({ currentMedia }, () =>
+                  this.player.current.seekTo(seekTo)
+                );
+              };
               // and turn the cursor into a pointer as a hint that it's clickable
               element.classList.add("focus-" + annoIdFragment);
               element.classList.add("cueMedia");
@@ -218,8 +237,85 @@ export default class SelectableScoreApp extends Component {
   }
 
   render() {
+    const modal = this.state.modalActive
+    ? <AriaModal
+        titleId="demo-two-title"
+        onExit={this.deactivateModal}
+        underlayClickExits={false}
+        verticallyCenter={true}
+      >
+        <div id="demo-two-modal" className="modal">
+          <header className="modal-header">
+            <h2 id="demo-two-title" className="modal-title">
+              This modal has a title
+            </h2>
+          </header>
+          <div className="modal-body">
+            <p>
+              Here is a modal
+              {' '}
+              <a href="#">with</a>
+              {' '}
+              <a href="#">some</a>
+              {' '}
+              <a href="#">focusable</a>
+              {' '}
+              parts.
+            </p>
+            <div style={{ height: 200, overflow: 'scroll' }}>
+              <h3>
+                Internally Scrolling Region
+              </h3>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum.
+              </p>
+            </div>
+          </div>
+          <footer className="modal-footer">
+            <button id="demo-two-deactivate" onClick={this.deactivateModal}>
+              deactivate modal
+            </button>
+          </footer>
+        </div>
+      </AriaModal>
+    : false;
     return (
       <div>
+        {this.state.isClicked === true && (
+          <div className="score">
+            <div className="pageButton">
+              <PrevPageButton
+                buttonContent={<span>Previous page</span>}
+                uri={this.state.uri}
+              />
+            </div>
+            <div className="divider"></div>
+            {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
+            <div className="pageButton">
+              <NextPageButton
+                buttonContent={<span>Next page</span>}
+                uri={this.state.uri}
+              />
+            </div>
+            <SelectableScore
+              uri={this.state.uri}
+              annotationContainerUri={this.props.submitUri}
+              options={this.props.vrvOptions}
+              onSelectionChange={this.handleSelectionChange}
+              selectorString={this.state.selectorString}
+              onScoreUpdate={this.handleScoreUpdate}
+              onReceiveAnnotationContainerContent={
+                this.onReceiveAnnotationContainerContent
+              }
+              toggleAnnotationRetrieval={this.state.toggleAnnotationRetrieval}
+            />
+          </div>
+        )}
         {this.state.showMEIInput && (
           <div>
             <p>Select your MEI file:</p>
@@ -228,7 +324,9 @@ export default class SelectableScoreApp extends Component {
               onChange={this.onMEIInputChange}
               placeholder={this.state.uri}
             />
+
             <input
+              title="click to render the linked MEI file"
               className="MEIButton"
               type="button"
               onClick={this.onSubmitMEI}
@@ -253,61 +351,39 @@ export default class SelectableScoreApp extends Component {
           annotationType={this.state.annotationType}
           placeholder={this.state.placeholder}
           replyAnnotationTarget={this.state.replyAnnotationTarget}
-          buttonContent= {this.state.buttonContent}
-          creator = {this.props.userId}
+          buttonContent={this.state.buttonContent}
+          creator={this.props.userId}
         />
         {/*as buttonContent that you'd like to function as a clickable prev page
         button */}
-        <div className="pageButton">
-          <PrevPageButton
-            buttonContent={<span>Previous page</span>}
-            uri={this.state.uri}
-          />
-        </div>
-        <div className="divider"></div>
-        {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
-        <div className="pageButton">
-          <NextPageButton
-            buttonContent={<span>Next page</span>}
-            uri={this.state.uri}
-          />
-        </div>
 
-        <AnnotationList 
-        entries={this.state.currentAnnotation}
-        onAnnoReplyHandler={this.onAnnoReplyHandler} 
+        <AnnotationList
+          entries={this.state.currentAnnotation}
+          onAnnoReplyHandler={this.onAnnoReplyHandler}
         />
 
-        {this.state.isClicked === true && (
-          <>
-          <SelectableScore
-            uri={this.state.uri}
-            annotationContainerUri={this.props.submitUri}
-            options={this.props.vrvOptions}
-            onSelectionChange={this.handleSelectionChange}
-            selectorString={this.state.selectorString}
-            onScoreUpdate={this.handleScoreUpdate}
-            onReceiveAnnotationContainerContent={
-              this.onReceiveAnnotationContainerContent
+        <div>
+        <button onClick={this.activateModal}>
+          help
+        </button>
+        {modal}
+        </div>
+
+        {/* <OrchestralRibbon uri={this.state.testuri} width={500} height={600} /> */}
+
+        <ReactPlayer
+          playing
+          ref={this.player}
+          url={this.state.currentMedia}
+          controls={true}
+          onReady={() => {
+            if (this.state.seekTo) {
+              console.log("Seeking to: ", this.state.seekTo);
+              this.player.current.seekTo(Math.floor(this.state.seekTo));
+              this.setState({ seekTo: "" });
             }
-            toggleAnnotationRetrieval={this.state.toggleAnnotationRetrieval}
-          />
-          <ReactPlayer
-            playing
-            ref={this.player}
-            url={this.state.currentMedia}
-            controls={true}
-            onReady={ () => {
-                if(this.state.seekTo) { 
-                  console.log("Seeking to: ", this.state.seekTo);
-                  this.player.current.seekTo(Math.floor(this.state.seekTo));
-                  this.setState({seekTo:""});
-                }
-              }
-            }
-          />
-        </>
-        )}
+          }}
+        />
       </div>
     );
   }

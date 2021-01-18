@@ -11,24 +11,31 @@ import {
 } from "@solid/react";
 
 import SelectableScoreApp from "./selectableScoreApp";
+import Logo from "../top-bar-logo_0_0.png";
 
 export default function SolidWrapper(props) {
   data.context.extend({
     trompa: "http://vocab.trompamusic.eu/vocab#",
   });
   const userPOD = useLDflexValue("user.storage");
-  const userId  = useLDflexValue("user");
+  const userId = useLDflexValue("user");
   const [userInput, setUserInput] = useState("public/");
   const handleUserInput = (e) => {
     const containerPath = e.target.value
       ? setUserInput(e.target.value)
       : "public/";
   };
-
   return (
     <div id="authWrapper">
       <LoggedOut>
         <div>
+          <a
+            href="https://trompamusic.eu/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={Logo} alt="trompa logo" />
+          </a>
           <p>
             <LoginButton className="loginButton" popup="auth-popup.html">
               Log in with Solid
@@ -37,23 +44,35 @@ export default function SolidWrapper(props) {
         </div>
       </LoggedOut>
       <LoggedIn>
-        <h2>Annotation submitter demo</h2>
+        <a
+          href="https://trompamusic.eu/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src={Logo} alt="trompa logo" />
+        </a>
+        <h2>Music scholars annotator component</h2>
         <p>
-          You are logged in as <Value src="user.name" /> ({ `${userId}` })
+          You are logged in as <Value src="user.name" /> ({`${userId}`})
         </p>
-        <p>
+        <p title="close the current session and quit the app">
           <LogoutButton className="logoutButton">Log out</LogoutButton>
         </p>
         <p>Specify annotation container path inside your Pod:</p>
         <div>
-          <input type="text" placeholder="public/" onChange={handleUserInput} />
+          <input
+            title="enter your preferred POD folder"
+            type="text"
+            placeholder="public/"
+            onChange={handleUserInput}
+          />
         </div>
         {typeof userPOD !== "undefined" ? (
           <SelectableScoreApp
             uri={props.uri}
             vrvOptions={props.vrvOptions}
             submitUri={`${userPOD}` + userInput}
-            userId = { `${userId}` }
+            userId={`${userId}`}
           />
         ) : (
           <div>Loading... </div>
