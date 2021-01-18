@@ -6,6 +6,7 @@ import AnnotationSubmitter from "../annotations/annotation-submitter.js";
 import SelectionHandler from "../annotations/SelectionHandler.js";
 import AnnotationList from "../annotations/AnnotationList.js";
 import ReactPlayer from "react-player";
+const AriaModal = require('../modalwindow')
 
 export default class SelectableScoreApp extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ export default class SelectableScoreApp extends Component {
       showMEIInput: true,
       currentMedia: this.props.currentMedia || "",
       seekTo: "",
+      modalActive: false,
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
@@ -41,7 +43,17 @@ export default class SelectableScoreApp extends Component {
     this.onAnnoTypeChange = this.onAnnoTypeChange.bind(this);
     this.onAnnoReplyHandler = this.onAnnoReplyHandler.bind(this);
     this.player = React.createRef();
+    this.activateModal = this.activateModal.bind(this);
+    this.deactivateModal = this.deactivateModal.bind(this);
   }
+
+  activateModal = () => {
+    this.setState({ modalActive: true });
+  };
+
+  deactivateModal = () => {
+    this.setState({ modalActive: false });
+  };
 
   onAnnoTypeChange = (e) =>
     this.setState({
@@ -225,6 +237,53 @@ export default class SelectableScoreApp extends Component {
   }
 
   render() {
+    const modal = this.state.modalActive
+    ? <AriaModal
+        titleId="demo-two-title"
+        onExit={this.deactivateModal}
+        underlayClickExits={false}
+        verticallyCenter={true}
+      >
+        <div id="demo-two-modal" className="modal">
+          <header className="modal-header">
+            <h2 id="demo-two-title" className="modal-title">
+              This modal has a title
+            </h2>
+          </header>
+          <div className="modal-body">
+            <p>
+              Here is a modal
+              {' '}
+              <a href="#">with</a>
+              {' '}
+              <a href="#">some</a>
+              {' '}
+              <a href="#">focusable</a>
+              {' '}
+              parts.
+            </p>
+            <div style={{ height: 200, overflow: 'scroll' }}>
+              <h3>
+                Internally Scrolling Region
+              </h3>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum.
+              </p>
+            </div>
+          </div>
+          <footer className="modal-footer">
+            <button id="demo-two-deactivate" onClick={this.deactivateModal}>
+              deactivate modal
+            </button>
+          </footer>
+        </div>
+      </AriaModal>
+    : false;
     return (
       <div>
         {this.state.isClicked === true && (
@@ -302,6 +361,13 @@ export default class SelectableScoreApp extends Component {
           entries={this.state.currentAnnotation}
           onAnnoReplyHandler={this.onAnnoReplyHandler}
         />
+
+<div>
+        <button onClick={this.activateModal}>
+          help
+        </button>
+        {modal}
+      </div>
 
         {/* <OrchestralRibbon uri={this.state.testuri} width={500} height={600} /> */}
 
