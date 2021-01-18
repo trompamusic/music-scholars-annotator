@@ -362,12 +362,12 @@ export default class SelectableScoreApp extends Component {
           onAnnoReplyHandler={this.onAnnoReplyHandler}
         />
 
-<div>
+        <div>
         <button onClick={this.activateModal}>
           help
         </button>
         {modal}
-      </div>
+        </div>
 
         {/* <OrchestralRibbon uri={this.state.testuri} width={500} height={600} /> */}
 
