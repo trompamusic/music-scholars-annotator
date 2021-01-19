@@ -26,7 +26,8 @@ export default class SelectableScoreApp extends Component {
       showMEIInput: true,
       currentMedia: this.props.currentMedia || "",
       seekTo: "",
-      measuresToAnnotationsMap: {}
+      measuresToAnnotationsMap: {},
+      annoToDisplay:[]
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
@@ -209,12 +210,13 @@ export default class SelectableScoreApp extends Component {
         measureBox.setAttribute("class", "measureBox");
         measureBox.setAttribute("style", 
           "position: absolute;" +
+          "background: rgba(241, 145, 0, 0.16);" +
           "left: " + coordsBox.left + "px;" +
           "top: " + coordsBox.top + "px;" +
           "width: " + coordsBox.width + "px;" +
           "height: " + coordsBox.height + "px;" +
-          "border:1px solid red;" +
-          "z-index: 1"
+          "border:1px solid orange;" +
+          "z-index: 1" 
         )
         measureBox.onclick = (() => {
 
@@ -224,11 +226,14 @@ export default class SelectableScoreApp extends Component {
           let _annoiDs = content.map((jsonIds) => {const annotationsIds = jsonIds["@id"]
         return annotationsIds})
           let _filteredAnnoIds = this.state.measuresToAnnotationsMap[measureId]
+          let compare = _annoiDs.filter((anno)=> _filteredAnnoIds.includes(anno))
+          console.log("filtered annos ", compare)
           //const compare = _annoiDs.map((elem1) => ({id: elem1.annotationsIds, match: _filteredAnnoIds.some((elem2) => elem2[0] === elem1.annotationsIds)}))
           
-          console.log("all recorded annotations are ", _annoiDs)
-          console.log("the measure contains ", _filteredAnnoIds)
-          console.log("all measures on screen are", annotatedMeasuresOnScreen)
+          //console.log("all recorded annotations are ", _annoiDs)
+          //console.log("the measure contains ", _filteredAnnoIds)
+         // console.log("all measures on screen are", annotatedMeasuresOnScreen)
+         this.setState({annoToDisplay: compare})
         })
         console.log("TRYING TO DRAW", measureBox)
         document.querySelector("#annotationBoxesContainer").appendChild(measureBox);
@@ -258,9 +263,9 @@ export default class SelectableScoreApp extends Component {
                   "title"
                 );
                 // Embeds the annotation text into this title node
-                title.innerHTML = bodies[0]["value"];
-                element.insertBefore(title, element.firstChild);
-                element.classList.add(anno.anno.motivation);
+                //title.innerHTML = bodies[0]["value"];
+                //element.insertBefore(title, element.firstChild);
+                //element.classList.add(anno.anno.motivation);
                 element.classList.add("focus-" + annoIdFragment);
               }
             }
@@ -288,7 +293,7 @@ export default class SelectableScoreApp extends Component {
               );
               // and turn the cursor into a pointer as a hint that it's clickable
               element.classList.add("focus-" + annoIdFragment);
-              element.classList.add(anno.anno.motivation);
+              //element.classList.add(anno.anno.motivation);
             }
             break;
           case "trompa:cueMedia":
@@ -307,7 +312,7 @@ export default class SelectableScoreApp extends Component {
               };
               // and turn the cursor into a pointer as a hint that it's clickable
               element.classList.add("focus-" + annoIdFragment);
-              element.classList.add("cueMedia");
+              //element.classList.add("cueMedia");
             }
             break;
           default:
@@ -399,7 +404,8 @@ export default class SelectableScoreApp extends Component {
         button */}
 
         <AnnotationList
-          entries={this.state.currentAnnotation}
+          allEntries={this.state.currentAnnotation}
+          filteringEntries={this.state.annoToDisplay}
           onAnnoReplyHandler={this.onAnnoReplyHandler}
         />
 

@@ -9,10 +9,12 @@ export class AnnotationList extends React.Component {
 
   render() {
     const { order } = this.state;
-    const sortedAnno = this.props.entries.sort((a, b) => {
-      const isReverse = order === "asc" ? 1 : -1;
-      return isReverse * a.anno.created.localeCompare(b.anno.created);
-    });
+    const filtering = this.props.allEntries.filter((anno) => this.props.filteringEntries.includes(anno["@id"]))
+    const sortedFilteredAnno = filtering.sort((a, b) =>{const isReverse = order === "asc" ? 1 : -1;
+    return isReverse * a.anno.created.localeCompare(b.anno.created)});
+    // const sortedAnno = this.props.allEntries.sort((a, b) => {
+      
+    // });
    
     function onClick(e) {
       e.preventDefault();
@@ -38,15 +40,15 @@ export class AnnotationList extends React.Component {
           focusElement.classList.add("inFocus")
         );
         // scroll page to highlighted item
-        document
-          .querySelector(".inFocus")
-          .scrollIntoView({ behavior: "smooth" });
+        // document
+        //   .querySelector(".inFocus")
+        //   .scrollIntoView({ behavior: "smooth" });
       
     }
 
     return (
       <div className="listContainer">
-        {sortedAnno.map((item) => {
+        {sortedFilteredAnno.map((item) => {
           const annoIdFragment = item["@id"].substr(
             item["@id"].lastIndexOf("/") + 1
           );
