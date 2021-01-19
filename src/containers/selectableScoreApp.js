@@ -196,6 +196,7 @@ export default class SelectableScoreApp extends Component {
         const coords = this.convertCoords(document.querySelector("#"+measureId));
         console.log("Coords: ", coords)
         const measureBox = document.createElement("div");
+       
         const coordsBox = { 
           "left": Math.floor(coords.x), 
           "top": Math.floor(coords.y),
@@ -216,7 +217,7 @@ export default class SelectableScoreApp extends Component {
         )
         measureBox.onclick = (() => {
           console.log("Clicked measure containing these annotations", 
-            this.state.measureToAnnotationsMap[measureId]
+            newMap
           )
         })
         console.log("TRYING TO DRAW", measureBox)

@@ -59,7 +59,8 @@ body {
 }
 
 .score {
-  position: fixed;
+  position: relative;
+  float:right;
   bottom: 0px;
   right: 0px;
 }
