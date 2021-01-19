@@ -186,7 +186,8 @@ export default class SelectableScoreApp extends Component {
     })
 
     this.setState({ currentAnnotation: content, measuresToAnnotationsMap: newMap }, () => {
-      console.log(this.state.currentAnnotation);
+      console.log("Mapped annotaitons ", newMap);
+      console.log("current annotations ", content);
       // draw bounding boxes for all measures containing annotations
       const annotatedMeasuresOnScreen = Object.keys(this.state.measuresToAnnotationsMap).filter((measureId) => 
         document.querySelectorAll("#" + measureId).length
@@ -216,9 +217,18 @@ export default class SelectableScoreApp extends Component {
           "z-index: 1"
         )
         measureBox.onclick = (() => {
+
           console.log("Clicked measure containing these annotations", 
-            newMap
+            measureId
           )
+          let _annoiDs = content.map((jsonIds) => {const annotationsIds = jsonIds["@id"]
+        return annotationsIds})
+          let _filteredAnnoIds = this.state.measuresToAnnotationsMap[measureId]
+          //const compare = _annoiDs.map((elem1) => ({id: elem1.annotationsIds, match: _filteredAnnoIds.some((elem2) => elem2[0] === elem1.annotationsIds)}))
+          
+          console.log("all recorded annotations are ", _annoiDs)
+          console.log("the measure contains ", _filteredAnnoIds)
+          console.log("all measures on screen are", annotatedMeasuresOnScreen)
         })
         console.log("TRYING TO DRAW", measureBox)
         document.querySelector("#annotationBoxesContainer").appendChild(measureBox);

@@ -11,7 +11,7 @@ export class AnnotationSubmitter extends React.Component {
         anno = {
           "@context": "http://www.w3.org/ns/anno.jsonld",
           target: this.props.selection.map((elem) => {
-            return { id: this.props.uri + "#" + elem.getAttribute("id") };
+            return { id: this.props.uri + "#" + elem.getAttribute("id")};
           }), //this takes the measure id selected by the user
           type: "Annotation",
           body: [{ type: "TextualBody", value }], //this takes the user input
@@ -27,7 +27,7 @@ export class AnnotationSubmitter extends React.Component {
         anno = {
           "@context": "http://www.w3.org/ns/anno.jsonld",
           target: this.props.selection.map((elem) => {
-            return { id: this.props.uri + "#" + elem.getAttribute("id") };
+            return { id: this.props.uri + "#" + elem.getAttribute("id")  };
           }), //this takes the measure id selected by the user
           type: "Annotation",
           body: [{ id: value }], //this takes the user URI
@@ -43,7 +43,7 @@ export class AnnotationSubmitter extends React.Component {
         anno = {
           "@context": "http://www.w3.org/ns/anno.jsonld",
           target: this.props.selection.map((elem) => {
-            return { id: this.props.uri + "#" + elem.getAttribute("id") };
+            return { id: this.props.uri + "#" + elem.getAttribute("id")  };
           }), //this takes the measure id selected by the user
           type: "Annotation",
           body: [{ id: value + "#t=" + seconds }], //this takes the user link + time offest

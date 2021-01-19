@@ -23,7 +23,8 @@ class AnnotationItem extends React.Component {
 
     return (
       <div className="annoItem">
-        <p>The content of this annotation is {bodyD || bodyL || bodyMedia}</p>
+        <p>The content of this annotation is {bodyD || <a href={bodyL} target="_blank"
+            rel="noopener noreferrer">{bodyL}</a> || bodyMedia}</p>
         <div className="date">
           Created on: {date} by {creator}
         </div>
