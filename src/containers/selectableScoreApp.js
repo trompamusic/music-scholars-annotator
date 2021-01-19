@@ -16,7 +16,7 @@ export default class SelectableScoreApp extends Component {
       placeholder: "",
       uri: "Mahler.mei",
       testuri: "https://meld.linkedmusic.org/companion/mei/full-score/F6.mei",
-      selectorString: [],
+      selectorString: "",
       buttonContent: "Submit to your Solid POD",
       replyAnnotationTarget: [],
       currentAnnotation: [],
@@ -26,6 +26,7 @@ export default class SelectableScoreApp extends Component {
       showMEIInput: true,
       currentMedia: this.props.currentMedia || "",
       seekTo: "",
+      measuresToAnnotationsMap: {}
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
@@ -40,8 +41,31 @@ export default class SelectableScoreApp extends Component {
     this.hideMEIInput = this.hideMEIInput.bind(this);
     this.onAnnoTypeChange = this.onAnnoTypeChange.bind(this);
     this.onAnnoReplyHandler = this.onAnnoReplyHandler.bind(this);
+    this.convertCoords = this.convertCoords.bind(this);
     this.player = React.createRef();
   }
+
+  convertCoords(elem) {
+    if(document.getElementById(elem.getAttribute("id"))
+      && elem.style.display !== "none" && (elem.getBBox().x !== 0 || elem.getBBox().y !== 0)) {
+      const x = elem.getBBox().x;
+      const width = elem.getBBox().width;
+      const y = elem.getBBox().y;
+      const height = elem.getBBox().height;
+      const offset = elem.closest("svg").parentElement.getBoundingClientRect();
+      const matrix = elem.getScreenCTM();
+      return {
+          x: (matrix.a * x) + (matrix.c * y) + matrix.e - offset.left,
+          y: (matrix.b * x) + (matrix.d * y) + matrix.f - offset.top,
+          x2: (matrix.a * (x + width)) + (matrix.c * y) + matrix.e - offset.left,
+          y2: (matrix.b * x) + (matrix.d * (y + height)) + matrix.f - offset.top
+      };
+    } else {
+      console.warn("Element unavailable on page: ", elem.getAttribute("id"));
+      return { x:0, y:0, x2:0, y2:0 }
+    }
+  }
+
 
   onAnnoTypeChange = (e) =>
     this.setState({
@@ -132,12 +156,76 @@ export default class SelectableScoreApp extends Component {
         }
       );
     }
+    // FIXME: Validate that these are (TROMPA?) Web Annotations
     content = content.filter((c) => c["@id"].endsWith(".jsonld"));
 
-    this.setState({ currentAnnotation: content }, () => {
+    let measuresToAnnotationsMapList = content.map((anno) => { 
+      const measures = anno.anno.target.map((jsonTarget) => {
+        const targetId = jsonTarget.id;
+        const fragment = targetId.substr(targetId.lastIndexOf("#"));
+        const element = document.querySelector(fragment);
+        let measure = "";
+        if(element) { 
+          measure = element.closest(".measure");
+        }
+        return measure;
+      }).filter((el) => el); // ensure element exists on screen
+      const distinctMeasures = [...new Set(measures)]
+      return { annoId: anno["@id"], measures: distinctMeasures }
+    })
+    let newMap = {};
+    measuresToAnnotationsMapList.forEach((measureToAnnoMap) => {
+      measureToAnnoMap.measures.forEach((m) => { 
+        const mId = m.getAttribute("id");
+        if(mId in newMap) { 
+          newMap[mId].push(measureToAnnoMap.annoId);
+        } else { 
+          newMap[mId] = [ measureToAnnoMap.annoId ];
+        }
+      })
+    })
+
+    this.setState({ currentAnnotation: content, measuresToAnnotationsMap: newMap }, () => {
       console.log(this.state.currentAnnotation);
+      // draw bounding boxes for all measures containing annotations
+      const annotatedMeasuresOnScreen = Object.keys(this.state.measuresToAnnotationsMap).filter((measureId) => 
+        document.querySelectorAll("#" + measureId).length
+      )
+      console.log("Annotated measures on screen: ", annotatedMeasuresOnScreen);
+      annotatedMeasuresOnScreen.forEach((measureId) => { 
+        const coords = this.convertCoords(document.querySelector("#"+measureId));
+        console.log("Coords: ", coords)
+        const measureBox = document.createElement("div");
+        const coordsBox = { 
+          "left": Math.floor(coords.x), 
+          "top": Math.floor(coords.y),
+          "width": Math.ceil(coords.x2 - coords.x),
+          "height": Math.ceil(coords.y2 - coords.y)
+        }
+        console.log("Coords box: ", coordsBox)
+        measureBox.setAttribute("id", "measureBox-" + measureId);
+        measureBox.setAttribute("class", "measureBox");
+        measureBox.setAttribute("style", 
+          "position: absolute;" +
+          "left: " + coordsBox.left + "px;" +
+          "top: " + coordsBox.top + "px;" +
+          "width: " + coordsBox.width + "px;" +
+          "height: " + coordsBox.height + "px;" +
+          "border:1px solid red;" +
+          "z-index: 1"
+        )
+        measureBox.onclick = (() => {
+          console.log("Clicked measure containing these annotations", 
+            this.state.measureToAnnotationsMap[measureId]
+          )
+        })
+        console.log("TRYING TO DRAW", measureBox)
+        document.querySelector("#annotationBoxesContainer").appendChild(measureBox);
+      })
     });
     console.log("iteration succeded");
+
+
     content.map((anno) => {
       anno.anno.target.map((jSonTarget) => {
         const bodies = anno.anno.body;
@@ -243,6 +331,7 @@ export default class SelectableScoreApp extends Component {
                 uri={this.state.uri}
               />
             </div>
+            <div id="annotationBoxesContainer"/>
             <SelectableScore
               uri={this.state.uri}
               annotationContainerUri={this.props.submitUri}
