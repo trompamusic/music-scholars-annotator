@@ -15,7 +15,6 @@ export default class SelectableScoreApp extends Component {
       annotationType: "",
       placeholder: "",
       uri: "Mahler.mei",
-      testuri: "https://meld.linkedmusic.org/companion/mei/full-score/F6.mei",
       selectorString: "",
       buttonContent: "Submit to your Solid POD",
       replyAnnotationTarget: [],
@@ -27,7 +26,8 @@ export default class SelectableScoreApp extends Component {
       currentMedia: this.props.currentMedia || "",
       seekTo: "",
       measuresToAnnotationsMap: {},
-      annoToDisplay:[]
+      annoToDisplay:[],
+  
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
@@ -43,8 +43,11 @@ export default class SelectableScoreApp extends Component {
     this.onAnnoTypeChange = this.onAnnoTypeChange.bind(this);
     this.onAnnoReplyHandler = this.onAnnoReplyHandler.bind(this);
     this.convertCoords = this.convertCoords.bind(this);
+   
     this.player = React.createRef();
   }
+
+ 
 
   convertCoords(elem) {
     if(document.getElementById(elem.getAttribute("id"))
@@ -329,6 +332,7 @@ export default class SelectableScoreApp extends Component {
   }
 
   render() {
+    
     return (
       <div>
         {this.state.isClicked === true && (
@@ -410,7 +414,7 @@ export default class SelectableScoreApp extends Component {
         />
 
         {/* <OrchestralRibbon uri={this.state.testuri} width={500} height={600} /> */}
-
+        
         <ReactPlayer
           playing
           ref={this.player}
