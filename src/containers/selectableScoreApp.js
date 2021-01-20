@@ -9,6 +9,8 @@ import ReactPlayer from "react-player";
 import Modal from "react-modal";
 
 //Modal.setAppElement("root");
+//
+const vAdjust = 26; // num. pixels to nudge down anno measureBoxes
 
 export default class SelectableScoreApp extends Component {
   
@@ -212,10 +214,11 @@ export default class SelectableScoreApp extends Component {
         const coords = this.convertCoords(document.querySelector("#"+measureId));
         console.log("Coords: ", coords)
         const measureBox = document.createElement("div");
+        const measureBoxBackground = document.createElement("div");
        
         const coordsBox = { 
           "left": Math.floor(coords.x), 
-          "top": Math.floor(coords.y),
+          "top": Math.floor(coords.y) + vAdjust,
           "width": Math.ceil(coords.x2 - coords.x),
           "height": Math.ceil(coords.y2 - coords.y)
         }
@@ -224,12 +227,11 @@ export default class SelectableScoreApp extends Component {
         measureBox.setAttribute("class", "measureBox");
         measureBox.setAttribute("style", 
           "position: absolute;" +
-          "background: rgba(241, 145, 0, 0.16);" +
+          "background: rgba(0, 0, 0, 0);" +
           "left: " + coordsBox.left + "px;" +
           "top: " + coordsBox.top + "px;" +
           "width: " + coordsBox.width + "px;" +
           "height: " + coordsBox.height + "px;" +
-          "border:1px solid orange;" +
           "z-index: 1" 
         )
         measureBox.onclick = (() => {
@@ -249,8 +251,20 @@ export default class SelectableScoreApp extends Component {
          // console.log("all measures on screen are", annotatedMeasuresOnScreen)
          this.setState({annoToDisplay: compare})
         })
+        measureBoxBackground.setAttribute("id", "measureBoxBackground-" + measureId);
+        measureBoxBackground.setAttribute("class", "measureBoxBackground");
+        measureBoxBackground.setAttribute("style", 
+          "position: absolute;" +
+          "background: #fdbd91;" +
+          "left: " + coordsBox.left + "px;" +
+          "top: " + coordsBox.top + "px;" +
+          "width: " + coordsBox.width + "px;" +
+          "height: " + coordsBox.height + "px;" +
+          "z-index: -1" 
+        )
         console.log("TRYING TO DRAW", measureBox)
         document.querySelector("#annotationBoxesContainer").appendChild(measureBox);
+        document.querySelector("#annotationBoxesContainer").appendChild(measureBoxBackground);
       })
     });
     console.log("iteration succeded");
