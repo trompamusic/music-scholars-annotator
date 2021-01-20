@@ -6,8 +6,12 @@ import AnnotationSubmitter from "../annotations/annotation-submitter.js";
 import SelectionHandler from "../annotations/SelectionHandler.js";
 import AnnotationList from "../annotations/AnnotationList.js";
 import ReactPlayer from "react-player";
+import Modal from "react-modal";
+
+//Modal.setAppElement("root");
 
 export default class SelectableScoreApp extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -27,7 +31,7 @@ export default class SelectableScoreApp extends Component {
       seekTo: "",
       measuresToAnnotationsMap: {},
       annoToDisplay:[],
-  
+      helpWindowIsActive: false,
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
@@ -43,12 +47,19 @@ export default class SelectableScoreApp extends Component {
     this.onAnnoTypeChange = this.onAnnoTypeChange.bind(this);
     this.onAnnoReplyHandler = this.onAnnoReplyHandler.bind(this);
     this.convertCoords = this.convertCoords.bind(this);
+    this.activateModal = this.activateModal.bind(this);
+    this.deactivateModal = this.deactivateModal.bind(this);
    
     this.player = React.createRef();
   }
+  activateModal = () => {
+    this.setState({ helpWindowIsActive: true });
+  };
 
- 
-
+  deactivateModal = () => {
+    this.setState({ helpWindowIsActive: false });
+  };
+  
   convertCoords(elem) {
     if(document.getElementById(elem.getAttribute("id"))
       && elem.style.display !== "none" && (elem.getBBox().x !== 0 || elem.getBBox().y !== 0)) {
@@ -329,12 +340,56 @@ export default class SelectableScoreApp extends Component {
 
   handleScoreUpdate(scoreElement) {
     console.log("Received updated score DOM element: ", scoreElement);
+
   }
 
+
+ 
   render() {
-    
+    const modal = this.state.helpWindowIsActive
+    ? <Modal
+        isOpen={this.state.helpWindowIsActive}
+        onRequestClose={this.deactivateModal}
+        contentLabel="my modal"
+        className="mymodal"
+        overlayClassName="myoverlay"
+        ariaHideApp={false}
+        
+      >
+        <div>
+          <header className="modal-header">
+            <h2 className="modal-title">
+              This modal has a title
+            </h2>
+          </header>
+          <div className="modal-body">
+            <p>
+              Title
+            </p>
+            <div style={{ height: 200, overflow: 'auto' }}>
+              <h3>
+                Internally Scrolling Region
+              </h3>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum.
+              </p>
+            </div>
+          </div>
+          <footer className="modal-footer">
+            <button onClick={this.deactivateModal}>
+              deactivate modal
+            </button>
+          </footer>
+        </div>
+      </Modal>
+    : false;
     return (
-      <div>
+      <div >
         {this.state.isClicked === true && (
           <div className="score">
             <div className="pageButton">
@@ -412,9 +467,14 @@ export default class SelectableScoreApp extends Component {
           filteringEntries={this.state.annoToDisplay}
           onAnnoReplyHandler={this.onAnnoReplyHandler}
         />
-
+        <div>
+        <button onClick={this.activateModal}>
+          help
+        </button>
+        {modal}
+        </div>
         {/* <OrchestralRibbon uri={this.state.testuri} width={500} height={600} /> */}
-        
+     
         <ReactPlayer
           playing
           ref={this.player}

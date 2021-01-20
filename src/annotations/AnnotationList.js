@@ -1,6 +1,6 @@
 import React from "react";
 import AnnotationItem from "./AnnotationItem";
-import PropTypes from "prop-types";
+//import PropTypes from "prop-types";
 export class AnnotationList extends React.Component {
   
   state = {
@@ -68,8 +68,8 @@ export class AnnotationList extends React.Component {
   }
 }
 
-AnnotationList.propTypes = {
-  entries: PropTypes.array.isRequired,
-};
+// AnnotationList.propTypes = {
+//   entries: PropTypes.array.isRequired,
+// };
 
 export default AnnotationList;

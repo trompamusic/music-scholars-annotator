@@ -6,7 +6,7 @@ export class Addannotation extends React.Component {
     value: "",
     seconds: "",
     target: [],
-    visible: false,
+    //visible: false,
   };
   onChange = (e) => this.setState({ value: e.target.value });
 
@@ -22,10 +22,10 @@ export class Addannotation extends React.Component {
       value,
       seconds,
     };
-    const { visible } = this.state.visible;
+    //const { visible } = this.state.visible;
     return (
       <div>
-        <button
+        {/* <button
           style={{ padding: "5px", marginBottom: "5px" }}
           onClick={() => this.setState({ visible: !visible })}
         >
@@ -53,7 +53,7 @@ export class Addannotation extends React.Component {
             <span className="focusLegend" />
             <span>highlighted annotation</span>
           </div>
-        )}
+        )} */}
         {this.props.annotationType !== "cueMedia" && (
           <textarea
             className="textArea"
