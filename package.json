@@ -1,14 +1,14 @@
 {
-  "name": "selectable-score-demo",
+  "name": "music-scholars-annotator",
   "version": "0.0.1",
-  "description": "TROMPA selectable score component",
+  "description": "TROMPA music scholars annotator component",
   "main": "index.js",
   "scripts": {
     "start": "PORT=8080 react-scripts start",
     "build": "babel src --out-dir lib",
     "build-dev": "babel src --out-dir lib --source-maps inline"
   },
-  "author": "David M. Weigl, IWK, University of Music and Performing Arts Vienna",
+  "author": "Federico Zubani, Goldsmiths University of London, dept. of Computing and David M. Weigl, IWK, University of Music and Performing Arts Vienna",
   "license": "BSD-3-Clause",
   "devDependencies": {
     "@babel/cli": "^7.6.0",

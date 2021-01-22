@@ -13,7 +13,7 @@ import Modal from "react-modal";
 const vAdjust = 26; // num. pixels to nudge down anno measureBoxes
 
 export default class SelectableScoreApp extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +32,7 @@ export default class SelectableScoreApp extends Component {
       currentMedia: this.props.currentMedia || "",
       seekTo: "",
       measuresToAnnotationsMap: {},
-      annoToDisplay:[],
+      annoToDisplay: [],
       helpWindowIsActive: false,
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
@@ -51,7 +51,7 @@ export default class SelectableScoreApp extends Component {
     this.convertCoords = this.convertCoords.bind(this);
     this.activateModal = this.activateModal.bind(this);
     this.deactivateModal = this.deactivateModal.bind(this);
-   
+
     this.player = React.createRef();
   }
   activateModal = () => {
@@ -61,9 +61,9 @@ export default class SelectableScoreApp extends Component {
   deactivateModal = () => {
     this.setState({ helpWindowIsActive: false });
   };
-  
+
   convertCoords(elem) {
-    if(document.getElementById(elem.getAttribute("id"))
+    if (document.getElementById(elem.getAttribute("id"))
       && elem.style.display !== "none" && (elem.getBBox().x !== 0 || elem.getBBox().y !== 0)) {
       const x = elem.getBBox().x;
       const width = elem.getBBox().width;
@@ -72,14 +72,14 @@ export default class SelectableScoreApp extends Component {
       const offset = elem.closest("svg").parentElement.getBoundingClientRect();
       const matrix = elem.getScreenCTM();
       return {
-          x: (matrix.a * x) + (matrix.c * y) + matrix.e - offset.left,
-          y: (matrix.b * x) + (matrix.d * y) + matrix.f - offset.top,
-          x2: (matrix.a * (x + width)) + (matrix.c * y) + matrix.e - offset.left,
-          y2: (matrix.b * x) + (matrix.d * (y + height)) + matrix.f - offset.top
+        x: (matrix.a * x) + (matrix.c * y) + matrix.e - offset.left,
+        y: (matrix.b * x) + (matrix.d * y) + matrix.f - offset.top,
+        x2: (matrix.a * (x + width)) + (matrix.c * y) + matrix.e - offset.left,
+        y2: (matrix.b * x) + (matrix.d * (y + height)) + matrix.f - offset.top
       };
     } else {
       console.warn("Element unavailable on page: ", elem.getAttribute("id"));
-      return { x:0, y:0, x2:0, y2:0 }
+      return { x: 0, y: 0, x2: 0, y2: 0 }
     }
   }
 
@@ -176,13 +176,13 @@ export default class SelectableScoreApp extends Component {
     // FIXME: Validate that these are (TROMPA?) Web Annotations
     content = content.filter((c) => c["@id"].endsWith(".jsonld"));
 
-    let measuresToAnnotationsMapList = content.map((anno) => { 
+    let measuresToAnnotationsMapList = content.map((anno) => {
       const measures = anno.anno.target.map((jsonTarget) => {
         const targetId = jsonTarget.id;
         const fragment = targetId.substr(targetId.lastIndexOf("#"));
         const element = document.querySelector(fragment);
         let measure = "";
-        if(element) { 
+        if (element) {
           measure = element.closest(".measure");
         }
         return measure;
@@ -192,12 +192,12 @@ export default class SelectableScoreApp extends Component {
     })
     let newMap = {};
     measuresToAnnotationsMapList.forEach((measureToAnnoMap) => {
-      measureToAnnoMap.measures.forEach((m) => { 
+      measureToAnnoMap.measures.forEach((m) => {
         const mId = m.getAttribute("id");
-        if(mId in newMap) { 
+        if (mId in newMap) {
           newMap[mId].push(measureToAnnoMap.annoId);
-        } else { 
-          newMap[mId] = [ measureToAnnoMap.annoId ];
+        } else {
+          newMap[mId] = [measureToAnnoMap.annoId];
         }
       })
     })
@@ -206,18 +206,18 @@ export default class SelectableScoreApp extends Component {
       console.log("Mapped annotaitons ", newMap);
       console.log("current annotations ", content);
       // draw bounding boxes for all measures containing annotations
-      const annotatedMeasuresOnScreen = Object.keys(this.state.measuresToAnnotationsMap).filter((measureId) => 
+      const annotatedMeasuresOnScreen = Object.keys(this.state.measuresToAnnotationsMap).filter((measureId) =>
         document.querySelectorAll("#" + measureId).length
       )
       console.log("Annotated measures on screen: ", annotatedMeasuresOnScreen);
-      annotatedMeasuresOnScreen.forEach((measureId) => { 
-        const coords = this.convertCoords(document.querySelector("#"+measureId));
+      annotatedMeasuresOnScreen.forEach((measureId) => {
+        const coords = this.convertCoords(document.querySelector("#" + measureId));
         console.log("Coords: ", coords)
         const measureBox = document.createElement("div");
         const measureBoxBackground = document.createElement("div");
-       
-        const coordsBox = { 
-          "left": Math.floor(coords.x), 
+
+        const coordsBox = {
+          "left": Math.floor(coords.x),
           "top": Math.floor(coords.y) + vAdjust,
           "width": Math.ceil(coords.x2 - coords.x),
           "height": Math.ceil(coords.y2 - coords.y)
@@ -225,46 +225,72 @@ export default class SelectableScoreApp extends Component {
         console.log("Coords box: ", coordsBox)
         measureBox.setAttribute("id", "measureBox-" + measureId);
         measureBox.setAttribute("class", "measureBox");
-        measureBox.setAttribute("style", 
+        measureBox.setAttribute("style",
           "position: absolute;" +
           "background: rgba(0, 0, 0, 0);" +
           "left: " + coordsBox.left + "px;" +
           "top: " + coordsBox.top + "px;" +
           "width: " + coordsBox.width + "px;" +
           "height: " + coordsBox.height + "px;" +
-          "z-index: 1" 
+          "z-index: 1"
         )
-        measureBox.onclick = (() => {
 
-          console.log("Clicked measure containing these annotations", 
-            measureId
-          )
-          let _annoiDs = content.map((jsonIds) => {const annotationsIds = jsonIds["@id"]
-        return annotationsIds})
-          let _filteredAnnoIds = this.state.measuresToAnnotationsMap[measureId]
-          let compare = _annoiDs.filter((anno)=> _filteredAnnoIds.includes(anno))
-          console.log("filtered annos ", compare)
-          //const compare = _annoiDs.map((elem1) => ({id: elem1.annotationsIds, match: _filteredAnnoIds.some((elem2) => elem2[0] === elem1.annotationsIds)}))
-          
-          //console.log("all recorded annotations are ", _annoiDs)
-          //console.log("the measure contains ", _filteredAnnoIds)
-         // console.log("all measures on screen are", annotatedMeasuresOnScreen)
-         this.setState({annoToDisplay: compare})
-        })
         measureBoxBackground.setAttribute("id", "measureBoxBackground-" + measureId);
         measureBoxBackground.setAttribute("class", "measureBoxBackground");
-        measureBoxBackground.setAttribute("style", 
+        measureBoxBackground.setAttribute("style",
           "position: absolute;" +
-          "background: #fdbd91;" +
+          "background: rgba(241, 145, 0, 0.25);" +
+          "border:1px solid orange;" +
           "left: " + coordsBox.left + "px;" +
           "top: " + coordsBox.top + "px;" +
           "width: " + coordsBox.width + "px;" +
           "height: " + coordsBox.height + "px;" +
-          "z-index: -1" 
+          "z-index: -1"
         )
         console.log("TRYING TO DRAW", measureBox)
         document.querySelector("#annotationBoxesContainer").appendChild(measureBox);
         document.querySelector("#annotationBoxesContainer").appendChild(measureBoxBackground);
+        measureBox.onclick = (() => {
+          // FIXME: might need to work more on the onClick interaction
+          // e.preventDefault();
+          // const isBoxOpen = Array.from(e.currentTarget.classList).filter((c) =>
+          //   c.startsWith("measureBox")
+          // );
+          // if (isBoxOpen.length > 1) {
+          //   console.warn("too many open boxes", e.target);
+          // }
+          // // remove focus off previous inFocus elements (now outdated)
+          // const noLongerOpen = Array.from(
+          //   document.getElementsByClassName("isOpen")
+          // );
+          // noLongerOpen.forEach((noFocusElement) =>
+          //   noFocusElement.classList.remove("isOpen")
+          // );
+          // // add focus to newly inFocus elements
+          // const inOpenList = Array.from(
+          //   document.getElementsByClassName(isBoxOpen[0])
+          // );
+          // inOpenList.forEach((focusElement) =>
+          //   focusElement.classList.add("isOpen")
+          // );
+
+          let _annoiDs = content.map((jsonIds) => {
+            const annotationsIds = jsonIds["@id"]
+            return annotationsIds
+          })
+          let _filteredAnnoIds = this.state.measuresToAnnotationsMap[measureId]
+          let compare = _annoiDs.filter((anno) => _filteredAnnoIds.includes(anno))
+          this.setState({ annoToDisplay: compare })
+          //console.log("filtered annos ", compare)
+          //const compare = _annoiDs.map((elem1) => ({id: elem1.annotationsIds, match: _filteredAnnoIds.some((elem2) => elem2[0] === elem1.annotationsIds)}))
+          // console.log("Clicked measure containing these annotations", 
+          //   measureId
+          // )
+          //console.log("all recorded annotations are ", _annoiDs)
+          //console.log("the measure contains ", _filteredAnnoIds)
+          // console.log("all measures on screen are", annotatedMeasuresOnScreen)
+
+        })
       })
     });
     console.log("iteration succeded");
@@ -358,17 +384,17 @@ export default class SelectableScoreApp extends Component {
   }
 
 
- 
+
   render() {
     const modal = this.state.helpWindowIsActive
-    ? <Modal
+      ? <Modal
         isOpen={this.state.helpWindowIsActive}
         onRequestClose={this.deactivateModal}
         contentLabel="my modal"
         className="mymodal"
         overlayClassName="myoverlay"
         ariaHideApp={false}
-        
+
       >
         <div>
           <header className="modal-header">
@@ -378,7 +404,7 @@ export default class SelectableScoreApp extends Component {
           </header>
           <div className="modal-body">
             <p>
-              Title
+              Subtitle
             </p>
             <div style={{ height: 200, overflow: 'auto' }}>
               <h3>
@@ -401,7 +427,7 @@ export default class SelectableScoreApp extends Component {
           </footer>
         </div>
       </Modal>
-    : false;
+      : false;
     return (
       <div >
         {this.state.isClicked === true && (
@@ -420,7 +446,7 @@ export default class SelectableScoreApp extends Component {
                 uri={this.state.uri}
               />
             </div>
-            <div id="annotationBoxesContainer"/>
+            <div id="annotationBoxesContainer" />
             <SelectableScore
               uri={this.state.uri}
               annotationContainerUri={this.props.submitUri}
@@ -482,13 +508,13 @@ export default class SelectableScoreApp extends Component {
           onAnnoReplyHandler={this.onAnnoReplyHandler}
         />
         <div>
-        <button onClick={this.activateModal}>
-          help
+          <button onClick={this.activateModal}>
+            help
         </button>
-        {modal}
+          {modal}
         </div>
         {/* <OrchestralRibbon uri={this.state.testuri} width={500} height={600} /> */}
-     
+
         <ReactPlayer
           playing
           ref={this.player}
