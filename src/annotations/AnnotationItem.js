@@ -26,34 +26,56 @@ class AnnotationItem extends React.Component {
   //     this.player.current.seekTo(seekTo)
   //   );
   // }
-  
 
-  renderSwitch(){
+  renderSwitch() {
     const motivation = this.props.annotation.anno.motivation;
     const bodyD = this.props.annotation.anno.body[0].value;
     const bodyL = this.props.annotation.anno.body[0].id;
     const bodyMedia = this.props.annotation.anno.body[0].id;
     switch (motivation) {
       case "describing":
-        return (
-          <p>The content of this annotation is {bodyD}</p>
-        );
+        return <p>The content of this annotation is {bodyD}</p>;
       case "linking":
         if (bodyL.startsWith("http")) {
-          return (<p>The content of this annotation is {<a href={bodyL} onClick = "return false;" target="_blank" rel="noopener noreferrer">{bodyL}</a>}</p>);
-         } else {
-           const appendURL = "https://" + bodyL;
-           return(<p>The content of this annotation is {<a href={appendURL} onClick = "return false;" target="_blank" rel="noopener noreferrer">{bodyL}</a>}</p>)
-         };
-        
-      case "trompa:cueMedia" :
-        return( <p>The content of this annotation is {bodyMedia}</p>);
-    
+          return (
+            <p>
+              The content of this annotation is{" "}
+              {
+                <a
+                  href={bodyL}
+                  onClick="return false;"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {bodyL}
+                </a>
+              }
+            </p>
+          );
+        } else {
+          const appendURL = "https://" + bodyL;
+          return (
+            <p>
+              The content of this annotation is{" "}
+              {
+                <a
+                  href={appendURL}
+                  onClick="return false;"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {bodyL}
+                </a>
+              }
+            </p>
+          );
+        }
+
+      case "trompa:cueMedia":
+        return <p>The content of this annotation is {bodyMedia}</p>;
+
       default:
-        return (
-          <p>The content of this annotation is {bodyD}</p>
-        ); 
-        
+        return <p>The content of this annotation is {bodyD}</p>;
     }
   }
 

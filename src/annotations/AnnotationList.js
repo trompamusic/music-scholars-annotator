@@ -2,49 +2,51 @@ import React from "react";
 import AnnotationItem from "./AnnotationItem";
 //import PropTypes from "prop-types";
 export class AnnotationList extends React.Component {
-  
   state = {
     order: "desc",
   };
 
   render() {
     const { order } = this.state;
-    const filtering = this.props.allEntries.filter((anno) => this.props.filteringEntries.includes(anno["@id"]))
-    const sortedFilteredAnno = filtering.sort((a, b) =>{const isReverse = order === "asc" ? 1 : -1;
-    return isReverse * a.anno.created.localeCompare(b.anno.created)});
+    const filtering = this.props.allEntries.filter((anno) =>
+      this.props.filteringEntries.includes(anno["@id"])
+    );
+    const sortedFilteredAnno = filtering.sort((a, b) => {
+      const isReverse = order === "asc" ? 1 : -1;
+      return isReverse * a.anno.created.localeCompare(b.anno.created);
+    });
     // const sortedAnno = this.props.allEntries.sort((a, b) => {
-      
+
     // });
-   
+
     function onClick(e) {
       e.preventDefault();
       e.stopPropagation();
-        // figure out this element's focus Id
-        const focusId = Array.from(e.currentTarget.classList).filter((c) =>
-          c.startsWith("focus-")
-        );
-        if (focusId.length > 1) {
-          console.warn("Element with multiple focus Ids!", e.target);
-        }
-        // remove focus off previous inFocus elements (now outdated)
-        const noLongerInFocusList = Array.from(
-          document.getElementsByClassName("inFocus")
-        );
-        noLongerInFocusList.forEach((noFocusElement) =>
-          noFocusElement.classList.remove("inFocus")
-        );
-        // add focus to newly inFocus elements
-        const inFocusList = Array.from(
-          document.getElementsByClassName(focusId[0])
-        );
-        inFocusList.forEach((focusElement) =>
-          focusElement.classList.add("inFocus")
-        );
-        // scroll page to highlighted item
-        // document
-        //   .querySelector(".inFocus")
-        //   .scrollIntoView({ behavior: "smooth" });
-      
+      // figure out this element's focus Id
+      const focusId = Array.from(e.currentTarget.classList).filter((c) =>
+        c.startsWith("focus-")
+      );
+      if (focusId.length > 1) {
+        console.warn("Element with multiple focus Ids!", e.target);
+      }
+      // remove focus off previous inFocus elements (now outdated)
+      const noLongerInFocusList = Array.from(
+        document.getElementsByClassName("inFocus")
+      );
+      noLongerInFocusList.forEach((noFocusElement) =>
+        noFocusElement.classList.remove("inFocus")
+      );
+      // add focus to newly inFocus elements
+      const inFocusList = Array.from(
+        document.getElementsByClassName(focusId[0])
+      );
+      inFocusList.forEach((focusElement) =>
+        focusElement.classList.add("inFocus")
+      );
+      // scroll page to highlighted item
+      // document
+      //   .querySelector(".inFocus")
+      //   .scrollIntoView({ behavior: "smooth" });
     }
 
     return (
@@ -59,9 +61,11 @@ export class AnnotationList extends React.Component {
               onClick={onClick}
               key={item["@id"]}
             >
-              <AnnotationItem annotation={item}
-              onAnnoReplyHandler={this.props.onAnnoReplyHandler}
-              currentMedia={this.props.currentMedia} />
+              <AnnotationItem
+                annotation={item}
+                onAnnoReplyHandler={this.props.onAnnoReplyHandler}
+                currentMedia={this.props.currentMedia}
+              />
             </div>
           );
         })}
