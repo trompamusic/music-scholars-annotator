@@ -18,6 +18,7 @@ export class AnnotationList extends React.Component {
    
     function onClick(e) {
       e.preventDefault();
+      e.stopPropagation();
         // figure out this element's focus Id
         const focusId = Array.from(e.currentTarget.classList).filter((c) =>
           c.startsWith("focus-")
@@ -59,7 +60,8 @@ export class AnnotationList extends React.Component {
               key={item["@id"]}
             >
               <AnnotationItem annotation={item}
-              onAnnoReplyHandler={this.props.onAnnoReplyHandler} />
+              onAnnoReplyHandler={this.props.onAnnoReplyHandler}
+              currentMedia={this.props.currentMedia} />
             </div>
           );
         })}

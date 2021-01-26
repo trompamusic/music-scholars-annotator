@@ -312,10 +312,10 @@ export default class SelectableScoreApp extends Component {
           case "describing":
             if (bodies.length) {
               if ("value" in bodies[0]) {
-                const title = document.createElementNS(
-                  "http://www.w3.org/2000/svg",
-                  "title"
-                );
+                // const title = document.createElementNS(
+                //   "http://www.w3.org/2000/svg",
+                //   "title"
+                // );
                 // Embeds the annotation text into this title node
                 //title.innerHTML = bodies[0]["value"];
                 //element.insertBefore(title, element.firstChild);
@@ -506,6 +506,7 @@ export default class SelectableScoreApp extends Component {
           allEntries={this.state.currentAnnotation}
           filteringEntries={this.state.annoToDisplay}
           onAnnoReplyHandler={this.onAnnoReplyHandler}
+          currentMedia={this.state.currentMedia}
         />
         <div>
           <button onClick={this.activateModal}>
