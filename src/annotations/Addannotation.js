@@ -74,6 +74,7 @@ export class Addannotation extends React.Component {
             />
             <span> jump to: </span>
             <input
+              pattern="[0-9]"
               placeholder="seconds"
               name="seconds"
               value={this.state.seconds}
