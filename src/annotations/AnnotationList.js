@@ -15,9 +15,6 @@ export class AnnotationList extends React.Component {
       const isReverse = order === "asc" ? 1 : -1;
       return isReverse * a.anno.created.localeCompare(b.anno.created);
     });
-    // const sortedAnno = this.props.allEntries.sort((a, b) => {
-
-    // });
 
     function onClick(e) {
       e.preventDefault();

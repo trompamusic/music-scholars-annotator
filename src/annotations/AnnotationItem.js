@@ -4,12 +4,14 @@ import PropTypes from "prop-types";
 class AnnotationItem extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      visible: false,
+    };
     this.props = props;
     this.onClick = this.onClick.bind(this);
   }
   onClick(e) {
     e.preventDefault();
-
     const replyTarget = this.props.annotation.anno.target;
     this.props.onAnnoReplyHandler(replyTarget);
   }
@@ -32,14 +34,15 @@ class AnnotationItem extends React.Component {
     const bodyD = this.props.annotation.anno.body[0].value;
     const bodyL = this.props.annotation.anno.body[0].id;
     const bodyMedia = this.props.annotation.anno.body[0].id;
+    //let { visible } = this.state.visible;
     switch (motivation) {
       case "describing":
-        return <p>The content of this annotation is {bodyD}</p>;
+        return <p>The textual content of this annotation is {bodyD}</p>;
       case "linking":
         if (bodyL.startsWith("http")) {
           return (
             <p>
-              The content of this annotation is{" "}
+              The link of this annotation is {""}
               {
                 <a
                   href={bodyL}
@@ -56,7 +59,7 @@ class AnnotationItem extends React.Component {
           const appendURL = "https://" + bodyL;
           return (
             <p>
-              The content of this annotation is{" "}
+              The fixed link of this annotation is {""}
               {
                 <a
                   href={appendURL}
@@ -70,29 +73,28 @@ class AnnotationItem extends React.Component {
             </p>
           );
         }
-
+      //FIXME: needs to be able to click and play the video with time skip
       case "trompa:cueMedia":
-        return <p>The content of this annotation is {bodyMedia}</p>;
-
+        return <p>The mediacontent of this annotation is {bodyMedia}</p>;
+      //FIXME: needs to build reply annotation structure, needs replyTarget + show/hide replies of sort
+      case "replying":
+        return <p>This reply contains: {bodyD}</p>;
       default:
-        return <p>The content of this annotation is {bodyD}</p>;
+        console.log("no motivation provided", motivation);
+        return <p>This annotation is wrong and its content is {bodyD}</p>;
     }
   }
 
   render() {
     const date = this.props.annotation.anno.created;
     const creator = this.props.annotation.anno.creator || "unknown";
-    // const bodyD = this.props.annotation.anno.body[0].value;
-    // const bodyL = this.props.annotation.anno.body[0].id;
-    // const bodyMedia = this.props.annotation.anno.body[0];
-
+    const motivation = this.props.annotation.anno.motivation;
+    let { visible } = this.state.visible;
     return (
       <div className="annoItem">
         {this.renderSwitch()}
-        {/* <p>The content of this annotation is {bodyD || <a href={bodyL} target="_blank"
-            rel="noopener noreferrer">{bodyL}</a> || bodyMedia}</p> */}
         <div className="date">
-          Created on: {date} by {creator}
+          Created on: {date} by {creator} with {motivation} motivation
         </div>
         <button
           className="replyButton"
@@ -100,6 +102,14 @@ class AnnotationItem extends React.Component {
           onClick={this.onClick}
         >
           Reply
+        </button>
+
+        <button
+          className="showRepliesButton"
+          name="showRepliesButton"
+          onClick={() => this.setState({ visible: !visible })}
+        >
+          Show replies
         </button>
       </div>
     );

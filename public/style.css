@@ -4,6 +4,7 @@ body {
 }
 
 .replyButton {
+  display: inline-block;
   border: 1px solid white;
   background-color: rgb(218, 218, 218);
   padding: 5px 12px;
@@ -21,6 +22,28 @@ body {
 }
 
 .replyButton:active {
+  background-color: rgb(56, 55, 55);
+}
+
+.showRepliesButton {
+  display: flex;
+  border: 1px solid white;
+  background-color: rgb(218, 218, 218);
+  padding: 5px 12px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  right: 60px;
+}
+
+.showRepliesButton:hover {
+  background-color: gray;
+}
+
+.showRepliesButton:active {
   background-color: rgb(56, 55, 55);
 }
 
@@ -60,7 +83,7 @@ body {
 
 .score {
   position: relative;
-  float:right;
+  float: right;
   bottom: 0px;
   right: 0px;
 }
@@ -230,7 +253,7 @@ body {
   opacity: 1;
 }
 
-.isOpen{
+.isOpen {
   background: rgba(241, 145, 0, 0.16);
 }
 

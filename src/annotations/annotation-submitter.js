@@ -51,7 +51,6 @@ export class AnnotationSubmitter extends React.Component {
           created: new Date().toISOString(),
           creator: this.props.creator,
         };
-        console.log(anno);
         return {
           anno,
         };
@@ -66,7 +65,6 @@ export class AnnotationSubmitter extends React.Component {
           created: new Date().toISOString(),
           creator: this.props.creator,
         };
-        //no set state nothing that goes up beyond this point
         return {
           anno,
         };

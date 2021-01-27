@@ -1,5 +1,5 @@
 import React from "react";
-//const Name = ({ label }) => label.subStr(label.lastIndexOf("."));
+
 const Checkbox = ({ label, onClick }) => (
   <span>
     <label>

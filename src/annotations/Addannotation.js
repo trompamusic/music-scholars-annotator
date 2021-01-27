@@ -6,7 +6,6 @@ export class Addannotation extends React.Component {
     value: "",
     seconds: "",
     target: [],
-    //visible: false,
   };
   onChange = (e) => this.setState({ value: e.target.value });
 
@@ -22,7 +21,7 @@ export class Addannotation extends React.Component {
       value,
       seconds,
     };
-    //const { visible } = this.state.visible;
+
     return (
       <div>
         {/* <button
