@@ -79,9 +79,10 @@ class AnnotationItem extends React.Component {
       //FIXME: needs to build reply annotation structure, needs replyTarget + show/hide replies of sort
       case "replying":
         return <p>This reply contains: {bodyD}</p>;
+
       default:
         console.log("no motivation provided", motivation);
-        return <p>This annotation is wrong and its content is {bodyD}</p>;
+      //return <p>This annotation is wrong and its content is {bodyD}</p>;
     }
   }
 
@@ -89,6 +90,7 @@ class AnnotationItem extends React.Component {
     const date = this.props.annotation.anno.created;
     const creator = this.props.annotation.anno.creator || "unknown";
     const motivation = this.props.annotation.anno.motivation;
+    const bodyD = this.props.annotation.anno.body[0].value;
     let { visible } = this.state.visible;
     return (
       <div className="annoItem">
@@ -103,7 +105,6 @@ class AnnotationItem extends React.Component {
         >
           Reply
         </button>
-
         <button
           className="showRepliesButton"
           name="showRepliesButton"
