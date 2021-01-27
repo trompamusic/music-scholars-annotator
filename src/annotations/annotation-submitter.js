@@ -89,6 +89,7 @@ export class AnnotationSubmitter extends React.Component {
               value="describing"
               placeholder="Add your annotation..."
               onChange={this.props.onAnnoTypeChange}
+              defaultChecked={true}
             />
             Describing
           </label>
@@ -113,6 +114,17 @@ export class AnnotationSubmitter extends React.Component {
             />
             Cue Media
           </label>
+          <label>
+            <input
+              title="links a media content to the annotation"
+              type="radio"
+              value="reply"
+              name="annotationType"
+              disabled={true}
+              checked={this.props.annotationType === "replying"}
+            />
+            Reply
+          </label>
           <div className="addAnnotations">
             <Addannotations
               annotationType={this.props.annotationType}
@@ -122,6 +134,7 @@ export class AnnotationSubmitter extends React.Component {
               onResponse={this.props.onResponse}
               onRefreshClick={this.props.onRefreshClick}
               buttonContent={this.props.buttonContent}
+              selectorString={this.props.selectorString}
             />
           </div>
         </div>

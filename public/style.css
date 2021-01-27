@@ -176,6 +176,22 @@ body {
   color: white;
 }
 
+.disabledSubmitButton {
+  border: none;
+  background-color: rgb(190, 190, 190);
+  padding: 16px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-flexbox;
+  transition-duration: 0.4s;
+  width: 315px;
+  opacity: 1;
+  color: white;
+  pointer-events: none;
+}
+
 .enabledSubmitButton:hover {
   background-color: #4caf50;
   color: white;

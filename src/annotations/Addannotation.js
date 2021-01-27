@@ -6,6 +6,7 @@ export class Addannotation extends React.Component {
     value: "",
     seconds: "",
     target: [],
+    buttonStatus: "disabledSubmitButton",
   };
   onChange = (e) => this.setState({ value: e.target.value });
 
@@ -24,35 +25,6 @@ export class Addannotation extends React.Component {
 
     return (
       <div>
-        {/* <button
-          style={{ padding: "5px", marginBottom: "5px" }}
-          onClick={() => this.setState({ visible: !visible })}
-        >
-          Toggle legend
-        </button>
-        {this.state.visible === true && (
-          <div>
-            <h4>Annotation legend</h4>
-
-            <span className="selectionLegend" />
-            <span>currently selected</span>
-
-            <span className="descriptionLegend" />
-            <span>descriptive annotation</span>
-
-            <span className="linkingLegend" />
-            <span>linking annotation</span>
-
-            <span className="cueMediaLegend" />
-            <span>cue media annotation</span>
-
-            <span className="replyLegend" />
-            <span>replying annotation</span>
-
-            <span className="focusLegend" />
-            <span>highlighted annotation</span>
-          </div>
-        )} */}
         {this.props.annotationType !== "cueMedia" && (
           <textarea
             className="textArea"
@@ -81,19 +53,35 @@ export class Addannotation extends React.Component {
             />
           </div>
         )}
+        {this.state.value && (
+          <button
+            className="enabledSubmitButton"
+            title="click to post your annotation to your solid POD"
+          >
+            <SubmitButton
+              buttonContent={this.props.buttonContent}
+              submitUri={this.props.submitUri}
+              submitHandler={this.props.submitHandler}
+              submitHandlerArgs={handlerArgs}
+              onResponse={this.props.onResponse}
+            />
+          </button>
+        )}
+        {!this.state.value && (
+          <button
+            className="disabledSubmitButton"
+            title="click to post your annotation to your solid POD"
+          >
+            <SubmitButton
+              buttonContent="select measuers to begin"
+              submitUri={this.props.submitUri}
+              submitHandler={this.props.submitHandler}
+              submitHandlerArgs={handlerArgs}
+              onResponse={this.props.onResponse}
+            />
+          </button>
+        )}
 
-        <button
-          className="enabledSubmitButton"
-          title="click to post your annotation to your solid POD"
-        >
-          <SubmitButton
-            buttonContent={this.props.buttonContent}
-            submitUri={this.props.submitUri}
-            submitHandler={this.props.submitHandler}
-            submitHandlerArgs={handlerArgs}
-            onResponse={this.props.onResponse}
-          />
-        </button>
         <button
           onClick={this.props.onRefreshClick}
           className="refreshButton"
@@ -107,3 +95,34 @@ export class Addannotation extends React.Component {
 }
 
 export default Addannotation;
+
+/* old */
+/* <button
+          style={{ padding: "5px", marginBottom: "5px" }}
+          onClick={() => this.setState({ visible: !visible })}
+        >
+          Toggle legend
+        </button>
+        {this.state.visible === true && (
+          <div>
+            <h4>Annotation legend</h4>
+
+            <span className="selectionLegend" />
+            <span>currently selected</span>
+
+            <span className="descriptionLegend" />
+            <span>descriptive annotation</span>
+
+            <span className="linkingLegend" />
+            <span>linking annotation</span>
+
+            <span className="cueMediaLegend" />
+            <span>cue media annotation</span>
+
+            <span className="replyLegend" />
+            <span>replying annotation</span>
+
+            <span className="focusLegend" />
+            <span>highlighted annotation</span>
+          </div>
+        )} */

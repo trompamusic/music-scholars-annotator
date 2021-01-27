@@ -17,7 +17,7 @@ export default class SelectableScoreApp extends Component {
     super(props);
     this.state = {
       selection: [],
-      annotationType: "",
+      annotationType: "describing",
       placeholder: "",
       uri: "Mahler.mei",
       selectorString: "",
@@ -365,8 +365,21 @@ export default class SelectableScoreApp extends Component {
             }
             break;
           case "replying":
-            element.classList.add(anno.anno.motivation);
-            element.classList.add("focus-" + annoIdFragment);
+            // element.classList.add(anno.anno.motivation);
+            // element.classList.add("focus-" + annoIdFragment);
+            if (bodies.length) {
+              if ("value" in bodies[0]) {
+                // const title = document.createElementNS(
+                //   "http://www.w3.org/2000/svg",
+                //   "title"
+                // );
+                // Embeds the annotation text into this title node
+                //title.innerHTML = bodies[0]["value"];
+                //element.insertBefore(title, element.firstChild);
+                //element.classList.add(anno.anno.motivation);
+                element.classList.add("focus-" + annoIdFragment);
+              }
+            }
             break;
           case "linking":
             if (bodies.length) {
@@ -529,6 +542,7 @@ export default class SelectableScoreApp extends Component {
           replyAnnotationTarget={this.state.replyAnnotationTarget}
           buttonContent={this.state.buttonContent}
           creator={this.props.userId}
+          selectorString={this.state.selectorString}
         />
         {/*as buttonContent that you'd like to function as a clickable prev page
         button */}
