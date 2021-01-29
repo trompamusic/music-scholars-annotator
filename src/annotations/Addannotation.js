@@ -38,18 +38,22 @@ export class Addannotation extends React.Component {
         {this.props.annotationType === "cueMedia" && (
           <div>
             <input
+              type="text"
               value={this.state.value}
               name="value"
               placeholder="enter link here"
               onChange={this.onChange}
+              className="sizedTextBox"
             />
             <span> jump to: </span>
             <input
+              type="text"
               pattern="[0-9]"
               placeholder="seconds"
               name="seconds"
               value={this.state.seconds}
               onChange={this.onTimeChange}
+              className="sizedTextBox"
             />
           </div>
         )}
@@ -73,7 +77,7 @@ export class Addannotation extends React.Component {
             title="click to post your annotation to your solid POD"
           >
             <SubmitButton
-              buttonContent="select measuers to begin"
+              buttonContent="Select measures to begin"
               submitUri={this.props.submitUri}
               submitHandler={this.props.submitHandler}
               submitHandlerArgs={handlerArgs}
@@ -81,14 +85,15 @@ export class Addannotation extends React.Component {
             />
           </button>
         )}
-
-        <button
-          onClick={this.props.onRefreshClick}
-          className="refreshButton"
-          title="click to display the annotation contained in your solid POD"
-        >
-          <p>Fetch Annotations</p>
-        </button>
+        <span>
+          <button
+            onClick={this.props.onRefreshClick}
+            className="refreshButton"
+            title="click to display the annotation contained in your solid POD"
+          >
+            <p>Fetch Annotations</p>
+          </button>
+        </span>
       </div>
     );
   }

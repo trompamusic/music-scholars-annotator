@@ -3,6 +3,18 @@ body {
   user-select: none;
 }
 
+.hideReply {
+  display: none;
+}
+
+.showReply {
+  display: flex;
+}
+.sizedTextBox {
+  height: 30px;
+  padding: 1px;
+  margin-bottom: 5px;
+}
 .replyButton {
   display: inline-block;
   border: 1px solid white;
@@ -139,6 +151,7 @@ body {
   height: 100px;
   width: 625px;
   display: flex;
+  margin-bottom: 5px;
 }
 
 .pageButton {
@@ -164,12 +177,12 @@ body {
 .enabledSubmitButton {
   border: none;
   background-color: rgb(161, 219, 161);
-  padding: 16px;
+  padding: 17px;
   border-radius: 4px;
   text-align: center;
   font-size: 16px;
   cursor: pointer;
-  display: inline-flexbox;
+  /* //display: inline-flexbox; */
   transition-duration: 0.4s;
   width: 315px;
   opacity: 1;
@@ -179,12 +192,12 @@ body {
 .disabledSubmitButton {
   border: none;
   background-color: rgb(190, 190, 190);
-  padding: 16px;
+  padding: 17px;
   border-radius: 4px;
   text-align: center;
   font-size: 16px;
   cursor: pointer;
-  display: inline-flexbox;
+  /* display: inline-flexbox; */
   transition-duration: 0.4s;
   width: 315px;
   opacity: 1;

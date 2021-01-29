@@ -5,7 +5,7 @@ class AnnotationItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false,
+      visible: "hideReply",
     };
     this.props = props;
     this.onClick = this.onClick.bind(this);
@@ -28,57 +28,175 @@ class AnnotationItem extends React.Component {
   //     this.player.current.seekTo(seekTo)
   //   );
   // }
-
+  onShowReplyClick() {
+    // const replyTarget = document.querySelector("replyAnno");
+    // const inReplyTarget = Array.from(replyTarget);
+    // inReplyTarget.forEach((replyVisible) =>
+    //   replyVisible.classList.add("showReply")
+    // );
+    // inReplyTarget.forEach((replyVisible) =>
+    //   replyVisible.classList.remove("hideReply")
+    // );
+  }
   renderSwitch() {
     const motivation = this.props.annotation.anno.motivation;
     const bodyD = this.props.annotation.anno.body[0].value;
     const bodyL = this.props.annotation.anno.body[0].id;
     const bodyMedia = this.props.annotation.anno.body[0].id;
+    const target = this.props.annotation.anno.target[0].id;
+    const date = this.props.annotation.anno.created;
+    const creator = this.props.annotation.anno.creator || "unknown";
+
     //let { visible } = this.state.visible;
     switch (motivation) {
       case "describing":
-        return <p>The textual content of this annotation is {bodyD}</p>;
+        return (
+          <div>
+            {" "}
+            <p>The textual content of this annotation is {bodyD}</p>
+            <div className="date">
+              Created on: {date} by {creator} with {motivation} motivation
+            </div>
+            <button
+              className="replyButton"
+              name="replyButton"
+              onClick={this.onClick}
+            >
+              Reply
+            </button>
+            <button
+              className="showRepliesButton"
+              name="showRepliesButton"
+              onClick={this.onShowReplyClick}
+            >
+              Show replies
+            </button>
+          </div>
+        );
       case "linking":
         if (bodyL.startsWith("http")) {
           return (
-            <p>
-              The link of this annotation is {""}
-              {
-                <a
-                  href={bodyL}
-                  onClick="return false;"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {bodyL}
-                </a>
-              }
-            </p>
+            <div>
+              <p>
+                The link of this annotation is {""}
+                {
+                  <a
+                    href={bodyL}
+                    onClick="return false;"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {bodyL}
+                  </a>
+                }
+              </p>
+              <div className="date">
+                Created on: {date} by {creator} with {motivation} motivation
+              </div>
+              <button
+                className="replyButton"
+                name="replyButton"
+                onClick={this.onShowReplyClick}
+              >
+                Reply
+              </button>
+              <button
+                className="showRepliesButton"
+                name="showRepliesButton"
+                onClick={() => this.setState({ visible: "showReply" })}
+              >
+                Show replies
+              </button>
+            </div>
           );
         } else {
           const appendURL = "https://" + bodyL;
           return (
-            <p>
-              The fixed link of this annotation is {""}
-              {
-                <a
-                  href={appendURL}
-                  onClick="return false;"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {bodyL}
-                </a>
-              }
-            </p>
+            <div>
+              <p>
+                The fixed link of this annotation is {""}
+                {
+                  <a
+                    href={appendURL}
+                    onClick="return false;"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {bodyL}
+                  </a>
+                }
+              </p>
+              <div className="date">
+                Created on: {date} by {creator} with {motivation} motivation
+              </div>
+              <button
+                className="replyButton"
+                name="replyButton"
+                onClick={this.onClick}
+              >
+                Reply
+              </button>
+              <button
+                className="showRepliesButton"
+                name="showRepliesButton"
+                onClick={this.onShowReplyClick}
+              >
+                Show replies
+              </button>
+            </div>
           );
         }
       //FIXME: needs to be able to click and play the video with time skip
       case "trompa:cueMedia":
-        return <p>The mediacontent of this annotation is {bodyMedia}</p>;
+        return (
+          <div>
+            {" "}
+            <p>The mediacontent of this annotation is {bodyMedia}</p>
+            <button
+              className="replyButton"
+              name="replyButton"
+              onClick={this.onClick}
+            >
+              Reply
+            </button>
+            <button
+              className="showRepliesButton"
+              name="showRepliesButton"
+              onClick={this.onShowReplyClick}
+            >
+              Show replies
+            </button>
+          </div>
+        );
       //FIXME: needs to build reply annotation structure, needs replyTarget + show/hide replies of sort
       case "replying":
-        return <p>This reply contains: {bodyD}</p>;
+        console.log(target);
+        return (
+          <div
+            className="showReply"
+            id="replyAnno"
+            data-reply-annotation-target={target}
+          >
+            <p>This reply contains: {bodyD}</p>
+            <div className="date">
+              Created on: {date} by {creator} with {motivation} motivation
+            </div>
+            <button
+              className="replyButton"
+              name="replyButton"
+              onClick={this.onClick}
+            >
+              Reply
+            </button>
+            <button
+              className="showRepliesButton"
+              name="showRepliesButton"
+              onClick={this.onShowReplyClick}
+            >
+              Show replies
+            </button>
+          </div>
+        );
 
       default:
         console.log("no motivation provided", motivation);
@@ -91,11 +209,11 @@ class AnnotationItem extends React.Component {
     const creator = this.props.annotation.anno.creator || "unknown";
     const motivation = this.props.annotation.anno.motivation;
     const bodyD = this.props.annotation.anno.body[0].value;
-    let { visible } = this.state.visible;
+
     return (
       <div className="annoItem">
         {this.renderSwitch()}
-        <div className="date">
+        {/* <div className="date">
           Created on: {date} by {creator} with {motivation} motivation
         </div>
         <button
@@ -108,10 +226,10 @@ class AnnotationItem extends React.Component {
         <button
           className="showRepliesButton"
           name="showRepliesButton"
-          onClick={() => this.setState({ visible: !visible })}
+          onClick={() => this.setState({ visible: "showReply" })}
         >
           Show replies
-        </button>
+        </button> */}
       </div>
     );
   }

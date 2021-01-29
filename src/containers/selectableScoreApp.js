@@ -512,6 +512,7 @@ export default class SelectableScoreApp extends Component {
               type="text"
               onChange={this.onMEIInputChange}
               placeholder={this.state.uri}
+              className="sizedTextBox"
             />
 
             <input
@@ -552,6 +553,7 @@ export default class SelectableScoreApp extends Component {
           filteringEntries={this.state.annoToDisplay}
           onAnnoReplyHandler={this.onAnnoReplyHandler}
           currentMedia={this.state.currentMedia}
+          replyAnnotationTarget={this.state.replyAnnotationTarget}
         />
         <div>
           <button onClick={this.activateModal}>help</button>
