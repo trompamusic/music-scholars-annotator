@@ -172,11 +172,7 @@ class AnnotationItem extends React.Component {
       case "replying":
         console.log(target);
         return (
-          <div
-            className="showReply"
-            id="replyAnno"
-            data-reply-annotation-target={target}
-          >
+          <div id="replyAnno" data-reply-annotation-target={target}>
             <p>This reply contains: {bodyD}</p>
             <div className="date">
               Created on: {date} by {creator} with {motivation} motivation

@@ -19,7 +19,8 @@ export default class SelectableScoreApp extends Component {
       selection: [],
       annotationType: "describing",
       placeholder: "",
-      uri: "Mahler.mei",
+      uri:
+        "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei",
       selectorString: "",
       buttonContent: "Submit to your Solid POD",
       replyAnnotationTarget: [],
@@ -511,7 +512,7 @@ export default class SelectableScoreApp extends Component {
             <input
               type="text"
               onChange={this.onMEIInputChange}
-              placeholder={this.state.uri}
+              placeholder="mahler four hands rendition..."
               className="sizedTextBox"
             />
 
