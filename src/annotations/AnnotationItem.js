@@ -1,3 +1,4 @@
+/* item that contains the annotation contents, the renderSwitch function assign specific display to the specfic anntation based on its motivation*/
 import React from "react";
 import PropTypes from "prop-types";
 
@@ -201,10 +202,10 @@ class AnnotationItem extends React.Component {
   }
 
   render() {
-    const date = this.props.annotation.anno.created;
-    const creator = this.props.annotation.anno.creator || "unknown";
-    const motivation = this.props.annotation.anno.motivation;
-    const bodyD = this.props.annotation.anno.body[0].value;
+    // const date = this.props.annotation.anno.created;
+    // const creator = this.props.annotation.anno.creator || "unknown";
+    // const motivation = this.props.annotation.anno.motivation;
+    // const bodyD = this.props.annotation.anno.body[0].value;
 
     return (
       <div className="annoItem">

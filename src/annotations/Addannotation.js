@@ -1,3 +1,5 @@
+/* addAnnotation contains the submitButton component imported from the selectable score component, this handles the logic behind the POST to solid */
+/* also the input field changes based on the chosen annotation motivation*/
 import React from "react";
 import SubmitButton from "selectable-score/lib/submit-button.js";
 
@@ -16,6 +18,7 @@ export class Addannotation extends React.Component {
     );
 
   render() {
+    //packages the two states in one variable. The submithandlerArgs then are read with .value and .seconds from the submitHandler function
     let value = this.state.value;
     let seconds = this.state.seconds;
     let handlerArgs = {

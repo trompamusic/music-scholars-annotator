@@ -1,3 +1,4 @@
+/* simple checkbox component */
 import React from "react";
 
 const Checkbox = ({ label, onClick }) => (
