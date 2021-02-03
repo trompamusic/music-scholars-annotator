@@ -53,10 +53,9 @@ export default function SolidWrapper(props) {
         </a>
         <h2>Music scholars annotator component</h2>
         <p>
-          You are logged in as <Value src="user.name" />, see your profile{" "}
+          You are logged in as{" "}
           <a href={userId} target="_blank" rel="noopener noreferrer">
-            {" "}
-            here
+            <Value src="user.name" />
           </a>
         </p>
         <p title="close the current session and quit the app">
