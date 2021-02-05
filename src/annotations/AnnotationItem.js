@@ -1,7 +1,7 @@
 /* item that contains the annotation contents, the renderSwitch function assign specific display to the specfic anntation based on its motivation*/
 import React from "react";
 import PropTypes from "prop-types";
-
+import PlayLogo from "../play-solid.svg";
 class AnnotationItem extends React.Component {
   constructor(props) {
     super(props);
@@ -29,49 +29,59 @@ class AnnotationItem extends React.Component {
   //     this.player.current.seekTo(seekTo)
   //   );
   // }
+
+  onPlayClick = (e) => {
+    e.preventDefault();
+    const bodyMedia = this.props.annotation.anno.body[0].id;
+    console.log(bodyMedia);
+    this.props.onMediaClick(bodyMedia);
+  };
   onShowReplyClick(e) {
     e.preventDefault();
-    const replyTarget = document.querySelector("#replyAnno");
-    const replyTargetId = replyTarget.dataset.replyAnnotationTarget;
-    const rootAnno = e.target.closest(".annoItem");
-    const rootAnnoTarget = rootAnno.dataset.target;
-    if (replyTargetId === rootAnnoTarget) {
-      const noLongerShowing = Array.from(
-        document.getElementsByClassName("showReply")
-      );
-      noLongerShowing.forEach((noReplyShowing) =>
-        noReplyShowing.classList.add("hiddenReply")
-      );
-      noLongerShowing.forEach((noReplyShowing) =>
-        noReplyShowing.classList.remove("showReply")
-      );
-      const showing = Array.from(
-        document.getElementsByClassName("hiddenReply")
-      );
-      showing.forEach((showingReply) =>
-        showingReply.classList.add("showReply")
-      );
-      showing.forEach((showingReply) =>
-        showingReply.classList.remove("hiddenReply")
-      );
-    } else {
-      const noLongerShowing = Array.from(
-        document.getElementsByClassName("showReply")
-      );
-      noLongerShowing.forEach((noReplyShowing) =>
-        noReplyShowing.classList.add("hiddenReply")
-      );
-      noLongerShowing.forEach((noReplyShowing) =>
-        noReplyShowing.classList.remove("showReply")
-      );
-      alert("no reply to show");
-    }
+    const replyTargetAnno = document.querySelector("#replyAnno");
+    if (replyTargetAnno) {
+      const replyTargetAnnoId = replyTargetAnno.dataset.replyAnnotationTarget;
+      const rootAnno = e.target.closest(".annoItem");
+      const rootAnnoTargetId = rootAnno.dataset.target;
+      if (replyTargetAnnoId === rootAnnoTargetId) {
+        const noLongerShowing = Array.from(
+          document.getElementsByClassName("showReply")
+        );
+        noLongerShowing.forEach((noReplyShowing) =>
+          noReplyShowing.classList.add("hiddenReply")
+        );
+        noLongerShowing.forEach((noReplyShowing) =>
+          noReplyShowing.classList.remove("showReply")
+        );
+        const showing = Array.from(
+          document.getElementsByClassName("hiddenReply")
+        );
+        showing.forEach((showingReply) =>
+          showingReply.classList.add("showReply")
+        );
+        showing.forEach((showingReply) =>
+          showingReply.classList.remove("hiddenReply")
+        );
+      } else {
+        const noLongerShowing = Array.from(
+          document.getElementsByClassName("showReply")
+        );
+        noLongerShowing.forEach((noReplyShowing) =>
+          noReplyShowing.classList.add("hiddenReply")
+        );
+        noLongerShowing.forEach((noReplyShowing) =>
+          noReplyShowing.classList.remove("showReply")
+        );
+        alert("no rpely to show");
+      }
+    } else alert("no reply to show");
   }
   renderSwitch() {
     const motivation = this.props.annotation.anno.motivation;
     const bodyD = this.props.annotation.anno.body[0].value;
     const bodyL = this.props.annotation.anno.body[0].id;
     const bodyMedia = this.props.annotation.anno.body[0].id;
+    const cleanMediaString = bodyMedia.split("#")[0];
     const target = this.props.annotation.anno.target[0].id;
     const date = this.props.annotation.anno.created;
     const creator = this.props.annotation.anno.creator || "unknown";
@@ -125,14 +135,14 @@ class AnnotationItem extends React.Component {
               <button
                 className="replyButton"
                 name="replyButton"
-                onClick={this.onShowReplyClick}
+                onClick={this.onClick}
               >
                 Reply
               </button>
               <button
                 className="showRepliesButton"
                 name="showRepliesButton"
-                onClick={() => this.setState({ visible: "showReply" })}
+                onClick={this.onShowReplyClick}
               >
                 Show replies
               </button>
@@ -180,7 +190,22 @@ class AnnotationItem extends React.Component {
         return (
           <div className="annoItem" data-target={target}>
             {" "}
-            <p>The mediacontent of this annotation is {bodyMedia}</p>
+            <p>
+              The mediacontent of this annotation is {cleanMediaString}{" "}
+              <button className="playButton" onClick={this.onPlayClick}>
+                {" "}
+                <img
+                  src={PlayLogo}
+                  style={{
+                    width: "5px",
+                    alignContent: "center",
+                    textAlign: "center",
+                  }}
+                ></img>{" "}
+                play{" "}
+              </button>
+            </p>
+            <wbr></wbr>
             <button
               className="replyButton"
               name="replyButton"

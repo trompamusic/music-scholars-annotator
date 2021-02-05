@@ -29,6 +29,21 @@ body {
   right: 0;
 }
 
+.playButton {
+  display: inline-block;
+  border: 1px solid white;
+  background-color: rgb(218, 218, 218);
+  padding: 5px 12px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.playButton:hover {
+  background-color: gray;
+}
+
 .replyButton:hover {
   background-color: gray;
 }
@@ -105,9 +120,10 @@ body {
 
 .annoItem {
   display: flexbox;
-  border-top: 1px solid #888;
+  border-top: 0.5px solid rgba(136, 136, 136, 0.5);
   list-style-type: none;
   position: relative;
+  border-bottom: 0.5px solid rgba(136, 136, 136, 0.5);
 }
 
 .annoItem:hover {

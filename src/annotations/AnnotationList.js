@@ -64,7 +64,7 @@ export class AnnotationList extends React.Component {
               <AnnotationItem
                 annotation={item}
                 onAnnoReplyHandler={this.props.onAnnoReplyHandler}
-                currentMedia={this.props.currentMedia}
+                onMediaClick={this.props.onMediaClick}
                 replyAnnotationTarget={this.props.replyAnnotationTarget}
               />
             </div>

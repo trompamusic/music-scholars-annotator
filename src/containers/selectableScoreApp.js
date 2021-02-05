@@ -51,7 +51,7 @@ export default class SelectableScoreApp extends Component {
     this.convertCoords = this.convertCoords.bind(this);
     this.activateModal = this.activateModal.bind(this);
     this.deactivateModal = this.deactivateModal.bind(this);
-
+    this.onMediaClick = this.onMediaClick.bind(this);
     this.player = React.createRef();
   }
   activateModal = () => {
@@ -160,6 +160,17 @@ export default class SelectableScoreApp extends Component {
           this.setState({ toggleAnnotationRetrieval: false });
         }
       );
+  }
+
+  onMediaClick(bodyMedia) {
+    console.log("button click", bodyMedia);
+    //appends http fragment to avoid partial linking error
+    //const mediaCue = bodies[0]["id"];
+    // TODO validate properly
+    const currentMedia = bodyMedia.split("#")[0];
+    const seekTo = bodyMedia.split("#")[1].replace("t=", "");
+    console.log("Setting up seek to: ", currentMedia, seekTo);
+    this.setState({ currentMedia }, () => this.player.current.seekTo(seekTo));
   }
 
   onReceiveAnnotationContainerContent(content) {
@@ -407,17 +418,17 @@ export default class SelectableScoreApp extends Component {
           case "trompa:cueMedia":
             if (bodies.length) {
               // make the target clickable, seeking player to the (first) body media cue
-              element.onclick = () => {
-                //appends http fragment to avoid partial linking error
-                const mediaCue = bodies[0]["id"];
-                // TODO validate properly
-                const currentMedia = mediaCue.split("#")[0];
-                const seekTo = mediaCue.split("#")[1].replace("t=", "");
-                console.log("Setting up seek to: ", currentMedia, seekTo);
-                this.setState({ currentMedia }, () =>
-                  this.player.current.seekTo(seekTo)
-                );
-              };
+              // element.onMediaClick = () => {
+              //   //appends http fragment to avoid partial linking error
+              //   const mediaCue = bodies[0]["id"];
+              //   // TODO validate properly
+              //   const currentMedia = mediaCue.split("#")[0];
+              //   const seekTo = mediaCue.split("#")[1].replace("t=", "");
+              //   console.log("Setting up seek to: ", currentMedia, seekTo);
+              //   this.setState({ currentMedia }, () =>
+              //     this.player.current.seekTo(seekTo)
+              //   );
+              // };
               // and turn the cursor into a pointer as a hint that it's clickable
               element.classList.add("focus-" + annoIdFragment);
               //element.classList.add("cueMedia");
@@ -553,11 +564,16 @@ export default class SelectableScoreApp extends Component {
           allEntries={this.state.currentAnnotation}
           filteringEntries={this.state.annoToDisplay}
           onAnnoReplyHandler={this.onAnnoReplyHandler}
-          currentMedia={this.state.currentMedia}
+          onMediaClick={this.onMediaClick}
           replyAnnotationTarget={this.state.replyAnnotationTarget}
         />
         <div>
-          <button onClick={this.activateModal}>help</button>
+          <button
+            onClick={this.activateModal}
+            style={{ padding: "5px", marginTop: "5px" }}
+          >
+            help
+          </button>
           {modal}
         </div>
         {/* <OrchestralRibbon uri={this.state.testuri} width={500} height={600} /> */}
