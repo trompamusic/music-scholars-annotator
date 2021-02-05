@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import SelectableScore from "selectable-score/lib/selectable-score";
 import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
-import AnnotationSubmitter from "../annotations/annotation-submitter.js";
-import SelectionHandler from "../annotations/SelectionHandler.js";
-import AnnotationList from "../annotations/AnnotationList.js";
+import AnnotationSubmitter from "../annotations/annotationSubmitter.js";
+import SelectionHandler from "../annotations/selectionHandler.js";
+import AnnotationList from "../annotations/annotationList.js";
 import ReactPlayer from "react-player";
 import Modal from "react-modal";
 

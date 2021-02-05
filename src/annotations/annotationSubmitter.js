@@ -1,7 +1,7 @@
 /* annotation submitter takes the handlerArgs passed from the addAnnotaiton script and builds the jsonLd structure of each annotation based on its motivation */
 /* it also renders the radio button array to selecte the annotation motivation  */
 import React from "react";
-import Addannotations from "./Addannotation.js";
+import Addannotations from "./addAnnotation.js";
 export class AnnotationSubmitter extends React.Component {
   submitHandler = (handlerArgs) => {
     //adds different annotations based on selection

@@ -2,7 +2,7 @@
 /* they are ordered chronologically with sortedfilteredAnno and the onClick funciton is attacehd to the annotation item's body to highlight the annotated section of the score*/
 
 import React from "react";
-import AnnotationItem from "./AnnotationItem";
+import AnnotationItem from "./annotationItem";
 //import PropTypes from "prop-types";
 export class AnnotationList extends React.Component {
   state = {
