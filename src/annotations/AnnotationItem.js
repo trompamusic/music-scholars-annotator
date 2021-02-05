@@ -1,34 +1,13 @@
 /* item that contains the annotation contents, the renderSwitch function assign specific display to the specfic anntation based on its motivation*/
 import React from "react";
-import PropTypes from "prop-types";
+
 import PlayLogo from "../play-solid.svg";
 class AnnotationItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      visible: "hideReply",
-    };
-    this.props = props;
-    this.onClick = this.onClick.bind(this);
-  }
   onClick(e) {
     e.preventDefault();
     const replyTarget = this.props.annotation.anno.target;
     this.props.onAnnoReplyHandler(replyTarget);
   }
-
-  // onMediaClick (bodyMedia){
-  //   //e.preventDefault()
-  //   //const mediaCue = this.props.annotation.anno.body[0].id;
-  //   console.log(bodyMedia)
-  //   // TODO validate properly
-  //   const currentMedia = bodyMedia.split("#")[0];
-  //   const seekTo = bodyMedia.split("#")[1].replace("t=", "");
-  //   console.log("Setting up seek to: ", currentMedia, seekTo);
-  //   this.setState(this.props.currentMedia, () =>
-  //     this.player.current.seekTo(seekTo)
-  //   );
-  // }
 
   onPlayClick = (e) => {
     e.preventDefault();
@@ -81,7 +60,7 @@ class AnnotationItem extends React.Component {
     const bodyD = this.props.annotation.anno.body[0].value;
     const bodyL = this.props.annotation.anno.body[0].id;
     const bodyMedia = this.props.annotation.anno.body[0].id;
-    const cleanMediaString = bodyMedia.split("#")[0];
+
     const target = this.props.annotation.anno.target[0].id;
     const date = this.props.annotation.anno.created;
     const creator = this.props.annotation.anno.creator || "unknown";
@@ -185,8 +164,9 @@ class AnnotationItem extends React.Component {
             </div>
           );
         }
-      //FIXME: needs to be able to click and play the video with time skip
+
       case "trompa:cueMedia":
+        const cleanMediaString = bodyMedia.split("#")[0];
         return (
           <div className="annoItem" data-target={target}>
             {" "}
@@ -222,7 +202,7 @@ class AnnotationItem extends React.Component {
             </button>
           </div>
         );
-      //FIXME: needs to build reply annotation structure, needs replyTarget + show/hide replies of sort
+      //FIXME: needs to build reply annotation structure hirerchically
       case "replying":
         console.log(target);
         return (
@@ -259,38 +239,8 @@ class AnnotationItem extends React.Component {
   }
 
   render() {
-    // const date = this.props.annotation.anno.created;
-    // const creator = this.props.annotation.anno.creator || "unknown";
-    // const motivation = this.props.annotation.anno.motivation;
-    // const bodyD = this.props.annotation.anno.body[0].value;
-
-    return (
-      <div className="annoItem">
-        {this.renderSwitch()}
-        {/* <div className="date">
-          Created on: {date} by {creator} with {motivation} motivation
-        </div>
-        <button
-          className="replyButton"
-          name="replyButton"
-          onClick={this.onClick}
-        >
-          Reply
-        </button>
-        <button
-          className="showRepliesButton"
-          name="showRepliesButton"
-          onClick={() => this.setState({ visible: "showReply" })}
-        >
-          Show replies
-        </button> */}
-      </div>
-    );
+    return <div className="annoItem">{this.renderSwitch()}</div>;
   }
 }
-
-AnnotationItem.propType = {
-  annotation: PropTypes.object.isRequired,
-};
 
 export default AnnotationItem;
