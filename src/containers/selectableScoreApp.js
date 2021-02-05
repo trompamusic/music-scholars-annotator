@@ -300,29 +300,6 @@ export default class SelectableScoreApp extends Component {
             .querySelector("#annotationBoxesContainer")
             .appendChild(measureBoxBackground);
           measureBox.onclick = () => {
-            // FIXME: might need to work more on the onClick interaction
-            // e.preventDefault();
-            // const isBoxOpen = Array.from(e.currentTarget.classList).filter((c) =>
-            //   c.startsWith("measureBox")
-            // );
-            // if (isBoxOpen.length > 1) {
-            //   console.warn("too many open boxes", e.target);
-            // }
-            // // remove focus off previous inFocus elements (now outdated)
-            // const noLongerOpen = Array.from(
-            //   document.getElementsByClassName("isOpen")
-            // );
-            // noLongerOpen.forEach((noFocusElement) =>
-            //   noFocusElement.classList.remove("isOpen")
-            // );
-            // // add focus to newly inFocus elements
-            // const inOpenList = Array.from(
-            //   document.getElementsByClassName(isBoxOpen[0])
-            // );
-            // inOpenList.forEach((focusElement) =>
-            //   focusElement.classList.add("isOpen")
-            // );
-
             let _annoiDs = content.map((jsonIds) => {
               const annotationsIds = jsonIds["@id"];
               return annotationsIds;
@@ -334,14 +311,6 @@ export default class SelectableScoreApp extends Component {
               _filteredAnnoIds.includes(anno)
             );
             this.setState({ annoToDisplay: compare });
-            //console.log("filtered annos ", compare)
-            //const compare = _annoiDs.map((elem1) => ({id: elem1.annotationsIds, match: _filteredAnnoIds.some((elem2) => elem2[0] === elem1.annotationsIds)}))
-            // console.log("Clicked measure containing these annotations",
-            //   measureId
-            // )
-            //console.log("all recorded annotations are ", _annoiDs)
-            //console.log("the measure contains ", _filteredAnnoIds)
-            // console.log("all measures on screen are", annotatedMeasuresOnScreen)
           };
         });
       }

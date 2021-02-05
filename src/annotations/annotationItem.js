@@ -60,12 +60,9 @@ class AnnotationItem extends React.Component {
     const bodyD = this.props.annotation.anno.body[0].value;
     const bodyL = this.props.annotation.anno.body[0].id;
     const bodyMedia = this.props.annotation.anno.body[0].id;
-
     const target = this.props.annotation.anno.target[0].id;
     const date = this.props.annotation.anno.created;
     const creator = this.props.annotation.anno.creator || "unknown";
-
-    //let { visible } = this.state.visible;
     switch (motivation) {
       case "describing":
         return (
@@ -211,7 +208,38 @@ class AnnotationItem extends React.Component {
             data-reply-annotation-target={target}
             className="hiddenReply"
           >
-            <p>This reply contains: {bodyD}</p>
+            <div className="annoItem">
+              <p>This reply contains: {bodyD}</p>
+              <div className="date">
+                Created on: {date} by {creator} with {motivation} motivation
+              </div>
+              <button
+                className="replyButton"
+                name="replyButton"
+                onClick={this.onClick}
+              >
+                Reply
+              </button>
+              <button
+                className="showRepliesButton"
+                name="showRepliesButton"
+                onClick={this.onShowReplyClick}
+              >
+                Show replies
+              </button>
+            </div>
+          </div>
+        );
+
+      default:
+        console.log(
+          "no motivation provided defaulting to plain text annotation",
+          motivation
+        );
+        return (
+          <div className="annoItem" data-target={target}>
+            {" "}
+            <p>The plain text content of this annotation is {bodyD}</p>
             <div className="date">
               Created on: {date} by {creator} with {motivation} motivation
             </div>
@@ -231,15 +259,11 @@ class AnnotationItem extends React.Component {
             </button>
           </div>
         );
-
-      default:
-        console.log("no motivation provided", motivation);
-      //return <p>This annotation is wrong and its content is {bodyD}</p>;
     }
   }
 
   render() {
-    return <div className="annoItem">{this.renderSwitch()}</div>;
+    return <div className="annoItemContainer">{this.renderSwitch()}</div>;
   }
 }
 
