@@ -105,7 +105,7 @@ class AnnotationItem extends React.Component {
       case "linking":
         if (bodyL.startsWith("http")) {
           return (
-            <div>
+            <div className="annoItem" data-target={target}>
               <p>
                 The link of this annotation is {""}
                 {
@@ -141,7 +141,7 @@ class AnnotationItem extends React.Component {
         } else {
           const appendURL = "https://" + bodyL;
           return (
-            <div>
+            <div className="annoItem" data-target={target}>
               <p>
                 The fixed link of this annotation is {""}
                 {
@@ -178,7 +178,7 @@ class AnnotationItem extends React.Component {
       //FIXME: needs to be able to click and play the video with time skip
       case "trompa:cueMedia":
         return (
-          <div>
+          <div className="annoItem" data-target={target}>
             {" "}
             <p>The mediacontent of this annotation is {bodyMedia}</p>
             <button
