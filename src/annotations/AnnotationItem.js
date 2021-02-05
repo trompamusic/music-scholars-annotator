@@ -29,15 +29,43 @@ class AnnotationItem extends React.Component {
   //     this.player.current.seekTo(seekTo)
   //   );
   // }
-  onShowReplyClick() {
-    // const replyTarget = document.querySelector("replyAnno");
-    // const inReplyTarget = Array.from(replyTarget);
-    // inReplyTarget.forEach((replyVisible) =>
-    //   replyVisible.classList.add("showReply")
-    // );
-    // inReplyTarget.forEach((replyVisible) =>
-    //   replyVisible.classList.remove("hideReply")
-    // );
+  onShowReplyClick(e) {
+    e.preventDefault();
+    const replyTarget = document.querySelector("#replyAnno");
+    const replyTargetId = replyTarget.dataset.replyAnnotationTarget;
+    const rootAnno = e.target.closest(".annoItem");
+    const rootAnnoTarget = rootAnno.dataset.target;
+    if (replyTargetId === rootAnnoTarget) {
+      const noLongerShowing = Array.from(
+        document.getElementsByClassName("showReply")
+      );
+      noLongerShowing.forEach((noReplyShowing) =>
+        noReplyShowing.classList.add("hiddenReply")
+      );
+      noLongerShowing.forEach((noReplyShowing) =>
+        noReplyShowing.classList.remove("showReply")
+      );
+      const showing = Array.from(
+        document.getElementsByClassName("hiddenReply")
+      );
+      showing.forEach((showingReply) =>
+        showingReply.classList.add("showReply")
+      );
+      showing.forEach((showingReply) =>
+        showingReply.classList.remove("hiddenReply")
+      );
+    } else {
+      const noLongerShowing = Array.from(
+        document.getElementsByClassName("showReply")
+      );
+      noLongerShowing.forEach((noReplyShowing) =>
+        noReplyShowing.classList.add("hiddenReply")
+      );
+      noLongerShowing.forEach((noReplyShowing) =>
+        noReplyShowing.classList.remove("showReply")
+      );
+      alert("no reply to show");
+    }
   }
   renderSwitch() {
     const motivation = this.props.annotation.anno.motivation;
@@ -52,7 +80,7 @@ class AnnotationItem extends React.Component {
     switch (motivation) {
       case "describing":
         return (
-          <div>
+          <div className="annoItem" data-target={target}>
             {" "}
             <p>The textual content of this annotation is {bodyD}</p>
             <div className="date">
@@ -173,7 +201,11 @@ class AnnotationItem extends React.Component {
       case "replying":
         console.log(target);
         return (
-          <div id="replyAnno" data-reply-annotation-target={target}>
+          <div
+            id="replyAnno"
+            data-reply-annotation-target={target}
+            className="hiddenReply"
+          >
             <p>This reply contains: {bodyD}</p>
             <div className="date">
               Created on: {date} by {creator} with {motivation} motivation

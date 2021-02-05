@@ -3,12 +3,12 @@ body {
   user-select: none;
 }
 
-.hideReply {
+.hiddenReply {
   display: none;
 }
 
 .showReply {
-  display: flex;
+  display: block;
 }
 .sizedTextBox {
   height: 30px;
