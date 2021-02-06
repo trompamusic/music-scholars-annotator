@@ -3,16 +3,18 @@ import React from "react";
 
 import PlayLogo from "../play-solid.svg";
 class AnnotationItem extends React.Component {
-  onClick(e) {
+  onClick = (e) => {
     e.preventDefault();
     const replyTarget = this.props.annotation.anno.target;
-    this.props.onAnnoReplyHandler(replyTarget);
-  }
+    const replyTargetId = this.props.annotation["@id"];
+    console.log(replyTargetId, replyTarget);
+    this.props.onAnnoReplyHandler(replyTarget, replyTargetId);
+  };
 
   onPlayClick = (e) => {
     e.preventDefault();
     const bodyMedia = this.props.annotation.anno.body[0].id;
-    console.log(bodyMedia);
+    //console.log(bodyMedia);
     this.props.onMediaClick(bodyMedia);
   };
   onShowReplyClick(e) {
@@ -66,7 +68,7 @@ class AnnotationItem extends React.Component {
     switch (motivation) {
       case "describing":
         return (
-          <div className="annoItem" data-target={target}>
+          <div id="rootAnno" className="annoItem" data-target={target}>
             {" "}
             <p>The textual content of this annotation is {bodyD}</p>
             <div className="date">
@@ -202,6 +204,8 @@ class AnnotationItem extends React.Component {
       //FIXME: needs to build reply annotation structure hirerchically
       case "replying":
         console.log(target);
+
+        console.log(this.props.annotation);
         return (
           <div
             id="replyAnno"
@@ -209,6 +213,9 @@ class AnnotationItem extends React.Component {
             className="hiddenReply"
           >
             <div className="annoItem">
+              {/* <div className="quoteContent" style={{ background: "gray" }}>
+                {quoteContent}
+              </div> */}
               <p>This reply contains: {bodyD}</p>
               <div className="date">
                 Created on: {date} by {creator} with {motivation} motivation

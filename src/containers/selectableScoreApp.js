@@ -34,6 +34,7 @@ export default class SelectableScoreApp extends Component {
       measuresToAnnotationsMap: {},
       annoToDisplay: [],
       helpWindowIsActive: false,
+      replyAnnotationTargetId: "",
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
@@ -112,12 +113,13 @@ export default class SelectableScoreApp extends Component {
     this.setState({ showMEIInput: !this.state.showMEIInput });
   }
 
-  onAnnoReplyHandler(replyTarget) {
+  onAnnoReplyHandler(replyTarget, replyTargetId) {
     this.setState({
       annotationType: "replying",
       placeholder: "you are replying to the selected annotation",
       buttonContent: "Reply to selected Solid annotation",
       replyAnnotationTarget: replyTarget,
+      replyAnnotationTargetId: replyTargetId,
     });
   }
 
@@ -525,6 +527,7 @@ export default class SelectableScoreApp extends Component {
           buttonContent={this.state.buttonContent}
           creator={this.props.userId}
           selectorString={this.state.selectorString}
+          replyAnnotationTargetId={this.state.replyAnnotationTargetId}
         />
         {/*as buttonContent that you'd like to function as a clickable prev page
         button */}
