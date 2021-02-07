@@ -19,14 +19,41 @@ class AnnotationItem extends React.Component {
     //console.log(bodyMedia);
     this.props.onMediaClick(bodyMedia);
   };
-  onShowReplyClick(e) {
+  onShowReplyClick = (e) => {
     e.preventDefault();
+    e.stopPropagation();
+    const testRoot = document.querySelectorAll("#rootAnno");
+    const replyTest = document.querySelectorAll("#replyAnno");
     const replyTargetAnno = document.querySelector("#replyAnno");
+    const _test = [testRoot, replyTest];
+    const filterRoot = [];
+    const filterReply = [];
+    for (var i = 0; i < replyTest.length; i++) {
+      filterReply.push(replyTest[i].dataset.replyAnnotationTarget);
+    }
+    for (var i = 0; i < testRoot.length; i++) {
+      filterRoot.push(testRoot[i].dataset.target);
+    }
+    console.log(_test);
+    // const targetCollection = testRoot.forEach(
+    //   (target) => target.item.dataset.target
+    // );
+    // const replyTargetAnnoArray = Array.from(
+    //   document.querySelector("#replyAnno")
+    // );
+    // const originAnno = Array.from(document.querySelector("#rootAnno"));
+    const filteredResults = filterReply.filter((target) =>
+      filterRoot.includes(target)
+    );
+
+    // console.log(targetCollection, "reply", replyTest);
     if (replyTargetAnno) {
       const replyTargetAnnoId = replyTargetAnno.dataset.replyAnnotationTarget;
       const rootAnno = e.target.closest(".annoItem");
       const rootAnnoTargetId = rootAnno.dataset.target;
+
       if (replyTargetAnnoId === rootAnnoTargetId) {
+        document.querySelector("#rootAnno").appendChild(replyTargetAnno);
         const noLongerShowing = Array.from(
           document.getElementsByClassName("showReply")
         );
@@ -58,7 +85,7 @@ class AnnotationItem extends React.Component {
         alert("no rpely to show");
       }
     } else alert("no reply to show");
-  }
+  };
   renderSwitch = () => {
     const motivation = this.props.annotation.anno.motivation;
     const bodyD = this.props.annotation.anno.body[0].value;
@@ -102,6 +129,7 @@ class AnnotationItem extends React.Component {
             >
               Show replies
             </button>
+            {/* <div>{this.buildReply()}</div> */}
           </div>
         );
       case "linking":
@@ -234,11 +262,7 @@ class AnnotationItem extends React.Component {
             data-reply-annotation-target={target}
             className="hiddenReply"
           >
-            <div className="annoItem">
-              <div className="quoteContent">
-                <b>Quoted content: {""}</b>
-                <i>{innerBodyString}</i>
-              </div>
+            <div className="quoteContent">
               <p>This reply contains: {bodyD}</p>
               <div className="date">
                 Created on: {date} by {creator} with {motivation} motivation
@@ -273,7 +297,7 @@ class AnnotationItem extends React.Component {
             <div className="date">
               Created on: {date} by {creator} with {motivation} motivation
             </div>
-            <button
+            {/* <button
               className="replyButton"
               name="replyButton"
               onClick={this.onClick}
@@ -286,7 +310,7 @@ class AnnotationItem extends React.Component {
               onClick={this.onShowReplyClick}
             >
               Show replies
-            </button>
+            </button> */}
           </div>
         );
     }
