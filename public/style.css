@@ -108,6 +108,14 @@ body {
   display: flexbox;
 }
 
+.quoteContent {
+  background-color: rgba(204, 204, 204, 0.521);
+  padding: 1%;
+  margin-left: 1%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
 .score {
   position: relative;
   float: right;

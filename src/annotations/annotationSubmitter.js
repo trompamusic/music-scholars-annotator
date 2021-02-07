@@ -5,10 +5,10 @@ import Addannotations from "./addAnnotation.js";
 export class AnnotationSubmitter extends React.Component {
   submitHandler = (handlerArgs) => {
     //adds different annotations based on selection
-    let replyAnnotationTargetId = this.props.replyAnnotationTargetId;
+    //let replyAnnotationTargetId = this.props.replyAnnotationTargetId;
     let value = handlerArgs.value;
     let seconds = handlerArgs.seconds;
-    console.log(replyAnnotationTargetId);
+    let quoteBody = this.props.replyAnnoBody;
     var anno = "";
     switch (this.props.annotationType) {
       case "describing":
@@ -68,7 +68,7 @@ export class AnnotationSubmitter extends React.Component {
           motivation: "replying",
           created: new Date().toISOString(),
           creator: this.props.creator,
-          source: replyAnnotationTargetId,
+          source: quoteBody,
         };
         return {
           anno,

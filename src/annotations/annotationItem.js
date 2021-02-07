@@ -1,14 +1,16 @@
 /* item that contains the annotation contents, the renderSwitch function assign specific display to the specfic anntation based on its motivation*/
 import React from "react";
-
+import { Fragment } from "react";
 import PlayLogo from "../play-solid.svg";
 class AnnotationItem extends React.Component {
   onClick = (e) => {
     e.preventDefault();
     const replyTarget = this.props.annotation.anno.target;
     const replyTargetId = this.props.annotation["@id"];
-    console.log(replyTargetId, replyTarget);
-    this.props.onAnnoReplyHandler(replyTarget, replyTargetId);
+    const innerBody =
+      this.props.annotation.anno.body[0].id ||
+      this.props.annotation.anno.body[0].value;
+    this.props.onAnnoReplyHandler(replyTarget, replyTargetId, innerBody);
   };
 
   onPlayClick = (e) => {
@@ -57,7 +59,7 @@ class AnnotationItem extends React.Component {
       }
     } else alert("no reply to show");
   }
-  renderSwitch() {
+  renderSwitch = () => {
     const motivation = this.props.annotation.anno.motivation;
     const bodyD = this.props.annotation.anno.body[0].value;
     const bodyL = this.props.annotation.anno.body[0].id;
@@ -65,10 +67,22 @@ class AnnotationItem extends React.Component {
     const target = this.props.annotation.anno.target[0].id;
     const date = this.props.annotation.anno.created;
     const creator = this.props.annotation.anno.creator || "unknown";
+    const selfId = this.props.annotation["@id"];
+    const originAnno = document.querySelectorAll("div[data-self-id]");
+    const innerBodyString = this.props.annotation.anno.source;
+    console.log("anno list ", originAnno);
+    // const selfIdData = selfId.dataset.selfId;
+    // const rootAnnoTargetIdData = rootAnnoTargetId.dataset.rootAnnotationId;
+
     switch (motivation) {
       case "describing":
         return (
-          <div id="rootAnno" className="annoItem" data-target={target}>
+          <div
+            id="rootAnno"
+            className="annoItem"
+            data-target={target}
+            data-self-id={selfId}
+          >
             {" "}
             <p>The textual content of this annotation is {bodyD}</p>
             <div className="date">
@@ -93,7 +107,11 @@ class AnnotationItem extends React.Component {
       case "linking":
         if (bodyL.startsWith("http")) {
           return (
-            <div className="annoItem" data-target={target}>
+            <div
+              className="annoItem"
+              data-target={target}
+              data-self-id={selfId}
+            >
               <p>
                 The link of this annotation is {""}
                 {
@@ -129,7 +147,11 @@ class AnnotationItem extends React.Component {
         } else {
           const appendURL = "https://" + bodyL;
           return (
-            <div className="annoItem" data-target={target}>
+            <div
+              className="annoItem"
+              data-target={target}
+              data-self-id={selfId}
+            >
               <p>
                 The fixed link of this annotation is {""}
                 {
@@ -167,7 +189,7 @@ class AnnotationItem extends React.Component {
       case "trompa:cueMedia":
         const cleanMediaString = bodyMedia.split("#")[0];
         return (
-          <div className="annoItem" data-target={target}>
+          <div className="annoItem" data-target={target} data-self-id={selfId}>
             {" "}
             <p>
               The mediacontent of this annotation is {cleanMediaString}{" "}
@@ -205,7 +227,7 @@ class AnnotationItem extends React.Component {
       case "replying":
         console.log(target);
 
-        console.log(this.props.annotation);
+        //console.log(stuff);
         return (
           <div
             id="replyAnno"
@@ -213,9 +235,10 @@ class AnnotationItem extends React.Component {
             className="hiddenReply"
           >
             <div className="annoItem">
-              {/* <div className="quoteContent" style={{ background: "gray" }}>
-                {quoteContent}
-              </div> */}
+              <div className="quoteContent">
+                <b>Quoted content: {""}</b>
+                <i>{innerBodyString}</i>
+              </div>
               <p>This reply contains: {bodyD}</p>
               <div className="date">
                 Created on: {date} by {creator} with {motivation} motivation
@@ -267,7 +290,7 @@ class AnnotationItem extends React.Component {
           </div>
         );
     }
-  }
+  };
 
   render() {
     return <div className="annoItemContainer">{this.renderSwitch()}</div>;
