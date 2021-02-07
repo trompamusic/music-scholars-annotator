@@ -76,6 +76,7 @@ export default function SolidWrapper(props) {
           <SelectableScoreApp
             uri={props.uri}
             vrvOptions={props.vrvOptions}
+            podUri = { `${userPOD}` }
             submitUri={`${userPOD}` + userInput}
             userId={`${userId}`}
           />

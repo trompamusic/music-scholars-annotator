@@ -554,6 +554,7 @@ export default class SelectableScoreApp extends Component {
           onAnnoReplyHandler={this.onAnnoReplyHandler}
           currentMedia={this.state.currentMedia}
           replyAnnotationTarget={this.state.replyAnnotationTarget}
+          podUri={this.props.podUri}
         />
         <div>
           <button onClick={this.activateModal}>help</button>
