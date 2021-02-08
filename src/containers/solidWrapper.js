@@ -11,7 +11,7 @@ import {
 } from "@solid/react";
 
 import SelectableScoreApp from "./selectableScoreApp";
-import Logo from "../top-bar-logo_0_0.png";
+import Logo from "../graphics/top-bar-logo_0_0.png";
 
 export default function SolidWrapper(props) {
   data.context.extend({

@@ -1,7 +1,7 @@
 /* item that contains the annotation contents, the renderSwitch function assign specific display to the specfic anntation based on its motivation*/
 import React from "react";
 import { Fragment } from "react";
-import PlayLogo from "../play-solid.svg";
+import PlayLogo from "../graphics/play-solid.svg";
 class AnnotationItem extends React.Component {
   onClick = (e) => {
     e.preventDefault();
