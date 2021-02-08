@@ -201,7 +201,7 @@ body {
 .enabledSubmitButton {
   border: none;
   background-color: rgb(161, 219, 161);
-  padding: 17px;
+  padding: 20px;
   border-radius: 4px;
   text-align: center;
   font-size: 16px;
@@ -216,7 +216,7 @@ body {
 .disabledSubmitButton {
   border: none;
   background-color: rgb(190, 190, 190);
-  padding: 17px;
+  padding: 20px;
   border-radius: 4px;
   text-align: center;
   font-size: 16px;
@@ -236,6 +236,10 @@ body {
 
 .enabledSubmitButton:active {
   background-color: forestgreen;
+}
+
+.selectable-score-postButton {
+  display: inline;
 }
 
 .refreshButton {

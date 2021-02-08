@@ -66,13 +66,35 @@ export class Addannotation extends React.Component {
             className="enabledSubmitButton"
             title="click to post your annotation to your solid POD"
           >
-            <SubmitButton
-              buttonContent={this.props.buttonContent}
-              submitUri={this.props.submitUri}
-              submitHandler={this.props.submitHandler}
-              submitHandlerArgs={handlerArgs}
-              onResponse={this.props.onResponse}
-            />
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              data-prefix="far"
+              data-icon="arrow-alt-to-top"
+              class="svg-inline--fa fa-arrow-alt-to-top fa-w-12"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 384 512"
+              width="1em"
+              height="1em"
+              display="inline-flex"
+            >
+              <path
+                fill="white"
+                d="M48 336h51.6v96c0 26.5 21.5 48 48 48h88.6c26.5 0 48-21.5 48-48v-96h51.6c42.6 0 64.2-51.7 33.9-81.9l-143.9-144c-18.7-18.7-49.1-18.7-67.9 0l-144 144C-16 284.2 5.3 336 48 336zm144-192l144 144h-99.7v144h-88.6V288H48l144-144zM0 68V44c0-6.6 5.4-12 12-12h360c6.6 0 12 5.4 12 12v24c0 6.6-5.4 12-12 12H12C5.4 80 0 74.6 0 68z"
+              ></path>
+            </svg>
+
+            <span>
+              {""}
+              <SubmitButton
+                buttonContent={this.props.buttonContent}
+                submitUri={this.props.submitUri}
+                submitHandler={this.props.submitHandler}
+                submitHandlerArgs={handlerArgs}
+                onResponse={this.props.onResponse}
+              />
+            </span>
           </button>
         )}
         {!this.state.value && (
@@ -80,25 +102,6 @@ export class Addannotation extends React.Component {
             className="disabledSubmitButton"
             title="click to post your annotation to your solid POD"
           >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              data-prefix="fal"
-              data-icon="arrow-alt-to-top"
-              class="svg-inline--fa fa-arrow-alt-to-top fa-w-12"
-              role="img"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 384 512"
-              height="1em"
-              width="1em"
-              display="inline-flex"
-            >
-              <path
-                fill="white"
-                d="M153.1 448c-8.8 0-16-7.2-16-16V288H43.3c-7.1 0-10.7-8.6-5.7-13.6l143.1-143.5c6.3-6.3 16.4-6.3 22.7 0l143.1 143.5c5 5 1.5 13.6-5.7 13.6h-93.9v144c0 8.8-7.2 16-16 16h-77.8m0 32h77.7c26.5 0 48-21.5 48-48V320h61.9c35.5 0 53.5-43 28.3-68.2L226 108.2c-18.8-18.8-49.2-18.8-68 0L14.9 251.8c-25 25.1-7.3 68.2 28.4 68.2h61.9v112c-.1 26.5 21.5 48 47.9 48zM0 44v8c0 6.6 5.4 12 12 12h360c6.6 0 12-5.4 12-12v-8c0-6.6-5.4-12-12-12H12C5.4 32 0 37.4 0 44z"
-              ></path>
-            </svg>
-
             <SubmitButton
               buttonContent="Select measures to begin"
               submitUri={this.props.submitUri}
