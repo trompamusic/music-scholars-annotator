@@ -249,7 +249,7 @@ body {
   cursor: pointer;
   transition-duration: 0.4s;
   width: 315px;
-
+  padding: 20px;
   opacity: 1;
   color: white;
 }
