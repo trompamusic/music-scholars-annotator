@@ -24,6 +24,7 @@ class AnnotationItem extends React.Component {
       visible: "hideReply",
       userMayModifyAccess: false,
       resourceAcl:null,
+      aclModified: false,
       datasetWithAcl: null,
       userId: null
     };
@@ -61,6 +62,14 @@ class AnnotationItem extends React.Component {
           }
         }).catch( (e) => console.error("Couldn't get Solid dataset with ACL: ", this.props.annotation["@id"], e) ) 
       }).catch( (e) => console.error("Couldn't access the current Solid session: ", e) );
+  }
+
+  shouldComponentUpdate(nextProps, nextState) { 
+    if(this.state.aclModified !== nextState.aclModified) { 
+      // user has enacted an ACL change. Request a re-render accordingly.
+      return true;
+    }
+    return false;
   }
 
   onClick(e) {
@@ -106,7 +115,7 @@ class AnnotationItem extends React.Component {
           { read: true, append: true , write: true , control: true}
         )
         saveAclFor(this.state.datasetWithAcl, updatedAcl, { fetch: auth.fetch })
-          .then( (newAcl) => this.setState({resourceAcl: newAcl}) )
+          .then( (newAcl) => this.setState({resourceAcl: newAcl, aclModified: Date.now()}) )
           .catch( (e) => console.error("Could not grant public access: ", e) );
       })
   }
@@ -127,7 +136,7 @@ class AnnotationItem extends React.Component {
         )
 
         saveAclFor(this.state.datasetWithAcl, updatedAcl, { fetch: auth.fetch })
-          .then( (newAcl) => this.setState({resourceAcl: newAcl}, () => console.log("new ACL: ", this.state.resourceAcl)))
+          .then( (newAcl) => this.setState({resourceAcl: newAcl, aclModified: Date.now()}, () => console.log("new ACL: ", this.state.resourceAcl)))
           .catch( (e) => console.error("Could not revoke public access: ", e) );
       })
   }
@@ -136,6 +145,7 @@ class AnnotationItem extends React.Component {
     /* determine permission state of annotation in Solid Pod */
     let permission;
     let modifyPermissionsElement;
+    
     if(this.state.datasetWithAcl) { 
       if(getPublicAccess(this.state.datasetWithAcl).read)  
         permission = "public";
