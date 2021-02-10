@@ -197,8 +197,8 @@ export default class SelectableScoreApp extends Component {
       let distinctMeasures = [];
       // replying annotations don't have distinct measures since they target
       // annotations, *not* MEI elements
-      if (anno.anno.motivation !== "replying") {
-        const measures = anno.anno.target
+      if (anno.motivation !== "replying") {
+        const measures = anno.target
           .map((jsonTarget) => {
             const targetId = jsonTarget.id;
             const fragment = targetId.substr(targetId.lastIndexOf("#"));
@@ -329,7 +329,7 @@ export default class SelectableScoreApp extends Component {
             const annotationsToDisplay = [
               ...compare,
               ...content
-                .filter((anno) => anno.anno.motivation === "replying") // get the replies
+                .filter((anno) => anno.motivation === "replying") // get the replies
                 .map((anno) => anno["@id"]), // and return their IDs
             ];
             this.setState({ annoToDisplay: annotationsToDisplay });
@@ -340,9 +340,9 @@ export default class SelectableScoreApp extends Component {
     console.log("iteration succeded");
 
     content.map((anno) => {
-      if (anno.anno.motivation !== "replying") {
-        anno.anno.target.map((jsonTarget) => {
-          const bodies = anno.anno.body;
+      if (anno.motivation !== "replying") {
+        anno.target.map((jsonTarget) => {
+          const bodies = anno.body;
           const targetId = jsonTarget.id;
           const fragment = targetId.substr(targetId.lastIndexOf("#"));
           const element = document.querySelector(fragment);
@@ -352,7 +352,7 @@ export default class SelectableScoreApp extends Component {
           const annoId = anno["@id"];
           const annoIdFragment = annoId.substr(annoId.lastIndexOf("/") + 1);
           //checks what's the motivation of the target
-          switch (anno.anno.motivation) {
+          switch (anno.motivation) {
             case "describing":
               if (bodies.length) {
                 if ("value" in bodies[0]) {

@@ -5,19 +5,18 @@ import PlayLogo from "../graphics/play-solid.svg";
 class AnnotationItem extends React.Component {
   onClick = (e) => {
     e.preventDefault();
-    const replyTarget = this.props.annotation.anno.target;
+    const replyTarget = this.props.annotation.target;
     const replyTargetId = this.props.annotation["@id"];
     //was using || when showing quoted content a-la old school forum, allowes me to populate the quoted content field depending on the anno motivation.
     const innerBody =
-      this.props.annotation.anno.body[0].id ||
-      this.props.annotation.anno.body[0].value;
+      this.props.annotation.body[0].id || this.props.annotation.body[0].value;
     this.props.onAnnoReplyHandler(replyTarget, replyTargetId, innerBody);
     console.log("reply target id", replyTargetId);
   };
 
   onPlayClick = (e) => {
     e.preventDefault();
-    const bodyMedia = this.props.annotation.anno.body[0].id;
+    const bodyMedia = this.props.annotation.body[0].id;
     this.props.onMediaClick(bodyMedia);
   };
   onShowReplyClick = (e) => {
@@ -103,18 +102,18 @@ class AnnotationItem extends React.Component {
     } else console.warn("no replies to show for this annotation");
   };
   renderSwitch = () => {
-    //stuff that i am carrying around: the annotation's ID you are replying to, the body (currently sits under annotation.anno.source) and the annotation's specific ID
-    const motivation = this.props.annotation.anno.motivation;
-    const bodyD = this.props.annotation.anno.body[0].value;
-    const bodyL = this.props.annotation.anno.body[0].id;
-    const bodyMedia = this.props.annotation.anno.body[0].id;
-    const target = this.props.annotation.anno.target[0].id;
-    const repTarget = this.props.annotation.anno.target;
-    const date = this.props.annotation.anno.created;
-    const creator = this.props.annotation.anno.creator || "unknown";
+    //stuff that i am carrying around: the annotation's ID you are replying to, the body (currently sits under annotation.source) and the annotation's specific ID
+    const motivation = this.props.annotation.motivation;
+    const bodyD = this.props.annotation.body[0].value;
+    const bodyL = this.props.annotation.body[0].id;
+    const bodyMedia = this.props.annotation.body[0].id;
+    const target = this.props.annotation.target[0].id;
+    const repTarget = this.props.annotation.target;
+    const date = this.props.annotation.created;
+    const creator = this.props.annotation.creator || "unknown";
     const selfId = this.props.annotation["@id"];
     // const originAnno = document.querySelectorAll("div[data-self-id]");
-    // const innerBodyString = this.props.annotation.anno.source;
+    // const innerBodyString = this.props.annotation.source;
     // const selfIdData = selfId.dataset.selfId;
     // const rootAnnoTargetIdData = rootAnnoTargetId.dataset.rootAnnotationId;
 

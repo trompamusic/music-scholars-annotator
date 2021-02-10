@@ -12,7 +12,7 @@ export class AnnotationSubmitter extends React.Component {
     var anno = "";
     switch (this.props.annotationType) {
       case "describing":
-        anno = {
+        return {
           "@context": "http://www.w3.org/ns/anno.jsonld",
           target: this.props.selection.map((elem) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
@@ -23,12 +23,9 @@ export class AnnotationSubmitter extends React.Component {
           created: new Date().toISOString(),
           creator: this.props.creator,
         };
-        return {
-          anno,
-        };
 
       case "linking":
-        anno = {
+        return {
           "@context": "http://www.w3.org/ns/anno.jsonld",
           target: this.props.selection.map((elem) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
@@ -39,12 +36,9 @@ export class AnnotationSubmitter extends React.Component {
           created: new Date().toISOString(),
           creator: this.props.creator,
         };
-        return {
-          anno,
-        };
 
       case "cueMedia":
-        anno = {
+        return {
           "@context": "http://www.w3.org/ns/anno.jsonld",
           target: this.props.selection.map((elem) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
@@ -55,12 +49,9 @@ export class AnnotationSubmitter extends React.Component {
           created: new Date().toISOString(),
           creator: this.props.creator,
         };
-        return {
-          anno,
-        };
 
       case "replying":
-        anno = {
+        return {
           "@context": "http://www.w3.org/ns/anno.jsonld",
           target: this.props.replyAnnotationTargetId, //this takes the annotation ID being replied to
           type: "Annotation",
@@ -68,9 +59,6 @@ export class AnnotationSubmitter extends React.Component {
           motivation: "replying",
           created: new Date().toISOString(),
           creator: this.props.creator,
-        };
-        return {
-          anno,
         };
 
       default:
