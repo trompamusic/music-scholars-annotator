@@ -62,13 +62,12 @@ export class AnnotationSubmitter extends React.Component {
       case "replying":
         anno = {
           "@context": "http://www.w3.org/ns/anno.jsonld",
-          target: this.props.replyAnnotationTarget, //this takes the measure id selected by the user
+          target: this.props.replyAnnotationTargetId, //this takes the annotation ID being replied to
           type: "Annotation",
           body: [{ type: "TextualBody", value }], //this takes the user input
           motivation: "replying",
           created: new Date().toISOString(),
-          creator: this.props.creator,
-          source: quoteBody,
+          creator: this.props.creator
         };
         return {
           anno,

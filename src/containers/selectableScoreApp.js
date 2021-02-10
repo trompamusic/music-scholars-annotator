@@ -194,19 +194,24 @@ export default class SelectableScoreApp extends Component {
     content = content.filter((c) => c["@id"].endsWith(".jsonld"));
 
     let measuresToAnnotationsMapList = content.map((anno) => {
-      const measures = anno.anno.target
-        .map((jsonTarget) => {
-          const targetId = jsonTarget.id;
-          const fragment = targetId.substr(targetId.lastIndexOf("#"));
-          const element = document.querySelector(fragment);
-          let measure = "";
-          if (element) {
-            measure = element.closest(".measure");
-          }
-          return measure;
-        })
-        .filter((el) => el); // ensure element exists on screen
-      const distinctMeasures = [...new Set(measures)];
+      let distinctMeasures = []; 
+      // replying annotations don't have distinct measures since they target
+      // annotations, *not* MEI elements
+      if(anno.anno.motivation !== "replying"){ 
+        const measures = anno.anno.target
+          .map((jsonTarget) => {
+            const targetId = jsonTarget.id;
+            const fragment = targetId.substr(targetId.lastIndexOf("#"));
+            const element = document.querySelector(fragment);
+            let measure = "";
+            if (element) {
+              measure = element.closest(".measure");
+            }
+            return measure;
+          })
+          .filter((el) => el); // ensure element exists on screen
+        distinctMeasures = [...new Set(measures)];
+      }
       return { annoId: anno["@id"], measures: distinctMeasures };
     });
     let newMap = {};
@@ -224,6 +229,9 @@ export default class SelectableScoreApp extends Component {
     this.setState(
       { currentAnnotation: content, measuresToAnnotationsMap: newMap },
       () => {
+        // delete any existing measure boxes so we can redraw from blank slate
+        document.querySelectorAll(".measureBox").forEach((mb) => mb.remove());
+        document.querySelectorAll(".measureBoxBackground").forEach((mb) => mb.remove());
         console.log("Mapped annotaitons ", newMap);
         console.log("current annotations ", content);
         // draw bounding boxes for all measures containing annotations
@@ -298,23 +306,32 @@ export default class SelectableScoreApp extends Component {
           );
           console.log("TRYING TO DRAW", measureBox);
           document
-            .querySelector("#annotationBoxesContainer")
+            .querySelector(".annotationBoxesContainer")
             .appendChild(measureBox);
           document
-            .querySelector("#annotationBoxesContainer")
+            .querySelector(".annotationBoxesContainer")
             .appendChild(measureBoxBackground);
           measureBox.onclick = () => {
-            let _annoiDs = content.map((jsonIds) => {
+            let _annoIds = content.map((jsonIds) => {
               const annotationsIds = jsonIds["@id"];
               return annotationsIds;
             });
             let _filteredAnnoIds = this.state.measuresToAnnotationsMap[
               measureId
             ];
-            let compare = _annoiDs.filter((anno) =>
+            let compare = _annoIds.filter((anno) =>
               _filteredAnnoIds.includes(anno)
             );
-            this.setState({ annoToDisplay: compare });
+            // compare has all annotation IDs *for our measure*
+            // we want those, PLUS all replying annotations (which aren't tied to measures)
+            const annotationsToDisplay = 
+              [...compare, 
+               ...content
+                .filter((anno) => anno.anno.motivation === "replying") // get the replies
+                .map((anno) => anno["@id"]) // and return their IDs
+
+              ];
+            this.setState({ annoToDisplay: annotationsToDisplay});
           };
         });
       }
@@ -322,97 +339,82 @@ export default class SelectableScoreApp extends Component {
     console.log("iteration succeded");
 
     content.map((anno) => {
-      anno.anno.target.map((jSonTarget) => {
-        const bodies = anno.anno.body;
-        const targetId = jSonTarget.id;
-        const fragment = targetId.substr(targetId.lastIndexOf("#"));
-        const element = document.querySelector(fragment);
-        if (!element) {
-          return;
-        }
-        const annoId = anno["@id"];
-        const annoIdFragment = annoId.substr(annoId.lastIndexOf("/") + 1);
-        //checks what's the motivation of the target
-        switch (anno.anno.motivation) {
-          case "describing":
-            if (bodies.length) {
-              if ("value" in bodies[0]) {
-                // const title = document.createElementNS(
-                //   "http://www.w3.org/2000/svg",
-                //   "title"
-                // );
-                // Embeds the annotation text into this title node
-                //title.innerHTML = bodies[0]["value"];
-                //element.insertBefore(title, element.firstChild);
-                //element.classList.add(anno.anno.motivation);
-                element.classList.add("focus-" + annoIdFragment);
+      if(anno.anno.motivation !== "replying") { 
+        anno.anno.target.map((jsonTarget) => {
+          const bodies = anno.anno.body;
+          const targetId = jsonTarget.id;
+          const fragment = targetId.substr(targetId.lastIndexOf("#"));
+          const element = document.querySelector(fragment);
+          if (!element) {
+            return;
+          }
+          const annoId = anno["@id"];
+          const annoIdFragment = annoId.substr(annoId.lastIndexOf("/") + 1);
+          //checks what's the motivation of the target
+          switch (anno.anno.motivation) {
+            case "describing":
+              if (bodies.length) {
+                if ("value" in bodies[0]) {
+                  // const title = document.createElementNS(
+                  //   "http://www.w3.org/2000/svg",
+                  //   "title"
+                  // );
+                  // Embeds the annotation text into this title node
+                  //title.innerHTML = bodies[0]["value"];
+                  //element.insertBefore(title, element.firstChild);
+                  //element.classList.add(anno.anno.motivation);
+                  element.classList.add("focus-" + annoIdFragment);
+                }
               }
-            }
-            break;
-          case "replying":
-            // element.classList.add(anno.anno.motivation);
-            // element.classList.add("focus-" + annoIdFragment);
-            if (bodies.length) {
-              if ("value" in bodies[0]) {
-                // const title = document.createElementNS(
-                //   "http://www.w3.org/2000/svg",
-                //   "title"
-                // );
-                // Embeds the annotation text into this title node
-                //title.innerHTML = bodies[0]["value"];
-                //element.insertBefore(title, element.firstChild);
-                //element.classList.add(anno.anno.motivation);
+              break;
+            case "linking":
+              if (bodies.length) {
+                // make the target clickable, linking to the (first) body URI
+                element.addEventListener(
+                  "click",
+                  function () {
+                    //appends http fragment to avoid partial linking error
+                    const URL = bodies[0]["id"];
+                    if (URL.startsWith("http")) {
+                      window.open(URL, "_blank");
+                    } else {
+                      const appendURL = "https://" + URL;
+                      window.open(appendURL, "_blank");
+                    }
+                  },
+                  true
+                );
+                // and turn the cursor into a pointer as a hint that it's clickable
                 element.classList.add("focus-" + annoIdFragment);
+                //element.classList.add(anno.anno.motivation);
               }
-            }
-            break;
-          case "linking":
-            if (bodies.length) {
-              // make the target clickable, linking to the (first) body URI
-              element.addEventListener(
-                "click",
-                function () {
-                  //appends http fragment to avoid partial linking error
-                  const URL = bodies[0]["id"];
-                  if (URL.startsWith("http")) {
-                    window.open(URL, "_blank");
-                  } else {
-                    const appendURL = "https://" + URL;
-                    window.open(appendURL, "_blank");
-                  }
-                },
-                true
+              break;
+            case "trompa:cueMedia":
+              if (bodies.length) {
+                // make the target clickable, seeking player to the (first) body media cue
+                // element.onMediaClick = () => {
+                //   //appends http fragment to avoid partial linking error
+                //   const mediaCue = bodies[0]["id"];
+                //   // TODO validate properly
+                //   const currentMedia = mediaCue.split("#")[0];
+                //   const seekTo = mediaCue.split("#")[1].replace("t=", "");
+                //   console.log("Setting up seek to: ", currentMedia, seekTo);
+                //   this.setState({ currentMedia }, () =>
+                //     this.player.current.seekTo(seekTo)
+                //   );
+                // };
+                // and turn the cursor into a pointer as a hint that it's clickable
+                element.classList.add("focus-" + annoIdFragment);
+                //element.classList.add("cueMedia");
+              }
+              break;
+            default:
+              console.log(
+                "sorry, don't know what to do for this annotation boss"
               );
-              // and turn the cursor into a pointer as a hint that it's clickable
-              element.classList.add("focus-" + annoIdFragment);
-              //element.classList.add(anno.anno.motivation);
             }
-            break;
-          case "trompa:cueMedia":
-            if (bodies.length) {
-              // make the target clickable, seeking player to the (first) body media cue
-              // element.onMediaClick = () => {
-              //   //appends http fragment to avoid partial linking error
-              //   const mediaCue = bodies[0]["id"];
-              //   // TODO validate properly
-              //   const currentMedia = mediaCue.split("#")[0];
-              //   const seekTo = mediaCue.split("#")[1].replace("t=", "");
-              //   console.log("Setting up seek to: ", currentMedia, seekTo);
-              //   this.setState({ currentMedia }, () =>
-              //     this.player.current.seekTo(seekTo)
-              //   );
-              // };
-              // and turn the cursor into a pointer as a hint that it's clickable
-              element.classList.add("focus-" + annoIdFragment);
-              //element.classList.add("cueMedia");
-            }
-            break;
-          default:
-            console.log(
-              "sorry, don't know what to do for this annotation boss"
-            );
-        }
-      });
+        });
+      };
     });
   }
 
@@ -475,7 +477,7 @@ export default class SelectableScoreApp extends Component {
                 uri={this.state.uri}
               />
             </div>
-            <div id="annotationBoxesContainer" />
+            <div className="annotationBoxesContainer" />
             <SelectableScore
               uri={this.state.uri}
               annotationContainerUri={this.props.submitUri}
