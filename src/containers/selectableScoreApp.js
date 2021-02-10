@@ -18,7 +18,7 @@ export default class SelectableScoreApp extends Component {
     this.state = {
       selection: [],
       annotationType: "describing",
-      placeholder: "",
+      placeholder: "Add your annotation...",
       uri:
         "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei",
       selectorString: "",
@@ -35,7 +35,6 @@ export default class SelectableScoreApp extends Component {
       annoToDisplay: [],
       helpWindowIsActive: false,
       replyAnnotationTargetId: "",
-      replyAnnoBody: [],
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
@@ -114,14 +113,13 @@ export default class SelectableScoreApp extends Component {
     this.setState({ showMEIInput: !this.state.showMEIInput });
   }
   //////////// NEEDS TO WIPE TARGET REPLY AFTER RPELYING TO IT ALSO THE ANNOTATION TYPE HANDLING IS MESSY //////////////////
-  onAnnoReplyHandler(replyTarget, replyTargetId, innerBody) {
+  onAnnoReplyHandler(replyTarget, replyTargetId) {
     this.setState({
       annotationType: "replying",
       placeholder: "you are replying to the selected annotation",
       buttonContent: "Reply to selected Solid annotation",
       replyAnnotationTarget: replyTarget,
       replyAnnotationTargetId: replyTargetId,
-      replyAnnoBody: innerBody,
     });
   }
 
@@ -144,7 +142,13 @@ export default class SelectableScoreApp extends Component {
           toggleAnnotationRetrieval: true,
         },
         () => {
-          this.setState({ toggleAnnotationRetrieval: false });
+          this.setState({
+            toggleAnnotationRetrieval: false,
+            annotationType: "describing",
+            replyAnnotationTarget: [],
+            replyAnnotationTargetId: "",
+            placeholder: "Add your annotation...",
+          });
         }
       );
     } else if (resp.status === 404) {
@@ -161,7 +165,13 @@ export default class SelectableScoreApp extends Component {
           toggleAnnotationRetrieval: true,
         },
         () => {
-          this.setState({ toggleAnnotationRetrieval: false });
+          this.setState({
+            toggleAnnotationRetrieval: false,
+            annotationType: "describing",
+            replyAnnotationTarget: [],
+            replyAnnotationTargetId: "",
+            placeholder: "Add your annotation...",
+          });
         }
       );
   }
@@ -314,6 +324,25 @@ export default class SelectableScoreApp extends Component {
             .querySelector(".annotationBoxesContainer")
             .appendChild(measureBoxBackground);
           measureBox.onclick = () => {
+            const noLongerShowing = Array.from(
+              document.getElementsByClassName("showReply")
+            );
+            console.log("no longer showing ", noLongerShowing);
+            //hides them
+            if (noLongerShowing.length) {
+              //const replyHolder = document.createElement("div");
+              const annoContainer = document.querySelector(".listContainer");
+              console.log(annoContainer);
+              //annoContainer.appendChild(replyHolder);
+              noLongerShowing.forEach((noReplyShowing) => {
+                noReplyShowing.classList.add("hiddenReply");
+                annoContainer.appendChild(noReplyShowing);
+              });
+              noLongerShowing.forEach((noReplyShowing) =>
+                noReplyShowing.classList.remove("showReply")
+              );
+            }
+
             let _annoIds = content.map((jsonIds) => {
               const annotationsIds = jsonIds["@id"];
               return annotationsIds;
@@ -332,7 +361,10 @@ export default class SelectableScoreApp extends Component {
                 .filter((anno) => anno.motivation === "replying") // get the replies
                 .map((anno) => anno["@id"]), // and return their IDs
             ];
-            this.setState({ annoToDisplay: annotationsToDisplay });
+            console.log("to display: ", annotationsToDisplay);
+            this.setState({
+              annoToDisplay: annotationsToDisplay,
+            });
           };
         });
       }
@@ -371,20 +403,20 @@ export default class SelectableScoreApp extends Component {
             case "linking":
               if (bodies.length) {
                 // make the target clickable, linking to the (first) body URI
-                element.addEventListener(
-                  "click",
-                  function () {
-                    //appends http fragment to avoid partial linking error
-                    const URL = bodies[0]["id"];
-                    if (URL.startsWith("http")) {
-                      window.open(URL, "_blank");
-                    } else {
-                      const appendURL = "https://" + URL;
-                      window.open(appendURL, "_blank");
-                    }
-                  },
-                  true
-                );
+                // element.addEventListener(
+                //   "click",
+                //   function () {
+                //     //appends http fragment to avoid partial linking error
+                //     const URL = bodies[0]["id"];
+                //     if (URL.startsWith("http")) {
+                //       window.open(URL, "_blank");
+                //     } else {
+                //       const appendURL = "https://" + URL;
+                //       window.open(appendURL, "_blank");
+                //     }
+                //   },
+                //   true
+                // );
                 // and turn the cursor into a pointer as a hint that it's clickable
                 element.classList.add("focus-" + annoIdFragment);
                 //element.classList.add(anno.anno.motivation);

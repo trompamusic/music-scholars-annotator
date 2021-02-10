@@ -8,8 +8,7 @@ export class AnnotationSubmitter extends React.Component {
     //let replyAnnotationTargetId = this.props.replyAnnotationTargetId;
     let value = handlerArgs.value;
     let seconds = handlerArgs.seconds;
-    let quoteBody = this.props.replyAnnoBody;
-    var anno = "";
+
     switch (this.props.annotationType) {
       case "describing":
         return {
@@ -81,7 +80,7 @@ export class AnnotationSubmitter extends React.Component {
               value="describing"
               placeholder="Add your annotation..."
               onChange={this.props.onAnnoTypeChange}
-              defaultChecked={true}
+              checked={this.props.annotationType === "describing"}
             />
             Describing
           </label>

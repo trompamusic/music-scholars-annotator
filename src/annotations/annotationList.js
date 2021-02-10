@@ -16,7 +16,7 @@ export class AnnotationList extends React.Component {
     );
     const sortedFilteredAnno = filtering.sort((a, b) => {
       const isReverse = order === "asc" ? 1 : -1;
-      return isReverse * a.anno.created.localeCompare(b.anno.created);
+      return isReverse * a.created.localeCompare(b.created);
     });
 
     function onClick(e) {
@@ -50,7 +50,7 @@ export class AnnotationList extends React.Component {
     }
 
     return (
-      <div className="listContainer">
+      <div className="listContainer" id="listContainer">
         {sortedFilteredAnno.map((item) => {
           const annoIdFragment = item["@id"].substr(
             item["@id"].lastIndexOf("/") + 1

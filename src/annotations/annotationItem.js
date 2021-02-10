@@ -1,16 +1,14 @@
 /* item that contains the annotation contents, the renderSwitch function assign specific display to the specfic anntation based on its motivation*/
 import React from "react";
-import ReactDOM from "react-dom";
+
 import PlayLogo from "../graphics/play-solid.svg";
 class AnnotationItem extends React.Component {
   onClick = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     const replyTarget = this.props.annotation.target;
     const replyTargetId = this.props.annotation["@id"];
-    //was using || when showing quoted content a-la old school forum, allowes me to populate the quoted content field depending on the anno motivation.
-    const innerBody =
-      this.props.annotation.body[0].id || this.props.annotation.body[0].value;
-    this.props.onAnnoReplyHandler(replyTarget, replyTargetId, innerBody);
+    this.props.onAnnoReplyHandler(replyTarget, replyTargetId);
     console.log("reply target id", replyTargetId);
   };
 
@@ -61,19 +59,19 @@ class AnnotationItem extends React.Component {
 
         console.log("Reply target anno id: ", replyTargetAnnoId);
         if (replyTargetAnnoId === rootAnnoTargetId) {
-          //appendichild is where the magic happens only once. Needs recursiveness and reliability
+          //appendichild is where the magic happens
           rootAnno.appendChild(replyTargetAnno);
           //creates an array of all the visible replies
-          // const noLongerShowing = Array.from(
-          //   rootAnno.getElementsByClassName("showReply")
-          // );
-          // //hides them
-          // noLongerShowing.forEach((noReplyShowing) =>
-          //   noReplyShowing.classList.add("hiddenReply")
-          // );
-          // noLongerShowing.forEach((noReplyShowing) =>
-          //   noReplyShowing.classList.remove("showReply")
-          // );
+          const noLongerShowing = Array.from(
+            rootAnno.getElementsByClassName("showReply")
+          );
+          //hides them
+          noLongerShowing.forEach((noReplyShowing) =>
+            noReplyShowing.classList.add("hiddenReply")
+          );
+          noLongerShowing.forEach((noReplyShowing) =>
+            noReplyShowing.classList.remove("showReply")
+          );
           //creates an array of the hidden annotations
           const showing = Array.from(
             rootAnno.getElementsByClassName("hiddenReply")
@@ -85,19 +83,20 @@ class AnnotationItem extends React.Component {
           showing.forEach((showingReply) =>
             showingReply.classList.remove("hiddenReply")
           );
-        } else {
-          //if only one anno has replies and the other button is clicked, hides all the replies and alerts the user
-          // const noLongerShowing = Array.from(
-          //   rootAnno.getElementsByClassName("showReply")
-          // );
-          // noLongerShowing.forEach((noReplyShowing) =>
-          //   noReplyShowing.classList.add("hiddenReply")
-          // );
-          // noLongerShowing.forEach((noReplyShowing) =>
-          //   noReplyShowing.classList.remove("showReply")
-          // );
-          console.warn("no replies to show for this annotation");
         }
+        // } else {
+        //   //if only one anno has replies and the other button is clicked, hides all the replies and alerts the user
+        //   // const noLongerShowing = Array.from(
+        //   //   rootAnno.getElementsByClassName("showReply")
+        //   // );
+        //   // noLongerShowing.forEach((noReplyShowing) =>
+        //   //   noReplyShowing.classList.add("hiddenReply")
+        //   // );
+        //   // noLongerShowing.forEach((noReplyShowing) =>
+        //   //   noReplyShowing.classList.remove("showReply")
+        //   // );
+        //   console.warn("no replies to show for this annotation");
+        // }
       });
     } else console.warn("no replies to show for this annotation");
   };
