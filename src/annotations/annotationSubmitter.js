@@ -67,7 +67,7 @@ export class AnnotationSubmitter extends React.Component {
           body: [{ type: "TextualBody", value }], //this takes the user input
           motivation: "replying",
           created: new Date().toISOString(),
-          creator: this.props.creator
+          creator: this.props.creator,
         };
         return {
           anno,

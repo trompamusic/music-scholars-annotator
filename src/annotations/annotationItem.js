@@ -3,7 +3,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PlayLogo from "../graphics/play-solid.svg";
 class AnnotationItem extends React.Component {
-
   onClick = (e) => {
     e.preventDefault();
     const replyTarget = this.props.annotation.anno.target;
@@ -13,6 +12,7 @@ class AnnotationItem extends React.Component {
       this.props.annotation.anno.body[0].id ||
       this.props.annotation.anno.body[0].value;
     this.props.onAnnoReplyHandler(replyTarget, replyTargetId, innerBody);
+    console.log("reply target id", replyTargetId);
   };
 
   onPlayClick = (e) => {
@@ -23,8 +23,10 @@ class AnnotationItem extends React.Component {
   onShowReplyClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    
+    const rootAnno = e.target.closest(".rootAnno");
+    console.log("root anno", rootAnno);
     const replyTargetAnnos = document.querySelectorAll(".replyAnno");
+    console.log(replyTargetAnnos);
     /* chunk of proto code that is probably useful for the end goal */
     // const testRoot = document.querySelectorAll(".rootAnno");
     // const replyTest = document.querySelectorAll(".replyAnno");
@@ -50,27 +52,29 @@ class AnnotationItem extends React.Component {
     // );
 
     // console.log(targetCollection, "reply", replyTest);
-    if(replyTargetAnnos.length) { 
-      replyTargetAnnos.forEach( (replyTargetAnno) => { 
+
+    //////////// NEEDS TO WIPE TARGET REPLY AFTER RPELYING TO IT ALSO THE ANNOTATION TYPE HANDLING IS MESSY //////////////////
+    if (replyTargetAnnos.length) {
+      replyTargetAnnos.forEach((replyTargetAnno) => {
         const replyTargetAnnoId = replyTargetAnno.dataset.replyAnnotationTarget;
-        const rootAnno = e.target.closest(".annoItem");
-        const rootAnnoTargetId = rootAnno.dataset.target;
+
+        const rootAnnoTargetId = rootAnno.dataset.selfId;
 
         console.log("Reply target anno id: ", replyTargetAnnoId);
         if (replyTargetAnnoId === rootAnnoTargetId) {
           //appendichild is where the magic happens only once. Needs recursiveness and reliability
           rootAnno.appendChild(replyTargetAnno);
           //creates an array of all the visible replies
-          const noLongerShowing = Array.from(
-            rootAnno.getElementsByClassName("showReply")
-          );
-          //hides them
-          noLongerShowing.forEach((noReplyShowing) =>
-            noReplyShowing.classList.add("hiddenReply")
-          );
-          noLongerShowing.forEach((noReplyShowing) =>
-            noReplyShowing.classList.remove("showReply")
-          );
+          // const noLongerShowing = Array.from(
+          //   rootAnno.getElementsByClassName("showReply")
+          // );
+          // //hides them
+          // noLongerShowing.forEach((noReplyShowing) =>
+          //   noReplyShowing.classList.add("hiddenReply")
+          // );
+          // noLongerShowing.forEach((noReplyShowing) =>
+          //   noReplyShowing.classList.remove("showReply")
+          // );
           //creates an array of the hidden annotations
           const showing = Array.from(
             rootAnno.getElementsByClassName("hiddenReply")
@@ -84,19 +88,19 @@ class AnnotationItem extends React.Component {
           );
         } else {
           //if only one anno has replies and the other button is clicked, hides all the replies and alerts the user
-          const noLongerShowing = Array.from(
-            rootAnno.getElementsByClassName("showReply")
-          );
-          noLongerShowing.forEach((noReplyShowing) =>
-            noReplyShowing.classList.add("hiddenReply")
-          );
-          noLongerShowing.forEach((noReplyShowing) =>
-            noReplyShowing.classList.remove("showReply")
-          );
-          alert("no replies to show for this annotation");
+          // const noLongerShowing = Array.from(
+          //   rootAnno.getElementsByClassName("showReply")
+          // );
+          // noLongerShowing.forEach((noReplyShowing) =>
+          //   noReplyShowing.classList.add("hiddenReply")
+          // );
+          // noLongerShowing.forEach((noReplyShowing) =>
+          //   noReplyShowing.classList.remove("showReply")
+          // );
+          console.warn("no replies to show for this annotation");
         }
-      }) 
-    } else alert("no replies to show for this annotation");
+      });
+    } else console.warn("no replies to show for this annotation");
   };
   renderSwitch = () => {
     //stuff that i am carrying around: the annotation's ID you are replying to, the body (currently sits under annotation.anno.source) and the annotation's specific ID
@@ -105,6 +109,7 @@ class AnnotationItem extends React.Component {
     const bodyL = this.props.annotation.anno.body[0].id;
     const bodyMedia = this.props.annotation.anno.body[0].id;
     const target = this.props.annotation.anno.target[0].id;
+    const repTarget = this.props.annotation.anno.target;
     const date = this.props.annotation.anno.created;
     const creator = this.props.annotation.anno.creator || "unknown";
     const selfId = this.props.annotation["@id"];
@@ -265,7 +270,7 @@ class AnnotationItem extends React.Component {
       case "replying":
         return (
           <div
-            data-reply-annotation-target={target}
+            data-reply-annotation-target={repTarget}
             className="replyAnno hiddenReply"
           >
             <div className="quoteContent">
@@ -273,7 +278,7 @@ class AnnotationItem extends React.Component {
               <div className="date">
                 Created on: {date} by {creator} with {motivation} motivation
               </div>
-              <button
+              {/* <button
                 className="replyButton"
                 name="replyButton"
                 onClick={this.onClick}
@@ -286,7 +291,7 @@ class AnnotationItem extends React.Component {
                 onClick={this.onShowReplyClick}
               >
                 Show replies
-              </button>
+              </button> */}
             </div>
           </div>
         );
@@ -323,7 +328,7 @@ class AnnotationItem extends React.Component {
   };
 
   render() {
-    return <div className="annoItemContainer" >{this.renderSwitch()}</div>;
+    return <div className="annoItemContainer">{this.renderSwitch()}</div>;
   }
 }
 

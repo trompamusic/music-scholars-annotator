@@ -113,7 +113,7 @@ export default class SelectableScoreApp extends Component {
   hideMEIInput() {
     this.setState({ showMEIInput: !this.state.showMEIInput });
   }
-
+  //////////// NEEDS TO WIPE TARGET REPLY AFTER RPELYING TO IT ALSO THE ANNOTATION TYPE HANDLING IS MESSY //////////////////
   onAnnoReplyHandler(replyTarget, replyTargetId, innerBody) {
     this.setState({
       annotationType: "replying",
@@ -194,10 +194,10 @@ export default class SelectableScoreApp extends Component {
     content = content.filter((c) => c["@id"].endsWith(".jsonld"));
 
     let measuresToAnnotationsMapList = content.map((anno) => {
-      let distinctMeasures = []; 
+      let distinctMeasures = [];
       // replying annotations don't have distinct measures since they target
       // annotations, *not* MEI elements
-      if(anno.anno.motivation !== "replying"){ 
+      if (anno.anno.motivation !== "replying") {
         const measures = anno.anno.target
           .map((jsonTarget) => {
             const targetId = jsonTarget.id;
@@ -231,7 +231,9 @@ export default class SelectableScoreApp extends Component {
       () => {
         // delete any existing measure boxes so we can redraw from blank slate
         document.querySelectorAll(".measureBox").forEach((mb) => mb.remove());
-        document.querySelectorAll(".measureBoxBackground").forEach((mb) => mb.remove());
+        document
+          .querySelectorAll(".measureBoxBackground")
+          .forEach((mb) => mb.remove());
         console.log("Mapped annotaitons ", newMap);
         console.log("current annotations ", content);
         // draw bounding boxes for all measures containing annotations
@@ -324,14 +326,13 @@ export default class SelectableScoreApp extends Component {
             );
             // compare has all annotation IDs *for our measure*
             // we want those, PLUS all replying annotations (which aren't tied to measures)
-            const annotationsToDisplay = 
-              [...compare, 
-               ...content
+            const annotationsToDisplay = [
+              ...compare,
+              ...content
                 .filter((anno) => anno.anno.motivation === "replying") // get the replies
-                .map((anno) => anno["@id"]) // and return their IDs
-
-              ];
-            this.setState({ annoToDisplay: annotationsToDisplay});
+                .map((anno) => anno["@id"]), // and return their IDs
+            ];
+            this.setState({ annoToDisplay: annotationsToDisplay });
           };
         });
       }
@@ -339,7 +340,7 @@ export default class SelectableScoreApp extends Component {
     console.log("iteration succeded");
 
     content.map((anno) => {
-      if(anno.anno.motivation !== "replying") { 
+      if (anno.anno.motivation !== "replying") {
         anno.anno.target.map((jsonTarget) => {
           const bodies = anno.anno.body;
           const targetId = jsonTarget.id;
@@ -412,9 +413,9 @@ export default class SelectableScoreApp extends Component {
               console.log(
                 "sorry, don't know what to do for this annotation boss"
               );
-            }
+          }
         });
-      };
+      }
     });
   }
 
