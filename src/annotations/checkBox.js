@@ -1,10 +1,11 @@
-import React from "react";
-//const Name = ({ label }) => label.subStr(label.lastIndexOf("."));
+/* simple checkbox component */
+import React from 'react'
+
 const Checkbox = ({ label, onClick }) => (
   <span>
     <label>
       <input
-        type="checkbox"
+        type='checkbox'
         name={label.name}
         onClick={onClick}
         value={label.value}
@@ -13,6 +14,6 @@ const Checkbox = ({ label, onClick }) => (
       {label.name}
     </label>
   </span>
-);
+)
 
-export default Checkbox;
+export default Checkbox

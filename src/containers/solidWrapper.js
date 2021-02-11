@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import data from "@solid/query-ldflex";
+import React, { useState } from 'react'
+import data from '@solid/query-ldflex'
 
 import {
   LoginButton,
@@ -7,37 +7,37 @@ import {
   Value,
   LoggedIn,
   LoggedOut,
-  useLDflexValue,
-} from "@solid/react";
+  useLDflexValue
+} from '@solid/react'
 
-import SelectableScoreApp from "./selectableScoreApp";
-import Logo from "../top-bar-logo_0_0.png";
+import SelectableScoreApp from './selectableScoreApp'
+import Logo from '../graphics/top-bar-logo_0_0.png'
 
-export default function SolidWrapper(props) {
+export default function SolidWrapper (props) {
   data.context.extend({
-    trompa: "http://vocab.trompamusic.eu/vocab#",
-  });
-  const userPOD = useLDflexValue("user.storage");
-  const userId = useLDflexValue("user");
-  const [userInput, setUserInput] = useState("public/");
+    trompa: 'http://vocab.trompamusic.eu/vocab#'
+  })
+  const userPOD = useLDflexValue('user.storage')
+  const userId = useLDflexValue('user')
+  const [userInput, setUserInput] = useState('public/')
   const handleUserInput = (e) => {
     const containerPath = e.target.value
       ? setUserInput(e.target.value)
-      : "public/";
-  };
+      : 'public/'
+  }
   return (
-    <div id="authWrapper">
+    <div id='authWrapper'>
       <LoggedOut>
         <div>
           <a
-            href="https://trompamusic.eu/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href='https://trompamusic.eu/'
+            target='_blank'
+            rel='noopener noreferrer'
           >
-            <img src={Logo} alt="trompa logo" />
+            <img src={Logo} alt='trompa logo' />
           </a>
           <p>
-            <LoginButton className="loginButton" popup="auth-popup.html">
+            <LoginButton className='loginButton' popup='auth-popup.html'>
               Log in with Solid
             </LoginButton>
           </p>
@@ -45,29 +45,33 @@ export default function SolidWrapper(props) {
       </LoggedOut>
       <LoggedIn>
         <a
-          href="https://trompamusic.eu/"
-          target="_blank"
-          rel="noopener noreferrer"
+          href='https://trompamusic.eu/'
+          target='_blank'
+          rel='noopener noreferrer'
         >
-          <img src={Logo} alt="trompa logo" />
+          <img src={Logo} alt='trompa logo' />
         </a>
         <h2>Music scholars annotator component</h2>
         <p>
-          You are logged in as <Value src="user.name" /> ({`${userId}`})
+          You are logged in as{' '}
+          <a href={userId} target='_blank' rel='noopener noreferrer'>
+            <Value src='user.name' />
+          </a>
         </p>
-        <p title="close the current session and quit the app">
-          <LogoutButton className="logoutButton">Log out</LogoutButton>
+        <p title='close the current session and quit the app'>
+          <LogoutButton className='logoutButton'>Log out</LogoutButton>
         </p>
-        <p>Specify annotation container path inside your Pod:</p>
+        <p>Specify the annotation container path inside your Pod:</p>
         <div>
           <input
-            title="enter your preferred POD folder"
-            type="text"
-            placeholder="public/"
+            title='enter your preferred POD folder'
+            type='text'
+            placeholder='public/'
             onChange={handleUserInput}
+            className='sizedTextBox'
           />
         </div>
-        {typeof userPOD !== "undefined" ? (
+        {typeof userPOD !== 'undefined' ? (
           <SelectableScoreApp
             uri={props.uri}
             vrvOptions={props.vrvOptions}
@@ -79,5 +83,5 @@ export default function SolidWrapper(props) {
         )}
       </LoggedIn>
     </div>
-  );
+  )
 }

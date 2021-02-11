@@ -1,14 +1,17 @@
+/* annotation submitter takes the handlerArgs passed from the addAnnotaiton script and builds the jsonLd structure of each annotation based on its motivation */
+/* it also renders the radio button array to selecte the annotation motivation  */
 import React from "react";
-import Addannotations from "./Addannotation.js";
+import Addannotations from "./addAnnotation.js";
 export class AnnotationSubmitter extends React.Component {
   submitHandler = (handlerArgs) => {
     //adds different annotations based on selection
+    //let replyAnnotationTargetId = this.props.replyAnnotationTargetId;
     let value = handlerArgs.value;
     let seconds = handlerArgs.seconds;
-    var anno = "";
+
     switch (this.props.annotationType) {
       case "describing":
-        anno = {
+        return {
           "@context": "http://www.w3.org/ns/anno.jsonld",
           target: this.props.selection.map((elem) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
@@ -19,12 +22,9 @@ export class AnnotationSubmitter extends React.Component {
           created: new Date().toISOString(),
           creator: this.props.creator,
         };
-        return {
-          anno,
-        };
 
       case "linking":
-        anno = {
+        return {
           "@context": "http://www.w3.org/ns/anno.jsonld",
           target: this.props.selection.map((elem) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
@@ -35,12 +35,9 @@ export class AnnotationSubmitter extends React.Component {
           created: new Date().toISOString(),
           creator: this.props.creator,
         };
-        return {
-          anno,
-        };
 
       case "cueMedia":
-        anno = {
+        return {
           "@context": "http://www.w3.org/ns/anno.jsonld",
           target: this.props.selection.map((elem) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
@@ -51,24 +48,16 @@ export class AnnotationSubmitter extends React.Component {
           created: new Date().toISOString(),
           creator: this.props.creator,
         };
-        console.log(anno);
-        return {
-          anno,
-        };
 
       case "replying":
-        anno = {
+        return {
           "@context": "http://www.w3.org/ns/anno.jsonld",
-          target: this.props.replyAnnotationTarget, //this takes the measure id selected by the user
+          target: this.props.replyAnnotationTargetId, //this takes the annotation ID being replied to
           type: "Annotation",
           body: [{ type: "TextualBody", value }], //this takes the user input
           motivation: "replying",
           created: new Date().toISOString(),
           creator: this.props.creator,
-        };
-        //no set state nothing that goes up beyond this point
-        return {
-          anno,
         };
 
       default:
@@ -91,6 +80,7 @@ export class AnnotationSubmitter extends React.Component {
               value="describing"
               placeholder="Add your annotation..."
               onChange={this.props.onAnnoTypeChange}
+              checked={this.props.annotationType === "describing"}
             />
             Describing
           </label>
@@ -115,6 +105,17 @@ export class AnnotationSubmitter extends React.Component {
             />
             Cue Media
           </label>
+          <label>
+            <input
+              title="links a media content to the annotation"
+              type="radio"
+              value="reply"
+              name="annotationType"
+              disabled={true}
+              checked={this.props.annotationType === "replying"}
+            />
+            Reply
+          </label>
           <div className="addAnnotations">
             <Addannotations
               annotationType={this.props.annotationType}
@@ -124,6 +125,7 @@ export class AnnotationSubmitter extends React.Component {
               onResponse={this.props.onResponse}
               onRefreshClick={this.props.onRefreshClick}
               buttonContent={this.props.buttonContent}
+              selectorString={this.props.selectorString}
             />
           </div>
         </div>

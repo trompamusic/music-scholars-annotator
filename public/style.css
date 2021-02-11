@@ -3,7 +3,20 @@ body {
   user-select: none;
 }
 
+.hiddenReply {
+  display: none;
+}
+
+.showReply {
+  display: block;
+}
+.sizedTextBox {
+  height: 30px;
+  padding: 1px;
+  margin-bottom: 5px;
+}
 .replyButton {
+  display: inline;
   border: 1px solid white;
   background-color: rgb(218, 218, 218);
   padding: 5px 12px;
@@ -11,9 +24,10 @@ body {
   border-radius: 4px;
   font-size: 12px;
   cursor: pointer;
-  position: absolute;
-  bottom: 0;
-  right: 0;
+  float: right;
+  /* position: absolute; */
+  /* bottom: 0;
+  right: 0; */
 }
 
 .replyButton:hover {
@@ -22,6 +36,44 @@ body {
 
 .replyButton:active {
   background-color: rgb(56, 55, 55);
+}
+
+.showRepliesButton {
+  display: inline-flex;
+  border: 1px solid white;
+  background-color: rgb(218, 218, 218);
+  padding: 5px 12px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  float: right;
+  /* position: absolute;
+  bottom: 0;
+  right: 60px; */
+}
+
+.showRepliesButton:hover {
+  background-color: gray;
+}
+
+.showRepliesButton:active {
+  background-color: rgb(56, 55, 55);
+}
+
+.playButton {
+  display: inline-block;
+  border: 1px solid white;
+  background-color: rgb(218, 218, 218);
+  padding: 5px 12px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.playButton:hover {
+  background-color: gray;
 }
 
 .selected {
@@ -53,13 +105,22 @@ body {
 .listContainer {
   overflow: auto;
   overflow-x: hidden;
-  max-height: 250px;
+  max-height: 1000px;
   max-width: 972px;
   display: flexbox;
 }
 
+.quoteContent {
+  background-color: rgba(204, 204, 204, 0.521);
+  padding: 1%;
+  margin-left: 1%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
 .score {
-  position: fixed;
+  position: relative;
+  float: right;
   bottom: 0px;
   right: 0px;
 }
@@ -68,10 +129,12 @@ body {
 }
 
 .annoItem {
-  display: flexbox;
-  border-top: 1px solid #888;
+  display: block;
+  border-top: 0.5px solid rgba(136, 136, 136, 0.5);
   list-style-type: none;
   position: relative;
+  border-bottom: 0.5px solid rgba(136, 136, 136, 0.5);
+  padding-bottom: 1%;
 }
 
 .annoItem:hover {
@@ -115,6 +178,7 @@ body {
   height: 100px;
   width: 625px;
   display: flex;
+  margin-bottom: 5px;
 }
 
 .pageButton {
@@ -140,16 +204,32 @@ body {
 .enabledSubmitButton {
   border: none;
   background-color: rgb(161, 219, 161);
-  padding: 16px;
+  padding: 20px;
   border-radius: 4px;
   text-align: center;
   font-size: 16px;
   cursor: pointer;
-  display: inline-flexbox;
+  /* //display: inline-flexbox; */
   transition-duration: 0.4s;
   width: 315px;
   opacity: 1;
   color: white;
+}
+
+.disabledSubmitButton {
+  border: none;
+  background-color: rgb(190, 190, 190);
+  padding: 20px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  /* display: inline-flexbox; */
+  transition-duration: 0.4s;
+  width: 315px;
+  opacity: 1;
+  color: white;
+  pointer-events: none;
 }
 
 .enabledSubmitButton:hover {
@@ -159,6 +239,10 @@ body {
 
 .enabledSubmitButton:active {
   background-color: forestgreen;
+}
+
+.selectable-score-postButton {
+  display: inline;
 }
 
 .refreshButton {
@@ -172,7 +256,7 @@ body {
   cursor: pointer;
   transition-duration: 0.4s;
   width: 315px;
-
+  padding: 20px;
   opacity: 1;
   color: white;
 }
@@ -229,7 +313,11 @@ body {
   opacity: 1;
 }
 
-.selectionLegend {
+.isOpen {
+  background: rgba(241, 145, 0, 0.16);
+}
+
+/* .selectionLegend {
   display: inline-block;
   width: 10px;
   height: 10px;
@@ -280,6 +368,87 @@ body {
   background: green;
   margin-left: 10px;
   margin-right: 2px;
+} */
+
+/* help window */
+/* .modal {
+  background: #fff;
+  outline: 0;
+  min-width: 250px;
+  max-width: 500px;
+  border-radius: 4px;
 }
 
-/* tooltips */
+
+
+.modal-header {
+  border-bottom: 1px solid #eee;
+}
+
+.modal-title {
+  margin: 0;
+}
+
+
+
+.modal--animated {
+  opacity: 0.3;
+  transform: scale(1.1) translateY(-10px);
+  -webkit-transform: scale(1.1) translateY(-10px);
+  transition: all 0.3s linear;
+  -webkit-transition: all 0.3s linear;
+}
+
+.modal--animated.has-entered {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  -webkit-transform: scale(1) translateY(0);
+}
+
+.underlay {
+  background-color: rgba(0, 0, 0, 0);
+  transition: all 0.3s linear;
+  -webkit-transition: all 0.3s linear;
+}
+
+.underlay.has-entered {
+  background-color: rgba(0, 0, 0, 0.5);
+} */
+
+.mymodal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  border: 1px solid #ccc;
+  background: #fff;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+  padding: 0.5em 1.5em;
+  z-index: 1000;
+}
+
+.myoverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(156, 156, 156, 0.521);
+  z-index: 999;
+}
+
+.modal-footer {
+  border-top: 1px solid #eee;
+  text-align: right;
+  z-index: 1000;
+}
