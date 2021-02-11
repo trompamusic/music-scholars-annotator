@@ -16,7 +16,7 @@ body {
   margin-bottom: 5px;
 }
 .replyButton {
-  display: inline-block;
+  display: inline;
   border: 1px solid white;
   background-color: rgb(218, 218, 218);
   padding: 5px 12px;
@@ -24,9 +24,41 @@ body {
   border-radius: 4px;
   font-size: 12px;
   cursor: pointer;
-  position: absolute;
+  float: right;
+  /* position: absolute; */
+  /* bottom: 0;
+  right: 0; */
+}
+
+.replyButton:hover {
+  background-color: gray;
+}
+
+.replyButton:active {
+  background-color: rgb(56, 55, 55);
+}
+
+.showRepliesButton {
+  display: inline-flex;
+  border: 1px solid white;
+  background-color: rgb(218, 218, 218);
+  padding: 5px 12px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  float: right;
+  /* position: absolute;
   bottom: 0;
-  right: 0;
+  right: 60px; */
+}
+
+.showRepliesButton:hover {
+  background-color: gray;
+}
+
+.showRepliesButton:active {
+  background-color: rgb(56, 55, 55);
 }
 
 .playButton {
@@ -42,36 +74,6 @@ body {
 
 .playButton:hover {
   background-color: gray;
-}
-
-.replyButton:hover {
-  background-color: gray;
-}
-
-.replyButton:active {
-  background-color: rgb(56, 55, 55);
-}
-
-.showRepliesButton {
-  display: flex;
-  border: 1px solid white;
-  background-color: rgb(218, 218, 218);
-  padding: 5px 12px;
-  text-align: center;
-  border-radius: 4px;
-  font-size: 12px;
-  cursor: pointer;
-  position: absolute;
-  bottom: 0;
-  right: 60px;
-}
-
-.showRepliesButton:hover {
-  background-color: gray;
-}
-
-.showRepliesButton:active {
-  background-color: rgb(56, 55, 55);
 }
 
 .selected {
@@ -127,11 +129,12 @@ body {
 }
 
 .annoItem {
-  display: flexbox;
+  display: block;
   border-top: 0.5px solid rgba(136, 136, 136, 0.5);
   list-style-type: none;
   position: relative;
   border-bottom: 0.5px solid rgba(136, 136, 136, 0.5);
+  padding-bottom: 1%;
 }
 
 .annoItem:hover {

@@ -126,9 +126,9 @@ class AnnotationItem extends React.Component {
           >
             {" "}
             <p>The textual content of this annotation is {bodyD}</p>
-            <div className="date">
+            <span className="date">
               Created on: {date} by {creator} with {motivation} motivation
-            </div>
+            </span>
             <button
               className="replyButton"
               name="replyButton"
@@ -166,9 +166,9 @@ class AnnotationItem extends React.Component {
                   </a>
                 }
               </p>
-              <div className="date">
+              <span className="date">
                 Created on: {date} by {creator} with {motivation} motivation
-              </div>
+              </span>
               <button
                 className="replyButton"
                 name="replyButton"
@@ -206,9 +206,9 @@ class AnnotationItem extends React.Component {
                   </a>
                 }
               </p>
-              <div className="date">
+              <span className="date">
                 Created on: {date} by {creator} with {motivation} motivation
-              </div>
+              </span>
               <button
                 className="replyButton"
                 name="replyButton"
@@ -247,7 +247,9 @@ class AnnotationItem extends React.Component {
                 play{" "}
               </button>
             </p>
-            <wbr></wbr>
+            <span className="date">
+              Created on: {date} by {creator} with {motivation} motivation
+            </span>
             <button
               className="replyButton"
               name="replyButton"
@@ -273,9 +275,9 @@ class AnnotationItem extends React.Component {
           >
             <div className="quoteContent">
               <p>This reply contains: {bodyD}</p>
-              <div className="date">
+              <span className="date">
                 Created on: {date} by {creator} with {motivation} motivation
-              </div>
+              </span>
               {/* <button
                 className="replyButton"
                 name="replyButton"
