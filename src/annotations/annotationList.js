@@ -66,6 +66,8 @@ export class AnnotationList extends React.Component {
                 onAnnoReplyHandler={this.props.onAnnoReplyHandler}
                 onMediaClick={this.props.onMediaClick}
                 replyAnnotationTarget={this.props.replyAnnotationTarget}
+                showReplyHandler={this.props.showReplyHandler}
+                areRepliesVisible={this.props.areRepliesVisible}
               />
             </div>
           );

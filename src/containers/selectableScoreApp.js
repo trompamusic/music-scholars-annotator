@@ -35,6 +35,7 @@ export default class SelectableScoreApp extends Component {
       annoToDisplay: [],
       helpWindowIsActive: false,
       replyAnnotationTargetId: "",
+      areRepliesVisible: false,
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
@@ -53,8 +54,13 @@ export default class SelectableScoreApp extends Component {
     this.activateModal = this.activateModal.bind(this);
     this.deactivateModal = this.deactivateModal.bind(this);
     this.onMediaClick = this.onMediaClick.bind(this);
+    this.showReplyHandler = this.showReplyHandler.bind(this);
     this.player = React.createRef();
   }
+
+  showReplyHandler = () => {
+    this.setState({ areRepliesVisible: !this.state.areRepliesVisible });
+  };
   activateModal = () => {
     this.setState({ helpWindowIsActive: true });
   };
@@ -331,6 +337,9 @@ export default class SelectableScoreApp extends Component {
             //hides them
             if (noLongerShowing.length) {
               //const replyHolder = document.createElement("div");
+              if (this.state.areRepliesVisible === true) {
+                this.setState({ areRepliesVisible: false });
+              }
               const annoContainer = document.querySelector(".listContainer");
               console.log(annoContainer);
               //annoContainer.appendChild(replyHolder);
@@ -576,6 +585,8 @@ export default class SelectableScoreApp extends Component {
           onAnnoReplyHandler={this.onAnnoReplyHandler}
           onMediaClick={this.onMediaClick}
           replyAnnotationTarget={this.state.replyAnnotationTarget}
+          showReplyHandler={this.showReplyHandler}
+          areRepliesVisible={this.state.areRepliesVisible}
         />
         <div>
           <button
