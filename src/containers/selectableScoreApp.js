@@ -380,15 +380,15 @@ export default class SelectableScoreApp extends Component {
     );
     console.log("iteration succeded");
 
-    content.map((anno) => {
+    content.forEach((anno) => {
       if (anno.motivation !== "replying") {
-        anno.target.map((jsonTarget) => {
+        anno.target.forEach((jsonTarget) => {
           const bodies = anno.body;
           const targetId = jsonTarget.id;
           const fragment = targetId.substr(targetId.lastIndexOf("#"));
           const element = document.querySelector(fragment);
           if (!element) {
-            return;
+            return console.warn("no content has been found");
           }
           const annoId = anno["@id"];
           const annoIdFragment = annoId.substr(annoId.lastIndexOf("/") + 1);

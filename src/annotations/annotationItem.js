@@ -264,6 +264,7 @@ class AnnotationItem extends React.Component {
                 {" "}
                 <img
                   src={PlayLogo}
+                  alt=""
                   style={{
                     width: "5px",
                     alignContent: "center",
