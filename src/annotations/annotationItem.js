@@ -3,6 +3,9 @@ import React from "react";
 
 import PlayLogo from "../graphics/play-solid.svg";
 class AnnotationItem extends React.Component {
+  state = {
+    isClicked: false,
+  };
   onClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -51,6 +54,7 @@ class AnnotationItem extends React.Component {
     // console.log(targetCollection, "reply", replyTest);
 
     //////////// NEEDS TO WIPE TARGET REPLY AFTER RPELYING TO IT ALSO THE ANNOTATION TYPE HANDLING IS MESSY //////////////////
+
     if (replyTargetAnnos.length) {
       replyTargetAnnos.forEach((replyTargetAnno) => {
         const replyTargetAnnoId = replyTargetAnno.dataset.replyAnnotationTarget;
@@ -59,30 +63,52 @@ class AnnotationItem extends React.Component {
 
         console.log("Reply target anno id: ", replyTargetAnnoId);
         if (replyTargetAnnoId === rootAnnoTargetId) {
+          if (
+            this.props.areRepliesVisible === false ||
+            this.state.isClicked === false
+          ) {
+            this.setState({ isClicked: true });
+            rootAnno.appendChild(replyTargetAnno);
+            this.props.showReplyHandler();
+            //creates an array of all the visible replies
+            const noLongerShowing = Array.from(
+              rootAnno.getElementsByClassName("showReply")
+            );
+            //hides them
+            noLongerShowing.forEach((noReplyShowing) =>
+              noReplyShowing.classList.add("hiddenReply")
+            );
+            noLongerShowing.forEach((noReplyShowing) =>
+              noReplyShowing.classList.remove("showReply")
+            );
+            //creates an array of the hidden annotations
+            const showing = Array.from(
+              rootAnno.getElementsByClassName("hiddenReply")
+            );
+            //shows them
+            showing.forEach((showingReply) =>
+              showingReply.classList.add("showReply")
+            );
+            showing.forEach((showingReply) =>
+              showingReply.classList.remove("hiddenReply")
+            );
+          } else {
+            this.setState({ isClicked: false });
+            this.props.showReplyHandler();
+            const annoContainer = document.querySelector(".listContainer");
+            const noLongerShowing = Array.from(
+              rootAnno.getElementsByClassName("showReply")
+            );
+            //hides them
+            noLongerShowing.forEach((noReplyShowing) => {
+              noReplyShowing.classList.add("hiddenReply");
+              annoContainer.appendChild(noReplyShowing);
+            });
+            noLongerShowing.forEach((noReplyShowing) =>
+              noReplyShowing.classList.remove("showReply")
+            );
+          }
           //appendichild is where the magic happens
-          rootAnno.appendChild(replyTargetAnno);
-          //creates an array of all the visible replies
-          const noLongerShowing = Array.from(
-            rootAnno.getElementsByClassName("showReply")
-          );
-          //hides them
-          noLongerShowing.forEach((noReplyShowing) =>
-            noReplyShowing.classList.add("hiddenReply")
-          );
-          noLongerShowing.forEach((noReplyShowing) =>
-            noReplyShowing.classList.remove("showReply")
-          );
-          //creates an array of the hidden annotations
-          const showing = Array.from(
-            rootAnno.getElementsByClassName("hiddenReply")
-          );
-          //shows them
-          showing.forEach((showingReply) =>
-            showingReply.classList.add("showReply")
-          );
-          showing.forEach((showingReply) =>
-            showingReply.classList.remove("hiddenReply")
-          );
         }
         // } else {
         //   //if only one anno has replies and the other button is clicked, hides all the replies and alerts the user
