@@ -154,6 +154,7 @@ export default class SelectableScoreApp extends Component {
             replyAnnotationTarget: [],
             replyAnnotationTargetId: "",
             placeholder: "Add your annotation...",
+            annoToDisplay: [],
           });
         }
       );
@@ -177,6 +178,7 @@ export default class SelectableScoreApp extends Component {
             replyAnnotationTarget: [],
             replyAnnotationTargetId: "",
             placeholder: "Add your annotation...",
+            annoToDisplay: [],
           });
         }
       );

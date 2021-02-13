@@ -243,6 +243,8 @@ body {
 
 .selectable-score-postButton {
   display: inline;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .refreshButton {
