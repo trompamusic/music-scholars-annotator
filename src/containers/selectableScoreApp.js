@@ -306,11 +306,13 @@ export default class SelectableScoreApp extends Component {
             "measureBoxBackground-" + measureId
           );
           measureBoxBackground.setAttribute("class", "measureBoxBackground");
+          measureBoxBackground.classList.remove("isOpen");
+          measureBoxBackground.classList.add("isClosed");
           measureBoxBackground.setAttribute(
             "style",
             "position: absolute;" +
-              "background: rgba(241, 145, 0, 0.25);" +
-              "border:1px solid orange;" +
+              // "background: rgba(241, 145, 0, 0.25);" +
+              // "border:1px solid orange;" +
               "left: " +
               coordsBox.left +
               "px;" +
@@ -335,33 +337,35 @@ export default class SelectableScoreApp extends Component {
 
           measureBox.onclick = (e) => {
             const bgBoxes = document.querySelectorAll(".measureBoxBackground");
-
             const frontBox = e.target.closest(".measureBox");
             bgBoxes.forEach((box) => {
+              box.classList.add("isClosed");
+              box.classList.remove("isOpen");
               const bgBoxId = box.id.split("measureBoxBackground-")[1];
               const frontBoxId = frontBox.id.split("measureBox-")[1];
-              console.log(bgBoxId, "front", frontBoxId);
 
               if (frontBoxId === bgBoxId) {
-                box.setAttribute(
-                  "style",
-                  "position: absolute;" +
-                    "background: rgb(255, 255, 255);" +
-                    "border:1px solid orange;" +
-                    "left: " +
-                    coordsBox.left +
-                    "px;" +
-                    "top: " +
-                    coordsBox.top +
-                    "px;" +
-                    "width: " +
-                    coordsBox.width +
-                    "px;" +
-                    "height: " +
-                    coordsBox.height +
-                    "px;" +
-                    "z-index: -1"
-                );
+                box.classList.remove("isClosed");
+                box.classList.add("isOpen");
+                // box.setAttribute(
+                //   "style",
+                //   "position: absolute;" +
+                //     "background: rgb(255, 255, 255);" +
+                //     "border:1px solid orange;" +
+                //     "left: " +
+                //     coordsBox.left +
+                //     "px;" +
+                //     "top: " +
+                //     coordsBox.top +
+                //     "px;" +
+                //     "width: " +
+                //     coordsBox.width +
+                //     "px;" +
+                //     "height: " +
+                //     coordsBox.height +
+                //     "px;" +
+                //     "z-index: -1"
+                // );
               }
             });
 
