@@ -55,6 +55,7 @@ export default class SelectableScoreApp extends Component {
     this.deactivateModal = this.deactivateModal.bind(this);
     this.onMediaClick = this.onMediaClick.bind(this);
     this.showReplyHandler = this.showReplyHandler.bind(this);
+    this.handleAnnoShowingUpdate = this.handleAnnoShowingUpdate.bind(this);
     this.player = React.createRef();
   }
 
@@ -331,7 +332,39 @@ export default class SelectableScoreApp extends Component {
           document
             .querySelector(".annotationBoxesContainer")
             .appendChild(measureBoxBackground);
-          measureBox.onclick = () => {
+
+          measureBox.onclick = (e) => {
+            const bgBoxes = document.querySelectorAll(".measureBoxBackground");
+
+            const frontBox = e.target.closest(".measureBox");
+            bgBoxes.forEach((box) => {
+              const bgBoxId = box.id.split("measureBoxBackground-")[1];
+              const frontBoxId = frontBox.id.split("measureBox-")[1];
+              console.log(bgBoxId, "front", frontBoxId);
+
+              if (frontBoxId === bgBoxId) {
+                box.setAttribute(
+                  "style",
+                  "position: absolute;" +
+                    "background: rgb(255, 255, 255);" +
+                    "border:1px solid orange;" +
+                    "left: " +
+                    coordsBox.left +
+                    "px;" +
+                    "top: " +
+                    coordsBox.top +
+                    "px;" +
+                    "width: " +
+                    coordsBox.width +
+                    "px;" +
+                    "height: " +
+                    coordsBox.height +
+                    "px;" +
+                    "z-index: -1"
+                );
+              }
+            });
+
             const noLongerShowing = Array.from(
               document.getElementsByClassName("showReply")
             );
@@ -353,29 +386,7 @@ export default class SelectableScoreApp extends Component {
                 noReplyShowing.classList.remove("showReply")
               );
             }
-
-            let _annoIds = content.map((jsonIds) => {
-              const annotationsIds = jsonIds["@id"];
-              return annotationsIds;
-            });
-            let _filteredAnnoIds = this.state.measuresToAnnotationsMap[
-              measureId
-            ];
-            let compare = _annoIds.filter((anno) =>
-              _filteredAnnoIds.includes(anno)
-            );
-            // compare has all annotation IDs *for our measure*
-            // we want those, PLUS all replying annotations (which aren't tied to measures)
-            const annotationsToDisplay = [
-              ...compare,
-              ...content
-                .filter((anno) => anno.motivation === "replying") // get the replies
-                .map((anno) => anno["@id"]), // and return their IDs
-            ];
-            console.log("to display: ", annotationsToDisplay);
-            this.setState({
-              annoToDisplay: annotationsToDisplay,
-            });
+            this.handleAnnoShowingUpdate(content, measureId);
           };
         });
       }
@@ -461,7 +472,26 @@ export default class SelectableScoreApp extends Component {
       }
     });
   }
-
+  handleAnnoShowingUpdate(content, measureId) {
+    let _annoIds = content.map((jsonIds) => {
+      const annotationsIds = jsonIds["@id"];
+      return annotationsIds;
+    });
+    let _filteredAnnoIds = this.state.measuresToAnnotationsMap[measureId];
+    let compare = _annoIds.filter((anno) => _filteredAnnoIds.includes(anno));
+    // compare has all annotation IDs *for our measure*
+    // we want those, PLUS all replying annotations (which aren't tied to measures)
+    const annotationsToDisplay = [
+      ...compare,
+      ...content
+        .filter((anno) => anno.motivation === "replying") // get the replies
+        .map((anno) => anno["@id"]), // and return their IDs
+    ];
+    console.log("to display: ", annotationsToDisplay);
+    this.setState({
+      annoToDisplay: annotationsToDisplay,
+    });
+  }
   handleScoreUpdate(scoreElement) {
     console.log("Received updated score DOM element: ", scoreElement);
   }
