@@ -547,19 +547,22 @@ export default class SelectableScoreApp extends Component {
                 uri={this.state.uri}
               />
             </div>
+            <button onClick={this.props.zoomOut}>zoom out</button>
             <div className="divider"></div>
             {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
+            <button onClick={this.props.zoomIn}>zoom in</button>
             <div className="pageButton">
               <NextPageButton
                 buttonContent={<span>Next page</span>}
                 uri={this.state.uri}
               />
             </div>
+
             <div className="annotationBoxesContainer" />
             <SelectableScore
               uri={this.state.uri}
               annotationContainerUri={this.props.submitUri}
-              options={this.props.vrvOptions}
+              vrvOptions={this.props.vrvOptions}
               onSelectionChange={this.handleSelectionChange}
               selectorString={this.state.selectorString}
               onScoreUpdate={this.handleScoreUpdate}

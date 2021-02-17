@@ -78,6 +78,8 @@ export default function SolidWrapper(props) {
             vrvOptions={props.vrvOptions}
             submitUri={`${userPOD}` + userInput}
             userId={`${userId}`}
+            zoomIn={props.zoomIn}
+            zoomOut={props.zoomOut}
           />
         ) : (
           <div>Loading... </div>
