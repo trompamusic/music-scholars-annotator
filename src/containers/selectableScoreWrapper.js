@@ -27,12 +27,12 @@ export default class SelectableScoreWrapper extends Component {
       <Provider store={createStoreWithMiddleware(reducers)}>
         <SolidWrapper
           uri={this.state.MEI_URI}
-          vrvOptions={this.props.vrvOptions}
+          //vrvOptions={this.props.vrvOptions}
           handleMEIInput={this.handleMEIInput}
           onChange={this.onChange}
           value={this.state.value}
-          zoomIn={this.props.zoomIn}
-          zoomOut={this.props.zoomOut}
+          // zoomIn={this.props.zoomIn}
+          // zoomOut={this.props.zoomOut}
         />
       </Provider>
     );

@@ -36,6 +36,14 @@ export default class SelectableScoreApp extends Component {
       helpWindowIsActive: false,
       replyAnnotationTargetId: "",
       areRepliesVisible: false,
+      vrvOptions: {
+        scale: 30,
+        adjustPageHeight: 1,
+        pageHeight: 2000,
+        pageWidth: 2500,
+        footer: "none",
+        unit: 6,
+      },
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
@@ -56,9 +64,15 @@ export default class SelectableScoreApp extends Component {
     this.onMediaClick = this.onMediaClick.bind(this);
     this.showReplyHandler = this.showReplyHandler.bind(this);
     this.handleAnnoShowingUpdate = this.handleAnnoShowingUpdate.bind(this);
+    this.zoomIn = this.zoomIn.bind(this);
     this.player = React.createRef();
   }
 
+  zoomIn() {
+    const newVrvOptions = Object.assign({}, this.state.vrvOptions);
+    newVrvOptions.scale = 40;
+    this.setState({ vrvOptions: newVrvOptions });
+  }
   showReplyHandler = () => {
     this.setState({ areRepliesVisible: !this.state.areRepliesVisible });
   };
@@ -550,7 +564,7 @@ export default class SelectableScoreApp extends Component {
             <button onClick={this.props.zoomOut}>zoom out</button>
             <div className="divider"></div>
             {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
-            <button onClick={this.props.zoomIn}>zoom in</button>
+            <button onClick={this.zoomIn}>zoom in</button>
             <div className="pageButton">
               <NextPageButton
                 buttonContent={<span>Next page</span>}
@@ -562,7 +576,7 @@ export default class SelectableScoreApp extends Component {
             <SelectableScore
               uri={this.state.uri}
               annotationContainerUri={this.props.submitUri}
-              vrvOptions={this.props.vrvOptions}
+              vrvOptions={this.state.vrvOptions}
               onSelectionChange={this.handleSelectionChange}
               selectorString={this.state.selectorString}
               onScoreUpdate={this.handleScoreUpdate}
