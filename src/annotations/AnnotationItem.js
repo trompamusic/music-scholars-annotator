@@ -32,9 +32,14 @@ class AnnotationItem extends React.Component {
     this.onClick = this.onClick.bind(this);
     this.revokePublic = this.revokePublic.bind(this);
     this.grantPublic = this.grantPublic.bind(this);
+    this.updateDatasetAcl = this.updateDatasetAcl.bind(this);
   }
   
   componentDidMount() { 
+    this.updateDatasetAcl();
+  }
+
+  updateDatasetAcl() { 
     auth.currentSession()
       .then( (s) => { 
         getSolidDatasetWithAcl(this.props.annotation["@id"], { fetch: auth.fetch }).then( (datasetWithAcl) => {
@@ -49,21 +54,30 @@ class AnnotationItem extends React.Component {
             } else { 
               resourceAcl = createAclFromFallbackAcl(datasetWithAcl);
               // ensure current user has control in the new ACL
-              const userControllableResourceAcl = setAgentResourceAccess(resourceAcl,`${s.webId}`, 
-                { read: true, append: false, write: false, control: true}
+              const userControllableResourceAcl = setAgentResourceAccess(resourceAcl, s.webId, 
+                { read: true, append: true, write: true, control: true}
               )
-              this.setState({userMayModifyAccess:true, datasetWithAcl, resourceAcl: userControllableResourceAcl});
+              this.setState({
+                userMayModifyAccess:true, 
+                datasetWithAcl, 
+                resourceAcl: userControllableResourceAcl,
+                aclModified: Date.now()
+              });
               console.log("Creating ACL from fallback ACL")
             }
           } else { 
             resourceAcl = getResourceAcl(datasetWithAcl);
-            this.setState({userMayModifyAccess:true, datasetWithAcl, resourceAcl});
+            this.setState({
+              userMayModifyAccess:true, 
+              datasetWithAcl, 
+              resourceAcl,
+              aclModified: Date.now()
+            });
             console.log("Got resource ACL");
           }
         }).catch( (e) => console.error("Couldn't get Solid dataset with ACL: ", this.props.annotation["@id"], e) ) 
       }).catch( (e) => console.error("Couldn't access the current Solid session: ", e) );
   }
-
   shouldComponentUpdate(nextProps, nextState) { 
     if(this.state.aclModified !== nextState.aclModified) { 
       // user has enacted an ACL change. Request a re-render accordingly.
@@ -105,17 +119,16 @@ class AnnotationItem extends React.Component {
     e.preventDefault();
     auth.currentSession()
       .then( (s) => { 
-        console.log("User WebID: ", `${s.webId}`);
         let updatedAcl = setPublicResourceAccess(
           this.state.resourceAcl,
           { read: true, append: false, write: false, control: false }
         );
         // ensure current user has control in the new ACL
-        updatedAcl = setAgentResourceAccess(updatedAcl,`${s.webId}`, 
+        updatedAcl = setAgentResourceAccess(updatedAcl, s.webId, 
           { read: true, append: true , write: true , control: true}
         )
         saveAclFor(this.state.datasetWithAcl, updatedAcl, { fetch: auth.fetch })
-          .then( (newAcl) => this.setState({resourceAcl: newAcl, aclModified: Date.now()}) )
+          .then( () => this.updateDatasetAcl() )
           .catch( (e) => console.error("Could not grant public access: ", e) );
       })
   }
@@ -125,18 +138,17 @@ class AnnotationItem extends React.Component {
     e.preventDefault();
     auth.currentSession()
       .then( (s) => { 
-        console.log("User WebID: ", `${s.webId}`);
         let updatedAcl = setPublicResourceAccess(
           this.state.resourceAcl,
           { read: false, append: false, write: false, control: false }
         )
         // ensure current user has control in the new ACL
-        updatedAcl = setAgentResourceAccess(updatedAcl,`${s.webId}`, 
-          { read: true, append: true , write: true , control: true}
+        updatedAcl = setAgentResourceAccess(updatedAcl, s.webId, 
+          { read: true, append: true , write: true , control: true }
         )
 
         saveAclFor(this.state.datasetWithAcl, updatedAcl, { fetch: auth.fetch })
-          .then( (newAcl) => this.setState({resourceAcl: newAcl, aclModified: Date.now()}, () => console.log("new ACL: ", this.state.resourceAcl)))
+          .then( () => this.updateDatasetAcl() )
           .catch( (e) => console.error("Could not revoke public access: ", e) );
       })
   }
@@ -197,7 +209,7 @@ class AnnotationItem extends React.Component {
             {" "}
             <p>The textual content of this annotation is {bodyD}</p>
             <div className="date">
-              Created on: {date} by {creator} with {motivation} motivation.
+              Created on: {date} by {creator} with {motivation} motivation <a className="annoUri" href={this.props.annotation['@id']}>uri</a>.
             </div>
             <div className="permission">
               Access permissions: { permission }.
