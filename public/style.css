@@ -141,10 +141,14 @@ body {
   background: #eee;
 }
 
-.date {
+.date, .permission, .accessPermissions {
   font-size: x-small;
   font-style: italic;
   vertical-align: middle;
+}
+
+.permission { 
+  padding-left: .5em;
 }
 
 .MEIButton {

@@ -391,6 +391,29 @@ export default class SelectableScoreApp extends Component {
           document
             .querySelector(".annotationBoxesContainer")
             .appendChild(measureBoxBackground);
+          measureBox.onclick = () => {
+            // FIXME: might need to work more on the onClick interaction
+            // e.preventDefault();
+            // const isBoxOpen = Array.from(e.currentTarget.classList).filter((c) =>
+            //   c.startsWith("measureBox")
+            // );
+            // if (isBoxOpen.length > 1) {
+            //   console.warn("too many open boxes", e.target);
+            // }
+            // // remove focus off previous inFocus elements (now outdated)
+            // const noLongerOpen = Array.from(
+            //   document.getElementsByClassName("isOpen")
+            // );
+            // noLongerOpen.forEach((noFocusElement) =>
+            //   noFocusElement.classList.remove("isOpen")
+            // );
+            // // add focus to newly inFocus elements
+            // const inOpenList = Array.from(
+            //   document.getElementsByClassName(isBoxOpen[0])
+            // );
+            // inOpenList.forEach((focusElement) =>
+            //   focusElement.classList.add("isOpen")
+            // );
 
           measureBox.onclick = (e) => {
             const bgBoxes = document.querySelectorAll(".measureBoxBackground");
@@ -449,9 +472,9 @@ export default class SelectableScoreApp extends Component {
             }
             this.handleAnnoShowingUpdate(content, measureId);
           };
-        });
-      }
-    );
+        };
+      });
+    });
     console.log("iteration succeded");
 
     content.forEach((anno) => {
@@ -503,6 +526,7 @@ export default class SelectableScoreApp extends Component {
                 // and turn the cursor into a pointer as a hint that it's clickable
                 element.classList.add("focus-" + annoIdFragment);
                 //element.classList.add(anno.anno.motivation);
+                element.classList.add("focus-" + annoIdFragment);
               }
               break;
             case "trompa:cueMedia":

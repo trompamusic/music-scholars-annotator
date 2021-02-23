@@ -1,6 +1,7 @@
 /* annotation submitter takes the handlerArgs passed from the addAnnotaiton script and builds the jsonLd structure of each annotation based on its motivation */
 /* it also renders the radio button array to selecte the annotation motivation  */
 import React from "react";
+import { v4 as uuidv4 } from 'uuid';
 import Addannotations from "./addAnnotation.js";
 export class AnnotationSubmitter extends React.Component {
   submitHandler = (handlerArgs) => {
@@ -17,7 +18,7 @@ export class AnnotationSubmitter extends React.Component {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
           }), //this takes the measure id selected by the user
           type: "Annotation",
-          body: [{ type: "TextualBody", value }], //this takes the user input
+          body: [{ id: uuidv4(), type: "TextualBody", value }], //this takes the user input
           motivation: "describing",
           created: new Date().toISOString(),
           creator: this.props.creator,
@@ -67,7 +68,7 @@ export class AnnotationSubmitter extends React.Component {
           "@context": "http://www.w3.org/ns/anno.jsonld",
           target: this.props.replyAnnotationTargetId, //this takes the annotation ID being replied to
           type: "Annotation",
-          body: [{ type: "TextualBody", value }], //this takes the user input
+          body: [{ id: uuidv4(), type: "TextualBody", value }], //this takes the user input
           motivation: "replying",
           created: new Date().toISOString(),
           creator: this.props.creator,
