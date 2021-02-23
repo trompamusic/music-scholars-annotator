@@ -5,6 +5,9 @@ import PlayLogo from "../graphics/play-solid.svg";
 class AnnotationItem extends React.Component {
   state = {
     isClicked: false,
+    isPictureShowing: false,
+    previewButtonContent: "Show preview",
+    showReplyButtonContent: "Show replies",
   };
   onClick = (e) => {
     e.preventDefault();
@@ -17,9 +20,47 @@ class AnnotationItem extends React.Component {
 
   onPlayClick = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     const bodyMedia = this.props.annotation.body[0].id;
     this.props.onMediaClick(bodyMedia);
   };
+
+  onPreviewclick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const aimAt = e.target.closest(".rootAnno");
+    const _children = aimAt.children[0];
+
+    //const aimAt = rootAnno.contains("hiddenContainer");
+    if (this.state.isPictureShowing === false) {
+      this.setState({
+        isPictureShowing: true,
+        previewButtonContent: "Hide preview",
+      });
+      console.log(_children);
+      document
+        .querySelector(".hiddenContainer")
+        .addEventListener("click", function (e) {
+          e.stopPropagation();
+        });
+      _children.classList.remove("hiddenContainer");
+      _children.classList.add("showContainer");
+    } else {
+      document
+        .querySelector(".showContainer")
+        .addEventListener("click", function (e) {
+          e.stopPropagation();
+        });
+      this.setState({
+        isPictureShowing: false,
+        previewButtonContent: "show preview",
+      });
+      _children.classList.add("hiddenContainer");
+      _children.classList.remove("showContainer");
+    }
+  };
+
   onShowReplyClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -67,7 +108,10 @@ class AnnotationItem extends React.Component {
             this.props.areRepliesVisible === false ||
             this.state.isClicked === false
           ) {
-            this.setState({ isClicked: true });
+            this.setState({
+              isClicked: true,
+              showReplyButtonContent: "Hide replies",
+            });
             rootAnno.appendChild(replyTargetAnno);
             this.props.showReplyHandler();
             //creates an array of all the visible replies
@@ -93,7 +137,10 @@ class AnnotationItem extends React.Component {
               showingReply.classList.remove("hiddenReply")
             );
           } else {
-            this.setState({ isClicked: false });
+            this.setState({
+              isClicked: false,
+              showReplyButtonContent: "Show replies",
+            });
             this.props.showReplyHandler();
             const annoContainer = document.querySelector(".listContainer");
             const noLongerShowing = Array.from(
@@ -167,7 +214,7 @@ class AnnotationItem extends React.Component {
               name="showRepliesButton"
               onClick={this.onShowReplyClick}
             >
-              Show replies
+              {this.state.showReplyButtonContent}
             </button>
           </div>
         );
@@ -175,7 +222,7 @@ class AnnotationItem extends React.Component {
         if (bodyL.startsWith("http")) {
           return (
             <div
-              className="annoItem"
+              className="rootAnno annoItem"
               data-target={target}
               data-self-id={selfId}
             >
@@ -207,7 +254,7 @@ class AnnotationItem extends React.Component {
                 name="showRepliesButton"
                 onClick={this.onShowReplyClick}
               >
-                Show replies
+                {this.state.showReplyButtonContent}
               </button>
             </div>
           );
@@ -215,7 +262,7 @@ class AnnotationItem extends React.Component {
           const appendURL = "https://" + bodyL;
           return (
             <div
-              className="annoItem"
+              className="rootAnno annoItem"
               data-target={target}
               data-self-id={selfId}
             >
@@ -247,7 +294,7 @@ class AnnotationItem extends React.Component {
                 name="showRepliesButton"
                 onClick={this.onShowReplyClick}
               >
-                Show replies
+                {this.state.showReplyButtonContent}
               </button>
             </div>
           );
@@ -256,7 +303,11 @@ class AnnotationItem extends React.Component {
       case "trompa:cueMedia":
         const cleanMediaString = bodyMedia.split("#")[0];
         return (
-          <div className="annoItem" data-target={target} data-self-id={selfId}>
+          <div
+            className="rootAnno annoItem"
+            data-target={target}
+            data-self-id={selfId}
+          >
             {" "}
             <p>
               The mediacontent of this annotation is {cleanMediaString}{" "}
@@ -289,11 +340,58 @@ class AnnotationItem extends React.Component {
               name="showRepliesButton"
               onClick={this.onShowReplyClick}
             >
-              Show replies
+              {this.state.showReplyButtonContent}
             </button>
           </div>
         );
-      //FIXME: needs to build reply annotation structure hirerchically
+      case "trompa:cueImage":
+        return (
+          <div
+            className="rootAnno annoItem"
+            data-target={target}
+            data-self-id={selfId}
+          >
+            {" "}
+            <div className="hiddenContainer">
+              <a href={bodyMedia} target="_blank" rel="noopener noreferrer">
+                <img
+                  title="click for full res"
+                  src={bodyMedia}
+                  alt="annotation"
+                  style={{
+                    maxWidth: "240px",
+                    maxHeight: "135px",
+                    marginTop: "5px",
+                  }}
+                />
+              </a>
+            </div>
+            <p>
+              The mediacontent of this annotation is a picture, click the button
+              to see a preview{" "}
+              <button onClick={this.onPreviewclick}>
+                {this.state.previewButtonContent}{" "}
+              </button>
+            </p>
+            <span className="date">
+              Created on: {date} by {creator} with {motivation} motivation
+            </span>
+            <button
+              className="replyButton"
+              name="replyButton"
+              onClick={this.onClick}
+            >
+              Reply
+            </button>
+            <button
+              className="showRepliesButton"
+              name="showRepliesButton"
+              onClick={this.onShowReplyClick}
+            >
+              {this.state.showReplyButtonContent}
+            </button>
+          </div>
+        );
       case "replying":
         return (
           <div
@@ -317,7 +415,7 @@ class AnnotationItem extends React.Component {
                 name="showRepliesButton"
                 onClick={this.onShowReplyClick}
               >
-                Show replies
+                {this.state.showReplyButtonContent}
               </button> */}
             </div>
           </div>

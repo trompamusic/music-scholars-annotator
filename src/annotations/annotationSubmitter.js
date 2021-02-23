@@ -49,6 +49,19 @@ export class AnnotationSubmitter extends React.Component {
           creator: this.props.creator,
         };
 
+      case "image":
+        return {
+          "@context": "http://www.w3.org/ns/anno.jsonld",
+          target: this.props.selection.map((elem) => {
+            return { id: this.props.uri + "#" + elem.getAttribute("id") };
+          }), //this takes the measure id selected by the user
+          type: "Annotation",
+          body: [{ id: value }], //this takes the user image link
+          motivation: "trompa:cueImage",
+          created: new Date().toISOString(),
+          creator: this.props.creator,
+        };
+
       case "replying":
         return {
           "@context": "http://www.w3.org/ns/anno.jsonld",
@@ -104,6 +117,16 @@ export class AnnotationSubmitter extends React.Component {
               onChange={this.props.onAnnoTypeChange}
             />
             Cue Media
+          </label>
+          <label>
+            <input
+              title="links an image content to the annotation"
+              type="radio"
+              value="image"
+              name="annotationType"
+              onChange={this.props.onAnnoTypeChange}
+            />
+            Image
           </label>
           <label>
             <input

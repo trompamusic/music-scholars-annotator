@@ -36,6 +36,14 @@ export default class SelectableScoreApp extends Component {
       helpWindowIsActive: false,
       replyAnnotationTargetId: "",
       areRepliesVisible: false,
+      vrvOptions: {
+        scale: 45,
+        adjustPageHeight: 1,
+        pageHeight: 2500,
+        pageWidth: 2000,
+        footer: "none",
+        unit: 6,
+      },
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
@@ -56,9 +64,58 @@ export default class SelectableScoreApp extends Component {
     this.onMediaClick = this.onMediaClick.bind(this);
     this.showReplyHandler = this.showReplyHandler.bind(this);
     this.handleAnnoShowingUpdate = this.handleAnnoShowingUpdate.bind(this);
+    this.zoomIn = this.zoomIn.bind(this);
+    this.zoomOut = this.zoomOut.bind(this);
     this.player = React.createRef();
   }
 
+  zoomIn() {
+    let step = 5;
+    let initialZoom = this.state.vrvOptions.scale;
+    let initialHeight = this.state.vrvOptions.pageHeight;
+    let initialWidth = this.state.vrvOptions.pageWidth;
+    //   vrvOptions.scale = vrvOptions.scale + step;
+    //   vrvOptions.pageHeight = (pageHeight * 100) / vrvOptions.scale;
+    //   vrvOptions.pageWidth = (pageWidth * 100) / vrvOptions.scale;
+    //
+    const newVrvOptions = Object.assign({}, this.state.vrvOptions);
+    newVrvOptions.scale = initialZoom + step;
+    newVrvOptions.pageHeight = (initialHeight / 65) * newVrvOptions.scale;
+    newVrvOptions.pageWidth = (initialWidth / 65) * newVrvOptions.scale;
+    console.log(
+      "ZOOM INCREASE",
+      newVrvOptions.scale,
+      "page w",
+      newVrvOptions.pageWidth,
+      "page h",
+      newVrvOptions.pageHeight
+    );
+    this.setState({ vrvOptions: newVrvOptions });
+  }
+
+  zoomOut() {
+    let step = 5;
+    let initialZoom = this.state.vrvOptions.scale;
+    let initialHeight = this.state.vrvOptions.pageHeight;
+    let initialWidth = this.state.vrvOptions.pageWidth;
+    //   vrvOptions.scale = vrvOptions.scale + step;
+    //   vrvOptions.pageHeight = (pageHeight * 100) / vrvOptions.scale;
+    //   vrvOptions.pageWidth = (pageWidth * 100) / vrvOptions.scale;
+    //
+    const newVrvOptions = Object.assign({}, this.state.vrvOptions);
+    newVrvOptions.scale = initialZoom - step;
+    newVrvOptions.pageHeight = (initialHeight * 65) / newVrvOptions.scale;
+    newVrvOptions.pageWidth = (initialWidth * 65) / newVrvOptions.scale;
+    console.log(
+      "ZOOM DECREASE",
+      newVrvOptions.scale,
+      "page w",
+      newVrvOptions.pageWidth,
+      "page h",
+      newVrvOptions.pageHeight
+    );
+    this.setState({ vrvOptions: newVrvOptions });
+  }
   showReplyHandler = () => {
     this.setState({ areRepliesVisible: !this.state.areRepliesVisible });
   };
@@ -467,6 +524,12 @@ export default class SelectableScoreApp extends Component {
                 //element.classList.add("cueMedia");
               }
               break;
+            case "trompa:cueImage":
+              if (bodies.length) {
+                element.classList.add("focus-" + annoIdFragment);
+                //element.classList.add("cueMedia");
+              }
+              break;
             default:
               console.log(
                 "sorry, don't know what to do for this annotation boss"
@@ -541,25 +604,32 @@ export default class SelectableScoreApp extends Component {
       <div>
         {this.state.isClicked === true && (
           <div className="score">
-            <div className="pageButton">
+            <div className="prevPageButton">
               <PrevPageButton
                 buttonContent={<span>Previous page</span>}
                 uri={this.state.uri}
               />
             </div>
-            <div className="divider"></div>
+            <button onClick={this.zoomOut} style={{ marginRight: "15px" }}>
+              zoom out
+            </button>
+            {/* <div className="divider"></div> */}
             {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
-            <div className="pageButton">
+            <button onClick={this.zoomIn} style={{ marginLeft: "15px" }}>
+              zoom in
+            </button>
+            <div className="nextPageButton">
               <NextPageButton
                 buttonContent={<span>Next page</span>}
                 uri={this.state.uri}
               />
             </div>
+
             <div className="annotationBoxesContainer" />
             <SelectableScore
               uri={this.state.uri}
               annotationContainerUri={this.props.submitUri}
-              options={this.props.vrvOptions}
+              vrvOptions={this.state.vrvOptions}
               onSelectionChange={this.handleSelectionChange}
               selectorString={this.state.selectorString}
               onScoreUpdate={this.handleScoreUpdate}

@@ -1,38 +1,40 @@
-import React, { Component } from 'react'
-import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
-import ReduxPromise from 'redux-promise'
+import React, { Component } from "react";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import ReduxPromise from "redux-promise";
 
-import { reducers } from 'meld-clients-core/lib/reducers'
-import SolidWrapper from './solidWrapper'
+import { reducers } from "meld-clients-core/lib/reducers";
+import SolidWrapper from "./solidWrapper";
 
 const createStoreWithMiddleware = applyMiddleware(
   thunk,
   ReduxPromise
-)(createStore)
+)(createStore);
 
 export default class SelectableScoreWrapper extends Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
     // MEI_URI: Can be a full URI, e.g. obtained from the TROMPA Contributor Environment
     this.state = {
-      MEI_URI: 'Mahler.mei'
-    }
-    this.store = createStore(reducers)
+      MEI_URI: "Mahler.mei",
+    };
+    this.store = createStore(reducers);
   }
 
-  render () {
+  render() {
     return (
       <Provider store={createStoreWithMiddleware(reducers)}>
         <SolidWrapper
           uri={this.state.MEI_URI}
-          vrvOptions={this.props.vrvOptions}
+          //vrvOptions={this.props.vrvOptions}
           handleMEIInput={this.handleMEIInput}
           onChange={this.onChange}
           value={this.state.value}
+          // zoomIn={this.props.zoomIn}
+          // zoomOut={this.props.zoomOut}
         />
       </Provider>
-    )
+    );
   }
 }

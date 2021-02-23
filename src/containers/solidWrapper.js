@@ -75,9 +75,11 @@ export default function SolidWrapper(props) {
         {typeof userPOD !== "undefined" ? (
           <SelectableScoreApp
             uri={props.uri}
-            vrvOptions={props.vrvOptions}
+            //vrvOptions={props.vrvOptions}
             submitUri={`${userPOD}` + userInput}
             userId={`${userId}`}
+            // zoomIn={props.zoomIn}
+            // zoomOut={props.zoomOut}
           />
         ) : (
           <div>Loading... </div>

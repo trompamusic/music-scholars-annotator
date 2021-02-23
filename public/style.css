@@ -161,6 +161,14 @@ body {
   border-radius: 4px;
 }
 
+.hiddenContainer {
+  display: none;
+}
+
+.showContainer {
+  display: block;
+}
+
 .MEIButton:active {
   background-color: rgb(182, 118, 0);
 }
@@ -181,7 +189,7 @@ body {
   margin-bottom: 5px;
 }
 
-.pageButton {
+.prevPageButton {
   border: 1px solid white;
   background-color: rgb(215, 215, 215);
   padding: 5px 12px;
@@ -191,9 +199,28 @@ body {
   cursor: pointer;
   display: inline-block;
   transition-duration: 0.4s;
+  margin-left: 1%;
+  margin-right: 30%;
 }
 
-.pageButton:hover {
+.prevPageButton:hover {
+  background-color: rgb(175, 175, 175);
+}
+
+.nextPageButton {
+  border: 1px solid white;
+  background-color: rgb(215, 215, 215);
+  padding: 5px 12px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  display: inline-block;
+  transition-duration: 0.4s;
+  margin-left: 30%;
+}
+
+.nextPageButton:hover {
   background-color: rgb(175, 175, 175);
 }
 
