@@ -256,6 +256,10 @@ export default class SelectableScoreApp extends Component {
   onReceiveAnnotationContainerContent(content) {
     if (!content || !content.length) {
       alert("no annotation to retrieve");
+      document.querySelectorAll(".measureBox").forEach((mb) => mb.remove());
+      document
+        .querySelectorAll(".measureBoxBackground")
+        .forEach((mb) => mb.remove());
       this.setState(
         {
           hasContent: false,
