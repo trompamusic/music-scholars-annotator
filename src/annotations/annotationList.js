@@ -20,8 +20,8 @@ export class AnnotationList extends React.Component {
     });
 
     function onClick(e) {
-      // e.preventDefault();
-      // e.stopPropagation();
+      e.preventDefault();
+      e.stopPropagation();
       console.log("i am being clicked");
       // figure out this element's focus Id
       const focusId = Array.from(e.currentTarget.classList).filter((c) =>
