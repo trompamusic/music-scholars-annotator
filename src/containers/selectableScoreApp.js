@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import SelectableScore from "selectable-score/lib/selectable-score";
 import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
-import AnnotationSubmitter from "../annotations/annotation-submitter.js";
-import SelectionHandler from "../annotations/SelectionHandler.js";
-import AnnotationList from "../annotations/AnnotationList.js";
+import AnnotationSubmitter from "../annotations/annotationSubmitter.js";
+import SelectionHandler from "../annotations/selectionHandler.js";
+import AnnotationList from "../annotations/annotationList.js";
 import ReactPlayer from "react-player";
 import Modal from "react-modal";
 
@@ -18,8 +18,9 @@ export default class SelectableScoreApp extends Component {
     this.state = {
       selection: [],
       annotationType: "describing",
-      placeholder: "",
-      uri: "Mahler.mei",
+      placeholder: "Add your annotation...",
+      uri:
+        "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei",
       selectorString: "",
       buttonContent: "Submit to your Solid POD",
       replyAnnotationTarget: [],
@@ -33,6 +34,8 @@ export default class SelectableScoreApp extends Component {
       measuresToAnnotationsMap: {},
       annoToDisplay: [],
       helpWindowIsActive: false,
+      replyAnnotationTargetId: "",
+      areRepliesVisible: false,
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
@@ -50,9 +53,15 @@ export default class SelectableScoreApp extends Component {
     this.convertCoords = this.convertCoords.bind(this);
     this.activateModal = this.activateModal.bind(this);
     this.deactivateModal = this.deactivateModal.bind(this);
-
+    this.onMediaClick = this.onMediaClick.bind(this);
+    this.showReplyHandler = this.showReplyHandler.bind(this);
+    this.handleAnnoShowingUpdate = this.handleAnnoShowingUpdate.bind(this);
     this.player = React.createRef();
   }
+
+  showReplyHandler = () => {
+    this.setState({ areRepliesVisible: !this.state.areRepliesVisible });
+  };
   activateModal = () => {
     this.setState({ helpWindowIsActive: true });
   };
@@ -110,13 +119,14 @@ export default class SelectableScoreApp extends Component {
   hideMEIInput() {
     this.setState({ showMEIInput: !this.state.showMEIInput });
   }
-
-  onAnnoReplyHandler(replyTarget) {
+  //////////// NEEDS TO WIPE TARGET REPLY AFTER RPELYING TO IT ALSO THE ANNOTATION TYPE HANDLING IS MESSY //////////////////
+  onAnnoReplyHandler(replyTarget, replyTargetId) {
     this.setState({
       annotationType: "replying",
       placeholder: "you are replying to the selected annotation",
       buttonContent: "Reply to selected Solid annotation",
       replyAnnotationTarget: replyTarget,
+      replyAnnotationTargetId: replyTargetId,
     });
   }
 
@@ -139,7 +149,14 @@ export default class SelectableScoreApp extends Component {
           toggleAnnotationRetrieval: true,
         },
         () => {
-          this.setState({ toggleAnnotationRetrieval: false });
+          this.setState({
+            toggleAnnotationRetrieval: false,
+            annotationType: "describing",
+            replyAnnotationTarget: [],
+            replyAnnotationTargetId: "",
+            placeholder: "Add your annotation...",
+            annoToDisplay: [],
+          });
         }
       );
     } else if (resp.status === 404) {
@@ -156,9 +173,27 @@ export default class SelectableScoreApp extends Component {
           toggleAnnotationRetrieval: true,
         },
         () => {
-          this.setState({ toggleAnnotationRetrieval: false });
+          this.setState({
+            toggleAnnotationRetrieval: false,
+            annotationType: "describing",
+            replyAnnotationTarget: [],
+            replyAnnotationTargetId: "",
+            placeholder: "Add your annotation...",
+            annoToDisplay: [],
+          });
         }
       );
+  }
+
+  onMediaClick(bodyMedia) {
+    console.log("button click", bodyMedia);
+    //appends http fragment to avoid partial linking error
+    //const mediaCue = bodies[0]["id"];
+    // TODO validate properly
+    const currentMedia = bodyMedia.split("#")[0];
+    const seekTo = bodyMedia.split("#")[1].replace("t=", "");
+    console.log("Setting up seek to: ", currentMedia, seekTo);
+    this.setState({ currentMedia }, () => this.player.current.seekTo(seekTo));
   }
 
   onReceiveAnnotationContainerContent(content) {
@@ -178,19 +213,24 @@ export default class SelectableScoreApp extends Component {
     content = content.filter((c) => c["@id"].endsWith(".jsonld"));
 
     let measuresToAnnotationsMapList = content.map((anno) => {
-      const measures = anno.anno.target
-        .map((jsonTarget) => {
-          const targetId = jsonTarget.id;
-          const fragment = targetId.substr(targetId.lastIndexOf("#"));
-          const element = document.querySelector(fragment);
-          let measure = "";
-          if (element) {
-            measure = element.closest(".measure");
-          }
-          return measure;
-        })
-        .filter((el) => el); // ensure element exists on screen
-      const distinctMeasures = [...new Set(measures)];
+      let distinctMeasures = [];
+      // replying annotations don't have distinct measures since they target
+      // annotations, *not* MEI elements
+      if (anno.motivation !== "replying") {
+        const measures = anno.target
+          .map((jsonTarget) => {
+            const targetId = jsonTarget.id;
+            const fragment = targetId.substr(targetId.lastIndexOf("#"));
+            const element = document.querySelector(fragment);
+            let measure = "";
+            if (element) {
+              measure = element.closest(".measure");
+            }
+            return measure;
+          })
+          .filter((el) => el); // ensure element exists on screen
+        distinctMeasures = [...new Set(measures)];
+      }
       return { annoId: anno["@id"], measures: distinctMeasures };
     });
     let newMap = {};
@@ -208,6 +248,11 @@ export default class SelectableScoreApp extends Component {
     this.setState(
       { currentAnnotation: content, measuresToAnnotationsMap: newMap },
       () => {
+        // delete any existing measure boxes so we can redraw from blank slate
+        document.querySelectorAll(".measureBox").forEach((mb) => mb.remove());
+        document
+          .querySelectorAll(".measureBoxBackground")
+          .forEach((mb) => mb.remove());
         console.log("Mapped annotaitons ", newMap);
         console.log("current annotations ", content);
         // draw bounding boxes for all measures containing annotations
@@ -261,11 +306,13 @@ export default class SelectableScoreApp extends Component {
             "measureBoxBackground-" + measureId
           );
           measureBoxBackground.setAttribute("class", "measureBoxBackground");
+          measureBoxBackground.classList.remove("isOpen");
+          measureBoxBackground.classList.add("isClosed");
           measureBoxBackground.setAttribute(
             "style",
             "position: absolute;" +
-              "background: rgba(241, 145, 0, 0.25);" +
-              "border:1px solid orange;" +
+              // "background: rgba(241, 145, 0, 0.25);" +
+              // "border:1px solid orange;" +
               "left: " +
               coordsBox.left +
               "px;" +
@@ -282,10 +329,10 @@ export default class SelectableScoreApp extends Component {
           );
           console.log("TRYING TO DRAW", measureBox);
           document
-            .querySelector("#annotationBoxesContainer")
+            .querySelector(".annotationBoxesContainer")
             .appendChild(measureBox);
           document
-            .querySelector("#annotationBoxesContainer")
+            .querySelector(".annotationBoxesContainer")
             .appendChild(measureBoxBackground);
           measureBox.onclick = () => {
             // FIXME: might need to work more on the onClick interaction
@@ -311,126 +358,168 @@ export default class SelectableScoreApp extends Component {
             //   focusElement.classList.add("isOpen")
             // );
 
-            let _annoiDs = content.map((jsonIds) => {
-              const annotationsIds = jsonIds["@id"];
-              return annotationsIds;
-            });
-            let _filteredAnnoIds = this.state.measuresToAnnotationsMap[
-              measureId
-            ];
-            let compare = _annoiDs.filter((anno) =>
-              _filteredAnnoIds.includes(anno)
-            );
-            this.setState({ annoToDisplay: compare });
-            //console.log("filtered annos ", compare)
-            //const compare = _annoiDs.map((elem1) => ({id: elem1.annotationsIds, match: _filteredAnnoIds.some((elem2) => elem2[0] === elem1.annotationsIds)}))
-            // console.log("Clicked measure containing these annotations",
-            //   measureId
-            // )
-            //console.log("all recorded annotations are ", _annoiDs)
-            //console.log("the measure contains ", _filteredAnnoIds)
-            // console.log("all measures on screen are", annotatedMeasuresOnScreen)
-          };
-        });
-      }
-    );
-    console.log("iteration succeded");
+          measureBox.onclick = (e) => {
+            const bgBoxes = document.querySelectorAll(".measureBoxBackground");
+            const frontBox = e.target.closest(".measureBox");
+            bgBoxes.forEach((box) => {
+              box.classList.add("isClosed");
+              box.classList.remove("isOpen");
+              const bgBoxId = box.id.split("measureBoxBackground-")[1];
+              const frontBoxId = frontBox.id.split("measureBox-")[1];
 
-    content.map((anno) => {
-      anno.anno.target.map((jSonTarget) => {
-        const bodies = anno.anno.body;
-        const targetId = jSonTarget.id;
-        const fragment = targetId.substr(targetId.lastIndexOf("#"));
-        const element = document.querySelector(fragment);
-        if (!element) {
-          return;
-        }
-        const annoId = anno["@id"];
-        const annoIdFragment = annoId.substr(annoId.lastIndexOf("/") + 1);
-        //checks what's the motivation of the target
-        switch (anno.anno.motivation) {
-          case "describing":
-            if (bodies.length) {
-              if ("value" in bodies[0]) {
-                // const title = document.createElementNS(
-                //   "http://www.w3.org/2000/svg",
-                //   "title"
+              if (frontBoxId === bgBoxId) {
+                box.classList.remove("isClosed");
+                box.classList.add("isOpen");
+                // box.setAttribute(
+                //   "style",
+                //   "position: absolute;" +
+                //     "background: rgb(255, 255, 255);" +
+                //     "border:1px solid orange;" +
+                //     "left: " +
+                //     coordsBox.left +
+                //     "px;" +
+                //     "top: " +
+                //     coordsBox.top +
+                //     "px;" +
+                //     "width: " +
+                //     coordsBox.width +
+                //     "px;" +
+                //     "height: " +
+                //     coordsBox.height +
+                //     "px;" +
+                //     "z-index: -1"
                 // );
-                // Embeds the annotation text into this title node
-                //title.innerHTML = bodies[0]["value"];
-                //element.insertBefore(title, element.firstChild);
-                //element.classList.add(anno.anno.motivation);
-                element.classList.add("focus-" + annoIdFragment);
               }
-            }
-            break;
-          case "replying":
-            // element.classList.add(anno.anno.motivation);
-            // element.classList.add("focus-" + annoIdFragment);
-            if (bodies.length) {
-              if ("value" in bodies[0]) {
-                // const title = document.createElementNS(
-                //   "http://www.w3.org/2000/svg",
-                //   "title"
-                // );
-                // Embeds the annotation text into this title node
-                //title.innerHTML = bodies[0]["value"];
-                //element.insertBefore(title, element.firstChild);
-                //element.classList.add(anno.anno.motivation);
-                element.classList.add("focus-" + annoIdFragment);
-              }
-            }
-            break;
-          case "linking":
-            if (bodies.length) {
-              // make the target clickable, linking to the (first) body URI
-              element.addEventListener(
-                "click",
-                function () {
-                  //appends http fragment to avoid partial linking error
-                  const URL = bodies[0]["id"];
-                  if (URL.startsWith("http")) {
-                    window.open(URL, "_blank");
-                  } else {
-                    const appendURL = "https://" + URL;
-                    window.open(appendURL, "_blank");
-                  }
-                },
-                true
-              );
-              // and turn the cursor into a pointer as a hint that it's clickable
-              element.classList.add("focus-" + annoIdFragment);
-              //element.classList.add(anno.anno.motivation);
-            }
-            break;
-          case "trompa:cueMedia":
-            if (bodies.length) {
-              // make the target clickable, seeking player to the (first) body media cue
-              element.onclick = () => {
-                //appends http fragment to avoid partial linking error
-                const mediaCue = bodies[0]["id"];
-                // TODO validate properly
-                const currentMedia = mediaCue.split("#")[0];
-                const seekTo = mediaCue.split("#")[1].replace("t=", "");
-                console.log("Setting up seek to: ", currentMedia, seekTo);
-                this.setState({ currentMedia }, () =>
-                  this.player.current.seekTo(seekTo)
-                );
-              };
-              // and turn the cursor into a pointer as a hint that it's clickable
-              element.classList.add("focus-" + annoIdFragment);
-              //element.classList.add("cueMedia");
-            }
-            break;
-          default:
-            console.log(
-              "sorry, don't know what to do for this annotation boss"
+            });
+
+            const noLongerShowing = Array.from(
+              document.getElementsByClassName("showReply")
             );
-        }
+            console.log("no longer showing ", noLongerShowing);
+            //hides them
+            if (noLongerShowing.length) {
+              //const replyHolder = document.createElement("div");
+              if (this.state.areRepliesVisible === true) {
+                this.setState({ areRepliesVisible: false });
+              }
+              const annoContainer = document.querySelector(".listContainer");
+              console.log(annoContainer);
+              //annoContainer.appendChild(replyHolder);
+              noLongerShowing.forEach((noReplyShowing) => {
+                noReplyShowing.classList.add("hiddenReply");
+                annoContainer.appendChild(noReplyShowing);
+              });
+              noLongerShowing.forEach((noReplyShowing) =>
+                noReplyShowing.classList.remove("showReply")
+              );
+            }
+            this.handleAnnoShowingUpdate(content, measureId);
+          };
+        };
       });
     });
-  }
+    console.log("iteration succeded");
 
+    content.forEach((anno) => {
+      if (anno.motivation !== "replying") {
+        anno.target.forEach((jsonTarget) => {
+          const bodies = anno.body;
+          const targetId = jsonTarget.id;
+          const fragment = targetId.substr(targetId.lastIndexOf("#"));
+          const element = document.querySelector(fragment);
+          if (!element) {
+            return console.warn("no content has been found");
+          }
+          const annoId = anno["@id"];
+          const annoIdFragment = annoId.substr(annoId.lastIndexOf("/") + 1);
+          //checks what's the motivation of the target
+          switch (anno.motivation) {
+            case "describing":
+              if (bodies.length) {
+                if ("value" in bodies[0]) {
+                  // const title = document.createElementNS(
+                  //   "http://www.w3.org/2000/svg",
+                  //   "title"
+                  // );
+                  // Embeds the annotation text into this title node
+                  //title.innerHTML = bodies[0]["value"];
+                  //element.insertBefore(title, element.firstChild);
+                  //element.classList.add(anno.anno.motivation);
+                  element.classList.add("focus-" + annoIdFragment);
+                }
+              }
+              break;
+            case "linking":
+              if (bodies.length) {
+                // make the target clickable, linking to the (first) body URI
+                // element.addEventListener(
+                //   "click",
+                //   function () {
+                //     //appends http fragment to avoid partial linking error
+                //     const URL = bodies[0]["id"];
+                //     if (URL.startsWith("http")) {
+                //       window.open(URL, "_blank");
+                //     } else {
+                //       const appendURL = "https://" + URL;
+                //       window.open(appendURL, "_blank");
+                //     }
+                //   },
+                //   true
+                // );
+                // and turn the cursor into a pointer as a hint that it's clickable
+                element.classList.add("focus-" + annoIdFragment);
+                //element.classList.add(anno.anno.motivation);
+                element.classList.add("focus-" + annoIdFragment);
+              }
+              break;
+            case "trompa:cueMedia":
+              if (bodies.length) {
+                // make the target clickable, seeking player to the (first) body media cue
+                // element.onMediaClick = () => {
+                //   //appends http fragment to avoid partial linking error
+                //   const mediaCue = bodies[0]["id"];
+                //   // TODO validate properly
+                //   const currentMedia = mediaCue.split("#")[0];
+                //   const seekTo = mediaCue.split("#")[1].replace("t=", "");
+                //   console.log("Setting up seek to: ", currentMedia, seekTo);
+                //   this.setState({ currentMedia }, () =>
+                //     this.player.current.seekTo(seekTo)
+                //   );
+                // };
+                // and turn the cursor into a pointer as a hint that it's clickable
+                element.classList.add("focus-" + annoIdFragment);
+                //element.classList.add("cueMedia");
+              }
+              break;
+            default:
+              console.log(
+                "sorry, don't know what to do for this annotation boss"
+              );
+          }
+        });
+      }
+    });
+  }
+  handleAnnoShowingUpdate(content, measureId) {
+    let _annoIds = content.map((jsonIds) => {
+      const annotationsIds = jsonIds["@id"];
+      return annotationsIds;
+    });
+    let _filteredAnnoIds = this.state.measuresToAnnotationsMap[measureId];
+    let compare = _annoIds.filter((anno) => _filteredAnnoIds.includes(anno));
+    // compare has all annotation IDs *for our measure*
+    // we want those, PLUS all replying annotations (which aren't tied to measures)
+    const annotationsToDisplay = [
+      ...compare,
+      ...content
+        .filter((anno) => anno.motivation === "replying") // get the replies
+        .map((anno) => anno["@id"]), // and return their IDs
+    ];
+    console.log("to display: ", annotationsToDisplay);
+    this.setState({
+      annoToDisplay: annotationsToDisplay,
+    });
+  }
   handleScoreUpdate(scoreElement) {
     console.log("Received updated score DOM element: ", scoreElement);
   }
@@ -490,7 +579,7 @@ export default class SelectableScoreApp extends Component {
                 uri={this.state.uri}
               />
             </div>
-            <div id="annotationBoxesContainer" />
+            <div className="annotationBoxesContainer" />
             <SelectableScore
               uri={this.state.uri}
               annotationContainerUri={this.props.submitUri}
@@ -511,7 +600,7 @@ export default class SelectableScoreApp extends Component {
             <input
               type="text"
               onChange={this.onMEIInputChange}
-              placeholder={this.state.uri}
+              placeholder="mahler four hands rendition..."
               className="sizedTextBox"
             />
 
@@ -544,6 +633,8 @@ export default class SelectableScoreApp extends Component {
           buttonContent={this.state.buttonContent}
           creator={this.props.userId}
           selectorString={this.state.selectorString}
+          replyAnnotationTargetId={this.state.replyAnnotationTargetId}
+          replyAnnoBody={this.state.replyAnnoBody}
         />
         {/*as buttonContent that you'd like to function as a clickable prev page
         button */}
@@ -552,12 +643,18 @@ export default class SelectableScoreApp extends Component {
           allEntries={this.state.currentAnnotation}
           filteringEntries={this.state.annoToDisplay}
           onAnnoReplyHandler={this.onAnnoReplyHandler}
-          currentMedia={this.state.currentMedia}
+          onMediaClick={this.onMediaClick}
           replyAnnotationTarget={this.state.replyAnnotationTarget}
-          podUri={this.props.podUri}
+          showReplyHandler={this.showReplyHandler}
+          areRepliesVisible={this.state.areRepliesVisible}
         />
         <div>
-          <button onClick={this.activateModal}>help</button>
+          <button
+            onClick={this.activateModal}
+            style={{ padding: "5px", marginTop: "5px" }}
+          >
+            help
+          </button>
           {modal}
         </div>
         {/* <OrchestralRibbon uri={this.state.testuri} width={500} height={600} /> */}

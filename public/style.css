@@ -3,12 +3,12 @@ body {
   user-select: none;
 }
 
-.hideReply {
+.hiddenReply {
   display: none;
 }
 
 .showReply {
-  display: flex;
+  display: block;
 }
 .sizedTextBox {
   height: 30px;
@@ -16,7 +16,7 @@ body {
   margin-bottom: 5px;
 }
 .replyButton {
-  display: inline-block;
+  display: inline;
   border: 1px solid white;
   background-color: rgb(218, 218, 218);
   padding: 5px 12px;
@@ -24,9 +24,10 @@ body {
   border-radius: 4px;
   font-size: 12px;
   cursor: pointer;
-  position: absolute;
-  bottom: 0;
-  right: 0;
+  float: right;
+  /* position: absolute; */
+  /* bottom: 0;
+  right: 0; */
 }
 
 .replyButton:hover {
@@ -38,7 +39,7 @@ body {
 }
 
 .showRepliesButton {
-  display: flex;
+  display: inline-flex;
   border: 1px solid white;
   background-color: rgb(218, 218, 218);
   padding: 5px 12px;
@@ -46,9 +47,10 @@ body {
   border-radius: 4px;
   font-size: 12px;
   cursor: pointer;
-  position: absolute;
+  float: right;
+  /* position: absolute;
   bottom: 0;
-  right: 60px;
+  right: 60px; */
 }
 
 .showRepliesButton:hover {
@@ -57,6 +59,21 @@ body {
 
 .showRepliesButton:active {
   background-color: rgb(56, 55, 55);
+}
+
+.playButton {
+  display: inline-block;
+  border: 1px solid white;
+  background-color: rgb(218, 218, 218);
+  padding: 5px 12px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.playButton:hover {
+  background-color: gray;
 }
 
 .selected {
@@ -93,6 +110,14 @@ body {
   display: flexbox;
 }
 
+.quoteContent {
+  background-color: rgba(204, 204, 204, 0.521);
+  padding: 1%;
+  margin-left: 1%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
 .score {
   position: relative;
   float: right;
@@ -104,10 +129,12 @@ body {
 }
 
 .annoItem {
-  display: flexbox;
-  border-top: 1px solid #888;
+  display: block;
+  border-top: 0.5px solid rgba(136, 136, 136, 0.5);
   list-style-type: none;
   position: relative;
+  border-bottom: 0.5px solid rgba(136, 136, 136, 0.5);
+  padding-bottom: 1%;
 }
 
 .annoItem:hover {
@@ -177,7 +204,7 @@ body {
 .enabledSubmitButton {
   border: none;
   background-color: rgb(161, 219, 161);
-  padding: 17px;
+  padding: 20px;
   border-radius: 4px;
   text-align: center;
   font-size: 16px;
@@ -192,7 +219,7 @@ body {
 .disabledSubmitButton {
   border: none;
   background-color: rgb(190, 190, 190);
-  padding: 17px;
+  padding: 20px;
   border-radius: 4px;
   text-align: center;
   font-size: 16px;
@@ -214,6 +241,12 @@ body {
   background-color: forestgreen;
 }
 
+.selectable-score-postButton {
+  display: inline;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 .refreshButton {
   border: none;
   background-color: rgb(166, 201, 255);
@@ -225,7 +258,7 @@ body {
   cursor: pointer;
   transition-duration: 0.4s;
   width: 315px;
-
+  padding: 20px;
   opacity: 1;
   color: white;
 }
@@ -283,7 +316,13 @@ body {
 }
 
 .isOpen {
-  background: rgba(241, 145, 0, 0.16);
+  background: rgba(255, 255, 255, 1);
+  border: 1px solid orange;
+}
+
+.isClosed {
+  border: 1px solid orange;
+  background: rgba(241, 145, 0, 0.25);
 }
 
 /* .selectionLegend {

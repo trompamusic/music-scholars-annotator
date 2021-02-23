@@ -1,5 +1,8 @@
+/* annotationList is the annotationItem container. Filters the annotations in order to render only the one associated to the specific measure selected */
+/* they are ordered chronologically with sortedfilteredAnno and the onClick funciton is attacehd to the annotation item's body to highlight the annotated section of the score*/
+
 import React from "react";
-import AnnotationItem from "./AnnotationItem";
+import AnnotationItem from "./annotationItem";
 //import PropTypes from "prop-types";
 export class AnnotationList extends React.Component {
   state = {
@@ -13,7 +16,7 @@ export class AnnotationList extends React.Component {
     );
     const sortedFilteredAnno = filtering.sort((a, b) => {
       const isReverse = order === "asc" ? 1 : -1;
-      return isReverse * a.anno.created.localeCompare(b.anno.created);
+      return isReverse * a.created.localeCompare(b.created);
     });
 
     function onClick(e) {
@@ -47,7 +50,7 @@ export class AnnotationList extends React.Component {
     }
 
     return (
-      <div className="listContainer">
+      <div className="listContainer" id="listContainer">
         {sortedFilteredAnno.map((item) => {
           const annoIdFragment = item["@id"].substr(
             item["@id"].lastIndexOf("/") + 1
@@ -61,9 +64,10 @@ export class AnnotationList extends React.Component {
               <AnnotationItem
                 annotation={item}
                 onAnnoReplyHandler={this.props.onAnnoReplyHandler}
-                currentMedia={this.props.currentMedia}
+                onMediaClick={this.props.onMediaClick}
                 replyAnnotationTarget={this.props.replyAnnotationTarget}
-                podUri={this.props.podUri}
+                showReplyHandler={this.props.showReplyHandler}
+                areRepliesVisible={this.props.areRepliesVisible}
               />
             </div>
           );

@@ -1,5 +1,8 @@
+/* manages the rendering of the checkbox component mapping across the selectors const */
+/* and uses updateSelectorList to update the selectorString Prop passed from the selctableScore main app*/
+
 import React, { Component } from "react";
-import Checkbox from "./Checkbox";
+import Checkbox from "./checkBox";
 const Selectors = [
   {
     name: "Note",

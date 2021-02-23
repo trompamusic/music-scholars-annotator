@@ -11,7 +11,7 @@ import {
 } from "@solid/react";
 
 import SelectableScoreApp from "./selectableScoreApp";
-import Logo from "../top-bar-logo_0_0.png";
+import Logo from "../graphics/top-bar-logo_0_0.png";
 
 export default function SolidWrapper(props) {
   data.context.extend({
@@ -21,6 +21,7 @@ export default function SolidWrapper(props) {
   const userId = useLDflexValue("user");
   const [userInput, setUserInput] = useState("public/");
   const handleUserInput = (e) => {
+    // eslint-disable-next-line
     const containerPath = e.target.value
       ? setUserInput(e.target.value)
       : "public/";
@@ -53,10 +54,9 @@ export default function SolidWrapper(props) {
         </a>
         <h2>Music scholars annotator component</h2>
         <p>
-          You are logged in as <Value src="user.name" />, see your profile{" "}
+          You are logged in as{" "}
           <a href={userId} target="_blank" rel="noopener noreferrer">
-            {" "}
-            here
+            <Value src="user.name" />
           </a>
         </p>
         <p title="close the current session and quit the app">

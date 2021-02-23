@@ -35,7 +35,7 @@
     "sass": "^1.26.3",
     "selectable-score": "trompamusic/selectable-score",
     "typescript": "^3.8.3",
-    "uuid": "^8.1.0"
+    "uuid": "^8.3.2"
   },
   "browserslist": {
     "production": [
