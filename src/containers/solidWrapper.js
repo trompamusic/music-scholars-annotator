@@ -19,12 +19,12 @@ export default function SolidWrapper(props) {
   });
   const userPOD = useLDflexValue("user.storage");
   const userId = useLDflexValue("user");
-  const [userInput, setUserInput] = useState("public/");
+  const [userInput, setUserInput] = useState("private/");
   const handleUserInput = (e) => {
     // eslint-disable-next-line
     const containerPath = e.target.value
       ? setUserInput(e.target.value)
-      : "public/";
+      : "private/";
   };
   return (
     <div id="authWrapper">
@@ -67,7 +67,7 @@ export default function SolidWrapper(props) {
           <input
             title="enter your preferred POD folder"
             type="text"
-            placeholder="public/"
+            placeholder="private/"
             onChange={handleUserInput}
             className="sizedTextBox"
           />
@@ -76,7 +76,7 @@ export default function SolidWrapper(props) {
           <SelectableScoreApp
             uri={props.uri}
             //vrvOptions={props.vrvOptions}
-            podUri = { `${userPOD}` }
+            podUri={`${userPOD}`}
             submitUri={`${userPOD}` + userInput}
             userId={`${userId}`}
           />
