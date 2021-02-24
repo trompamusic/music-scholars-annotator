@@ -256,6 +256,16 @@ export default class SelectableScoreApp extends Component {
   onReceiveAnnotationContainerContent(content) {
     if (!content || !content.length) {
       alert("no annotation to retrieve");
+      const noLongerInFocusList = Array.from(
+        document.getElementsByClassName("inFocus")
+      );
+      noLongerInFocusList.forEach((noFocusElement) =>
+        noFocusElement.classList.remove("inFocus")
+      );
+      document.querySelectorAll(".measureBox").forEach((mb) => mb.remove());
+      document
+        .querySelectorAll(".measureBoxBackground")
+        .forEach((mb) => mb.remove());
       this.setState(
         {
           hasContent: false,
@@ -305,6 +315,12 @@ export default class SelectableScoreApp extends Component {
     this.setState(
       { currentAnnotation: content, measuresToAnnotationsMap: newMap },
       () => {
+        const noLongerInFocusList = Array.from(
+          document.getElementsByClassName("inFocus")
+        );
+        noLongerInFocusList.forEach((noFocusElement) =>
+          noFocusElement.classList.remove("inFocus")
+        );
         // delete any existing measure boxes so we can redraw from blank slate
         document.querySelectorAll(".measureBox").forEach((mb) => mb.remove());
         document
@@ -416,7 +432,12 @@ export default class SelectableScoreApp extends Component {
           // );
 
           measureBox.onclick = (e) => {
-            console.log("firing");
+            const noLongerInFocusList = Array.from(
+              document.getElementsByClassName("inFocus")
+            );
+            noLongerInFocusList.forEach((noFocusElement) =>
+              noFocusElement.classList.remove("inFocus")
+            );
             const bgBoxes = document.querySelectorAll(".measureBoxBackground");
             const frontBox = e.target.closest(".measureBox");
             bgBoxes.forEach((box) => {
