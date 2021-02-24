@@ -52,7 +52,7 @@ export default function SolidWrapper(props) {
         >
           <img src={Logo} alt="trompa logo" />
         </a>
-        <h2>Music scholars annotator component</h2>
+        <h2>Music scholars annotation tool</h2>
         <p>
           You are logged in as{" "}
           <a href={userId} target="_blank" rel="noopener noreferrer">
