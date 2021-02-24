@@ -488,6 +488,11 @@ class AnnotationItem extends React.Component {
               <span className="date">
                 Created on: {date} by {creator} with {motivation} motivation
               </span>
+              <span className="permission">
+                Access permissions: {permission}.
+              </span>
+              <p></p>
+              Set permissions: {modifyPermissionsElement}
               <button
                 className="replyButton"
                 name="replyButton"
@@ -528,6 +533,11 @@ class AnnotationItem extends React.Component {
               <span className="date">
                 Created on: {date} by {creator} with {motivation} motivation
               </span>
+              <span className="permission">
+                Access permissions: {permission}.
+              </span>
+              <p></p>
+              Set permissions: {modifyPermissionsElement}
               <button
                 className="replyButton"
                 name="replyButton"
@@ -574,6 +584,11 @@ class AnnotationItem extends React.Component {
             <span className="date">
               Created on: {date} by {creator} with {motivation} motivation
             </span>
+            <span className="permission">
+              Access permissions: {permission}.
+            </span>
+            <p></p>
+            Set permissions: {modifyPermissionsElement}
             <button
               className="replyButton"
               name="replyButton"
@@ -622,6 +637,11 @@ class AnnotationItem extends React.Component {
             <span className="date">
               Created on: {date} by {creator} with {motivation} motivation
             </span>
+            <span className="permission">
+              Access permissions: {permission}.
+            </span>
+            <p></p>
+            Set permissions: {modifyPermissionsElement}
             <button
               className="replyButton"
               name="replyButton"
