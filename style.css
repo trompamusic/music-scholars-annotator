@@ -80,7 +80,7 @@ body {
   fill: rgb(35, 144, 194) !important;
 }
 
-.replying {
+/* .replying {
   fill: blue !important;
 }
 
@@ -96,7 +96,7 @@ body {
 .cueMedia {
   fill: red;
   cursor: pointer;
-}
+} */
 
 .inFocus {
   fill: green !important;
@@ -106,8 +106,8 @@ body {
   overflow: auto;
   overflow-x: hidden;
   max-height: 1000px;
-  max-width: 972px;
-  display: flexbox;
+  max-width: 631px;
+  padding-left: 5px;
 }
 
 .quoteContent {
@@ -121,8 +121,9 @@ body {
 .score {
   position: relative;
   float: right;
-  bottom: 0px;
+  bottom: 150px;
   right: 0px;
+  background-color: rgb(253, 249, 244);
 }
 .App {
   padding-bottom: 5px;
@@ -131,6 +132,7 @@ body {
 .annoItem {
   display: block;
   border-top: 0.5px solid rgba(136, 136, 136, 0.5);
+  border-right: 0.5px solid rgba(136, 136, 136, 0.5);
   list-style-type: none;
   position: relative;
   border-bottom: 0.5px solid rgba(136, 136, 136, 0.5);
@@ -207,6 +209,8 @@ body {
   transition-duration: 0.4s;
   margin-left: 1%;
   margin-right: 30%;
+  position: relative;
+  bottom: 150px;
 }
 
 .prevPageButton:hover {
@@ -224,6 +228,8 @@ body {
   display: inline-block;
   transition-duration: 0.4s;
   margin-left: 30%;
+  position: relative;
+  bottom: 150px;
 }
 
 .nextPageButton:hover {
