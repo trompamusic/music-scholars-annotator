@@ -1,0 +1,31 @@
+name: merge to master
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  merge-master-to-develop:
+    name: Merge master -> develop
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node_version: ['8', '10', '12']
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+
+    steps:
+       - uses: tukasz/direct-merge-action@master
+       - with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          source-branch: master
+          target-branch: gh-pages
+       - uses: actions/checkout@v1
+       - name: Use Node.js ${{ matrix.node_version }}
+         uses: actions/setup-node@v1
+         with:
+          node-version: ${{ matrix.node_version }}
+
+       - name: npm install, build and test
+         run: |
+              npm install
+              npm run deploy 
