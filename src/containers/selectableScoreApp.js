@@ -10,8 +10,8 @@ import Modal from "react-modal";
 
 //Modal.setAppElement("root");
 //
-const vAdjust = 26; // num. pixels to nudge down anno measureBoxes
-
+//const vAdjust = 26; // num. pixels to nudge down anno measureBoxes
+const scoreOffset = 150; //hacky way to have the same score offset as .score in css
 export default class SelectableScoreApp extends Component {
   constructor(props) {
     super(props);
@@ -348,7 +348,7 @@ export default class SelectableScoreApp extends Component {
 
           const coordsBox = {
             left: Math.floor(coords.x),
-            top: Math.floor(coords.y) + vAdjust,
+            top: Math.floor(coords.y) - scoreOffset,
             width: Math.ceil(coords.x2 - coords.x),
             height: Math.ceil(coords.y2 - coords.y),
           };
@@ -628,14 +628,14 @@ export default class SelectableScoreApp extends Component {
             <div style={{ height: 200, overflow: "auto" }}>
               <h3>Internally Scrolling Region</h3>
               <p>
-                THIS IS A DEPLOYMENT TEST
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
+                THIS IS A DEPLOYMENT TEST Lorem ipsum dolor sit amet,
+                consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                commodo consequat. Duis aute irure dolor in reprehenderit in
+                voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                qui officia deserunt mollit anim id est laborum.
               </p>
             </div>
           </div>
@@ -651,27 +651,6 @@ export default class SelectableScoreApp extends Component {
       <div>
         {this.state.isClicked === true && (
           <div className="score">
-            <div className="prevPageButton">
-              <PrevPageButton
-                buttonContent={<span>Previous page</span>}
-                uri={this.state.uri}
-              />
-            </div>
-            <button onClick={this.zoomOut} style={{ marginRight: "15px" }}>
-              zoom out
-            </button>
-            {/* <div className="divider"></div> */}
-            {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
-            <button onClick={this.zoomIn} style={{ marginLeft: "15px" }}>
-              zoom in
-            </button>
-            <div className="nextPageButton">
-              <NextPageButton
-                buttonContent={<span>Next page</span>}
-                uri={this.state.uri}
-              />
-            </div>
-
             <div className="annotationBoxesContainer" />
             <SelectableScore
               uri={this.state.uri}
@@ -685,6 +664,40 @@ export default class SelectableScoreApp extends Component {
               }
               toggleAnnotationRetrieval={this.state.toggleAnnotationRetrieval}
             />
+            <div className="prevPageButton">
+              <PrevPageButton
+                buttonContent={<span>Previous page</span>}
+                uri={this.state.uri}
+              />
+            </div>
+            <button
+              onClick={this.zoomOut}
+              style={{
+                marginRight: "15px",
+                position: "relative",
+                bottom: "150px",
+              }}
+            >
+              zoom out
+            </button>
+            {/* <div className="divider"></div> */}
+            {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
+            <button
+              onClick={this.zoomIn}
+              style={{
+                marginLeft: "15px",
+                position: "relative",
+                bottom: "150px",
+              }}
+            >
+              zoom in
+            </button>
+            <div className="nextPageButton">
+              <NextPageButton
+                buttonContent={<span>Next page</span>}
+                uri={this.state.uri}
+              />
+            </div>
           </div>
         )}
         {this.state.showMEIInput && (
