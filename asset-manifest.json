@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.js": "/music-scholars-annotator/static/js/main.0664490e.chunk.js",
+    "main.js.map": "/music-scholars-annotator/static/js/main.0664490e.chunk.js.map",
+    "runtime-main.js": "/music-scholars-annotator/static/js/runtime-main.942e566b.js",
+    "runtime-main.js.map": "/music-scholars-annotator/static/js/runtime-main.942e566b.js.map",
+    "static/js/2.e83a854c.chunk.js": "/music-scholars-annotator/static/js/2.e83a854c.chunk.js",
+    "static/js/2.e83a854c.chunk.js.map": "/music-scholars-annotator/static/js/2.e83a854c.chunk.js.map",
+    "index.html": "/music-scholars-annotator/index.html",
+    "precache-manifest.46a7bf3f0d9deb968c6da13f1e6af16b.js": "/music-scholars-annotator/precache-manifest.46a7bf3f0d9deb968c6da13f1e6af16b.js",
+    "service-worker.js": "/music-scholars-annotator/service-worker.js",
+    "static/js/2.e83a854c.chunk.js.LICENSE.txt": "/music-scholars-annotator/static/js/2.e83a854c.chunk.js.LICENSE.txt",
+    "static/media/play-solid.svg": "/music-scholars-annotator/static/media/play-solid.f79fe6ae.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.942e566b.js",
+    "static/js/2.e83a854c.chunk.js",
+    "static/js/main.0664490e.chunk.js"
+  ]
+}
