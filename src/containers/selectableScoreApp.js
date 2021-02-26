@@ -398,7 +398,7 @@ export default class SelectableScoreApp extends Component {
               "height: " +
               coordsBox.height +
               "px;" +
-              "z-index: -1"
+              "z-index: -2"
           );
           console.log("TRYING TO DRAW", measureBox);
           document
