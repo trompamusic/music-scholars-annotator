@@ -17,6 +17,10 @@ export class Addannotation extends React.Component {
       console.log(this.state.seconds)
     );
 
+wipeState(){
+  this.setState({value: "", seconds: ""})
+}
+
   render() {
     //packages the two states in one variable. The submithandlerArgs then are read with .value and .seconds from the submitHandler function
     let value = this.state.value;

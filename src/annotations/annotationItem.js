@@ -441,8 +441,9 @@ class AnnotationItem extends React.Component {
             {" "}
             <p>{bodyD}</p>
             <span className="date">
-              Created on: {date} by {creator} with {motivation} motivation.
+              Created on: {date}
             </span>
+            {" "}
             <span className="permission">
               Access permissions: {permission}.
             </span>
@@ -486,8 +487,9 @@ class AnnotationItem extends React.Component {
                 }
               </p>
               <span className="date">
-                Created on: {date} by {creator} with {motivation} motivation
+                Created on: {date}
               </span>
+              {" "}
               <span className="permission">
                 Access permissions: {permission}.
               </span>
@@ -531,8 +533,9 @@ class AnnotationItem extends React.Component {
                 }
               </p>
               <span className="date">
-                Created on: {date} by {creator} with {motivation} motivation
+                Created on: {date}
               </span>
+              {" "}
               <span className="permission">
                 Access permissions: {permission}.
               </span>
@@ -582,8 +585,9 @@ class AnnotationItem extends React.Component {
               </button>
             </p>
             <span className="date">
-              Created on: {date} by {creator} with {motivation} motivation
+              Created on: {date}
             </span>
+            {" "}
             <span className="permission">
               Access permissions: {permission}.
             </span>
@@ -635,8 +639,9 @@ class AnnotationItem extends React.Component {
               </button>
             </p>
             <span className="date">
-              Created on: {date} by {creator} with {motivation} motivation
+              Created on: {date}
             </span>
+            {" "}
             <span className="permission">
               Access permissions: {permission}.
             </span>
@@ -667,7 +672,7 @@ class AnnotationItem extends React.Component {
             <div className="quoteContent">
               <p>Reply: {bodyD}</p>
               <span className="date">
-                Created on: {date} by {creator} with {motivation} motivation
+                Created on: {date}
               </span>
               {/* <button
                 className="replyButton"

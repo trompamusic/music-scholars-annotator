@@ -16,6 +16,7 @@ export default class SelectableScoreApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      annoValue: "",
       selection: [],
       annotationType: "describing",
       placeholder: "Add your annotation...",

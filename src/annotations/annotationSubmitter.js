@@ -4,7 +4,12 @@ import React from "react";
 import { v4 as uuidv4 } from 'uuid';
 import Addannotations from "./addAnnotation.js";
 export class AnnotationSubmitter extends React.Component {
+  constructor(props){
+    super(props)
+    this.textArea = React.createRef();
+  }
   submitHandler = (handlerArgs) => {
+    this.textArea.current.wipeState()
     //adds different annotations based on selection
     //let replyAnnotationTargetId = this.props.replyAnnotationTargetId;
     let value = handlerArgs.value;
@@ -142,6 +147,7 @@ export class AnnotationSubmitter extends React.Component {
           </label>
           <div className="addAnnotations">
             <Addannotations
+              ref={this.textArea}
               annotationType={this.props.annotationType}
               submitUri={this.props.submitUri}
               placeholder={this.props.placeholder}
