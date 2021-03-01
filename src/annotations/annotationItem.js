@@ -444,9 +444,9 @@ class AnnotationItem extends React.Component {
               Created on: {date}
             </span>
             {" "}
-            <span className="permission">
+            {/* <span className="permission">
               Access permissions: {permission}.
-            </span>
+            </span> */}
             <p></p>
             Set permissions: {modifyPermissionsElement}
             <button
@@ -490,9 +490,9 @@ class AnnotationItem extends React.Component {
                 Created on: {date}
               </span>
               {" "}
-              <span className="permission">
+              {/* <span className="permission">
                 Access permissions: {permission}.
-              </span>
+              </span> */}
               <p></p>
               Set permissions: {modifyPermissionsElement}
               <button
@@ -536,9 +536,9 @@ class AnnotationItem extends React.Component {
                 Created on: {date}
               </span>
               {" "}
-              <span className="permission">
+              {/* <span className="permission">
                 Access permissions: {permission}.
-              </span>
+              </span> */}
               <p></p>
               Set permissions: {modifyPermissionsElement}
               <button
@@ -588,9 +588,9 @@ class AnnotationItem extends React.Component {
               Created on: {date}
             </span>
             {" "}
-            <span className="permission">
+            {/* <span className="permission">
               Access permissions: {permission}.
-            </span>
+            </span> */}
             <p></p>
             Set permissions: {modifyPermissionsElement}
             <button
@@ -642,9 +642,9 @@ class AnnotationItem extends React.Component {
               Created on: {date}
             </span>
             {" "}
-            <span className="permission">
+            {/* <span className="permission">
               Access permissions: {permission}.
-            </span>
+            </span> */}
             <p></p>
             Set permissions: {modifyPermissionsElement}
             <button
