@@ -439,7 +439,7 @@ class AnnotationItem extends React.Component {
             data-self-id={selfId}
           >
             {" "}
-            <p>The textual content of this annotation is {bodyD}</p>
+            <p>{bodyD}</p>
             <span className="date">
               Created on: {date} by {creator} with {motivation} motivation.
             </span>
@@ -473,7 +473,7 @@ class AnnotationItem extends React.Component {
               data-self-id={selfId}
             >
               <p>
-                The link of this annotation is {""}
+                {""}
                 {
                   <a
                     href={bodyL}
@@ -518,7 +518,7 @@ class AnnotationItem extends React.Component {
               data-self-id={selfId}
             >
               <p>
-                The fixed link of this annotation is {""}
+                {""}
                 {
                   <a
                     href={appendURL}
@@ -566,7 +566,7 @@ class AnnotationItem extends React.Component {
           >
             {" "}
             <p>
-              The mediacontent of this annotation is {cleanMediaString}{" "}
+              {cleanMediaString}{" "}
               <button className="playButton" onClick={this.onPlayClick}>
                 {" "}
                 <img
@@ -628,7 +628,7 @@ class AnnotationItem extends React.Component {
               </a>
             </div>
             <p>
-              The mediacontent of this annotation is a picture, click the button
+              The content of this annotation is a picture, click the button
               to see a preview{" "}
               <button onClick={this.onPreviewclick}>
                 {this.state.previewButtonContent}{" "}
@@ -665,7 +665,7 @@ class AnnotationItem extends React.Component {
             className="replyAnno hiddenReply"
           >
             <div className="quoteContent">
-              <p>This reply contains: {bodyD}</p>
+              <p>Reply: {bodyD}</p>
               <span className="date">
                 Created on: {date} by {creator} with {motivation} motivation
               </span>
