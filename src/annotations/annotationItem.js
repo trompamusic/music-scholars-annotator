@@ -41,15 +41,28 @@ class AnnotationItem extends React.Component {
     this.revokePublic = this.revokePublic.bind(this);
     this.updateDatasetAcl = this.updateDatasetAcl.bind(this);
     this.showDetails = this.showDetails.bind(this);
+    this.deleteAnno = this.deleteAnno.bind(this);
   }
 
-  // deleteAnno() {
-  //   auth.currentSession().then(() => {
-  //     fetch(this.props.annotation["@id"], { method: "DELETE" }).then(() =>
-  //       console.log("trying to delete", this.props.annotation["@id"])
-  //     );
-  //   });
-  // }
+  deleteAnno() {
+    auth.currentSession().then((s) => {
+      const token = s.authorization.access_token;
+      const requestOptions = {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer",
+          token,
+        },
+      };
+      console.log("SESSION", s);
+      auth
+        .fetch(this.props.annotation["@id"], requestOptions)
+        .then((res) => {
+          return res;
+        })
+        .catch((error) => console.log("Error: " + JSON.stringify(error)));
+    });
+  }
 
   showDetails = (e) => {
     e.preventDefault();
@@ -500,6 +513,7 @@ class AnnotationItem extends React.Component {
             </button>
             <p></p>
             permissions: {modifyPermissionsElement}
+            <button onClick={this.deleteAnno}>del</button>
             <button
               className="replyButton"
               name="replyButton"
