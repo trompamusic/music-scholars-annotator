@@ -272,10 +272,11 @@ export default class SelectableScoreApp extends Component {
           hasContent: false,
         },
         () => {
-          console.log(this.state.hasContent);
+          console.log(this.state.hasContent, "no content to retrieve");
           this.setState({ hasContent: true });
         }
       );
+      return;
     }
     // FIXME: Validate that these are (TROMPA?) Web Annotations
     content = content.filter((c) => c["@id"].endsWith(".jsonld"));
@@ -754,6 +755,7 @@ export default class SelectableScoreApp extends Component {
           replyAnnotationTarget={this.state.replyAnnotationTarget}
           showReplyHandler={this.showReplyHandler}
           areRepliesVisible={this.state.areRepliesVisible}
+          onRefreshClick={this.onRefreshClick}
         />
         <div>
           <button

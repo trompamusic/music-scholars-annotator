@@ -35,6 +35,7 @@ class AnnotationItem extends React.Component {
       previewButtonContent: "Show preview",
       showReplyButtonContent: "Show replies",
       isVisible: false,
+      resp: "",
     };
     this.onClick = this.onClick.bind(this);
     this.grantPublic = this.grantPublic.bind(this);
@@ -45,23 +46,26 @@ class AnnotationItem extends React.Component {
   }
 
   deleteAnno() {
-    auth.currentSession().then((s) => {
-      const token = s.authorization.access_token;
-      const requestOptions = {
-        method: "DELETE",
-        headers: {
-          Authorization: "Bearer",
-          token,
-        },
-      };
-      console.log("SESSION", s);
-      auth
-        .fetch(this.props.annotation["@id"], requestOptions)
-        .then((res) => {
-          return res;
-        })
-        .catch((error) => console.log("Error: " + JSON.stringify(error)));
-    });
+    auth
+      .fetch(this.props.annotation["@id"], { method: "DELETE" })
+      .then(async (response) => {
+        const data = await response.json();
+        // check for error response
+        if (!response.ok) {
+          // get error message from body or default to response status
+          const error = (data && data.message) || response.status;
+          return Promise.reject(error);
+        }
+
+        this.setState({ resp: "success" });
+      })
+      .catch((error) => {
+        //FIXME: VERY FUCKY WAY TO REFRESH... needs assistance from the higherups
+        console.warn("There was an error!", error);
+        if (error) {
+          this.props.onRefreshClick();
+        }
+      });
   }
 
   showDetails = (e) => {
@@ -215,34 +219,6 @@ class AnnotationItem extends React.Component {
     console.log("root anno", rootAnno);
     const replyTargetAnnos = document.querySelectorAll(".replyAnno");
     console.log(replyTargetAnnos);
-    /* chunk of proto code that is probably useful for the end goal */
-    // const testRoot = document.querySelectorAll(".rootAnno");
-    // const replyTest = document.querySelectorAll(".replyAnno");
-    // const _test = [testRoot, replyTest];
-    // const filterRoot = [];
-    // const filterReply = [];
-    // for (var i = 0; i < replyTest.length; i++) {
-    //   filterReply.push(replyTest[i].dataset.replyAnnotationTarget);
-    // }
-    // for (var i = 0; i < testRoot.length; i++) {
-    //   filterRoot.push(testRoot[i].dataset.target);
-    // }
-    // console.log(_test);
-    // const targetCollection = testRoot.forEach(
-    //   (target) => target.item.dataset.target
-    // );
-    // const replyTargetAnnoArray = Array.from(
-    //   document.querySelector(".replyAnno")
-    // );
-    // const originAnno = Array.from(document.querySelector(".rootAnno"));
-    // const filteredResults = filterReply.filter((target) =>
-    //   filterRoot.includes(target)
-    // );
-
-    // console.log(targetCollection, "reply", replyTest);
-
-    //////////// NEEDS TO WIPE TARGET REPLY AFTER RPELYING TO IT ALSO THE ANNOTATION TYPE HANDLING IS MESSY //////////////////
-
     if (replyTargetAnnos.length) {
       replyTargetAnnos.forEach((replyTargetAnno) => {
         const replyTargetAnnoId = replyTargetAnno.dataset.replyAnnotationTarget;
@@ -302,21 +278,7 @@ class AnnotationItem extends React.Component {
               noReplyShowing.classList.remove("showReply")
             );
           }
-          //appendichild is where the magic happens
         }
-        // } else {
-        //   //if only one anno has replies and the other button is clicked, hides all the replies and alerts the user
-        //   // const noLongerShowing = Array.from(
-        //   //   rootAnno.getElementsByClassName("showReply")
-        //   // );
-        //   // noLongerShowing.forEach((noReplyShowing) =>
-        //   //   noReplyShowing.classList.add("hiddenReply")
-        //   // );
-        //   // noLongerShowing.forEach((noReplyShowing) =>
-        //   //   noReplyShowing.classList.remove("showReply")
-        //   // );
-        //   console.warn("no replies to show for this annotation");
-        // }
       });
     } else console.warn("no replies to show for this annotation");
   };
@@ -448,13 +410,6 @@ class AnnotationItem extends React.Component {
               ),
             }}
           />
-          // <button
-          //   className="changeAccess"
-          //   name="changeAccess"
-          //   onClick={this.revokePublic}
-          // >
-          //   Revoke public access
-          // </button>
         );
       }
     }
@@ -817,20 +772,6 @@ class AnnotationItem extends React.Component {
             <div className="quoteContent">
               <p>Reply: {bodyD}</p>
               <span className="date">Created on: {date}</span>
-              {/* <button
-                className="replyButton"
-                name="replyButton"
-                onClick={this.onClick}
-              >
-                Reply
-              </button>
-              <button
-                className="showRepliesButton"
-                name="showRepliesButton"
-                onClick={this.onShowReplyClick}
-              >
-                {this.state.showReplyButtonContent}
-              </button> */}
             </div>
           </div>
         );
@@ -847,20 +788,6 @@ class AnnotationItem extends React.Component {
             <div className="date">
               Created on: {date} by {creator} with {motivation} motivation
             </div>
-            {/* <button
-              className="replyButton"
-              name="replyButton"
-              onClick={this.onClick}
-            >
-              Reply
-            </button>
-            <button
-              className="showRepliesButton"
-              name="showRepliesButton"
-              onClick={this.onShowReplyClick}
-            >
-              Show replies
-            </button> */}
           </div>
         );
     }

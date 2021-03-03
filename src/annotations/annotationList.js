@@ -70,6 +70,7 @@ export class AnnotationList extends React.Component {
                 replyAnnotationTarget={this.props.replyAnnotationTarget}
                 showReplyHandler={this.props.showReplyHandler}
                 areRepliesVisible={this.props.areRepliesVisible}
+                onRefreshClick={this.props.onRefreshClick}
               />
             </div>
           );
