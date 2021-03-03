@@ -535,6 +535,7 @@ class AnnotationItem extends React.Component {
               </button>
               <p></p>
               Set permissions: {modifyPermissionsElement}
+              <button onClick={this.deleteAnno}>del</button>
               <button
                 className="replyButton"
                 name="replyButton"
@@ -601,6 +602,7 @@ class AnnotationItem extends React.Component {
               </button>
               <p></p>
               Set permissions: {modifyPermissionsElement}
+              <button onClick={this.deleteAnno}>del</button>
               <button
                 className="replyButton"
                 name="replyButton"
@@ -673,6 +675,7 @@ class AnnotationItem extends React.Component {
             </button>
             <p></p>
             Set permissions: {modifyPermissionsElement}
+            <button onClick={this.deleteAnno}>del</button>
             <button
               className="replyButton"
               name="replyButton"
@@ -747,6 +750,7 @@ class AnnotationItem extends React.Component {
             </button>
             <p></p>
             Set permissions: {modifyPermissionsElement}
+            <button onClick={this.deleteAnno}>del</button>
             <button
               className="replyButton"
               name="replyButton"
@@ -763,6 +767,7 @@ class AnnotationItem extends React.Component {
             </button>
           </div>
         );
+      //FIXME: if deleting root anno what happens to replies? Might break the app... needs investigation
       case "replying":
         return (
           <div
