@@ -3,6 +3,10 @@ body {
   user-select: none;
 }
 
+svg {
+  max-height: 100%;
+}
+
 .hiddenReply {
   display: none;
 }
@@ -35,15 +39,35 @@ body {
   float: right;
   position: relative;
   bottom: 48px;
-  right: 2px;
-  width: 15px;
-  height: 15px;
+  right: -12px;
+  width: 16px;
+  height: 16px;
   border: none;
   background-color: transparent;
   vertical-align: middle;
 }
 
 .infoButton svg {
+  position: absolute;
+  left: 20%;
+  top: 20%;
+}
+
+.deleteButton {
+  float: right;
+  position: relative;
+  bottom: 48px;
+  right: 20px;
+  width: 15px;
+  height: 15px;
+  border: none;
+  background-color: transparent;
+  vertical-align: middle;
+  cursor: pointer;
+  outline: none;
+}
+
+.deleteButton svg {
   position: absolute;
   left: 20%;
   top: 20%;
@@ -58,7 +82,7 @@ body {
 }
 
 .showRepliesButton {
-  display: inline-flex;
+  display: inline-block;
   border: 1px solid white;
   background-color: rgb(218, 218, 218);
   padding: 5px 12px;
@@ -66,8 +90,8 @@ body {
   border-radius: 4px;
   font-size: 12px;
   cursor: pointer;
-  float: right;
-  margin-right: 48px;
+  left: 335px;
+  position: relative;
   /* position: absolute;
   bottom: 0;
   right: 60px; */
