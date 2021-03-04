@@ -34,6 +34,7 @@ class AnnotationItem extends React.Component {
       isPictureShowing: false,
       previewButtonContent: "Show preview",
       showReplyButtonContent: "Show replies",
+      isConfirmVisible: false,
       isVisible: false,
       resp: "",
     };
@@ -59,12 +60,10 @@ class AnnotationItem extends React.Component {
 
         this.setState({ resp: "success" });
       })
-      .catch((error) => {
+      .then(this.props.onRefreshClick())
+      .catch(() => {
         //FIXME: VERY FUCKY WAY TO REFRESH... needs assistance from the higherups
-        console.warn("There was an error!", error);
-        if (error) {
-          this.props.onRefreshClick();
-        }
+        console.warn("Your annotation has been deleted, refreshing...");
       });
   }
 
@@ -116,6 +115,25 @@ class AnnotationItem extends React.Component {
   componentDidMount() {
     this.updateDatasetAcl();
   }
+
+  showConfirm = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const parent = e.target.closest(".rootAnno");
+    const confirmScreen = parent.querySelector(".hiddenConfirm");
+    if (confirmScreen && this.state.isConfirmVisible === false) {
+      this.setState({ isConfirmVisible: !this.state.isConfirmVisible });
+      confirmScreen.classList.remove("hiddenConfirm");
+      confirmScreen.classList.add("showConfirm");
+    } else {
+      if (this.state.isConfirmVisible === true) {
+        this.setState({ isConfirmVisible: !this.state.isConfirmVisible });
+        const visibleConfirm = parent.querySelector(".showConfirm");
+        visibleConfirm.classList.remove("showConfirm");
+        visibleConfirm.classList.add("hiddenConfirm");
+      }
+    }
+  };
 
   updateDatasetAcl() {
     auth
@@ -351,9 +369,9 @@ class AnnotationItem extends React.Component {
 
   renderSwitch = () => {
     /* determine permission state of annotation in Solid Pod */
+    const date = this.props.annotation.created;
     let permission;
     let modifyPermissionsElement;
-
     if (this.state.datasetWithAcl) {
       if (getPublicAccess(this.state.datasetWithAcl).read)
         permission = "public";
@@ -366,7 +384,6 @@ class AnnotationItem extends React.Component {
     } else {
       permission = "unknown";
     }
-
     // Logic to toggle public access on and off
     // TODO allow sharing with individual agents using setAgentResourceAccess
     if (!this.state.userMayModifyAccess) {
@@ -429,6 +446,76 @@ class AnnotationItem extends React.Component {
         );
       }
     }
+    let commonAnnoComponents = (
+      <div>
+        <div className="hiddenConfirm">
+          delete this annotation?
+          <button onClick={this.deleteAnno}>yes</button>
+          <button onClick={this.showConfirm}>no</button>
+        </div>
+        <span className="hiddenDetails">
+          {" "}
+          <span className="date">
+            Created on: {date}, access permissions: {permission}.
+          </span>
+        </span>
+        <button className="deleteButton" onClick={this.showConfirm}>
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            data-prefix="fas"
+            data-icon="trash"
+            className="svg-inline--fa fa-trash fa-w-14"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"
+          >
+            <path
+              fill="grey"
+              d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+            ></path>
+          </svg>
+        </button>
+        <button
+          className="infoButton"
+          onMouseEnter={this.showDetails}
+          onMouseLeave={this.showDetails}
+        >
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            data-prefix="far"
+            data-icon="info-circle"
+            className="svg-inline--fa fa-info-circle fa-w-16"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+          >
+            <path
+              fill="grey"
+              d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm0-338c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"
+            ></path>
+          </svg>
+        </button>
+        <p></p>
+        permissions: {modifyPermissionsElement}
+        <button
+          className="showRepliesButton"
+          name="showRepliesButton"
+          onClick={this.onShowReplyClick}
+        >
+          {this.state.showReplyButtonContent}
+        </button>
+        <button
+          className="replyButton"
+          name="replyButton"
+          onClick={this.onClick}
+        >
+          Reply
+        </button>
+      </div>
+    );
+
     //stuff that i am carrying around: the annotation's ID you are replying to, the body (currently sits under annotation.source) and the annotation's specific ID
     const motivation = this.props.annotation.motivation;
     const bodyD = this.props.annotation.body[0].value;
@@ -436,7 +523,7 @@ class AnnotationItem extends React.Component {
     const bodyMedia = this.props.annotation.body[0].id;
     const target = this.props.annotation.target[0].id;
     const repTarget = this.props.annotation.target;
-    const date = this.props.annotation.created;
+
     const creator = this.props.annotation.creator || "unknown";
     const selfId = this.props.annotation["@id"];
 
@@ -455,66 +542,7 @@ class AnnotationItem extends React.Component {
           >
             {" "}
             <p>{bodyD}</p>
-            <span className="hiddenDetails">
-              {" "}
-              <span className="date">
-                Created on: {date}, access permissions: {permission}.
-              </span>
-            </span>
-            <button className="deleteButton" onClick={this.deleteAnno}>
-              <svg
-                aria-hidden="true"
-                focusable="false"
-                data-prefix="fas"
-                data-icon="trash"
-                className="svg-inline--fa fa-trash fa-w-14"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-              >
-                <path
-                  fill="grey"
-                  d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                ></path>
-              </svg>
-            </button>
-            <button
-              className="infoButton"
-              onMouseEnter={this.showDetails}
-              onMouseLeave={this.showDetails}
-            >
-              <svg
-                aria-hidden="true"
-                focusable="false"
-                data-prefix="far"
-                data-icon="info-circle"
-                className="svg-inline--fa fa-info-circle fa-w-16"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-              >
-                <path
-                  fill="grey"
-                  d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm0-338c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"
-                ></path>
-              </svg>
-            </button>
-            <p></p>
-            permissions: {modifyPermissionsElement}
-            <button
-              className="showRepliesButton"
-              name="showRepliesButton"
-              onClick={this.onShowReplyClick}
-            >
-              {this.state.showReplyButtonContent}
-            </button>
-            <button
-              className="replyButton"
-              name="replyButton"
-              onClick={this.onClick}
-            >
-              Reply
-            </button>
+            {commonAnnoComponents}
           </div>
         );
       case "linking":
@@ -538,66 +566,7 @@ class AnnotationItem extends React.Component {
                   </a>
                 }
               </p>
-              <span className="hiddenDetails">
-                {" "}
-                <span className="date">
-                  Created on: {date}, access permissions: {permission}.
-                </span>
-              </span>
-              <button className="deleteButton" onClick={this.deleteAnno}>
-                <svg
-                  aria-hidden="true"
-                  focusable="false"
-                  data-prefix="fas"
-                  data-icon="trash"
-                  className="svg-inline--fa fa-trash fa-w-14"
-                  role="img"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                >
-                  <path
-                    fill="grey"
-                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                  ></path>
-                </svg>
-              </button>
-              <button
-                className="infoButton"
-                onMouseEnter={this.showDetails}
-                onMouseLeave={this.showDetails}
-              >
-                <svg
-                  aria-hidden="true"
-                  focusable="false"
-                  data-prefix="far"
-                  data-icon="info-circle"
-                  className="svg-inline--fa fa-info-circle fa-w-16"
-                  role="img"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 512 512"
-                >
-                  <path
-                    fill="grey"
-                    d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm0-338c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"
-                  ></path>
-                </svg>
-              </button>
-              <p></p>
-              Set permissions: {modifyPermissionsElement}
-              <button
-                className="showRepliesButton"
-                name="showRepliesButton"
-                onClick={this.onShowReplyClick}
-              >
-                {this.state.showReplyButtonContent}
-              </button>
-              <button
-                className="replyButton"
-                name="replyButton"
-                onClick={this.onClick}
-              >
-                Reply
-              </button>
+              {commonAnnoComponents}
             </div>
           );
         } else {
@@ -621,66 +590,7 @@ class AnnotationItem extends React.Component {
                   </a>
                 }
               </p>
-              <span className="hiddenDetails">
-                {" "}
-                <span className="date">
-                  Created on: {date}, access permissions: {permission}.
-                </span>
-              </span>
-              <button className="deleteButton" onClick={this.deleteAnno}>
-                <svg
-                  aria-hidden="true"
-                  focusable="false"
-                  data-prefix="fas"
-                  data-icon="trash"
-                  className="svg-inline--fa fa-trash fa-w-14"
-                  role="img"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                >
-                  <path
-                    fill="grey"
-                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                  ></path>
-                </svg>
-              </button>
-              <button
-                className="infoButton"
-                onMouseEnter={this.showDetails}
-                onMouseLeave={this.showDetails}
-              >
-                <svg
-                  aria-hidden="true"
-                  focusable="false"
-                  data-prefix="far"
-                  data-icon="info-circle"
-                  className="svg-inline--fa fa-info-circle fa-w-16"
-                  role="img"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 512 512"
-                >
-                  <path
-                    fill="grey"
-                    d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm0-338c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"
-                  ></path>
-                </svg>
-              </button>
-              <p></p>
-              Set permissions: {modifyPermissionsElement}
-              <button
-                className="showRepliesButton"
-                name="showRepliesButton"
-                onClick={this.onShowReplyClick}
-              >
-                {this.state.showReplyButtonContent}
-              </button>
-              <button
-                className="replyButton"
-                name="replyButton"
-                onClick={this.onClick}
-              >
-                Reply
-              </button>
+              {commonAnnoComponents}
             </div>
           );
         }
@@ -710,66 +620,7 @@ class AnnotationItem extends React.Component {
                 play{" "}
               </button>
             </p>
-            <span className="hiddenDetails">
-              {" "}
-              <span className="date">
-                Created on: {date}, access permissions: {permission}.
-              </span>
-            </span>
-            <button className="deleteButton" onClick={this.deleteAnno}>
-              <svg
-                aria-hidden="true"
-                focusable="false"
-                data-prefix="fas"
-                data-icon="trash"
-                className="svg-inline--fa fa-trash fa-w-14"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-              >
-                <path
-                  fill="grey"
-                  d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                ></path>
-              </svg>
-            </button>
-            <button
-              className="infoButton"
-              onMouseEnter={this.showDetails}
-              onMouseLeave={this.showDetails}
-            >
-              <svg
-                aria-hidden="true"
-                focusable="false"
-                data-prefix="far"
-                data-icon="info-circle"
-                className="svg-inline--fa fa-info-circle fa-w-16"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-              >
-                <path
-                  fill="grey"
-                  d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm0-338c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"
-                ></path>
-              </svg>
-            </button>
-            <p></p>
-            Set permissions: {modifyPermissionsElement}
-            <button
-              className="showRepliesButton"
-              name="showRepliesButton"
-              onClick={this.onShowReplyClick}
-            >
-              {this.state.showReplyButtonContent}
-            </button>
-            <button
-              className="replyButton"
-              name="replyButton"
-              onClick={this.onClick}
-            >
-              Reply
-            </button>
+            {commonAnnoComponents}
           </div>
         );
       case "trompa:cueImage":
@@ -801,69 +652,10 @@ class AnnotationItem extends React.Component {
                 {this.state.previewButtonContent}{" "}
               </button>
             </p>
-            <span className="hiddenDetails">
-              {" "}
-              <span className="date">
-                Created on: {date}, access permissions: {permission}.
-              </span>
-            </span>
-            <button className="deleteButton" onClick={this.deleteAnno}>
-              <svg
-                aria-hidden="true"
-                focusable="false"
-                data-prefix="fas"
-                data-icon="trash"
-                className="svg-inline--fa fa-trash fa-w-14"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-              >
-                <path
-                  fill="grey"
-                  d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                ></path>
-              </svg>
-            </button>
-            <button
-              className="infoButton"
-              onMouseEnter={this.showDetails}
-              onMouseLeave={this.showDetails}
-            >
-              <svg
-                aria-hidden="true"
-                focusable="false"
-                data-prefix="far"
-                data-icon="info-circle"
-                className="svg-inline--fa fa-info-circle fa-w-16"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-              >
-                <path
-                  fill="grey"
-                  d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm0-338c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"
-                ></path>
-              </svg>
-            </button>
-            <p></p>
-            Set permissions: {modifyPermissionsElement}
-            <button
-              className="showRepliesButton"
-              name="showRepliesButton"
-              onClick={this.onShowReplyClick}
-            >
-              {this.state.showReplyButtonContent}
-            </button>
-            <button
-              className="replyButton"
-              name="replyButton"
-              onClick={this.onClick}
-            >
-              Reply
-            </button>
+            {commonAnnoComponents}
           </div>
         );
-      //FIXME: if deleting root anno what happens to replies? Might break the app... needs investigation
+      //FIXME: if deleting root anno what happens to replies? Still sittin in solidPOD but are not rendered... needs discussion
       case "replying":
         return (
           <div
