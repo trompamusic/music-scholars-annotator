@@ -449,9 +449,11 @@ class AnnotationItem extends React.Component {
     let commonAnnoComponents = (
       <div>
         <div className="hiddenConfirm">
-          delete this annotation?
-          <button onClick={this.deleteAnno}>yes</button>
-          <button onClick={this.showConfirm}>no</button>
+          <div>
+            delete this annotation?
+            <button onClick={this.deleteAnno}>yes</button>
+            <button onClick={this.showConfirm}>no</button>
+          </div>
         </div>
         <span className="hiddenDetails">
           {" "}
