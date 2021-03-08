@@ -3,6 +3,10 @@ body {
   user-select: none;
 }
 
+svg {
+  max-height: 100%;
+}
+
 .hiddenReply {
   display: none;
 }
@@ -25,9 +29,103 @@ body {
   font-size: 12px;
   cursor: pointer;
   float: right;
-  /* position: absolute; */
+  right: 0px;
+  position: absolute;
   /* bottom: 0;
   right: 0; */
+}
+
+.hiddenConfirm {
+  display: none;
+}
+
+.showConfirm {
+  display: block;
+  background-color: rgb(173, 173, 173);
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  position: absolute;
+}
+
+.showConfirm div {
+  position: inherit;
+  top: 8%;
+  left: 30%;
+}
+
+.infoButton {
+  float: right;
+  position: relative;
+  bottom: 48px;
+  right: -12px;
+  width: 16px;
+  height: 16px;
+  border: none;
+  background-color: transparent;
+  vertical-align: middle;
+}
+
+.infoButton svg {
+  position: absolute;
+  left: 20%;
+  top: 20%;
+}
+
+.delteYes {
+  display: inline;
+  border: 1px solid white;
+  background-color: rgb(218, 218, 218);
+  padding: 5px 12px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  position: relative;
+  left: 34%;
+
+  /* bottom: 0;
+  right: 0; */
+}
+
+.deleteNo {
+  display: inline;
+  border: 1px solid white;
+  background-color: rgb(151, 151, 151);
+  padding: 5px 12px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  position: relative;
+  left: 35%;
+
+  /* bottom: 0;
+  right: 0; */
+}
+
+.deleteButton {
+  float: right;
+  position: relative;
+  bottom: 48px;
+  right: 20px;
+  width: 15px;
+  height: 15px;
+  border: none;
+  background-color: transparent;
+  vertical-align: middle;
+  cursor: pointer;
+  outline: none;
+}
+
+.deleteButton svg {
+  position: absolute;
+  left: 20%;
+  top: 20%;
 }
 
 .replyButton:hover {
@@ -39,7 +137,7 @@ body {
 }
 
 .showRepliesButton {
-  display: inline-flex;
+  display: inline-block;
   border: 1px solid white;
   background-color: rgb(218, 218, 218);
   padding: 5px 12px;
@@ -47,7 +145,8 @@ body {
   border-radius: 4px;
   font-size: 12px;
   cursor: pointer;
-  float: right;
+  left: 335px;
+  position: relative;
   /* position: absolute;
   bottom: 0;
   right: 60px; */
@@ -123,7 +222,6 @@ body {
   float: right;
   bottom: 150px;
   right: 0px;
- 
 }
 .App {
   padding-bottom: 5px;
@@ -167,6 +265,14 @@ body {
   opacity: 0.5;
   color: white;
   border-radius: 4px;
+}
+
+.hiddenDetails {
+  display: none;
+}
+
+.showDetails {
+  display: inline;
 }
 
 .hiddenContainer {
