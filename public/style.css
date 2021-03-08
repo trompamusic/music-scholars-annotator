@@ -41,7 +41,7 @@ svg {
 
 .showConfirm {
   display: block;
-  background-color: gray;
+  background-color: rgb(173, 173, 173);
   width: 100%; /* Full width (cover the whole page) */
   height: 100%; /* Full height (cover the whole page) */
   top: 0;
@@ -54,8 +54,8 @@ svg {
 
 .showConfirm div {
   position: inherit;
-  top: 43%;
-  left: 32%;
+  top: 8%;
+  left: 30%;
 }
 
 .infoButton {
@@ -74,6 +74,38 @@ svg {
   position: absolute;
   left: 20%;
   top: 20%;
+}
+
+.delteYes {
+  display: inline;
+  border: 1px solid white;
+  background-color: rgb(218, 218, 218);
+  padding: 5px 12px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  position: relative;
+  left: 34%;
+
+  /* bottom: 0;
+  right: 0; */
+}
+
+.deleteNo {
+  display: inline;
+  border: 1px solid white;
+  background-color: rgb(151, 151, 151);
+  padding: 5px 12px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  position: relative;
+  left: 35%;
+
+  /* bottom: 0;
+  right: 0; */
 }
 
 .deleteButton {

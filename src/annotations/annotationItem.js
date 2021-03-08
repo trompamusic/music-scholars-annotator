@@ -46,7 +46,22 @@ class AnnotationItem extends React.Component {
     this.deleteAnno = this.deleteAnno.bind(this);
   }
 
-  deleteAnno() {
+  deleteAnno(e) {
+    const parent = e.target.closest(".rootAnno");
+    const testReplyRetrieval = document.querySelectorAll(".replyAnno");
+
+    if (testReplyRetrieval) {
+      testReplyRetrieval.forEach((replyTargetAnno) => {
+        const replyTargetAnnoId = replyTargetAnno.dataset.replyAnnotationTarget;
+        const rootAnnoTargetId = parent.dataset.selfId;
+        if (replyTargetAnnoId === rootAnnoTargetId) {
+          console.log("replies found: ", replyTargetAnno.dataset.selfId);
+          auth
+            .fetch(replyTargetAnno.dataset.selfId, { method: "DELETE" })
+            .then(console.log("replies deleted"));
+        }
+      });
+    }
     auth
       .fetch(this.props.annotation["@id"], { method: "DELETE" })
       .then(async (response) => {
@@ -62,7 +77,6 @@ class AnnotationItem extends React.Component {
       })
       .then(this.props.onRefreshClick())
       .catch(() => {
-        //FIXME: VERY FUCKY WAY TO REFRESH... needs assistance from the higherups
         console.warn("Your annotation has been deleted, refreshing...");
       });
   }
@@ -254,7 +268,6 @@ class AnnotationItem extends React.Component {
     const rootAnno = e.target.closest(".rootAnno");
     console.log("root anno", rootAnno);
     const replyTargetAnnos = document.querySelectorAll(".replyAnno");
-    console.log(replyTargetAnnos);
     if (replyTargetAnnos.length) {
       replyTargetAnnos.forEach((replyTargetAnno) => {
         const replyTargetAnnoId = replyTargetAnno.dataset.replyAnnotationTarget;
@@ -450,9 +463,15 @@ class AnnotationItem extends React.Component {
       <div>
         <div className="hiddenConfirm">
           <div>
-            delete this annotation?
-            <button onClick={this.deleteAnno}>yes</button>
-            <button onClick={this.showConfirm}>no</button>
+            Delete this annotation and its replies?
+            <p>
+              <button className={"delteYes"} onClick={this.deleteAnno}>
+                yes
+              </button>
+              <button className={"deleteNo"} onClick={this.showConfirm}>
+                no
+              </button>
+            </p>
           </div>
         </div>
         <span className="hiddenDetails">
@@ -662,6 +681,7 @@ class AnnotationItem extends React.Component {
         return (
           <div
             data-reply-annotation-target={repTarget}
+            data-self-id={selfId}
             className="replyAnno hiddenReply"
           >
             <div className="quoteContent">
