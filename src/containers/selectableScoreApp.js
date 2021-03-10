@@ -10,8 +10,19 @@ import Modal from "react-modal";
 
 //Modal.setAppElement("root");
 //
-//const vAdjust = 26; // num. pixels to nudge down anno measureBoxes
-const scoreOffset = 150; //hacky way to have the same score offset as .score in css
+//const vAdjust = 26; // num. pixels to nudge down anno measureBoxes+
+var scale = 50;
+
+let viewPortHeight = window.outerHeight;
+let viewPortWidth = window.outerWidth;
+// prettier-ignore
+var height = (viewPortHeight < 1439) ? 2000 : 2500;
+// prettier-ignore
+var width = (viewPortWidth > 1925) ? 2800 : 2000;
+
+// height /= scale / 100;
+// width /= scale / 100;
+
 export default class SelectableScoreApp extends Component {
   constructor(props) {
     super(props);
@@ -38,10 +49,10 @@ export default class SelectableScoreApp extends Component {
       replyAnnotationTargetId: "",
       areRepliesVisible: false,
       vrvOptions: {
-        scale: 45,
-        adjustPageHeight: 1,
-        pageHeight: 2500,
-        pageWidth: 2000,
+        scale: scale,
+        adjustPageHeight: 0,
+        pageHeight: height,
+        pageWidth: width,
         footer: "none",
         unit: 6,
       },
@@ -71,6 +82,7 @@ export default class SelectableScoreApp extends Component {
   }
 
   zoomIn() {
+    console.log(window.outerHeight);
     let step = 5;
     let initialZoom = this.state.vrvOptions.scale;
     let initialHeight = this.state.vrvOptions.pageHeight;
@@ -81,8 +93,24 @@ export default class SelectableScoreApp extends Component {
     //
     const newVrvOptions = Object.assign({}, this.state.vrvOptions);
     newVrvOptions.scale = initialZoom + step;
-    newVrvOptions.pageHeight = (initialHeight / 65) * newVrvOptions.scale;
-    newVrvOptions.pageWidth = (initialWidth / 65) * newVrvOptions.scale;
+    //prettier-ignore
+    newVrvOptions.pageHeight = initialHeight - (newVrvOptions.scale * 5);
+    //prettier-ignore
+    newVrvOptions.pageWidth = initialWidth - (newVrvOptions.scale * 2);
+    if (viewPortWidth >= 1925) {
+      if (newVrvOptions.pageWidth > 3500) {
+        newVrvOptions.pageWidth = 3500;
+      }
+    }
+    // if (newVrvOptions.pageWidth >= 2380) {
+    //   newVrvOptions.pageWidth = 2380;
+    // }
+    // if (newVrvOptions.pageWidth < 1500 || newVrvOptions.pageWidth > 1500) {
+    //   newVrvOptions.pageWidth = 1500;
+    // }
+    // if (newVrvOptions.pageHeight < 1500 || newVrvOptions.pageHeight > 1500) {
+    //   newVrvOptions.pageHeight = 1500;
+    // }
     console.log(
       "ZOOM INCREASE",
       newVrvOptions.scale,
@@ -105,8 +133,16 @@ export default class SelectableScoreApp extends Component {
     //
     const newVrvOptions = Object.assign({}, this.state.vrvOptions);
     newVrvOptions.scale = initialZoom - step;
-    newVrvOptions.pageHeight = (initialHeight * 65) / newVrvOptions.scale;
-    newVrvOptions.pageWidth = (initialWidth * 65) / newVrvOptions.scale;
+    //prettier-ignore
+    newVrvOptions.pageHeight = initialHeight + (newVrvOptions.scale * 5);
+    //prettier-ignore
+    newVrvOptions.pageWidth = initialWidth + (newVrvOptions.scale * 2);
+    // if (newVrvOptions.pageWidth < 1500 || newVrvOptions.pageWidth > 1500) {
+    //   newVrvOptions.pageWidth = 1500;
+    // }
+    // if (newVrvOptions.pageHeight < 1500 || newVrvOptions.pageHeight > 1500) {
+    //   newVrvOptions.pageHeight = 1500;
+    // }
     console.log(
       "ZOOM DECREASE",
       newVrvOptions.scale,
@@ -350,7 +386,7 @@ export default class SelectableScoreApp extends Component {
 
           const coordsBox = {
             left: Math.floor(coords.x),
-            top: Math.floor(coords.y) - scoreOffset,
+            top: Math.floor(coords.y),
             width: Math.ceil(coords.x2 - coords.x),
             height: Math.ceil(coords.y2 - coords.y),
           };
@@ -652,51 +688,53 @@ export default class SelectableScoreApp extends Component {
     return (
       <div>
         {this.state.isClicked === true && (
-          <div className="score">
-            <div className="annotationBoxesContainer" />
-            <SelectableScore
-              uri={this.state.uri}
-              annotationContainerUri={this.props.submitUri}
-              vrvOptions={this.state.vrvOptions}
-              onSelectionChange={this.handleSelectionChange}
-              selectorString={this.state.selectorString}
-              onScoreUpdate={this.handleScoreUpdate}
-              onReceiveAnnotationContainerContent={
-                this.onReceiveAnnotationContainerContent
-              }
-              toggleAnnotationRetrieval={this.state.toggleAnnotationRetrieval}
-            />
+          <div>
+            <div className="scoreContainer">
+              <div className="annotationBoxesContainer" />
+              <SelectableScore
+                uri={this.state.uri}
+                annotationContainerUri={this.props.submitUri}
+                vrvOptions={this.state.vrvOptions}
+                onSelectionChange={this.handleSelectionChange}
+                selectorString={this.state.selectorString}
+                onScoreUpdate={this.handleScoreUpdate}
+                onReceiveAnnotationContainerContent={
+                  this.onReceiveAnnotationContainerContent
+                }
+                toggleAnnotationRetrieval={this.state.toggleAnnotationRetrieval}
+              />
+            </div>
             <div className="prevPageButton">
               <PrevPageButton
-                buttonContent={<span>Previous page</span>}
+                buttonContent={<span>| &lt;</span>}
                 uri={this.state.uri}
               />
             </div>
             <button
               onClick={this.zoomOut}
               style={{
-                marginRight: "15px",
-                position: "relative",
-                bottom: "150px",
+                marginLeft: "54%",
+                position: "absolute",
+                bottom: "90%",
               }}
             >
-              zoom out
+              -
             </button>
             {/* <div className="divider"></div> */}
             {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
             <button
               onClick={this.zoomIn}
               style={{
-                marginLeft: "15px",
-                position: "relative",
-                bottom: "150px",
+                marginLeft: "57%",
+                position: "absolute",
+                bottom: "90%",
               }}
             >
-              zoom in
+              +
             </button>
             <div className="nextPageButton">
               <NextPageButton
-                buttonContent={<span>Next page</span>}
+                buttonContent={<span> &gt; |</span>}
                 uri={this.state.uri}
               />
             </div>
@@ -766,10 +804,9 @@ export default class SelectableScoreApp extends Component {
           </button>
           {modal}
         </div>
-        {/* <OrchestralRibbon uri={this.state.testuri} width={500} height={600} /> */}
-
         <ReactPlayer
-          playing
+          width="80%"
+          height="80%"
           ref={this.player}
           url={this.state.currentMedia}
           controls={true}
