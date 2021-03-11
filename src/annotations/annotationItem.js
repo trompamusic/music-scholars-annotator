@@ -33,7 +33,7 @@ class AnnotationItem extends React.Component {
       userId: null,
       isPictureShowing: false,
       previewButtonContent: "Show preview",
-      showReplyButtonContent: "Show replies",
+
       isConfirmVisible: false,
       isVisible: false,
       resp: "",
@@ -282,7 +282,6 @@ class AnnotationItem extends React.Component {
           ) {
             this.setState({
               isClicked: true,
-              showReplyButtonContent: "Hide replies",
             });
             rootAnno.appendChild(replyTargetAnno);
             this.props.showReplyHandler();
@@ -311,7 +310,6 @@ class AnnotationItem extends React.Component {
           } else {
             this.setState({
               isClicked: false,
-              showReplyButtonContent: "Show replies",
             });
             this.props.showReplyHandler();
             const annoContainer = document.querySelector(".listContainer");
@@ -474,58 +472,68 @@ class AnnotationItem extends React.Component {
             </p>
           </div>
         </div>
-        <span className="hiddenDetails">
+        <div style={{ paddingTop: "1.5%" }}>
+          <button className="deleteButton" onClick={this.showConfirm}>
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              data-prefix="fas"
+              data-icon="trash"
+              className="svg-inline--fa fa-trash fa-w-14"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              width="100%"
+              height="100%"
+            >
+              <path
+                fill="grey"
+                d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+              ></path>
+            </svg>
+          </button>
+          <button
+            className="infoButton"
+            onMouseEnter={this.showDetails}
+            onMouseLeave={this.showDetails}
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              data-prefix="far"
+              data-icon="info-circle"
+              className="svg-inline--fa fa-info-circle fa-w-16"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+              width="100%"
+              height="100%"
+            >
+              <path
+                fill="grey"
+                d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm0-338c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"
+              ></path>
+            </svg>
+          </button>
+          permissions: {modifyPermissionsElement}
+        </div>
+      </div>
+    );
+
+    let replyButtonsCluster = (
+      <div>
+        <p className="hiddenDetails">
           {" "}
-          <span className="date">
+          <p className="date">
             Created on: {date}, access permissions: {permission}.
-          </span>
-        </span>
-        <button className="deleteButton" onClick={this.showConfirm}>
-          <svg
-            aria-hidden="true"
-            focusable="false"
-            data-prefix="fas"
-            data-icon="trash"
-            className="svg-inline--fa fa-trash fa-w-14"
-            role="img"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 448 512"
-          >
-            <path
-              fill="grey"
-              d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-            ></path>
-          </svg>
-        </button>
-        <button
-          className="infoButton"
-          onMouseEnter={this.showDetails}
-          onMouseLeave={this.showDetails}
-        >
-          <svg
-            aria-hidden="true"
-            focusable="false"
-            data-prefix="far"
-            data-icon="info-circle"
-            className="svg-inline--fa fa-info-circle fa-w-16"
-            role="img"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512"
-          >
-            <path
-              fill="grey"
-              d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm0-338c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"
-            ></path>
-          </svg>
-        </button>
-        <p></p>
-        permissions: {modifyPermissionsElement}
+          </p>
+        </p>
         <button
           className="showRepliesButton"
           name="showRepliesButton"
           onClick={this.onShowReplyClick}
         >
-          {this.state.showReplyButtonContent}
+          Show Replies
         </button>
         <button
           className="replyButton"
@@ -562,8 +570,9 @@ class AnnotationItem extends React.Component {
             data-self-id={selfId}
           >
             {" "}
-            <p>{bodyD}</p>
             {commonAnnoComponents}
+            <p>{bodyD}</p>
+            {replyButtonsCluster}
           </div>
         );
       case "linking":
@@ -576,6 +585,7 @@ class AnnotationItem extends React.Component {
             >
               <p>
                 {""}
+                {commonAnnoComponents}
                 {
                   <a
                     href={bodyL}
@@ -587,7 +597,7 @@ class AnnotationItem extends React.Component {
                   </a>
                 }
               </p>
-              {commonAnnoComponents}
+              {replyButtonsCluster}
             </div>
           );
         } else {
@@ -598,6 +608,7 @@ class AnnotationItem extends React.Component {
               data-target={target}
               data-self-id={selfId}
             >
+              {commonAnnoComponents}
               <p>
                 {""}
                 {
@@ -611,7 +622,7 @@ class AnnotationItem extends React.Component {
                   </a>
                 }
               </p>
-              {commonAnnoComponents}
+              {replyButtonsCluster}
             </div>
           );
         }
@@ -625,6 +636,7 @@ class AnnotationItem extends React.Component {
             data-self-id={selfId}
           >
             {" "}
+            {commonAnnoComponents}
             <p>
               {cleanMediaString}{" "}
               <button className="playButton" onClick={this.onPlayClick}>
@@ -641,7 +653,7 @@ class AnnotationItem extends React.Component {
                 play{" "}
               </button>
             </p>
-            {commonAnnoComponents}
+            {replyButtonsCluster}
           </div>
         );
       case "trompa:cueImage":
@@ -666,6 +678,7 @@ class AnnotationItem extends React.Component {
                 />
               </a>
             </div>
+            {commonAnnoComponents}
             <p>
               The content of this annotation is a picture, click the button to
               see a preview{" "}
@@ -673,7 +686,7 @@ class AnnotationItem extends React.Component {
                 {this.state.previewButtonContent}{" "}
               </button>
             </p>
-            {commonAnnoComponents}
+            {replyButtonsCluster}
           </div>
         );
       //FIXME: if deleting root anno what happens to replies? Still sittin in solidPOD but are not rendered... needs discussion
@@ -685,13 +698,6 @@ class AnnotationItem extends React.Component {
             className="replyAnno hiddenReply"
           >
             <div className="quoteContent">
-              <p>Reply: {bodyD}</p>
-              <span className="hiddenDetails">
-                {" "}
-                <span className="date">
-                  Created on: {date}, access permissions: {permission}.
-                </span>
-              </span>
               <button className="deleteButton" onClick={this.deleteAnno}>
                 <svg
                   aria-hidden="true"
@@ -730,6 +736,13 @@ class AnnotationItem extends React.Component {
                   ></path>
                 </svg>
               </button>
+              <p>Reply: {bodyD}</p>
+              <span className="hiddenDetails">
+                {" "}
+                <span className="date">
+                  Created on: {date}, access permissions: {permission}.
+                </span>
+              </span>
             </div>
           </div>
         );
