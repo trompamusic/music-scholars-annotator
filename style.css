@@ -3,9 +3,9 @@ body {
   user-select: none;
 }
 
-svg {
+/* svg {
   max-height: 100%;
-}
+} */
 
 .hiddenReply {
   display: none;
@@ -61,8 +61,8 @@ svg {
 .infoButton {
   float: right;
   position: relative;
-  bottom: 48px;
-  right: -12px;
+  top: 2%;
+  right: 2%;
   width: 16px;
   height: 16px;
   border: none;
@@ -111,8 +111,8 @@ svg {
 .deleteButton {
   float: right;
   position: relative;
-  bottom: 48px;
-  right: 20px;
+  top: 2%;
+  right: 1%;
   width: 15px;
   height: 15px;
   border: none;
@@ -145,7 +145,7 @@ svg {
   border-radius: 4px;
   font-size: 12px;
   cursor: pointer;
-  left: 335px;
+  left: 75%;
   position: relative;
   /* position: absolute;
   bottom: 0;
@@ -210,19 +210,25 @@ svg {
 }
 
 .quoteContent {
-  background-color: rgba(204, 204, 204, 0.521);
+  background-color: rgba(204, 204, 204, 0.5);
   padding: 1%;
   margin-left: 1%;
   margin-top: 1%;
   margin-bottom: 1%;
 }
 
-.score {
+.scoreContainer {
   position: relative;
   float: right;
-  bottom: 150px;
+  bottom: 250px;
   right: 0px;
 }
+
+.scoreContainer div div svg {
+  max-width: 100%;
+  max-height: 100%;
+}
+
 .App {
   padding-bottom: 5px;
 }
@@ -235,6 +241,7 @@ svg {
   position: relative;
   border-bottom: 0.5px solid rgba(136, 136, 136, 0.5);
   padding-bottom: 1%;
+  overflow-y: auto;
 }
 
 .annoItem:hover {
@@ -313,10 +320,10 @@ svg {
   cursor: pointer;
   display: inline-block;
   transition-duration: 0.4s;
-  margin-left: 1%;
-  margin-right: 30%;
-  position: relative;
-  bottom: 150px;
+
+  left: 50%;
+  position: absolute;
+  bottom: 90%;
 }
 
 .prevPageButton:hover {
@@ -331,11 +338,12 @@ svg {
   border-radius: 4px;
   font-size: 12px;
   cursor: pointer;
-  display: inline-block;
+
   transition-duration: 0.4s;
-  margin-left: 30%;
-  position: relative;
-  bottom: 150px;
+
+  position: absolute;
+  bottom: 90%;
+  left: 60%;
 }
 
 .nextPageButton:hover {
