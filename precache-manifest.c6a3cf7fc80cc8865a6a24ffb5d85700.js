@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b2d79437d6f3f04e56c27a04fc701e47",
+    "revision": "4fd74c23f83a4dfcfde379c40e58fe10",
     "url": "/music-scholars-annotator/index.html"
   },
   {
