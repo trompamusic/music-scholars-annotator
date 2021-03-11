@@ -82,7 +82,6 @@ export default class SelectableScoreApp extends Component {
   }
 
   zoomIn() {
-    console.log(window.outerHeight);
     let step = 5;
     let initialZoom = this.state.vrvOptions.scale;
     let initialHeight = this.state.vrvOptions.pageHeight;
@@ -97,10 +96,26 @@ export default class SelectableScoreApp extends Component {
     newVrvOptions.pageHeight = initialHeight - (newVrvOptions.scale * 5);
     //prettier-ignore
     newVrvOptions.pageWidth = initialWidth - (newVrvOptions.scale * 2);
+    if (newVrvOptions.scale < 50) {
+      //prettier-ignore
+      newVrvOptions.pageWidth = initialWidth - (newVrvOptions.scale * 5);
+    }
+
+    if (newVrvOptions.scale < 40) {
+      //prettier-ignore
+      newVrvOptions.pageHeight = initialHeight - (newVrvOptions.scale * 8);
+      //prettier-ignore
+      newVrvOptions.pageWidth = initialWidth - (newVrvOptions.scale * 5);
+    }
     if (viewPortWidth >= 1925) {
       if (newVrvOptions.pageWidth > 3500) {
         newVrvOptions.pageWidth = 3500;
       }
+    }
+
+    if (newVrvOptions.scale >= 80) {
+      console.log("max zoom reached");
+      return;
     }
     // if (newVrvOptions.pageWidth >= 2380) {
     //   newVrvOptions.pageWidth = 2380;
@@ -137,6 +152,22 @@ export default class SelectableScoreApp extends Component {
     newVrvOptions.pageHeight = initialHeight + (newVrvOptions.scale * 5);
     //prettier-ignore
     newVrvOptions.pageWidth = initialWidth + (newVrvOptions.scale * 2);
+    if (newVrvOptions.scale < 50) {
+      //prettier-ignore
+      newVrvOptions.pageWidth = initialWidth + (newVrvOptions.scale * 5);
+    }
+
+    if (newVrvOptions.scale < 40) {
+      //prettier-ignore
+      newVrvOptions.pageHeight = initialHeight + (newVrvOptions.scale * 8);
+      //prettier-ignore
+      newVrvOptions.pageWidth = initialWidth + (newVrvOptions.scale * 5);
+    }
+
+    if (newVrvOptions.scale <= 25) {
+      console.log("minimum zoom reached");
+      return;
+    }
     // if (newVrvOptions.pageWidth < 1500 || newVrvOptions.pageWidth > 1500) {
     //   newVrvOptions.pageWidth = 1500;
     // }
