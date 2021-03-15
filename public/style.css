@@ -244,6 +244,19 @@ body {
   overflow-y: auto;
 }
 
+.playlistItem {
+  display: block;
+  border-top: 0.5px solid rgba(136, 136, 136, 0.5);
+  border-right: 0.5px solid rgba(136, 136, 136, 0.5);
+  list-style-type: none;
+  position: relative;
+  border-bottom: 0.5px solid rgba(136, 136, 136, 0.5);
+  padding-bottom: 1%;
+  overflow-y: auto;
+  max-width: 630px;
+  margin-left: 5px;
+}
+
 .annoItem:hover {
   background: #eee;
 }

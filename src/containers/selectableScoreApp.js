@@ -646,6 +646,10 @@ export default class SelectableScoreApp extends Component {
                 //element.classList.add("cueMedia");
               }
               break;
+            case "trompa:playlist": {
+              return;
+            }
+
             default:
               console.log(
                 "sorry, don't know what to do for this annotation boss"

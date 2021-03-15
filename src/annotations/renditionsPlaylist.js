@@ -9,10 +9,11 @@ class renditionsPlaylist extends React.Component {
         <div>
           {this.props.allEntries.map((anno) => {
             const motivation = anno.motivation;
+            console.log(motivation);
             if (motivation === "trompa:playlist") {
               return (
                 <div key={anno["@id"]}>
-                  <PlaylistItem />
+                  <PlaylistItem anno={anno} />
                 </div>
               );
             }
