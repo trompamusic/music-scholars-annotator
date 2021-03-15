@@ -817,7 +817,7 @@ export default class SelectableScoreApp extends Component {
         {/*as buttonContent that you'd like to function as a clickable prev page
         button */}
 
-        <RenditionsPlaylist />
+        <RenditionsPlaylist allEntries={this.state.currentAnnotation} />
 
         <AnnotationList
           allEntries={this.state.currentAnnotation}
