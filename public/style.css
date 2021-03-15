@@ -353,7 +353,15 @@ body {
 .form {
   display: inline-block;
 }
-
+.renditionButton {
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  width: 630px;
+  margin-left: 5px;
+}
 .enabledSubmitButton {
   border: none;
   background-color: rgb(161, 219, 161);
