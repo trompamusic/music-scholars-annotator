@@ -1,15 +1,15 @@
 /* annotation submitter takes the handlerArgs passed from the addAnnotaiton script and builds the jsonLd structure of each annotation based on its motivation */
 /* it also renders the radio button array to selecte the annotation motivation  */
 import React from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import Addannotations from "./addAnnotation.js";
 export class AnnotationSubmitter extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.textArea = React.createRef();
   }
   submitHandler = (handlerArgs) => {
-    this.textArea.current.wipeState()
+    this.textArea.current.wipeState();
     //adds different annotations based on selection
     //let replyAnnotationTargetId = this.props.replyAnnotationTargetId;
     let value = handlerArgs.value;
@@ -99,7 +99,6 @@ export class AnnotationSubmitter extends React.Component {
               value="describing"
               placeholder="Add your annotation..."
               onChange={this.props.onAnnoTypeChange}
-              checked={this.props.annotationType === "describing"}
             />
             Describing
           </label>
@@ -130,6 +129,7 @@ export class AnnotationSubmitter extends React.Component {
               type="radio"
               value="image"
               name="annotationType"
+              placeholder="Insert your image link..."
               onChange={this.props.onAnnoTypeChange}
             />
             Image
