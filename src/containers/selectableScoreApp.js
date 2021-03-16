@@ -702,14 +702,13 @@ export default class SelectableScoreApp extends Component {
             <div style={{ height: 200, overflow: "auto" }}>
               <h3>Internally Scrolling Region</h3>
               <p>
-                THIS IS A DEPLOYMENT TEST Lorem ipsum dolor sit amet,
-                consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat. Duis aute irure dolor in reprehenderit in
-                voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa
-                qui officia deserunt mollit anim id est laborum.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
               </p>
             </div>
           </div>
@@ -821,7 +820,10 @@ export default class SelectableScoreApp extends Component {
         {/*as buttonContent that you'd like to function as a clickable prev page
         button */}
 
-        <RenditionsPlaylist allEntries={this.state.currentAnnotation} />
+        <RenditionsPlaylist
+          allEntries={this.state.currentAnnotation}
+          onRefreshClick={this.onRefreshClick}
+        />
 
         <AnnotationList
           allEntries={this.state.currentAnnotation}

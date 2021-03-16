@@ -11,6 +11,10 @@ body {
   display: none;
 }
 
+.hidden{
+  display: none;
+}
+
 .showReply {
   display: block;
 }
@@ -209,6 +213,13 @@ body {
   padding-left: 5px;
 }
 
+.playlist {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 200px;
+  max-width: 631px;
+}
+
 .quoteContent {
   background-color: rgba(204, 204, 204, 0.5);
   padding: 1%;
@@ -255,6 +266,16 @@ body {
   overflow-y: auto;
   max-width: 630px;
   margin-left: 5px;
+  background-color: rgb(208,208,208);
+  text-align: center;
+}
+
+.playlistItem p {
+  margin-bottom: 0px;
+}
+
+.playlistItem iframe {
+  border: none;
 }
 
 .annoItem:hover {
@@ -379,6 +400,7 @@ body {
   background-color: lightsalmon;
   outline: rgb(211, 122, 86);
   border: none;
+  margin-top: 5px;
 }
 
 .enabledSubmitButton {
@@ -387,13 +409,14 @@ body {
   padding: 20px;
   border-radius: 4px;
   text-align: center;
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
-  /* //display: inline-flexbox; */
+  /* display: inline-flexbox; */
   transition-duration: 0.4s;
   width: 315px;
   opacity: 1;
   color: white;
+  height: 60px;
 }
 
 .disabledSubmitButton {
@@ -402,7 +425,7 @@ body {
   padding: 20px;
   border-radius: 4px;
   text-align: center;
-  font-size: 16px;
+  font-size: 1em;
   cursor: pointer;
   /* display: inline-flexbox; */
   transition-duration: 0.4s;
