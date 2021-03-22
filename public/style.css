@@ -218,6 +218,8 @@ body {
   overflow-x: hidden;
   max-height: 200px;
   max-width: 631px;
+  margin-bottom: 10px;
+  margin-left: 5px;
 }
 
 .quoteContent {
@@ -264,8 +266,7 @@ body {
   border-bottom: 0.5px solid rgba(136, 136, 136, 0.5);
   padding-bottom: 1%;
   overflow-y: auto;
-  max-width: 630px;
-  margin-left: 5px;
+  max-width: 631px;
   background-color: rgb(208,208,208);
   text-align: center;
 }
@@ -276,6 +277,8 @@ body {
 
 .playlistItem iframe {
   border: none;
+  vertical-align: middle;
+  text-align: center;
 }
 
 .annoItem:hover {

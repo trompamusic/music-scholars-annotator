@@ -737,6 +737,7 @@ export default class SelectableScoreApp extends Component {
                   this.onReceiveAnnotationContainerContent
                 }
                 toggleAnnotationRetrieval={this.state.toggleAnnotationRetrieval}
+                selectionArea=".scoreContainer"
               />
             </div>
             <div className="prevPageButton">
@@ -838,7 +839,7 @@ export default class SelectableScoreApp extends Component {
         <div>
           <button
             onClick={this.activateModal}
-            style={{ padding: "5px", marginTop: "5px" }}
+            style={{ padding: "5px", marginTop: "5px", marginLeft: "5px" }}
           >
             help
           </button>
