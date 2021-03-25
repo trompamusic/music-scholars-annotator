@@ -159,7 +159,7 @@ body {
 .zoomOut {
   margin-left: 54%;
   position: absolute;
-  bottom: 90%;
+  bottom: 91%;
   width: 25px;
   height: 25px;
   border: none;
@@ -178,7 +178,7 @@ body {
 .zoomIn {
   margin-left: 56%;
   position: absolute;
-  bottom: 90%;
+  bottom: 91%;
   width: 25px;
   height: 25px;
   border: none;
@@ -197,7 +197,7 @@ body {
 .prevPageButton {
   margin-left: 52%;
   position: absolute;
-  bottom: 90%;
+  bottom: 91%;
   width: 25px;
   height: 25px;
   border: none;
@@ -216,7 +216,7 @@ body {
 .nextPageButton {
   margin-left: 58%;
   position: absolute;
-  bottom: 90%;
+  bottom: 91%;
   width: 25px;
   height: 25px;
   border: none;
