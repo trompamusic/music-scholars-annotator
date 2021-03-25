@@ -80,6 +80,7 @@ export default class SelectableScoreApp extends Component {
     this.zoomIn = this.zoomIn.bind(this);
     this.zoomOut = this.zoomOut.bind(this);
     this.player = React.createRef();
+    this.handlePageTurn = this.handlePageTurn.bind(this);
   }
 
   zoomIn() {
@@ -679,8 +680,17 @@ export default class SelectableScoreApp extends Component {
       annoToDisplay: annotationsToDisplay,
     });
   }
+
   handleScoreUpdate(scoreElement) {
     console.log("Received updated score DOM element: ", scoreElement);
+    this.onRefreshClick();
+  }
+
+  handlePageTurn() {
+    document.querySelectorAll(".measureBox").forEach((mb) => mb.remove());
+    document
+      .querySelectorAll(".measureBoxBackground")
+      .forEach((mb) => mb.remove());
   }
 
   render() {
@@ -740,7 +750,7 @@ export default class SelectableScoreApp extends Component {
                 selectionArea=".scoreContainer"
               />
             </div>
-            <div className="prevPageButton">
+            <div className="prevPageButton" onClick={this.handlePageTurn}>
               <PrevPageButton
                 buttonContent={
                   <svg
@@ -752,6 +762,8 @@ export default class SelectableScoreApp extends Component {
                     role="img"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 448 512"
+                    width="100%"
+                    height="100%"
                   >
                     <path
                       fill="grey"
@@ -772,6 +784,8 @@ export default class SelectableScoreApp extends Component {
                 role="img"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
+                width="100%"
+                height="100%"
               >
                 <path
                   fill="grey"
@@ -791,6 +805,8 @@ export default class SelectableScoreApp extends Component {
                 role="img"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
+                width="100%"
+                height="100%"
               >
                 <path
                   fill="grey"
@@ -798,7 +814,7 @@ export default class SelectableScoreApp extends Component {
                 ></path>
               </svg>
             </button>
-            <div className="nextPageButton">
+            <div className="nextPageButton" onClick={this.handlePageTurn}>
               <NextPageButton
                 buttonContent={
                   <svg
@@ -810,6 +826,8 @@ export default class SelectableScoreApp extends Component {
                     role="img"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 448 512"
+                    width="100%"
+                    height="100%"
                   >
                     <path
                       fill="grey"
