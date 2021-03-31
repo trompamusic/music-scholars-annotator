@@ -81,7 +81,6 @@ export default class SelectableScoreApp extends Component {
     this.zoomOut = this.zoomOut.bind(this);
     this.player = React.createRef();
     this.handlePageTurn = this.handlePageTurn.bind(this);
-    this.getStaffLineGap = this.getStaffLineGap.bind(this);
   }
 
   zoomIn() {
@@ -672,21 +671,6 @@ export default class SelectableScoreApp extends Component {
         });
       }
     });
-  }
-
-  getStaffLineGap(measure) {
-    var staff = measure.getElementsByClassName("staff")[0];
-    var kids = staff.children;
-    if (kids[0].tagName === "path" && kids[1].tagName === "path") {
-      var pos1 = kids[0].getAttributeNS(null, "d").split(" ")[1];
-      var pos2 = kids[1].getAttributeNS(null, "d").split(" ")[1];
-      return pos2 - pos1;
-    } else {
-      console.log(
-        "My assumptions about staves are wrong for measure:",
-        measure
-      );
-    }
   }
 
   handleAnnoShowingUpdate(content, measureId) {
