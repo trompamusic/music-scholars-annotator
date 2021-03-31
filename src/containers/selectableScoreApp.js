@@ -204,14 +204,15 @@ export default class SelectableScoreApp extends Component {
       elem.style.display !== "none" &&
       (elem.getBBox().x !== 0 || elem.getBBox().y !== 0)
     ) {
-      //var sysMeasure = document.getElementsByClassName("measure");
+      //trims the box to fit within the measure and avoids overflowing slurs etc
       var staff1 = elem.getElementsByClassName("staff")[0];
+      //magic from David Lewis
       var staffLines = Array.prototype.filter.call(
         staff1.children,
         (x) => x.tagName === "path"
       );
+      //sets the bounding box size to the stafflines size
       var bbox = staffLines[0].getBBox();
-
       const x = elem.getBBox().x;
       const width = bbox.width;
       const y = elem.getBBox().y;
