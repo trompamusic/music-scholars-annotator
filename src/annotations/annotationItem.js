@@ -33,7 +33,7 @@ class AnnotationItem extends React.Component {
       userId: null,
       isPictureShowing: false,
       previewButtonContent: "Show preview",
-
+      showRepliesButtonContent: "Show replies",
       isConfirmVisible: false,
       isVisible: false,
       resp: "",
@@ -44,6 +44,7 @@ class AnnotationItem extends React.Component {
     this.updateDatasetAcl = this.updateDatasetAcl.bind(this);
     this.showDetails = this.showDetails.bind(this);
     this.deleteAnno = this.deleteAnno.bind(this);
+    // this.changeContent = this.changeContent.bind(this);
   }
 
   deleteAnno(e) {
@@ -285,6 +286,7 @@ class AnnotationItem extends React.Component {
             });
             rootAnno.appendChild(replyTargetAnno);
             this.props.showReplyHandler();
+
             //creates an array of all the visible replies
             const noLongerShowing = Array.from(
               rootAnno.getElementsByClassName("showReply")
@@ -312,6 +314,7 @@ class AnnotationItem extends React.Component {
               isClicked: false,
             });
             this.props.showReplyHandler();
+
             const annoContainer = document.querySelector(".listContainer");
             const noLongerShowing = Array.from(
               rootAnno.getElementsByClassName("showReply")
@@ -381,8 +384,27 @@ class AnnotationItem extends React.Component {
   renderSwitch = () => {
     /* determine permission state of annotation in Solid Pod */
     const date = this.props.annotation.created;
+    let todaysDateISO = new Date().toISOString();
+    let creationDate = date.split("T")[0];
+    let compareDate = String(todaysDateISO.split("T")[0]);
     let permission;
     let modifyPermissionsElement;
+    let replies = document.querySelectorAll(".replyAnno");
+    const selfId = this.props.annotation["@id"];
+    var areRepliesPresent = false;
+    if (replies.length) {
+      replies.forEach((reply) => {
+        const target = reply.dataset.replyAnnotationTarget;
+        if (target === selfId) {
+          areRepliesPresent = true;
+        }
+      });
+    }
+
+    // if (this.props.areRepliesVisible === false) {
+    //   this.setState({ showReplyButtonContent: "Show replies" });
+    // }
+
     if (this.state.datasetWithAcl) {
       if (getPublicAccess(this.state.datasetWithAcl).read)
         permission = "public";
@@ -473,25 +495,27 @@ class AnnotationItem extends React.Component {
           </div>
         </div>
         <div style={{ paddingTop: "1.5%" }}>
-          <button className="deleteButton" onClick={this.showConfirm}>
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              data-prefix="fas"
-              data-icon="trash"
-              className="svg-inline--fa fa-trash fa-w-14"
-              role="img"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 448 512"
-              width="100%"
-              height="100%"
-            >
-              <path
-                fill="grey"
-                d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-              ></path>
-            </svg>
-          </button>
+          {compareDate === creationDate && (
+            <button className="deleteButton" onClick={this.showConfirm}>
+              <svg
+                aria-hidden="true"
+                focusable="false"
+                data-prefix="fas"
+                data-icon="trash"
+                className="svg-inline--fa fa-trash fa-w-14"
+                role="img"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+                width="100%"
+                height="100%"
+              >
+                <path
+                  fill="grey"
+                  d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+                ></path>
+              </svg>
+            </button>
+          )}
           <button
             className="infoButton"
             onMouseEnter={this.showDetails}
@@ -522,26 +546,30 @@ class AnnotationItem extends React.Component {
 
     let replyButtonsCluster = (
       <div>
-        <p className="hiddenDetails">
+        <div className="hiddenDetails">
           {" "}
           <p className="date">
             Created on: {date}, access permissions: {permission}.
           </p>
-        </p>
-        <button
-          className="showRepliesButton"
-          name="showRepliesButton"
-          onClick={this.onShowReplyClick}
-        >
-          Show Replies
-        </button>
-        <button
-          className="replyButton"
-          name="replyButton"
-          onClick={this.onClick}
-        >
-          Reply
-        </button>
+        </div>
+        <div>
+          {areRepliesPresent === true && (
+            <button
+              className="showRepliesButton"
+              name="showRepliesButton"
+              onClick={this.onShowReplyClick}
+            >
+              {this.state.showRepliesButtonContent}
+            </button>
+          )}
+          <button
+            className="replyButton"
+            name="replyButton"
+            onClick={this.onClick}
+          >
+            Reply
+          </button>
+        </div>
       </div>
     );
 
@@ -554,7 +582,6 @@ class AnnotationItem extends React.Component {
     const repTarget = this.props.annotation.target;
 
     const creator = this.props.annotation.creator || "unknown";
-    const selfId = this.props.annotation["@id"];
 
     // const originAnno = document.querySelectorAll("div[data-self-id]");
     // const innerBodyString = this.props.annotation.source;
@@ -711,6 +738,8 @@ class AnnotationItem extends React.Component {
                   role="img"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 448 512"
+                  width="100%"
+                  height="100%"
                 >
                   <path
                     fill="grey"
@@ -732,6 +761,8 @@ class AnnotationItem extends React.Component {
                   role="img"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 512 512"
+                  width="100%"
+                  height="100%"
                 >
                   <path
                     fill="grey"

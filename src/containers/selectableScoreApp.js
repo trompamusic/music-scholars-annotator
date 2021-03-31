@@ -81,6 +81,7 @@ export default class SelectableScoreApp extends Component {
     this.zoomOut = this.zoomOut.bind(this);
     this.player = React.createRef();
     this.handlePageTurn = this.handlePageTurn.bind(this);
+    this.getStaffLineGap = this.getStaffLineGap.bind(this);
   }
 
   zoomIn() {
@@ -186,6 +187,7 @@ export default class SelectableScoreApp extends Component {
     );
     this.setState({ vrvOptions: newVrvOptions });
   }
+
   showReplyHandler = () => {
     this.setState({ areRepliesVisible: !this.state.areRepliesVisible });
   };
@@ -203,8 +205,16 @@ export default class SelectableScoreApp extends Component {
       elem.style.display !== "none" &&
       (elem.getBBox().x !== 0 || elem.getBBox().y !== 0)
     ) {
+      //var sysMeasure = document.getElementsByClassName("measure");
+      var staff1 = elem.getElementsByClassName("staff")[0];
+      var staffLines = Array.prototype.filter.call(
+        staff1.children,
+        (x) => x.tagName === "path"
+      );
+      var bbox = staffLines[0].getBBox();
+
       const x = elem.getBBox().x;
-      const width = elem.getBBox().width;
+      const width = bbox.width;
       const y = elem.getBBox().y;
       const height = elem.getBBox().height;
       const offset = elem.closest("svg").parentElement.getBoundingClientRect();
@@ -414,6 +424,7 @@ export default class SelectableScoreApp extends Component {
             document.querySelector("#" + measureId)
           );
           console.log("Coords: ", coords);
+
           const measureBox = document.createElement("div");
           const measureBoxBackground = document.createElement("div");
 
@@ -547,6 +558,7 @@ export default class SelectableScoreApp extends Component {
             );
             console.log("no longer showing ", noLongerShowing);
             //hides them
+
             if (noLongerShowing.length) {
               //const replyHolder = document.createElement("div");
               if (this.state.areRepliesVisible === true) {
@@ -568,6 +580,7 @@ export default class SelectableScoreApp extends Component {
         });
       }
     );
+
     console.log("iteration succeded");
 
     content.forEach((anno) => {
@@ -660,6 +673,22 @@ export default class SelectableScoreApp extends Component {
       }
     });
   }
+
+  getStaffLineGap(measure) {
+    var staff = measure.getElementsByClassName("staff")[0];
+    var kids = staff.children;
+    if (kids[0].tagName === "path" && kids[1].tagName === "path") {
+      var pos1 = kids[0].getAttributeNS(null, "d").split(" ")[1];
+      var pos2 = kids[1].getAttributeNS(null, "d").split(" ")[1];
+      return pos2 - pos1;
+    } else {
+      console.log(
+        "My assumptions about staves are wrong for measure:",
+        measure
+      );
+    }
+  }
+
   handleAnnoShowingUpdate(content, measureId) {
     let _annoIds = content.map((jsonIds) => {
       const annotationsIds = jsonIds["@id"];
@@ -705,25 +734,78 @@ export default class SelectableScoreApp extends Component {
       >
         <div>
           <header className="modal-header">
-            <h2 className="modal-title">This modal has a title</h2>
+            <h1 className="modal-title">Help section</h1>
           </header>
           <div className="modal-body">
-            <p>Subtitle</p>
-            <div style={{ height: 200, overflow: "auto" }}>
-              <h3>Internally Scrolling Region</h3>
+            <h3>
+              Below you can find some tips on how to use the annotation tool:
+            </h3>
+            <br />
+            <div style={{ height: 500, overflow: "auto" }}>
+              <h4>How do I create an annotation?</h4>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
+                - Select the type of selection you want to use (note, measure,
+                directives etc)
+                <br />
+                <br />- Drag across the score in order to select the elements
+                you want to annotate
+                <br />
+                <br />- Select the type of annotation you wish to submit
+                (description, link etc)
+                <br />
+                <br />- Type the text or paste the URL you wish to attach to the
+                annotation
+                <br />
+                <br />- Click the green submit button
+              </p>
+              <h4>I made a mistake in my annotation, can I delete it?</h4>
+              <p>
+                - Yes, you can delete you annotation by clicking the rubbish bin
+                icon in the annotation item and click yes to delete it
+              </p>
+
+              <h4>
+                I have replied to an annotation but I can’t see my reply, where
+                is it?
+              </h4>
+              <p>
+                - You can see all the replies to the specific annotation by
+                clicking the “show replies button” in the annotation you are
+                replying to
+              </p>
+              <h4>
+                Can I create a different type of reply (media or image content)?
+              </h4>
+              <p>
+                - Not right now, this feature will be released in a future
+                version of the software
+              </p>
+              <h4>
+                How does the solid pod system work, is my data really safe?
+              </h4>
+              <p>
+                - Solid was purposely built for data safety and protection, and
+                by design everything contained in the pod is private unless
+                specified. For more information visit the{" "}
+                <a
+                  href="https://solidproject.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  solid project
+                </a>{" "}
+                page for more info
+              </p>
+              <h4>I have found a bug, what can i do?</h4>
+              <p>
+                - Please submit a bug report to fzuba002@gold.ac.uk describing
+                the nature of the bug and how to reproduce it, make sure to
+                include browser model and operating system used. Thanks! :)
               </p>
             </div>
           </div>
           <footer className="modal-footer">
-            <button onClick={this.deactivateModal}>deactivate modal</button>
+            <button onClick={this.deactivateModal}>close</button>
           </footer>
         </div>
       </Modal>
