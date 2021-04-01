@@ -735,6 +735,13 @@ export default class SelectableScoreApp extends Component {
                 <br />- Drag across the score in order to select the elements
                 you want to annotate
                 <br />
+                <br />- You can select discontinuous measures by holding the
+                shift key
+                <br />
+                <br />- Sometimes slurs can get in the way of your selection,
+                you can deselect unwanted measures by holding the shift key and
+                clicking on the measure you wish to deselect
+                <br />
                 <br />- Select the type of annotation you wish to submit
                 (description, link etc)
                 <br />
@@ -743,10 +750,10 @@ export default class SelectableScoreApp extends Component {
                 <br />
                 <br />- Click the green submit button
               </p>
-              <h4>I made a mistake in my annotation, can I delete it?</h4>
+              <h4>I made a mistake in my annotation, how can I delete it?</h4>
               <p>
-                - Yes, you can delete you annotation by clicking the rubbish bin
-                icon in the annotation item and click yes to delete it
+                - You can delete you annotation by clicking the rubbish bin icon
+                in the annotation item and click yes to delete it
               </p>
 
               <h4>
@@ -783,9 +790,13 @@ export default class SelectableScoreApp extends Component {
               </p>
               <h4>I have found a bug, what can i do?</h4>
               <p>
-                - Please submit a bug report to fzuba002@gold.ac.uk describing
-                the nature of the bug and how to reproduce it, make sure to
-                include browser model and operating system used. Thanks! :)
+                - Please submit a bug report to{" "}
+                <a href="mailto:fzuba002@gold.ac.uk?subject=Bug report">
+                  fzuba002@gold.ac.uk
+                </a>{" "}
+                describing the nature of the bug and how to reproduce it, make
+                sure to include browser model and operating system used. Thanks!
+                :)
               </p>
             </div>
           </div>
