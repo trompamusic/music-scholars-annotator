@@ -329,7 +329,8 @@ body {
   list-style-type: none;
   border-bottom: 0.5px solid rgba(136, 136, 136, 0.5);
   padding-bottom: 1%;
-  overflow-y: auto;
+  overflow-y: hidden;
+  position: relative;
 }
 
 .annoItem p {

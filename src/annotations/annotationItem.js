@@ -33,7 +33,7 @@ class AnnotationItem extends React.Component {
       userId: null,
       isPictureShowing: false,
       previewButtonContent: "Show preview",
-      showRepliesButtonContent: "Show replies",
+      showRepliesButtonContent: "Toggle replies",
       isConfirmVisible: false,
       isVisible: false,
       resp: "",
@@ -382,7 +382,6 @@ class AnnotationItem extends React.Component {
   }
 
   renderSwitch = () => {
-    /* determine permission state of annotation in Solid Pod */
     const date = this.props.annotation.created;
     let todaysDateISO = new Date().toISOString();
     let creationDate = date.split("T")[0];
@@ -392,6 +391,7 @@ class AnnotationItem extends React.Component {
     let replies = document.querySelectorAll(".replyAnno");
     const selfId = this.props.annotation["@id"];
     var areRepliesPresent = false;
+    /* cehck to see if any available replies are present, if not the toggle replies is hidden */
     if (replies.length) {
       replies.forEach((reply) => {
         const target = reply.dataset.replyAnnotationTarget;
@@ -401,10 +401,7 @@ class AnnotationItem extends React.Component {
       });
     }
 
-    // if (this.props.areRepliesVisible === false) {
-    //   this.setState({ showReplyButtonContent: "Show replies" });
-    // }
-
+    /* determine permission state of annotation in Solid Pod */
     if (this.state.datasetWithAcl) {
       if (getPublicAccess(this.state.datasetWithAcl).read)
         permission = "public";
@@ -479,6 +476,7 @@ class AnnotationItem extends React.Component {
         );
       }
     }
+    /* shared components for all the annotations */
     let commonAnnoComponents = (
       <div>
         <div className="hiddenConfirm">
@@ -543,7 +541,7 @@ class AnnotationItem extends React.Component {
         </div>
       </div>
     );
-
+    /* cluster of buttons and stuff in the "annotation footer" */
     let replyButtonsCluster = (
       <div>
         <div className="hiddenDetails">
@@ -580,13 +578,7 @@ class AnnotationItem extends React.Component {
     const bodyMedia = this.props.annotation.body[0].id;
     const target = this.props.annotation.target[0].id;
     const repTarget = this.props.annotation.target;
-
     const creator = this.props.annotation.creator || "unknown";
-
-    // const originAnno = document.querySelectorAll("div[data-self-id]");
-    // const innerBodyString = this.props.annotation.source;
-    // const selfIdData = selfId.dataset.selfId;
-    // const rootAnnoTargetIdData = rootAnnoTargetId.dataset.rootAnnotationId;
 
     switch (motivation) {
       case "describing":
@@ -716,7 +708,6 @@ class AnnotationItem extends React.Component {
             {replyButtonsCluster}
           </div>
         );
-      //FIXME: if deleting root anno what happens to replies? Still sittin in solidPOD but are not rendered... needs discussion
       case "trompa:playlist":
         return;
 
