@@ -3,10 +3,6 @@
   "name": "music-scholars-annotator",
   "version": "0.0.1",
   "description": "TROMPA music scholars annotator component",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/trompamusic/music-scholars-annotator"
-  },
   "main": "index.js",
   "scripts": {
     "start": "PORT=8080 react-scripts start",
