@@ -25,7 +25,7 @@ class renditionsPlaylist extends React.Component {
     return (
       <div>
         <button className="renditionButton" onClick={this.onClick}>
-          show renditions playlist
+          Show recordings playlist
         </button>
         <div className="playlist hidden">
           {this.props.allEntries.map((anno) => {
