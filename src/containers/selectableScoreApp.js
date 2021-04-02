@@ -286,6 +286,8 @@ export default class SelectableScoreApp extends Component {
           toggleAnnotationRetrieval: true,
         },
         () => {
+          let loading = document.querySelector(".loading");
+          loading.classList.remove("hidden");
           this.setState({
             toggleAnnotationRetrieval: false,
             annotationType: "describing",
