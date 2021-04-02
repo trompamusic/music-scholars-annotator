@@ -112,6 +112,7 @@ export class AnnotationSubmitter extends React.Component {
               value="describing"
               placeholder="Add your annotation..."
               onChange={this.props.onAnnoTypeChange}
+              checked={this.props.annotationType === "describing"}
             />
             Describing
           </label>
@@ -123,6 +124,7 @@ export class AnnotationSubmitter extends React.Component {
               name="annotationType"
               placeholder="Insert your URI link..."
               onChange={this.props.onAnnoTypeChange}
+              checked={this.props.annotationType === "linking"}
             />
             Linking
           </label>
@@ -133,6 +135,7 @@ export class AnnotationSubmitter extends React.Component {
               value="cueMedia"
               name="annotationType"
               onChange={this.props.onAnnoTypeChange}
+              checked={this.props.annotationType === "cueMedia"}
             />
             Cue Media
           </label>
@@ -144,6 +147,7 @@ export class AnnotationSubmitter extends React.Component {
               name="annotationType"
               placeholder="Insert your image link..."
               onChange={this.props.onAnnoTypeChange}
+              checked={this.props.annotationType === "image"}
             />
             Image
           </label>
@@ -154,6 +158,7 @@ export class AnnotationSubmitter extends React.Component {
               value="playlist"
               name="annotationType"
               onChange={this.props.onAnnoTypeChange}
+              checked={this.props.annotationType === "playlist"}
             />
             Playlist
           </label>

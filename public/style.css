@@ -526,7 +526,7 @@ circle {
   padding: 20px;
   border-radius: 4px;
   text-align: center;
-  font-size: 1em;
+  font-size: 16px;
   cursor: pointer;
   /* display: inline-flexbox; */
   transition-duration: 0.4s;

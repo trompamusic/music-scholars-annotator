@@ -69,7 +69,7 @@ export default class RadioButton extends Component {
   render() {
     return (
       <div>
-        <h3>Selection Type</h3>
+        <h3>Selection type</h3>
         <form>{this.buildCheckboxes()}</form>
       </div>
     );

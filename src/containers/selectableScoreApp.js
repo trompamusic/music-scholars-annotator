@@ -30,7 +30,7 @@ export default class SelectableScoreApp extends Component {
     this.state = {
       annoValue: "",
       selection: [],
-      annotationType: "",
+      annotationType: "describing",
       placeholder: "Add your annotation...",
       uri:
         "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei",
@@ -288,7 +288,7 @@ export default class SelectableScoreApp extends Component {
         () => {
           this.setState({
             toggleAnnotationRetrieval: false,
-            annotationType: "",
+            annotationType: "describing",
             replyAnnotationTarget: [],
             replyAnnotationTargetId: "",
             placeholder: "Add your annotation...",
@@ -314,7 +314,7 @@ export default class SelectableScoreApp extends Component {
           loading.classList.remove("hidden");
           this.setState({
             toggleAnnotationRetrieval: false,
-            annotationType: "",
+            annotationType: "describing",
             replyAnnotationTarget: [],
             replyAnnotationTargetId: "",
             placeholder: "Add your annotation...",
