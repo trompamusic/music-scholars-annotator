@@ -310,8 +310,8 @@ export default class SelectableScoreApp extends Component {
           toggleAnnotationRetrieval: true,
         },
         () => {
-          let loader = document.querySelector(".loader");
-          loader.classList.remove("hidden");
+          let loading = document.querySelector(".loading");
+          loading.classList.remove("hidden");
           this.setState({
             toggleAnnotationRetrieval: false,
             annotationType: "",
@@ -674,8 +674,8 @@ export default class SelectableScoreApp extends Component {
         });
       }
     });
-    let loader = document.querySelector(".loader");
-    loader.classList.add("hidden");
+    let loading = document.querySelector(".loading");
+    loading.classList.add("hidden");
   }
 
   handleAnnoShowingUpdate(content, measureId) {
@@ -983,13 +983,17 @@ export default class SelectableScoreApp extends Component {
           areRepliesVisible={this.state.areRepliesVisible}
           onRefreshClick={this.onRefreshClick}
         />
-        <svg
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-          className="loader hidden"
-        >
-          <circle cx="50" cy="50" r="45" />
-        </svg>
+        <div className="loading hidden">
+          Loading...
+          <svg
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+            className="loader"
+          >
+            <circle cx="50" cy="50" r="45" />
+          </svg>
+        </div>
+
         <div>
           <button
             onClick={this.activateModal}
