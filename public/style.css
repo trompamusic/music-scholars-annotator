@@ -211,7 +211,7 @@ circle {
 .zoomOut {
   margin-left: 2%;
   position: absolute;
-  bottom: 92%;
+  bottom: 95%;
   width: 25px;
   height: 25px;
   border: none;
@@ -230,7 +230,7 @@ circle {
 .zoomIn {
   margin-left: 4%;
   position: absolute;
-  bottom: 92%;
+  bottom: 95%;
   width: 25px;
   height: 25px;
   border: none;
@@ -248,7 +248,7 @@ circle {
 
 .prevPageButton {
   position: absolute;
-  bottom: 92%;
+  bottom: 95%;
   width: 25px;
   height: 25px;
   border: none;
@@ -267,7 +267,7 @@ circle {
 .nextPageButton {
   margin-left: 6%;
   position: absolute;
-  bottom: 92%;
+  bottom: 95%;
   width: 25px;
   height: 25px;
   border: none;
