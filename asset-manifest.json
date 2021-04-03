@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/music-scholars-annotator/static/js/main.211046bd.chunk.js",
-    "main.js.map": "/music-scholars-annotator/static/js/main.211046bd.chunk.js.map",
+    "main.js": "/music-scholars-annotator/static/js/main.8efef495.chunk.js",
+    "main.js.map": "/music-scholars-annotator/static/js/main.8efef495.chunk.js.map",
     "runtime-main.js": "/music-scholars-annotator/static/js/runtime-main.942e566b.js",
     "runtime-main.js.map": "/music-scholars-annotator/static/js/runtime-main.942e566b.js.map",
     "static/js/2.57b675a1.chunk.js": "/music-scholars-annotator/static/js/2.57b675a1.chunk.js",
     "static/js/2.57b675a1.chunk.js.map": "/music-scholars-annotator/static/js/2.57b675a1.chunk.js.map",
     "index.html": "/music-scholars-annotator/index.html",
-    "precache-manifest.c2e100e86dde244a5e0ff513085ecd45.js": "/music-scholars-annotator/precache-manifest.c2e100e86dde244a5e0ff513085ecd45.js",
+    "precache-manifest.49ff1befe0115b4ebdd9ad6b2bdfb689.js": "/music-scholars-annotator/precache-manifest.49ff1befe0115b4ebdd9ad6b2bdfb689.js",
     "service-worker.js": "/music-scholars-annotator/service-worker.js",
     "static/js/2.57b675a1.chunk.js.LICENSE.txt": "/music-scholars-annotator/static/js/2.57b675a1.chunk.js.LICENSE.txt",
     "static/media/play-solid.svg": "/music-scholars-annotator/static/media/play-solid.f79fe6ae.svg"
@@ -15,6 +15,6 @@
   "entrypoints": [
     "static/js/runtime-main.942e566b.js",
     "static/js/2.57b675a1.chunk.js",
-    "static/js/main.211046bd.chunk.js"
+    "static/js/main.8efef495.chunk.js"
   ]
 }
