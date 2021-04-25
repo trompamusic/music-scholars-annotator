@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import SelectableScore from "selectable-score/lib/selectable-score";
 import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
@@ -17,14 +17,14 @@ import HelpModal from "./HelpModal";
 //Modal.setAppElement("root");
 //
 //const vAdjust = 26; // num. pixels to nudge down anno measureBoxes+
-var scale = 50;
+const defaultVerovioScale = 50;
 
 let viewPortHeight = window.outerHeight;
 let viewPortWidth = window.outerWidth;
 // prettier-ignore
-var height = (viewPortHeight < 1439) ? 2000 : 2500;
+const defaultVerovioHeight = (viewPortHeight < 1439) ? 2000 : 2500;
 // prettier-ignore
-var width = (viewPortWidth > 1925) ? 2800 : 2000;
+const defaultVerovioWidth = (viewPortWidth > 1925) ? 2800 : 2000;
 
 // height /= scale / 100;
 // width /= scale / 100;
@@ -55,10 +55,10 @@ export default class SelectableScoreApp extends Component {
       replyAnnotationTargetId: "",
       areRepliesVisible: false,
       vrvOptions: {
-        scale: scale,
+        scale: defaultVerovioScale,
         adjustPageHeight: 0,
-        pageHeight: height,
-        pageWidth: width,
+        pageHeight: defaultVerovioHeight,
+        pageWidth: defaultVerovioWidth,
         footer: "none",
         unit: 6,
       },
@@ -80,13 +80,11 @@ export default class SelectableScoreApp extends Component {
     this.onMediaClick = this.onMediaClick.bind(this);
     this.showReplyHandler = this.showReplyHandler.bind(this);
     this.handleAnnoShowingUpdate = this.handleAnnoShowingUpdate.bind(this);
-    this.zoomIn = this.zoomIn.bind(this);
-    this.zoomOut = this.zoomOut.bind(this);
     this.player = React.createRef();
     this.handlePageTurn = this.handlePageTurn.bind(this);
   }
 
-  zoomIn() {
+  zoomIn = () => {
     let step = 5;
     let initialZoom = this.state.vrvOptions.scale;
     let initialHeight = this.state.vrvOptions.pageHeight;
@@ -142,7 +140,7 @@ export default class SelectableScoreApp extends Component {
     this.setState({ vrvOptions: newVrvOptions });
   }
 
-  zoomOut() {
+  zoomOut = () => {
     let step = 5;
     let initialZoom = this.state.vrvOptions.scale;
     let initialHeight = this.state.vrvOptions.pageHeight;
@@ -685,8 +683,7 @@ export default class SelectableScoreApp extends Component {
 
   handleAnnoShowingUpdate(content, measureId) {
     let _annoIds = content.map((jsonIds) => {
-      const annotationsIds = jsonIds["@id"];
-      return annotationsIds;
+      return jsonIds["@id"];
     });
     let _filteredAnnoIds = this.state.measuresToAnnotationsMap[measureId];
     let compare = _annoIds.filter((anno) => _filteredAnnoIds.includes(anno));
