@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import SelectableScoreWrapper from "./containers/selectableScoreWrapper";
+import App from "./App";
 
 // Parameters for SelectableScore component
 // ****************************************
@@ -53,10 +53,6 @@ import SelectableScoreWrapper from "./containers/selectableScoreWrapper";
 // }
 
 ReactDOM.render(
-  <SelectableScoreWrapper
-  // vrvOptions={vrvOptions}
-  // zoomIn={onZoomIncrease}
-  // zoomOut={onZoomDecrease}
-  />,
+  <App/>,
   document.querySelector(".container")
 );
