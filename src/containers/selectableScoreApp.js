@@ -13,6 +13,7 @@ import ArrowToRight from '../graphics/arrow-to-right-regular.svg';
 import SearchMinus from '../graphics/search-minus-solid.svg';
 import SearchPlus from '../graphics/search-plus-solid.svg';
 import HelpModal from "./HelpModal";
+import FileSelector from "./FileSelector";
 
 //Modal.setAppElement("root");
 //
@@ -45,8 +46,7 @@ export default class SelectableScoreApp extends Component {
       currentAnnotation: [],
       toggleAnnotationRetrieval: false,
       hasContent: true,
-      isClicked: false,
-      showMEIInput: true,
+      fileSelected: false,
       currentMedia: this.props.currentMedia || "",
       seekTo: "",
       measuresToAnnotationsMap: {},
@@ -71,9 +71,6 @@ export default class SelectableScoreApp extends Component {
     this.onReceiveAnnotationContainerContent = this.onReceiveAnnotationContainerContent.bind(
       this
     );
-    this.onSubmitMEI = this.onSubmitMEI.bind(this);
-    this.onMEIInputChange = this.onMEIInputChange.bind(this);
-    this.hideMEIInput = this.hideMEIInput.bind(this);
     this.onAnnoTypeChange = this.onAnnoTypeChange.bind(this);
     this.onAnnoReplyHandler = this.onAnnoReplyHandler.bind(this);
     this.convertCoords = this.convertCoords.bind(this);
@@ -250,13 +247,10 @@ export default class SelectableScoreApp extends Component {
     /* and anything else your app needs to do when the selection changes */
   }
 
-  onMEIInputChange = (e) => {
-    this.setState({ uri: e.target.value });
+  onFileSelected = (uri) => {
+    this.setState({ uri: uri , fileSelected: true});
   };
 
-  hideMEIInput() {
-    this.setState({ showMEIInput: !this.state.showMEIInput });
-  }
   //////////// NEEDS TO WIPE TARGET REPLY AFTER RPELYING TO IT ALSO THE ANNOTATION TYPE HANDLING IS MESSY //////////////////
   onAnnoReplyHandler(replyTarget, replyTargetId) {
     this.setState({
@@ -267,17 +261,6 @@ export default class SelectableScoreApp extends Component {
       replyAnnotationTargetId: replyTargetId,
     });
   }
-
-  onSubmitMEI = () => {
-    this.setState(
-      {
-        isClicked: true,
-      },
-      () => {
-        this.hideMEIInput();
-      }
-    );
-  };
 
   onResponse(resp) {
     console.log(resp);
@@ -714,10 +697,14 @@ export default class SelectableScoreApp extends Component {
   }
 
   render() {
-    const modal = <HelpModal isOpen={this.state.helpWindowIsActive} onRequestClose={this.deactivateModal}/>
     return (
       <div>
-        {this.state.isClicked === true && (
+        {!this.state.fileSelected &&
+          <FileSelector onSelect={this.onFileSelected}
+                        defaultUrl={this.state.uri}
+                        placeholder="mahler four hands rendition..."
+          />}
+        {this.state.fileSelected && (
           <div>
             <div className="scoreContainer">
               <div className="annotationBoxesContainer" />
@@ -758,25 +745,6 @@ export default class SelectableScoreApp extends Component {
                 />
               </div>
             </div>
-          </div>
-        )}
-        {this.state.showMEIInput && (
-          <div>
-            <p>Select your MEI file:</p>
-            <input
-              type="text"
-              onChange={this.onMEIInputChange}
-              placeholder="mahler four hands rendition..."
-              className="sizedTextBox"
-            />
-
-            <input
-              title="click to render the linked MEI file"
-              className="MEIButton"
-              type="button"
-              onClick={this.onSubmitMEI}
-              value="render"
-            />
           </div>
         )}
 
@@ -840,7 +808,7 @@ export default class SelectableScoreApp extends Component {
           >
             help
           </button>
-          {modal}
+          <HelpModal isOpen={this.state.helpWindowIsActive} onRequestClose={this.deactivateModal}/>
         </div>
 
         <ReactPlayer
