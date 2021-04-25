@@ -25,6 +25,7 @@
     "browserslist": "^4.11.0",
     "fibers": "^5.0.0",
     "graphql": "^15.5.0",
+    "meld-clients-core": "oerc-music/meld-clients-core#meld-dev-2.0-TROMPA",
     "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",

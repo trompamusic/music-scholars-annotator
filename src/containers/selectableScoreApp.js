@@ -14,6 +14,9 @@ import SearchMinus from '../graphics/search-minus-solid.svg';
 import SearchPlus from '../graphics/search-plus-solid.svg';
 import HelpModal from "./HelpModal";
 import FileSelector from "./FileSelector";
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
+import FtempoSearch from "./FtempoSearch";
 
 //Modal.setAppElement("root");
 //
@@ -30,7 +33,7 @@ const defaultVerovioWidth = (viewPortWidth > 1925) ? 2800 : 2000;
 // height /= scale / 100;
 // width /= scale / 100;
 
-export default class SelectableScoreApp extends Component {
+class SelectableScoreApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,6 +57,9 @@ export default class SelectableScoreApp extends Component {
       helpWindowIsActive: false,
       replyAnnotationTargetId: "",
       areRepliesVisible: false,
+
+      ftempoSearchCounter: 1,
+
       vrvOptions: {
         scale: defaultVerovioScale,
         adjustPageHeight: 0,
@@ -696,6 +702,16 @@ export default class SelectableScoreApp extends Component {
       .forEach((mb) => mb.remove());
   }
 
+  onFtempoSearchButton = () => {
+    // TODO: This is a quick hack. At the moment SelectableScore doesn't trigger
+    //  handleScoreUpdate on initial page load, only after a page is turned or zoomed
+    //  So in order to make sure that we pass this.props.score.vrvTk to <FtempoSearch>,
+    //  we just randomly update state when the user presses a button to make sure that
+    //  we re-render
+    console.debug(`state update ${this.state.ftempoSearchCounter}`)
+    this.setState({ftempoSearchCounter: this.state.ftempoSearchCounter+1})
+  }
+
   render() {
     return (
       <div>
@@ -747,6 +763,13 @@ export default class SelectableScoreApp extends Component {
             </div>
           </div>
         )}
+
+        {this.state.fileSelected &&
+          <FtempoSearch
+              onButtonPress={this.onFtempoSearchButton}
+              vrvToolkit={this.props.score.vrvTk}
+              counter={this.state.ftempoSearchCounter}
+          />}
 
         {/*selector for the component selection*/}
         <SelectionHandler
@@ -829,3 +852,14 @@ export default class SelectableScoreApp extends Component {
     );
   }
 }
+
+function mapStateToProps({ score }) {
+  return { score }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators( {
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, false, {forwardRef: true})(SelectableScoreApp);

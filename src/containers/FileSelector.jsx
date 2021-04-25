@@ -18,7 +18,7 @@ query earlyMusicWorks($query: String!) {
         composer {
           name
         }
-        workExample(filter: {OR:[{encodingFormat:"application/vnd.recordare.musicxml+xml"}, {encodingFormat:"application/vnd.recordare.musicxml"}]}) {
+        workExample(filter: {encodingFormat:"application/mei+xml"}) {
           ... on MediaObject {
             identifier
             source
@@ -61,9 +61,14 @@ function SearchResults(props) {
                     const title = item.name;
                     const contributor = item.contributor;
                     const composer = item.composer[0].name;
-                    return <li key={id}>
-                        <a href="#" onClick={props.onSelect}>{composer} - {title} (from {contributor})</a>
-                    </li>
+                    const workExample = item.workExample;
+                    if (workExample && workExample.length) {
+                        return <li key={id}>
+                            <a href={workExample[0].source} onClick={props.onSelect}>{composer} - {title} (from {contributor})</a>
+                        </li>
+                    } else {
+                        return ""
+                    }
                 })}
             </ul>
         </div>
@@ -110,8 +115,7 @@ export default class FileSelector extends Component {
 
     handleSearchResultSelection = event => {
         event.preventDefault();
-        console.debug(event);
-        //this.props.onSelect(this.state.fieldValue || this.state.defaultValue);
+        this.props.onSelect(event.target.attributes.href.value);
     }
 
     render() {
