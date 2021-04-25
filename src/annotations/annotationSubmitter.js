@@ -2,7 +2,8 @@
 /* it also renders the radio button array to selecte the annotation motivation  */
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import Addannotations from "./addAnnotation.js";
+import AddAnnotation from "./addAnnotation.js";
+
 export class AnnotationSubmitter extends React.Component {
   constructor(props) {
     super(props);
@@ -174,7 +175,7 @@ export class AnnotationSubmitter extends React.Component {
             Reply
           </label>
           <div className="addAnnotations">
-            <Addannotations
+            <AddAnnotation
               ref={this.textArea}
               annotationType={this.props.annotationType}
               submitUri={this.props.submitUri}

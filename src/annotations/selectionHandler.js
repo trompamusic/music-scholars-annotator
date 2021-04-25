@@ -25,7 +25,7 @@ const Selectors = [
   },
 ];
 
-export default class RadioButton extends Component {
+export default class SelectionHandler extends Component {
   state = {
     selectorString: [],
   };

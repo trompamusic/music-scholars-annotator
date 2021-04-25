@@ -3,7 +3,7 @@
 import React from "react";
 import SubmitButton from "selectable-score/lib/submit-button.js";
 
-export class Addannotation extends React.Component {
+export class AddAnnotation extends React.Component {
   state = {
     value: "",
     seconds: "",
@@ -181,7 +181,7 @@ export class Addannotation extends React.Component {
   }
 }
 
-export default Addannotation;
+export default AddAnnotation;
 
 /* old */
 /* <button
