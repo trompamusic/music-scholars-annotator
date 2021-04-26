@@ -40,7 +40,6 @@ export default class FtempoSearch extends Component {
 
     doSearch = () => {
         const query = {codestring: this.state.meiQueryOptions[this.state.selectedOption].notes}
-        console.debug(`query! ${query}`)
         fetch('http://uk-dev-ftempo.rism.digital/api/query', {
             method: 'POST',
             headers: {
@@ -71,6 +70,10 @@ export default class FtempoSearch extends Component {
                 </ul>
                     <button onClick={this.doSearch} disabled={!this.state.selectedOption}>Search</button>
                 </>
+                }
+                {this.state.searchResults && this.state.searchResults.map((i) => {
+                    return <li key={i.id}>{i.id}</li>
+                })
                 }
             </div>
         )
