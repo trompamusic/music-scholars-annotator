@@ -1,6 +1,5 @@
 body {
   font-family: sans-serif;
-  user-select: none;
 }
 
 .loading {
@@ -132,7 +131,7 @@ circle {
   top: 20%;
 }
 
-.delteYes {
+.deleteYes {
   display: inline;
   border: 1px solid white;
   background-color: rgb(218, 218, 218);
@@ -184,10 +183,6 @@ circle {
   top: 20%;
 }
 
-.noVis {
-  visibility: hidden;
-}
-
 .replyButton:hover {
   background-color: gray;
 }
@@ -213,7 +208,7 @@ circle {
 }
 
 .zoomOut {
-  margin-left: 2%;
+  margin-left: 1.5%;
   position: absolute;
   bottom: 95%;
   width: 25px;
@@ -225,10 +220,8 @@ circle {
   outline: none;
 }
 
-.zoomOut svg {
-  position: absolute;
-  left: 20%;
-  top: 20%;
+.zoomOut img {
+  width: 25px;
 }
 
 .zoomIn {
@@ -244,10 +237,8 @@ circle {
   outline: none;
 }
 
-.zoomIn svg {
-  position: absolute;
-  left: 20%;
-  top: 20%;
+.zoomIn img {
+  width: 25px;
 }
 
 .prevPageButton {
@@ -362,6 +353,7 @@ circle {
 }
 
 .scoreContainer {
+  user-select: none;
   position: relative;
   float: right;
   bottom: 250px;
