@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import SelectableScore from "selectable-score/lib/selectable-score";
 import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
@@ -8,14 +8,14 @@ import AnnotationList from "../annotations/annotationList.js";
 import ReactPlayer from "react-player";
 import RenditionsPlaylist from "../annotations/renditionsPlaylist.js";
 
-import ArrowToLeft from '../graphics/arrow-to-left-regular.svg';
-import ArrowToRight from '../graphics/arrow-to-right-regular.svg';
-import SearchMinus from '../graphics/search-minus-solid.svg';
-import SearchPlus from '../graphics/search-plus-solid.svg';
+import ArrowToLeft from "../graphics/arrow-to-left-regular.svg";
+import ArrowToRight from "../graphics/arrow-to-right-regular.svg";
+import SearchMinus from "../graphics/search-minus-solid.svg";
+import SearchPlus from "../graphics/search-plus-solid.svg";
 import HelpModal from "./HelpModal";
 import FileSelector from "./FileSelector";
-import {bindActionCreators} from "redux";
-import {connect} from "react-redux";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import FtempoSearch from "./FtempoSearch";
 
 //Modal.setAppElement("root");
@@ -59,7 +59,7 @@ class SelectableScoreApp extends Component {
       areRepliesVisible: false,
 
       ftempoSearchCounter: 1,
-
+      ftmepoMode: false,
       vrvOptions: {
         scale: defaultVerovioScale,
         adjustPageHeight: 0,
@@ -141,7 +141,7 @@ class SelectableScoreApp extends Component {
       newVrvOptions.pageHeight
     );
     this.setState({ vrvOptions: newVrvOptions });
-  }
+  };
 
   zoomOut = () => {
     let step = 5;
@@ -189,7 +189,7 @@ class SelectableScoreApp extends Component {
       newVrvOptions.pageHeight
     );
     this.setState({ vrvOptions: newVrvOptions });
-  }
+  };
 
   showReplyHandler = () => {
     this.setState({ areRepliesVisible: !this.state.areRepliesVisible });
@@ -254,7 +254,7 @@ class SelectableScoreApp extends Component {
   }
 
   onFileSelected = (uri) => {
-    this.setState({ uri: uri , fileSelected: true});
+    this.setState({ uri: uri, fileSelected: true });
   };
 
   //////////// NEEDS TO WIPE TARGET REPLY AFTER RPELYING TO IT ALSO THE ANNOTATION TYPE HANDLING IS MESSY //////////////////
@@ -708,18 +708,23 @@ class SelectableScoreApp extends Component {
     //  So in order to make sure that we pass this.props.score.vrvTk to <FtempoSearch>,
     //  we just randomly update state when the user presses a button to make sure that
     //  we re-render
-    console.debug(`state update ${this.state.ftempoSearchCounter}`)
-    this.setState({ftempoSearchCounter: this.state.ftempoSearchCounter+1})
-  }
+    console.debug(`state update ${this.state.ftempoSearchCounter}`);
+    this.setState({
+      ftempoSearchCounter: this.state.ftempoSearchCounter + 1,
+      ftmepoMode: true,
+    });
+  };
 
   render() {
     return (
       <div>
-        {!this.state.fileSelected &&
-          <FileSelector onSelect={this.onFileSelected}
-                        defaultUrl={this.state.uri}
-                        placeholder="mahler four hands rendition..."
-          />}
+        {!this.state.fileSelected && (
+          <FileSelector
+            onSelect={this.onFileSelected}
+            defaultUrl={this.state.uri}
+            placeholder="mahler four hands rendition..."
+          />
+        )}
         {this.state.fileSelected && (
           <div>
             <div className="scoreContainer">
@@ -741,22 +746,20 @@ class SelectableScoreApp extends Component {
             <div className="controls">
               <div className="prevPageButton" onClick={this.handlePageTurn}>
                 <PrevPageButton
-                  buttonContent={
-                    <img src={ArrowToLeft} alt="previous page"/>
-                  }
+                  buttonContent={<img src={ArrowToLeft} alt="previous page" />}
                   uri={this.state.uri}
                 />
               </div>
               <button onClick={this.zoomOut} className="zoomOut">
-                <img src={SearchMinus} alt="zoom out"/>
+                <img src={SearchMinus} alt="zoom out" />
               </button>
               {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
               <button onClick={this.zoomIn} className="zoomIn">
-                <img src={SearchPlus} alt="zoom in"/>
+                <img src={SearchPlus} alt="zoom in" />
               </button>
               <div className="nextPageButton" onClick={this.handlePageTurn}>
                 <NextPageButton
-                  buttonContent={<img src={ArrowToRight} alt="next page"/>}
+                  buttonContent={<img src={ArrowToRight} alt="next page" />}
                   uri={this.state.uri}
                 />
               </div>
@@ -764,65 +767,84 @@ class SelectableScoreApp extends Component {
           </div>
         )}
 
-        {this.state.fileSelected &&
+        {this.state.fileSelected && (
           <FtempoSearch
-              onButtonPress={this.onFtempoSearchButton}
-              vrvToolkit={this.props.score.vrvTk}
-              counter={this.state.ftempoSearchCounter}
-          />}
+            onButtonPress={this.onFtempoSearchButton}
+            vrvToolkit={this.props.score.vrvTk}
+            counter={this.state.ftempoSearchCounter}
+          />
+        )}
 
         {/*selector for the component selection*/}
-        <SelectionHandler
-          selectorString={this.state.selectorString}
-          handleStringChange={this.handleStringChange}
-        />
-        {/*annotation submission component*/}
-        <AnnotationSubmitter
-          onAnnoTypeChange={this.onAnnoTypeChange}
-          uri={this.state.uri}
-          submitUri={this.props.submitUri}
-          selection={this.state.selection}
-          onResponse={this.onResponse}
-          onRefreshClick={this.onRefreshClick}
-          annotationType={this.state.annotationType}
-          placeholder={this.state.placeholder}
-          replyAnnotationTarget={this.state.replyAnnotationTarget}
-          buttonContent={this.state.buttonContent}
-          creator={this.props.userId}
-          selectorString={this.state.selectorString}
-          replyAnnotationTargetId={this.state.replyAnnotationTargetId}
-          replyAnnoBody={this.state.replyAnnoBody}
-        />
-        {/*as buttonContent that you'd like to function as a clickable prev page
+        {!this.state.ftmepoMode && (
+          <div>
+            <SelectionHandler
+              selectorString={this.state.selectorString}
+              handleStringChange={this.handleStringChange}
+            />
+            {/*annotation submission component*/}
+            <AnnotationSubmitter
+              onAnnoTypeChange={this.onAnnoTypeChange}
+              uri={this.state.uri}
+              submitUri={this.props.submitUri}
+              selection={this.state.selection}
+              onResponse={this.onResponse}
+              onRefreshClick={this.onRefreshClick}
+              annotationType={this.state.annotationType}
+              placeholder={this.state.placeholder}
+              replyAnnotationTarget={this.state.replyAnnotationTarget}
+              buttonContent={this.state.buttonContent}
+              creator={this.props.userId}
+              selectorString={this.state.selectorString}
+              replyAnnotationTargetId={this.state.replyAnnotationTargetId}
+              replyAnnoBody={this.state.replyAnnoBody}
+            />
+            {/*as buttonContent that you'd like to function as a clickable prev page
         button */}
 
-        <RenditionsPlaylist
-          allEntries={this.state.currentAnnotation}
-          onRefreshClick={this.onRefreshClick}
-        />
+            <RenditionsPlaylist
+              allEntries={this.state.currentAnnotation}
+              onRefreshClick={this.onRefreshClick}
+            />
 
-        <AnnotationList
-          allEntries={this.state.currentAnnotation}
-          filteringEntries={this.state.annoToDisplay}
-          onAnnoReplyHandler={this.onAnnoReplyHandler}
-          onMediaClick={this.onMediaClick}
-          replyAnnotationTarget={this.state.replyAnnotationTarget}
-          showReplyHandler={this.showReplyHandler}
-          areRepliesVisible={this.state.areRepliesVisible}
-          onRefreshClick={this.onRefreshClick}
-        />
-        <div className="loading hidden">
-          Loading...
-          <svg
-            viewBox="0 0 100 100"
-            xmlns="http://www.w3.org/2000/svg"
-            className="loader"
-            height="100%"
-            width="100%"
-          >
-            <circle cx="50" cy="50" r="45" />
-          </svg>
-        </div>
+            <AnnotationList
+              allEntries={this.state.currentAnnotation}
+              filteringEntries={this.state.annoToDisplay}
+              onAnnoReplyHandler={this.onAnnoReplyHandler}
+              onMediaClick={this.onMediaClick}
+              replyAnnotationTarget={this.state.replyAnnotationTarget}
+              showReplyHandler={this.showReplyHandler}
+              areRepliesVisible={this.state.areRepliesVisible}
+              onRefreshClick={this.onRefreshClick}
+            />
+            <div className="loading hidden">
+              Loading...
+              <svg
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+                className="loader"
+                height="100%"
+                width="100%"
+              >
+                <circle cx="50" cy="50" r="45" />
+              </svg>
+            </div>
+            <ReactPlayer
+              width="80%"
+              height="80%"
+              ref={this.player}
+              url={this.state.currentMedia}
+              controls={true}
+              onReady={() => {
+                if (this.state.seekTo) {
+                  console.log("Seeking to: ", this.state.seekTo);
+                  this.player.current.seekTo(Math.floor(this.state.seekTo));
+                  this.setState({ seekTo: "" });
+                }
+              }}
+            />
+          </div>
+        )}
 
         <div>
           <button
@@ -831,35 +853,24 @@ class SelectableScoreApp extends Component {
           >
             help
           </button>
-          <HelpModal isOpen={this.state.helpWindowIsActive} onRequestClose={this.deactivateModal}/>
+          <HelpModal
+            isOpen={this.state.helpWindowIsActive}
+            onRequestClose={this.deactivateModal}
+          />
         </div>
-
-        <ReactPlayer
-          width="80%"
-          height="80%"
-          ref={this.player}
-          url={this.state.currentMedia}
-          controls={true}
-          onReady={() => {
-            if (this.state.seekTo) {
-              console.log("Seeking to: ", this.state.seekTo);
-              this.player.current.seekTo(Math.floor(this.state.seekTo));
-              this.setState({ seekTo: "" });
-            }
-          }}
-        />
       </div>
     );
   }
 }
 
 function mapStateToProps({ score }) {
-  return { score }
+  return { score };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators( {
-  }, dispatch);
+  return bindActionCreators({}, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps, false, {forwardRef: true})(SelectableScoreApp);
+export default connect(mapStateToProps, mapDispatchToProps, false, {
+  forwardRef: true,
+})(SelectableScoreApp);

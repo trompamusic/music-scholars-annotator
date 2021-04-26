@@ -209,7 +209,7 @@ circle {
 }
 
 .zoomOut {
-  margin-left: 2%;
+  margin-left: 1.5%;
   position: absolute;
   bottom: 95%;
   width: 25px;
@@ -221,10 +221,8 @@ circle {
   outline: none;
 }
 
-.zoomOut svg {
-  position: absolute;
-  left: 20%;
-  top: 20%;
+.zoomOut img {
+  width: 25px;
 }
 
 .zoomIn {
@@ -240,10 +238,8 @@ circle {
   outline: none;
 }
 
-.zoomIn svg {
-  position: absolute;
-  left: 20%;
-  top: 20%;
+.zoomIn img {
+  width: 25px;
 }
 
 .prevPageButton {
