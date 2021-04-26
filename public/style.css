@@ -1,6 +1,5 @@
 body {
   font-family: sans-serif;
-  user-select: none;
 }
 
 .loading {
@@ -354,6 +353,7 @@ circle {
 }
 
 .scoreContainer {
+  user-select: none;
   position: relative;
   float: right;
   bottom: 250px;
