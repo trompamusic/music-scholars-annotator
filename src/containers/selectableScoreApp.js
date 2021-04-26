@@ -30,6 +30,12 @@ const defaultVerovioHeight = (viewPortHeight < 1439) ? 2000 : 2500;
 // prettier-ignore
 const defaultVerovioWidth = (viewPortWidth > 1925) ? 2800 : 2000;
 
+// Selector to say if we're showing the annotation interface or F-tempo search
+const ApplicationMode = Object.freeze({
+  Annotate: 'Annotate',
+  Search: 'Search'
+});
+
 // height /= scale / 100;
 // width /= scale / 100;
 
@@ -59,7 +65,7 @@ class SelectableScoreApp extends Component {
       areRepliesVisible: false,
 
       ftempoSearchCounter: 1,
-      ftmepoMode: false,
+      applicationMode: ApplicationMode.Annotate,
       vrvOptions: {
         scale: defaultVerovioScale,
         adjustPageHeight: 0,
@@ -709,7 +715,7 @@ class SelectableScoreApp extends Component {
     console.debug(`state update ${this.state.ftempoSearchCounter}`);
     this.setState({
       ftempoSearchCounter: this.state.ftempoSearchCounter + 1,
-      ftmepoMode: true,
+      applicationMode: ApplicationMode.Search,
     });
   };
 
@@ -774,7 +780,7 @@ class SelectableScoreApp extends Component {
         )}
 
         {/*selector for the component selection*/}
-        {!this.state.ftmepoMode && (
+        {this.state.applicationMode === ApplicationMode.Annotate && (
           <div>
             <SelectionHandler
               selectorString={this.state.selectorString}
@@ -797,8 +803,6 @@ class SelectableScoreApp extends Component {
               replyAnnotationTargetId={this.state.replyAnnotationTargetId}
               replyAnnoBody={this.state.replyAnnoBody}
             />
-            {/*as buttonContent that you'd like to function as a clickable prev page
-        button */}
 
             <RenditionsPlaylist
               allEntries={this.state.currentAnnotation}
