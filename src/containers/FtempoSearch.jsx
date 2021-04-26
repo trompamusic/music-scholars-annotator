@@ -1,6 +1,13 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {parseMei} from "../search/SearchQuery";
+import {
+    Accordion,
+    AccordionItem,
+    AccordionItemButton,
+    AccordionItemHeading,
+    AccordionItemPanel
+} from "react-accessible-accordion";
 
 
 export default class FtempoSearch extends Component {
@@ -9,7 +16,7 @@ export default class FtempoSearch extends Component {
         this.state = {
             searchReady: false,
             selectedOption: null,
-            meiQueryOptions: {},
+            meiVoiceQueryStrings: {},
         }
     }
 
@@ -22,7 +29,7 @@ export default class FtempoSearch extends Component {
             if (meiDoc.documentElement.nodeName === "parsererror") {
                 return ""
             }
-            this.setState({meiQueryOptions: parseMei(meiDoc)})
+            this.setState({meiVoiceQueryStrings: parseMei(meiDoc)})
         }
     }
 
@@ -39,17 +46,19 @@ export default class FtempoSearch extends Component {
     }
 
     doSearch = () => {
-        const query = {codestring: this.state.meiQueryOptions[this.state.selectedOption].notes}
-        fetch('http://uk-dev-ftempo.rism.digital/api/query', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(query),
-        }).then(response => response.json()).then(data => {
-            console.debug(`search results! ${data}`)
-            this.setState({searchResults: data})
-        })
+        const selectedVoice = this.state.meiVoiceQueryStrings[this.state.selectedOption];
+        if (selectedVoice && selectedVoice.notes) {
+            const query = {codestring: selectedVoice.notes}
+            fetch('http://uk-dev-ftempo.rism.digital/api/query', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(query),
+            }).then(response => response.json()).then(data => {
+                this.setState({searchResults: data})
+            })
+        }
     }
 
     render() {
@@ -57,23 +66,33 @@ export default class FtempoSearch extends Component {
             <div>
                 <h3>Search using FTempo</h3>
                 {!this.state.searchReady && <button onClick={this.buttonPressed}>Show search options</button>}
-                {this.state.searchReady && this.state.meiQueryOptions &&
+                {this.state.searchReady && this.state.meiVoiceQueryStrings &&
                 <><p>Search this score on FTempo, either a single voice or all voices</p>
                 <ul>
-                    {Object.keys(this.state.meiQueryOptions).map((e) => {
+                    {Object.keys(this.state.meiVoiceQueryStrings).map((e) => {
                         return <li key={e}>
                             <label><input type="radio" name="voice" value={e} id={"voice-" + e} checked={this.state.selectedOption === e} onChange={this.onValueChange}/>
-                                {this.state.meiQueryOptions[e].label}</label></li>
+                                {this.state.meiVoiceQueryStrings[e].label}</label></li>
                     })
                     }
-                    <li><label><input type="radio" name="voice" value="all" checked={this.state.selectedOption === "all"} onChange={this.onValueChange} />All voices</label></li>
+                    {/*<li><label><input type="radio" name="voice" value="all" checked={this.state.selectedOption === "all"} onChange={this.onValueChange} />All voices</label></li>*/}
                 </ul>
                     <button onClick={this.doSearch} disabled={!this.state.selectedOption}>Search</button>
                 </>
                 }
-                {this.state.searchResults && this.state.searchResults.map((i) => {
-                    return <li key={i.id}>{i.id}</li>
-                })
+                {this.state.searchResults &&
+                <Accordion allowZeroExpanded>
+                    {this.state.searchResults.map((i) => {
+                        return <AccordionItem key={i.id}>
+                            <AccordionItemHeading>
+                                <AccordionItemButton>{i.id}</AccordionItemButton>
+                            </AccordionItemHeading>
+                            <AccordionItemPanel>
+                                <img src={"http://uk-dev-ftempo.rism.digital/img/jpg/" + i.id + ".jpg"}/>
+                            </AccordionItemPanel>
+                        </AccordionItem>
+                })}
+                </Accordion>
                 }
             </div>
         )

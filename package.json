@@ -29,6 +29,7 @@
     "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
+    "react-accessible-accordion": "^3.3.4",
     "react-dom": "^16.13.0",
     "react-modal": "^3.12.1",
     "react-player": "^1.11.0",
