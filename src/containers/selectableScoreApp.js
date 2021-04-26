@@ -77,11 +77,9 @@ class SelectableScoreApp extends Component {
     this.onReceiveAnnotationContainerContent = this.onReceiveAnnotationContainerContent.bind(
       this
     );
-    this.onAnnoTypeChange = this.onAnnoTypeChange.bind(this);
     this.onAnnoReplyHandler = this.onAnnoReplyHandler.bind(this);
     this.convertCoords = this.convertCoords.bind(this);
     this.onMediaClick = this.onMediaClick.bind(this);
-    this.showReplyHandler = this.showReplyHandler.bind(this);
     this.handleAnnoShowingUpdate = this.handleAnnoShowingUpdate.bind(this);
     this.player = React.createRef();
     this.handlePageTurn = this.handlePageTurn.bind(this);

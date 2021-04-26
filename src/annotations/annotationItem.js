@@ -38,11 +38,9 @@ class AnnotationItem extends React.Component {
       isVisible: false,
       resp: "",
     };
-    this.onClick = this.onClick.bind(this);
     this.grantPublic = this.grantPublic.bind(this);
     this.revokePublic = this.revokePublic.bind(this);
     this.updateDatasetAcl = this.updateDatasetAcl.bind(this);
-    this.showDetails = this.showDetails.bind(this);
     this.deleteAnno = this.deleteAnno.bind(this);
     // this.changeContent = this.changeContent.bind(this);
   }
