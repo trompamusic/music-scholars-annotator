@@ -49,7 +49,7 @@ export default class FtempoSearch extends Component {
         const selectedVoice = this.state.meiVoiceQueryStrings[this.state.selectedOption];
         if (selectedVoice && selectedVoice.notes) {
             const query = {codestring: selectedVoice.notes}
-            fetch('http://uk-dev-ftempo.rism.digital/api/query', {
+            fetch('https://porter.net.nz/ftempo/api/query', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ export default class FtempoSearch extends Component {
                                 <AccordionItemButton>{i.id}</AccordionItemButton>
                             </AccordionItemHeading>
                             <AccordionItemPanel>
-                                <img src={"http://uk-dev-ftempo.rism.digital/img/jpg/" + i.id + ".jpg"}/>
+                                <img src={"https://porter.net.nz/ftempo/img/jpg/" + i.id + ".jpg"}/>
                             </AccordionItemPanel>
                         </AccordionItem>
                 })}
