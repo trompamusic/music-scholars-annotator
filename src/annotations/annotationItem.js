@@ -481,7 +481,7 @@ class AnnotationItem extends React.Component {
           <div>
             Delete this annotation and its replies?
             <p>
-              <button className={"delteYes"} onClick={this.deleteAnno}>
+              <button className={"deleteYes"} onClick={this.deleteAnno}>
                 yes
               </button>
               <button className={"deleteNo"} onClick={this.showConfirm}>
