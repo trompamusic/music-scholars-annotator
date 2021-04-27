@@ -8,6 +8,27 @@ body {
   color: orange;
 }
 
+form.hide-submit input[type="submit"] {
+  display: none;
+}
+
+.searchIcon {
+  padding: 0.5%;
+  max-width: 20px;
+  vertical-align: middle;
+  border-radius: 4px;
+  background-color: rgb(218, 218, 218);
+  transition-duration: 0.4s;
+}
+
+.searchIcon:hover {
+  background-color: rgb(204, 202, 202);
+}
+
+.searchIcon:active {
+  background-color: rgb(175, 175, 175);
+}
+
 .loader {
   animation: 2s linear infinite loader-animation;
   max-width: 50px;
