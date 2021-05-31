@@ -1,24 +1,25 @@
 {
   "files": {
-    "main.js": "/music-scholars-annotator/static/js/main.c276d5c3.chunk.js",
-    "main.js.map": "/music-scholars-annotator/static/js/main.c276d5c3.chunk.js.map",
+    "main.js": "/music-scholars-annotator/static/js/main.f1013f5c.chunk.js",
+    "main.js.map": "/music-scholars-annotator/static/js/main.f1013f5c.chunk.js.map",
     "runtime-main.js": "/music-scholars-annotator/static/js/runtime-main.942e566b.js",
     "runtime-main.js.map": "/music-scholars-annotator/static/js/runtime-main.942e566b.js.map",
-    "static/js/2.6a288b6b.chunk.js": "/music-scholars-annotator/static/js/2.6a288b6b.chunk.js",
-    "static/js/2.6a288b6b.chunk.js.map": "/music-scholars-annotator/static/js/2.6a288b6b.chunk.js.map",
+    "static/js/2.527d78bc.chunk.js": "/music-scholars-annotator/static/js/2.527d78bc.chunk.js",
+    "static/js/2.527d78bc.chunk.js.map": "/music-scholars-annotator/static/js/2.527d78bc.chunk.js.map",
     "index.html": "/music-scholars-annotator/index.html",
-    "precache-manifest.c42bf0a288c39f0e322ef5a453a20c8c.js": "/music-scholars-annotator/precache-manifest.c42bf0a288c39f0e322ef5a453a20c8c.js",
+    "precache-manifest.2eb1c3a98caa5d6b5a755256d8f26de8.js": "/music-scholars-annotator/precache-manifest.2eb1c3a98caa5d6b5a755256d8f26de8.js",
     "service-worker.js": "/music-scholars-annotator/service-worker.js",
-    "static/js/2.6a288b6b.chunk.js.LICENSE.txt": "/music-scholars-annotator/static/js/2.6a288b6b.chunk.js.LICENSE.txt",
+    "static/js/2.527d78bc.chunk.js.LICENSE.txt": "/music-scholars-annotator/static/js/2.527d78bc.chunk.js.LICENSE.txt",
     "static/media/arrow-to-left-regular.svg": "/music-scholars-annotator/static/media/arrow-to-left-regular.1bf90cef.svg",
     "static/media/arrow-to-right-regular.svg": "/music-scholars-annotator/static/media/arrow-to-right-regular.f0cdfa6a.svg",
     "static/media/play-solid.svg": "/music-scholars-annotator/static/media/play-solid.f79fe6ae.svg",
     "static/media/search-minus-solid.svg": "/music-scholars-annotator/static/media/search-minus-solid.bc6bab64.svg",
-    "static/media/search-plus-solid.svg": "/music-scholars-annotator/static/media/search-plus-solid.5485d017.svg"
+    "static/media/search-plus-solid.svg": "/music-scholars-annotator/static/media/search-plus-solid.5485d017.svg",
+    "static/media/search-solid.svg": "/music-scholars-annotator/static/media/search-solid.55b2964c.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.942e566b.js",
-    "static/js/2.6a288b6b.chunk.js",
-    "static/js/main.c276d5c3.chunk.js"
+    "static/js/2.527d78bc.chunk.js",
+    "static/js/main.f1013f5c.chunk.js"
   ]
 }
