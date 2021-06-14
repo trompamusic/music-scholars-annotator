@@ -67,14 +67,14 @@ export default class FtempoSearch extends Component {
   render() {
     return (
       <div>
-        <h3>Search using FTempo</h3>
+        <h3>Search using F-TEMPO (experimental)</h3>
         {!this.state.searchReady && (
           <button onClick={this.buttonPressed}>Show search options</button>
         )}
         {this.state.searchReady && this.state.meiVoiceQueryStrings && (
           <>
             <p>
-              Search this score on FTempo, either a single voice or all voices
+              Search this score on F-TEMPO: select a single voice from this list as query
             </p>
             <ul>
               {Object.keys(this.state.meiVoiceQueryStrings).map((e) => {
