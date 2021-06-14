@@ -41,6 +41,7 @@ export default class FtempoSearch extends Component {
   onValueChange = (event) => {
     this.setState({
       selectedOption: event.target.value,
+      searchResults: undefined
     });
   };
 
