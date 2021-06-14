@@ -280,8 +280,10 @@ class SelectableScoreApp extends Component {
           toggleAnnotationRetrieval: true,
         },
         () => {
-          let loading = document.querySelector(".loading");
-          loading.classList.remove("hidden");
+          const loading = document.querySelector(".loading");
+          if (loading) {
+            loading.classList.remove("hidden");
+          }
           this.setState({
             toggleAnnotationRetrieval: false,
             annotationType: "describing",
@@ -306,8 +308,10 @@ class SelectableScoreApp extends Component {
           toggleAnnotationRetrieval: true,
         },
         () => {
-          let loading = document.querySelector(".loading");
-          loading.classList.remove("hidden");
+          const loading = document.querySelector(".loading");
+          if (loading) {
+            loading.classList.remove("hidden");
+          }
           this.setState({
             toggleAnnotationRetrieval: false,
             annotationType: "describing",
@@ -670,8 +674,10 @@ class SelectableScoreApp extends Component {
         });
       }
     });
-    let loading = document.querySelector(".loading");
-    loading.classList.add("hidden");
+    const loading = document.querySelector(".loading");
+    if (loading) {
+      loading.classList.add("hidden");
+    }
   }
 
   handleAnnoShowingUpdate(content, measureId) {
