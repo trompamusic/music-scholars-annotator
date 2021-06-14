@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1b64e1bb3211f062cb90b85ace942cb1",
+    "revision": "2cf37b5ae317200ce0a3768a27db3e22",
     "url": "/music-scholars-annotator/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/music-scholars-annotator/static/js/2.527d78bc.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "257bbf3b35c5864a553a",
-    "url": "/music-scholars-annotator/static/js/main.f1013f5c.chunk.js"
+    "revision": "0083dab1cb15dbcaad5c",
+    "url": "/music-scholars-annotator/static/js/main.4324812d.chunk.js"
   },
   {
     "revision": "bca5414a5da2f43f11d1",
