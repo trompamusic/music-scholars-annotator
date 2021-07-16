@@ -6,7 +6,7 @@ import AnnotationSubmitter from "../annotations/annotationSubmitter.js";
 import SelectionHandler from "../annotations/selectionHandler.js";
 import AnnotationList from "../annotations/annotationList.js";
 import ReactPlayer from "react-player";
-import RenditionsPlaylist from "../annotations/renditionsPlaylist.js";
+import RenditionsPlaylist from "../annotations/renditionsPlaylist";
 
 import ArrowToLeft from "../graphics/arrow-to-left-regular.svg";
 import ArrowToRight from "../graphics/arrow-to-right-regular.svg";

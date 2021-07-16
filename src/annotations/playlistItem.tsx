@@ -1,14 +1,25 @@
-import React from "react";
+import React, {Component} from "react";
 import auth from "solid-auth-client";
-class PlaylistItem extends React.Component {
-  constructor(props) {
+
+
+type PlaylistItemProps = {
+    annotation: any
+    onRefreshClick: () => null
+}
+
+type PlaylistItemState = {
+    resp: string
+}
+
+class PlaylistItem extends Component<PlaylistItemProps, PlaylistItemState> {
+  constructor(props: Readonly<PlaylistItemProps>) {
     super(props);
     this.state = {
       resp: "",
     };
-    this.delete = this.delete.bind(this);
   }
-  delete() {
+
+  delete = () => {
     auth
       .fetch(this.props.annotation["@id"], { method: "DELETE" })
       .then(async (response) => {
