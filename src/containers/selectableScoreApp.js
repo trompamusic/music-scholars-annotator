@@ -4,7 +4,7 @@ import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
 import AnnotationSubmitter from "../annotations/annotationSubmitter.js";
 import SelectionHandler from "../annotations/selectionHandler";
-import AnnotationList from "../annotations/annotationList.js";
+import AnnotationList from "../annotations/annotationList";
 import ReactPlayer from "react-player";
 import RenditionsPlaylist from "../annotations/renditionsPlaylist.js";
 
