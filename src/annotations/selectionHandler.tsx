@@ -1,9 +1,8 @@
 /* manages the rendering of the checkbox component mapping across the selectors const */
 /* and uses updateSelectorList to update the selectorString Prop passed from the selctableScore main app*/
-
 import React, { Component } from "react";
 import Checkbox from "./checkBox";
-const Selectors = [
+const Selectors: SelectorType[] = [
   {
     name: "Note",
     value: ".note",
@@ -25,17 +24,32 @@ const Selectors = [
   },
 ];
 
-export default class SelectionHandler extends Component {
+type SelectorType = {
+  name: string;
+  value: string;
+};
+
+type SelectionHandlerProps = {
+  selectorString: string
+  handleStringChange: (st: string[]) => void
+}
+
+type SelectionHandlerState = {
+  selectorString: string[]
+}
+
+export default class SelectionHandler extends Component<SelectionHandlerProps, SelectionHandlerState> {
   state = {
     selectorString: [],
   };
 
-  updateSelectorList(e, value) {
+  updateSelectorList(e: any, value: string) {
     if (e.target.checked) {
       //append to array
+      const newSelectorString = [...this.state.selectorString, value];
       this.setState(
         {
-          selectorString: this.state.selectorString.concat([value]),
+          selectorString: newSelectorString,
         },
         () => {
           this.props.handleStringChange(this.state.selectorString);
@@ -56,11 +70,11 @@ export default class SelectionHandler extends Component {
     }
   }
 
-  createCheckbox = (option) => (
+  createCheckbox = (selector: SelectorType) => (
     <Checkbox
-      label={option}
-      onClick={(e) => this.updateSelectorList(e, option.value)}
-      key={option.value}
+      label={selector}
+      onClick={(e) => this.updateSelectorList(e, selector.value)}
+      key={selector.value}
     />
   );
 
@@ -75,3 +89,5 @@ export default class SelectionHandler extends Component {
     );
   }
 }
+
+export type { SelectorType };

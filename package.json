@@ -28,6 +28,8 @@
     "@types/node": "^16.3.2",
     "@types/react": "^17.0.14",
     "@types/react-dom": "^17.0.9",
+    "@types/react-toggle": "^4.0.3",
+    "@types/solid-auth-client": "^2.4.1",
     "browserslist": "^4.11.0",
     "fibers": "^5.0.0",
     "graphql": "^15.5.0",

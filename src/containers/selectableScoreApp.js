@@ -3,8 +3,8 @@ import SelectableScore from "selectable-score/lib/selectable-score";
 import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
 import AnnotationSubmitter from "../annotations/annotationSubmitter.js";
-import SelectionHandler from "../annotations/selectionHandler.js";
-import AnnotationList from "../annotations/annotationList.js";
+import SelectionHandler from "../annotations/selectionHandler";
+import AnnotationList from "../annotations/annotationList";
 import ReactPlayer from "react-player";
 import RenditionsPlaylist from "../annotations/renditionsPlaylist";
 
@@ -12,7 +12,7 @@ import ArrowToLeft from "../graphics/arrow-to-left-regular.svg";
 import ArrowToRight from "../graphics/arrow-to-right-regular.svg";
 import SearchMinus from "../graphics/search-minus-solid.svg";
 import SearchPlus from "../graphics/search-plus-solid.svg";
-import HelpModal from "./HelpModal";
+import HelpModal from "./HelpModal.tsx";
 import FileSelector from "./FileSelector";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -32,8 +32,8 @@ const defaultVerovioWidth = (viewPortWidth > 1925) ? 2800 : 2000;
 
 // Selector to say if we're showing the annotation interface or F-tempo search
 const ApplicationMode = Object.freeze({
-  Annotate: 'Annotate',
-  Search: 'Search'
+  Annotate: "Annotate",
+  Search: "Search",
 });
 
 // height /= scale / 100;
@@ -47,8 +47,7 @@ class SelectableScoreApp extends Component {
       selection: [],
       annotationType: "describing",
       placeholder: "Add your annotation...",
-      uri:
-        "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei",
+      uri: "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei",
       selectorString: "",
       buttonContent: "Submit to your Solid POD",
       replyAnnotationTarget: [],
@@ -80,9 +79,8 @@ class SelectableScoreApp extends Component {
     this.handleStringChange = this.handleStringChange.bind(this);
     this.onResponse = this.onResponse.bind(this);
     this.onRefreshClick = this.onRefreshClick.bind(this);
-    this.onReceiveAnnotationContainerContent = this.onReceiveAnnotationContainerContent.bind(
-      this
-    );
+    this.onReceiveAnnotationContainerContent =
+      this.onReceiveAnnotationContainerContent.bind(this);
     this.onAnnoReplyHandler = this.onAnnoReplyHandler.bind(this);
     this.convertCoords = this.convertCoords.bind(this);
     this.onMediaClick = this.onMediaClick.bind(this);

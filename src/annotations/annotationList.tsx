@@ -2,9 +2,22 @@
 /* they are ordered chronologically with sortedfilteredAnno and the onClick funciton is attacehd to the annotation item's body to highlight the annotated section of the score*/
 
 import React from "react";
-import AnnotationItem from "./annotationItem";
+import AnnotationItem from "./annotationItem.js";
 //import PropTypes from "prop-types";
-export class AnnotationList extends React.Component {
+
+type AnnoListProps = {
+  focusId: any;
+  filteringEntries: any[];
+  allEntries: any[];
+  onAnnoReplyHandler: (replyTarget: string, replyTargetId: string) => void;
+  onMediaClick: (body: string) => void;
+  replyAnnotationTarget: any[];
+  showReplyHandler: () => void;
+  areRepliesVisible: boolean;
+  onRefreshClick: () => void;
+};
+
+export class AnnotationList extends React.Component<AnnoListProps> {
   state = {
     order: "desc",
   };
@@ -19,13 +32,13 @@ export class AnnotationList extends React.Component {
       return isReverse * a.created.localeCompare(b.created);
     });
 
-    function onClick(e) {
+    function onClick(e: any) {
       // e.preventDefault();
       // e.stopPropagation();
       console.log("i am being clicked");
       // figure out this element's focus Id
-      const focusId = Array.from(e.currentTarget.classList).filter((c) =>
-        c.startsWith("focus-")
+      const focusId: any = Array.from(e.currentTarget.classList).filter(
+        (c: any) => c.startsWith("focus-")
       );
       if (focusId.length > 1) {
         console.warn("Element with multiple focus Ids!", e.target);
@@ -52,7 +65,7 @@ export class AnnotationList extends React.Component {
 
     return (
       <div className="listContainer" id="listContainer">
-        {sortedFilteredAnno.map((item) => {
+        {sortedFilteredAnno.map((item: any) => {
           const annoIdFragment = item["@id"].substr(
             item["@id"].lastIndexOf("/") + 1
           );

@@ -10,7 +10,7 @@ import {
   useLDflexValue,
 } from "@solid/react";
 
-import SelectableScoreApp from "./selectableScoreApp";
+import SelectableScoreApp from "./selectableScoreApp.js";
 import Logo from "../graphics/top-bar-logo_0_0.png";
 
 export default function SolidWrapper(props) {
