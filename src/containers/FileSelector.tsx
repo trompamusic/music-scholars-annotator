@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, {MouseEvent, Component, FunctionComponent, FormEvent, ChangeEvent} from "react";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client/core";
 import searchIcon from "../graphics/search-solid.svg";
@@ -33,7 +32,12 @@ const EARLY_MUSIC_WORKS = gql`
   }
 `;
 
-function SearchResults(props) {
+type SearchResults = {
+  query: string
+  onSelect: (event: MouseEvent<HTMLAnchorElement>) => void,
+}
+
+const SearchResults: FunctionComponent<SearchResults> = (props) => {
   const query = `(?i).*${props.query}.*`;
   const { loading, error, data } = useQuery(EARLY_MUSIC_WORKS, {
     variables: { query: query },
@@ -58,7 +62,7 @@ function SearchResults(props) {
     <div>
       <p>Results:</p>
       <ul>
-        {compositions.map(function (item) {
+        {compositions.map((item: any) => {
           const id = item.identifier;
           const title = item.name;
           const contributor = item.contributor;
@@ -81,13 +85,23 @@ function SearchResults(props) {
   );
 }
 
-SearchResults.props = {
-  query: PropTypes.string,
-  onSelect: PropTypes.func,
+
+type FileSelectorProps = {
+  defaultUrl: string,
+  placeholder: string,
+  onSelect: (value: string) => void
 };
 
-export default class FileSelector extends Component {
-  constructor(props) {
+type FileSelectorState = {
+  defaultValue: string
+  fieldValue: string
+  searchValue: string
+  showResults: boolean
+  searchResults: object
+};
+
+export default class FileSelector extends Component<FileSelectorProps, FileSelectorState> {
+  constructor(props: FileSelectorProps) {
     super(props);
     this.state = {
       // default file to load
@@ -101,34 +115,34 @@ export default class FileSelector extends Component {
     };
   }
 
-  handleChange = (event) => {
+  handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     this.setState({ fieldValue: event.target.value });
   };
 
-  handleSearchChange = (event) => {
+  handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     this.setState({ searchValue: event.target.value });
   };
 
-  handleSubmit = (event) => {
+  handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     this.props.onSelect(this.state.fieldValue || this.state.defaultValue);
   };
 
-  handleSearch = (event) => {
+  handleSearch = (event: any) => {
     event.preventDefault();
     this.setState({ showResults: true });
   };
 
-  handleSearchResultSelection = (event) => {
+  handleSearchResultSelection = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
-    this.props.onSelect(event.target.attributes.href.value);
+    this.props.onSelect((event.target as HTMLAnchorElement).href);
   };
 
   render() {
     return (
       <div>
         <p>Select your MEI file:</p>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={(e) => this.handleSubmit}>
           <input
             type="text"
             onChange={this.handleChange}
@@ -172,9 +186,3 @@ export default class FileSelector extends Component {
     );
   }
 }
-
-FileSelector.propTypes = {
-  defaultUrl: PropTypes.string,
-  placeholder: PropTypes.string,
-  onSelect: PropTypes.func,
-};

@@ -1,7 +1,12 @@
-export function parseMusicXml(document) {
+export type Pitch = {
+    pitch: string
+    oct: number
+}
+
+export function parseMusicXml(document: Document) {
     const parts = document.getElementsByTagName("part")
     return Array.from(parts).map(function(part) {
-        let part_notes = []
+        let part_notes: Pitch[] = []
         Array.from(part.getElementsByTagName("note")).forEach(function(note) {
             const pitch = note.getElementsByTagName("pitch");
             if (pitch.length) {
@@ -16,18 +21,24 @@ export function parseMusicXml(document) {
     }).map(pitchesToIntervalMapping)
 }
 
-export function parseMei(document) {
+export type Staff = {
+    label: string
+    notes: Pitch[]
+}
+
+export function parseMei(document: Document) {
     const staffDefinitions = document.getElementsByTagName("staffDef");
-    const staffs = {}
+    const staffs: {[n: string]: Staff} = {}
     Array.from(staffDefinitions).forEach(function(sd) {
         const attributes = sd.attributes
         const label = sd.getElementsByTagName("label");
-        let staffLabel;
+        let staffLabel: string;
         if (label.length) {
             staffLabel = label[0].innerHTML;
         }
-        if (attributes.n) {
-            staffs[attributes.n.value] = {label: staffLabel, notes: []};
+        const n = attributes?.getNamedItem("n")?.value!
+        if (n) {
+            staffs[n] = {label: staffLabel!, notes: []};
         }
     })
 
@@ -35,18 +46,24 @@ export function parseMei(document) {
     Array.from(measures).forEach(function(measure) {
         const measureStaffs = measure.getElementsByTagName("staff");
         Array.from(measureStaffs).forEach(function(staff) {
-            const measureStaffId = staff.attributes.n.value
+            const measureStaffId = staff.attributes.getNamedItem('n')?.value!
             const notes = staff.getElementsByTagName("note")
             Array.from(notes).forEach(function(note) {
                 const nattrs = note.attributes;
-                staffs[measureStaffId].notes.push({pitch: nattrs.pname.value, oct: parseInt(nattrs.oct.value)})
+                const pname = nattrs.getNamedItem('pname')?.value!
+                const oct = nattrs.getNamedItem('oct')?.value!
+                staffs[measureStaffId].notes.push({pitch: pname, oct: parseInt(oct, 10)})
             })
         })
     })
+    let ret: {[key: string]: {label: string, notes: string}} = {}
     Object.keys(staffs).forEach(function(i) {
-        staffs[i].notes = pitchesToIntervalMapping(staffs[i].notes)
+        ret[i] = {
+            label: staffs[i].label,
+            notes: pitchesToIntervalMapping(staffs[i].notes)
+        }
     })
-    return staffs
+    return ret;
 
 }
 
@@ -59,7 +76,7 @@ export function parseMei(document) {
  * lower-case if pitch is decreasing. Doesn't take in to account accidentals
  * @param pitches
  */
-function pitchesToIntervalMapping(pitches) {
+function pitchesToIntervalMapping(pitches: Pitch[]): string {
     const interval_mapping = '-abcdefghijklmnopqrstuvwxyz'.split('');
 
     const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G']

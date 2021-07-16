@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, {MouseEvent, Component} from "react";
 import { parseMei } from "../search/SearchQuery";
 import {
   Accordion,
@@ -9,17 +8,34 @@ import {
   AccordionItemPanel,
 } from "react-accessible-accordion";
 
-export default class FtempoSearch extends Component {
-  constructor(props) {
+type FtempoSearchProps = {
+  onButtonPress: (e: MouseEvent) => void,
+  vrvToolkit: any,
+  counter: number,
+};
+
+
+
+type FtempoSearchState = {
+  searchReady: boolean,
+  selectedOption?: string,
+  meiVoiceQueryStrings: {[key: string]: {label: string, notes: string}},
+  searchResults?: object[]
+}
+
+
+export default class FtempoSearch extends Component<FtempoSearchProps, FtempoSearchState> {
+  constructor(props: FtempoSearchProps) {
     super(props);
     this.state = {
       searchReady: false,
-      selectedOption: null,
+      selectedOption: undefined,
       meiVoiceQueryStrings: {},
+      searchResults: undefined
     };
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps: Readonly<FtempoSearchProps>, prevState: Readonly<FtempoSearchState>, snapshot: any) {
     if (this.props.counter !== prevProps.counter) {
       const mei = this.props.vrvToolkit.getMEI();
       const meiDoc = new DOMParser().parseFromString(mei, "text/xml");
@@ -32,13 +48,13 @@ export default class FtempoSearch extends Component {
     }
   }
 
-  buttonPressed = (event) => {
+  buttonPressed = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     this.setState({ searchReady: true });
     this.props.onButtonPress(event);
   };
 
-  onValueChange = (event) => {
+  onValueChange = (event: any) => {
     this.setState({
       selectedOption: event.target.value,
       searchResults: undefined
@@ -46,6 +62,9 @@ export default class FtempoSearch extends Component {
   };
 
   doSearch = () => {
+    if (!this.state.selectedOption) {
+      return
+    }
     const selectedVoice = this.state.meiVoiceQueryStrings[
       this.state.selectedOption
     ];
@@ -107,7 +126,7 @@ export default class FtempoSearch extends Component {
         )}
         {this.state.searchResults && (
           <Accordion allowZeroExpanded>
-            {this.state.searchResults.map((i) => {
+            {this.state.searchResults.map((i: any) => {
               return (
                 <AccordionItem key={i.id}>
                   <AccordionItemHeading>
@@ -130,9 +149,3 @@ export default class FtempoSearch extends Component {
     );
   }
 }
-
-FtempoSearch.propTypes = {
-  onButtonPress: PropTypes.func,
-  vrvToolkit: PropTypes.any,
-  counter: PropTypes.number,
-};
