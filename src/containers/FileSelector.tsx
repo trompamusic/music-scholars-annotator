@@ -142,7 +142,7 @@ export default class FileSelector extends Component<FileSelectorProps, FileSelec
     return (
       <div>
         <p>Select your MEI file:</p>
-        <form onSubmit={(e) => this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <input
             type="text"
             onChange={this.handleChange}
