@@ -16,6 +16,7 @@
     "@babel/cli": "^7.6.0",
     "@babel/core": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
+    "@types/react-modal": "^3.12.1",
     "gh-pages": "^3.1.0"
   },
   "dependencies": {
