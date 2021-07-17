@@ -19,7 +19,7 @@ export class AnnotationSubmitter extends React.Component {
     switch (this.props.annotationType) {
       case "describing":
         return {
-          "@context": "http://www.w3.org/ns/anno.jsonld",
+          "@context": "https://www.w3.org/ns/anno.jsonld",
           target: this.props.selection.map((elem) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
           }), //this takes the measure id selected by the user
@@ -32,7 +32,7 @@ export class AnnotationSubmitter extends React.Component {
 
       case "linking":
         return {
-          "@context": "http://www.w3.org/ns/anno.jsonld",
+          "@context": "https://www.w3.org/ns/anno.jsonld",
           target: this.props.selection.map((elem) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
           }), //this takes the measure id selected by the user
@@ -45,7 +45,7 @@ export class AnnotationSubmitter extends React.Component {
 
       case "cueMedia":
         return {
-          "@context": "http://www.w3.org/ns/anno.jsonld",
+          "@context": "https://www.w3.org/ns/anno.jsonld",
           target: this.props.selection.map((elem) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
           }), //this takes the measure id selected by the user
@@ -58,7 +58,7 @@ export class AnnotationSubmitter extends React.Component {
 
       case "image":
         return {
-          "@context": "http://www.w3.org/ns/anno.jsonld",
+          "@context": "https://www.w3.org/ns/anno.jsonld",
           target: this.props.selection.map((elem) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
           }), //this takes the measure id selected by the user
@@ -71,7 +71,7 @@ export class AnnotationSubmitter extends React.Component {
 
       case "playlist":
         return {
-          "@context": "http://www.w3.org/ns/anno.jsonld",
+          "@context": "https://www.w3.org/ns/anno.jsonld",
           target: this.props.selection.map((elem) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
           }), //this takes the measure id selected by the user
@@ -84,7 +84,7 @@ export class AnnotationSubmitter extends React.Component {
 
       case "replying":
         return {
-          "@context": "http://www.w3.org/ns/anno.jsonld",
+          "@context": "https://www.w3.org/ns/anno.jsonld",
           target: this.props.replyAnnotationTargetId, //this takes the annotation ID being replied to
           type: "Annotation",
           body: [{ id: uuidv4(), type: "TextualBody", value }], //this takes the user input
