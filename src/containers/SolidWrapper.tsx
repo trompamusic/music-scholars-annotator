@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {ChangeEvent, useState} from "react";
 import data from "@solid/query-ldflex";
 
 import {
@@ -13,19 +13,19 @@ import {
 import SelectableScoreApp from "./selectableScoreApp.js";
 import Logo from "../graphics/top-bar-logo_0_0.png";
 
-export default function SolidWrapper(props) {
+const SolidWrapper = () => {
   data.context.extend({
     trompa: "http://vocab.trompamusic.eu/vocab#",
   });
+
   const userPOD = useLDflexValue("user.storage");
   const userId = useLDflexValue("user");
   const [userInput, setUserInput] = useState("private/");
-  const handleUserInput = (e) => {
-    // eslint-disable-next-line
-    const containerPath = e.target.value
-      ? setUserInput(e.target.value)
-      : "private/";
+
+  const handleUserInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setUserInput(e.target.value ? e.target.value : "private/");
   };
+
   return (
     <div id="authWrapper">
       <LoggedOut>
@@ -55,7 +55,7 @@ export default function SolidWrapper(props) {
         <h2>Music scholars annotation tool</h2>
         <p>
           You are logged in as{" "}
-          <a href={userId} target="_blank" rel="noopener noreferrer">
+          <a href={userId?.toString()} target="_blank" rel="noopener noreferrer">
             <Value src="user.name" />
           </a>
         </p>
@@ -74,11 +74,9 @@ export default function SolidWrapper(props) {
         </div>
         {typeof userPOD !== "undefined" ? (
           <SelectableScoreApp
-            uri={props.uri}
-            //vrvOptions={props.vrvOptions}
-            podUri={`${userPOD}`}
+            podUri={userPOD}
             submitUri={`${userPOD}` + userInput}
-            userId={`${userId}`}
+            userId={userId}
           />
         ) : (
           <div>Loading... </div>
@@ -87,3 +85,5 @@ export default function SolidWrapper(props) {
     </div>
   );
 }
+
+export default SolidWrapper;

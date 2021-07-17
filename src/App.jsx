@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import SelectableScoreWrapper from "./containers/selectableScoreWrapper";
+import SelectableScoreWrapper from "./containers/SelectableScoreWrapper";
 import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
 
 import { reducers } from 'meld-clients-core/lib/reducers';
