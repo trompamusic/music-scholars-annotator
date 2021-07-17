@@ -1,22 +1,39 @@
 /* addAnnotation contains the submitButton component imported from the selectable score component, this handles the logic behind the POST to solid */
 /* also the input field changes based on the chosen annotation motivation*/
-import React from "react";
+import React, {ChangeEvent, Component} from "react";
 import SubmitButton from "selectable-score/lib/submit-button.js";
 import {ReactComponent as ArrowAltToTop} from "../graphics/arrow-alt-to-top-regular.svg"
 import {ReactComponent as FileImport} from "../graphics/file-import-regular.svg"
 import {ReactComponent as RedoAlt} from "../graphics/redo-alt-solid.svg"
+import {AnnotationSolidResponse} from "./AnnotationSubmitter";
 
-export class AddAnnotation extends React.Component {
+type AddAnnotationProps = {
+  annotationType: string
+  onRefreshClick: () => void
+  submitUri: string
+  buttonContent: string
+  // Args to submitHandler is handlerArgs, which can be anything, or {} if not set
+  submitHandler: (args: any) => void
+  onResponse: (response: AnnotationSolidResponse) => void
+  placeholder: string
+}
+
+type AddAnnotationState = {
+  value: string
+  seconds: string
+  target: string[]
+}
+
+class AddAnnotation extends Component<AddAnnotationProps, AddAnnotationState> {
   state = {
     value: "",
     seconds: "",
-    target: [],
-    buttonStatus: "disabledSubmitButton",
+    target: []
   };
 
-  onChange = (e) => this.setState({ value: e.target.value });
+  onChange = (e: ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => this.setState({ value: e.target.value });
 
-  onTimeChange = (e) =>
+  onTimeChange = (e: ChangeEvent<HTMLInputElement>) =>
     this.setState({ seconds: e.target.value }, () =>
       console.log(this.state.seconds)
     );

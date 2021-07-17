@@ -1,16 +1,33 @@
 /* annotation submitter takes the handlerArgs passed from the addAnnotaiton script and builds the jsonLd structure of each annotation based on its motivation */
 /* it also renders the radio button array to selecte the annotation motivation  */
-import React from "react";
+import React, {ChangeEvent, Component} from "react";
 import { v4 as uuidv4 } from "uuid";
-import AddAnnotation from "./addAnnotation.js";
+import AddAnnotation from "./AddAnnotation";
 
-export class AnnotationSubmitter extends React.Component {
-  constructor(props) {
-    super(props);
-    this.textArea = React.createRef();
-  }
-  submitHandler = (handlerArgs) => {
-    this.textArea.current.wipeState();
+export type AnnotationSolidResponse = any
+
+type AnnotationSubmitterProps = {
+  annotationType: string
+  uri: string
+  submitUri: string
+  placeholder: string
+  selectorString: string
+  buttonContent: string
+  onAnnoTypeChange: (e: ChangeEvent<HTMLInputElement>) => void
+  creator: string
+  replyAnnotationTargetId: string
+  selection: Element[]
+  onResponse: (response: AnnotationSolidResponse) => void
+  onRefreshClick: () => void
+}
+
+export class AnnotationSubmitter extends Component<AnnotationSubmitterProps, {}> {
+  private textArea = React.createRef<AddAnnotation>();
+
+  submitHandler = (handlerArgs: any) => {
+    if (this.textArea.current) {
+      this.textArea.current.wipeState();
+    }
     //adds different annotations based on selection
     //let replyAnnotationTargetId = this.props.replyAnnotationTargetId;
     let value = handlerArgs.value;
@@ -20,7 +37,7 @@ export class AnnotationSubmitter extends React.Component {
       case "describing":
         return {
           "@context": "https://www.w3.org/ns/anno.jsonld",
-          target: this.props.selection.map((elem) => {
+          target: this.props.selection.map((elem: Element) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
           }), //this takes the measure id selected by the user
           type: "Annotation",
@@ -33,7 +50,7 @@ export class AnnotationSubmitter extends React.Component {
       case "linking":
         return {
           "@context": "https://www.w3.org/ns/anno.jsonld",
-          target: this.props.selection.map((elem) => {
+          target: this.props.selection.map((elem: Element) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
           }), //this takes the measure id selected by the user
           type: "Annotation",
@@ -46,7 +63,7 @@ export class AnnotationSubmitter extends React.Component {
       case "cueMedia":
         return {
           "@context": "https://www.w3.org/ns/anno.jsonld",
-          target: this.props.selection.map((elem) => {
+          target: this.props.selection.map((elem: Element) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
           }), //this takes the measure id selected by the user
           type: "Annotation",
@@ -59,7 +76,7 @@ export class AnnotationSubmitter extends React.Component {
       case "image":
         return {
           "@context": "https://www.w3.org/ns/anno.jsonld",
-          target: this.props.selection.map((elem) => {
+          target: this.props.selection.map((elem: Element) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
           }), //this takes the measure id selected by the user
           type: "Annotation",
@@ -72,7 +89,7 @@ export class AnnotationSubmitter extends React.Component {
       case "playlist":
         return {
           "@context": "https://www.w3.org/ns/anno.jsonld",
-          target: this.props.selection.map((elem) => {
+          target: this.props.selection.map((elem: Element) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
           }), //this takes the measure id selected by the user
           type: "Annotation",
@@ -184,7 +201,6 @@ export class AnnotationSubmitter extends React.Component {
               onResponse={this.props.onResponse}
               onRefreshClick={this.props.onRefreshClick}
               buttonContent={this.props.buttonContent}
-              selectorString={this.props.selectorString}
             />
           </div>
         </div>
