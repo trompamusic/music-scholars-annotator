@@ -1,5 +1,5 @@
 /* item that contains the annotation contents, the renderSwitch function assign specific display to the specfic anntation based on its motivation*/
-import React from "react";
+import React, {ChangeEvent, Component, MouseEvent} from "react";
 import auth from "solid-auth-client";
 import Toggle from "react-toggle";
 import {
@@ -13,24 +13,50 @@ import {
   setPublicResourceAccess,
   saveAclFor,
   getPublicAccess,
-  getAgentAccessAll,
+  getAgentAccessAll, AclDataset,
 } from "@inrupt/solid-client";
 
 import PlayLogo from "../graphics/play-solid.svg";
 import {ReactComponent as Trash} from "../graphics/trash-solid.svg";
 import {ReactComponent as InfoCircle} from "../graphics/info-circle-regular.svg";
 
+export type Annotation = any
 
-class AnnotationItem extends React.Component {
-  constructor(props) {
+type AnnotationItemProps = {
+  annotation: Annotation
+  onRefreshClick: () => void
+  onAnnoReplyHandler: (replyTarget: string, replyTargetId: string) => void
+  onMediaClick: (id: string) => void
+  showReplyHandler: () => void
+  areRepliesVisible: boolean
+  replyAnnotationTarget: any[]
+}
+
+type AnnotationItemState = {
+  isClicked: boolean
+  userMayModifyAccess: boolean
+  resourceAcl?: AclDataset
+  aclModified: number
+  datasetWithAcl?: AclDataset
+  userId?: string
+  isPictureShowing: boolean
+  previewButtonContent: string
+  showRepliesButtonContent: string
+  isConfirmVisible: boolean
+  isVisible: boolean
+  resp: string
+}
+
+class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState> {
+  constructor(props: Readonly<AnnotationItemProps>) {
     super(props);
     this.state = {
       isClicked: false,
       userMayModifyAccess: false,
-      resourceAcl: null,
-      aclModified: false,
-      datasetWithAcl: null,
-      userId: null,
+      resourceAcl: undefined,
+      aclModified: 0,
+      datasetWithAcl: undefined,
+      userId: undefined,
       isPictureShowing: false,
       previewButtonContent: "Show preview",
       showRepliesButtonContent: "Toggle replies",
@@ -45,19 +71,19 @@ class AnnotationItem extends React.Component {
     // this.changeContent = this.changeContent.bind(this);
   }
 
-  deleteAnno(e) {
-    const parent = e.target.closest(".rootAnno");
+  deleteAnno(e: MouseEvent<HTMLButtonElement>) {
+    const parent = (e.target as Element).closest(".rootAnno");
     const testReplyRetrieval = document.querySelectorAll(".replyAnno");
 
     if (testReplyRetrieval) {
       testReplyRetrieval.forEach((replyTargetAnno) => {
-        const replyTargetAnnoId = replyTargetAnno.dataset.replyAnnotationTarget;
-        const rootAnnoTargetId = parent.dataset.selfId;
+        const replyTargetAnnoId = (replyTargetAnno as HTMLElement).dataset.replyAnnotationTarget;
+        const rootAnnoTargetId = (parent as HTMLElement)!.dataset.selfId;
         if (replyTargetAnnoId === rootAnnoTargetId) {
-          console.log("replies found: ", replyTargetAnno.dataset.selfId);
+          console.log("replies found: ", (replyTargetAnno as HTMLElement).dataset.selfId);
           auth
-            .fetch(replyTargetAnno.dataset.selfId, { method: "DELETE" })
-            .then(console.log("replies deleted"));
+            .fetch((replyTargetAnno as HTMLElement).dataset.selfId!, { method: "DELETE" })
+            .then(() => {console.log("replies deleted")});
         }
       });
     }
@@ -74,50 +100,51 @@ class AnnotationItem extends React.Component {
 
         this.setState({ resp: "success" });
       })
+        // @ts-ignore
       .then(this.props.onRefreshClick())
       .catch(() => {
         console.warn("Your annotation has been deleted, refreshing...");
       });
   }
 
-  showDetails = (e) => {
+  showDetails = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    const parent = e.target.closest(".rootAnno");
-    const details = parent.querySelector(".hiddenDetails");
-    if (details && this.state.isVisible === false) {
+    const parent = (e.target as HTMLElement).closest(".rootAnno");
+    const details = parent!.querySelector(".hiddenDetails");
+    if (details && !this.state.isVisible) {
       this.setState({ isVisible: true });
       details.classList.remove("hiddenDetails");
       details.classList.add("showDetails");
     } else {
-      if (this.state.isVisible === true) {
+      if (this.state.isVisible) {
         this.setState({ isVisible: false });
-        const visibleDetails = parent.querySelector(".showDetails");
-        visibleDetails.classList.remove("showDetails");
-        visibleDetails.classList.add("hiddenDetails");
+        const visibleDetails = parent!.querySelector(".showDetails");
+        visibleDetails!.classList.remove("showDetails");
+        visibleDetails!.classList.add("hiddenDetails");
       }
     }
   };
 
-  showReplyDetails = (e) => {
+  showReplyDetails = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    const parent = e.target.closest(".quoteContent");
-    const details = parent.querySelector(".hiddenDetails");
-    if (details && this.state.isVisible === false) {
+    const parent = (e.target as HTMLElement).closest(".quoteContent");
+    const details = parent!.querySelector(".hiddenDetails");
+    if (details && !this.state.isVisible) {
       this.setState({ isVisible: true });
       details.classList.remove("hiddenDetails");
       details.classList.add("showDetails");
     } else {
-      if (this.state.isVisible === true) {
+      if (this.state.isVisible) {
         this.setState({ isVisible: false });
-        const visibleDetails = parent.querySelector(".showDetails");
-        visibleDetails.classList.remove("showDetails");
-        visibleDetails.classList.add("hiddenDetails");
+        const visibleDetails = parent!.querySelector(".showDetails");
+        visibleDetails!.classList.remove("showDetails");
+        visibleDetails!.classList.add("hiddenDetails");
       }
     }
   };
-  onClick = (e) => {
+  onClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
     const replyTarget = this.props.annotation.target;
@@ -125,25 +152,26 @@ class AnnotationItem extends React.Component {
     this.props.onAnnoReplyHandler(replyTarget, replyTargetId);
     console.log("reply target id", replyTargetId);
   };
+
   componentDidMount() {
     this.updateDatasetAcl();
   }
 
-  showConfirm = (e) => {
+  showConfirm = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    const parent = e.target.closest(".rootAnno");
-    const confirmScreen = parent.querySelector(".hiddenConfirm");
-    if (confirmScreen && this.state.isConfirmVisible === false) {
+    const parent = (e.target as HTMLElement).closest(".rootAnno");
+    const confirmScreen = parent!.querySelector(".hiddenConfirm");
+    if (confirmScreen && !this.state.isConfirmVisible) {
       this.setState({ isConfirmVisible: !this.state.isConfirmVisible });
       confirmScreen.classList.remove("hiddenConfirm");
       confirmScreen.classList.add("showConfirm");
     } else {
-      if (this.state.isConfirmVisible === true) {
+      if (this.state.isConfirmVisible) {
         this.setState({ isConfirmVisible: !this.state.isConfirmVisible });
-        const visibleConfirm = parent.querySelector(".showConfirm");
-        visibleConfirm.classList.remove("showConfirm");
-        visibleConfirm.classList.add("hiddenConfirm");
+        const visibleConfirm = parent!.querySelector(".showConfirm");
+        visibleConfirm!.classList.remove("showConfirm");
+        visibleConfirm!.classList.add("hiddenConfirm");
       }
     }
   };
@@ -171,16 +199,18 @@ class AnnotationItem extends React.Component {
                   this.props.annotation["@id"]
                 );
               } else {
+                // @ts-ignore
                 resourceAcl = createAclFromFallbackAcl(datasetWithAcl);
                 // ensure current user has control in the new ACL
                 const userControllableResourceAcl = setAgentResourceAccess(
                   resourceAcl,
-                  s.webId,
+                  s!.webId,
                   { read: true, append: true, write: true, control: true }
                 );
                 this.setState({
                   userMayModifyAccess: true,
-                  datasetWithAcl,
+                  // @ts-ignore
+                  datasetWithAcl: datasetWithAcl,
                   resourceAcl: userControllableResourceAcl,
                   aclModified: Date.now(),
                 });
@@ -190,8 +220,9 @@ class AnnotationItem extends React.Component {
               resourceAcl = getResourceAcl(datasetWithAcl);
               this.setState({
                 userMayModifyAccess: true,
-                datasetWithAcl,
-                resourceAcl,
+                // @ts-ignore
+                datasetWithAcl: datasetWithAcl,
+                resourceAcl: resourceAcl,
                 aclModified: Date.now(),
               });
               console.log("Got resource ACL");
@@ -210,7 +241,7 @@ class AnnotationItem extends React.Component {
       );
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps: Readonly<AnnotationItemProps>, nextState: Readonly<AnnotationItemState>) {
     if (this.state.aclModified !== nextState.aclModified) {
       // user has enacted an ACL change. Request a re-render accordingly.
       return true;
@@ -218,29 +249,29 @@ class AnnotationItem extends React.Component {
     return false;
   }
 
-  onPlayClick = (e) => {
+  onPlayClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    const bodyMedia = this.props.annotation.body[0].id;
+    const bodyMedia: string = this.props.annotation.body[0].id;
     this.props.onMediaClick(bodyMedia);
   };
 
-  onPreviewclick = (e) => {
+  onPreviewclick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
-    const aimAt = e.target.closest(".rootAnno");
-    const _children = aimAt.children[0];
+    const aimAt = (e.target as HTMLElement).closest(".rootAnno");
+    const _children = aimAt!.children[0];
 
     //const aimAt = rootAnno.contains("hiddenContainer");
-    if (this.state.isPictureShowing === false) {
+    if (!this.state.isPictureShowing) {
       this.setState({
         isPictureShowing: true,
         previewButtonContent: "Hide preview",
       });
       console.log(_children);
       document
-        .querySelector(".hiddenContainer")
+        .querySelector(".hiddenContainer")!
         .addEventListener("click", function (e) {
           e.stopPropagation();
         });
@@ -248,7 +279,7 @@ class AnnotationItem extends React.Component {
       _children.classList.add("showContainer");
     } else {
       document
-        .querySelector(".showContainer")
+        .querySelector(".showContainer")!
         .addEventListener("click", function (e) {
           e.stopPropagation();
         });
@@ -261,17 +292,17 @@ class AnnotationItem extends React.Component {
     }
   };
 
-  onShowReplyClick = (e) => {
+  onShowReplyClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    const rootAnno = e.target.closest(".rootAnno");
+    const rootAnno = (e.target as HTMLElement).closest(".rootAnno");
     console.log("root anno", rootAnno);
     const replyTargetAnnos = document.querySelectorAll(".replyAnno");
     if (replyTargetAnnos.length) {
       replyTargetAnnos.forEach((replyTargetAnno) => {
-        const replyTargetAnnoId = replyTargetAnno.dataset.replyAnnotationTarget;
+        const replyTargetAnnoId = (replyTargetAnno as HTMLElement).dataset.replyAnnotationTarget;
 
-        const rootAnnoTargetId = rootAnno.dataset.selfId;
+        const rootAnnoTargetId = (rootAnno as HTMLElement)!.dataset.selfId;
 
         console.log("Reply target anno id: ", replyTargetAnnoId);
         if (replyTargetAnnoId === rootAnnoTargetId) {
@@ -282,12 +313,12 @@ class AnnotationItem extends React.Component {
             this.setState({
               isClicked: true,
             });
-            rootAnno.appendChild(replyTargetAnno);
+            rootAnno!.appendChild(replyTargetAnno);
             this.props.showReplyHandler();
 
             //creates an array of all the visible replies
             const noLongerShowing = Array.from(
-              rootAnno.getElementsByClassName("showReply")
+              rootAnno!.getElementsByClassName("showReply")
             );
             //hides them
             noLongerShowing.forEach((noReplyShowing) =>
@@ -298,7 +329,7 @@ class AnnotationItem extends React.Component {
             );
             //creates an array of the hidden annotations
             const showing = Array.from(
-              rootAnno.getElementsByClassName("hiddenReply")
+              rootAnno!.getElementsByClassName("hiddenReply")
             );
             //shows them
             showing.forEach((showingReply) =>
@@ -315,12 +346,12 @@ class AnnotationItem extends React.Component {
 
             const annoContainer = document.querySelector(".listContainer");
             const noLongerShowing = Array.from(
-              rootAnno.getElementsByClassName("showReply")
+              rootAnno!.getElementsByClassName("showReply")
             );
             //hides them
             noLongerShowing.forEach((noReplyShowing) => {
               noReplyShowing.classList.add("hiddenReply");
-              annoContainer.appendChild(noReplyShowing);
+              annoContainer!.appendChild(noReplyShowing);
             });
             noLongerShowing.forEach((noReplyShowing) =>
               noReplyShowing.classList.remove("showReply")
@@ -331,49 +362,51 @@ class AnnotationItem extends React.Component {
     } else console.warn("no replies to show for this annotation");
   };
 
-  grantPublic(e) {
+  grantPublic(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     e.stopPropagation();
     auth.currentSession().then((s) => {
-      let updatedAcl = setPublicResourceAccess(this.state.resourceAcl, {
+      let updatedAcl = setPublicResourceAccess(this.state.resourceAcl!, {
         read: true,
         append: false,
         write: false,
         control: false,
       });
       // ensure current user has control in the new ACL
-      updatedAcl = setAgentResourceAccess(updatedAcl, s.webId, {
+      updatedAcl = setAgentResourceAccess(updatedAcl, s!.webId, {
         read: true,
         append: true,
         write: true,
         control: true,
       });
-      saveAclFor(this.state.datasetWithAcl, updatedAcl, { fetch: auth.fetch })
+      // @ts-ignore
+      saveAclFor(this.state.datasetWithAcl!, updatedAcl, { fetch: auth.fetch })
         .then(() => this.updateDatasetAcl())
         .catch((e) => console.error("Could not grant public access: ", e));
     });
   }
 
-  revokePublic(e) {
+  revokePublic(e: ChangeEvent<HTMLInputElement>) {
     console.log("Revoking. Old acl: ", this.state.resourceAcl);
     e.stopPropagation();
     e.preventDefault();
     auth.currentSession().then((s) => {
-      let updatedAcl = setPublicResourceAccess(this.state.resourceAcl, {
+      let updatedAcl = setPublicResourceAccess(this.state.resourceAcl!, {
         read: false,
         append: false,
         write: false,
         control: false,
       });
       // ensure current user has control in the new ACL
-      updatedAcl = setAgentResourceAccess(updatedAcl, s.webId, {
+      updatedAcl = setAgentResourceAccess(updatedAcl, s!.webId, {
         read: true,
         append: true,
         write: true,
         control: true,
       });
 
-      saveAclFor(this.state.datasetWithAcl, updatedAcl, { fetch: auth.fetch })
+      // @ts-ignore
+      saveAclFor(this.state.datasetWithAcl!, updatedAcl, { fetch: auth.fetch })
         .then(() => this.updateDatasetAcl())
         .catch((e) => console.error("Could not revoke public access: ", e));
     });
@@ -389,10 +422,10 @@ class AnnotationItem extends React.Component {
     let replies = document.querySelectorAll(".replyAnno");
     const selfId = this.props.annotation["@id"];
     var areRepliesPresent = false;
-    /* cehck to see if any available replies are present, if not the toggle replies is hidden */
+    /* check to see if any available replies are present, if not the toggle replies is hidden */
     if (replies.length) {
       replies.forEach((reply) => {
-        const target = reply.dataset.replyAnnotationTarget;
+        const target = (reply as HTMLElement).dataset.replyAnnotationTarget;
         if (target === selfId) {
           areRepliesPresent = true;
         }
@@ -401,14 +434,17 @@ class AnnotationItem extends React.Component {
 
     /* determine permission state of annotation in Solid Pod */
     if (this.state.datasetWithAcl) {
+      // @ts-ignore
       if (getPublicAccess(this.state.datasetWithAcl).read)
         permission = "public";
-      else if (Object.keys(getAgentAccessAll(this.state.datasetWithAcl)) > 1)
-        /* declare it as shared if it has any access info for more than one (assumed to be user)
-         * TODO check assumptions...
-         */
-        permission = "shared";
-      else permission = "private";
+      else { // @ts-ignore
+        if (Object.keys(getAgentAccessAll(this.state.datasetWithAcl)) > 1)
+                /* declare it as shared if it has any access info for more than one (assumed to be user)
+                 * TODO check assumptions...
+                 */
+                permission = "shared";
+              else permission = "private";
+      }
     } else {
       permission = "unknown";
     }
@@ -517,7 +553,7 @@ class AnnotationItem extends React.Component {
           </p>
         </div>
         <div>
-          {areRepliesPresent === true && (
+          {areRepliesPresent && (
             <button
               className="showRepliesButton"
               name="showRepliesButton"
@@ -574,7 +610,7 @@ class AnnotationItem extends React.Component {
                 {
                   <a
                     href={bodyL}
-                    onClick="return false;"
+                    onClick={() => false}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -599,7 +635,7 @@ class AnnotationItem extends React.Component {
                 {
                   <a
                     href={appendURL}
-                    onClick="return false;"
+                    onClick={() => false}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
