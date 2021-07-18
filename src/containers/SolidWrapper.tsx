@@ -10,7 +10,7 @@ import {
   useLDflexValue,
 } from "@solid/react";
 
-import SelectableScoreApp from "./selectableScoreApp.js";
+import SelectableScoreApp from "./SelectableScoreApp";
 import Logo from "../graphics/top-bar-logo_0_0.png";
 
 const SolidWrapper = () => {
@@ -74,9 +74,9 @@ const SolidWrapper = () => {
         </div>
         {typeof userPOD !== "undefined" ? (
           <SelectableScoreApp
-            podUri={userPOD}
+            podUri={userPOD.toString()}
             submitUri={`${userPOD}` + userInput}
-            userId={userId}
+            userId={userId ? userId.toString() : ''}
           />
         ) : (
           <div>Loading... </div>

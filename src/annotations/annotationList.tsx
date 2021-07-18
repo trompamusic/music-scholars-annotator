@@ -6,10 +6,9 @@ import AnnotationItem from "./AnnotationItem";
 //import PropTypes from "prop-types";
 
 type AnnoListProps = {
-  focusId: any;
   filteringEntries: any[];
   allEntries: any[];
-  onAnnoReplyHandler: (replyTarget: string, replyTargetId: string) => void;
+  onAnnoReplyHandler: (replyTarget: AnnotationTarget[], replyTargetId: string) => void;
   onMediaClick: (body: string) => void;
   replyAnnotationTarget: any[];
   showReplyHandler: () => void;

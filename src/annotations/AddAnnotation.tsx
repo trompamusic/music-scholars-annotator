@@ -5,7 +5,6 @@ import SubmitButton from "selectable-score/lib/submit-button.js";
 import {ReactComponent as ArrowAltToTop} from "../graphics/arrow-alt-to-top-regular.svg"
 import {ReactComponent as FileImport} from "../graphics/file-import-regular.svg"
 import {ReactComponent as RedoAlt} from "../graphics/redo-alt-solid.svg"
-import {AnnotationSolidResponse} from "./AnnotationSubmitter";
 
 type AddAnnotationProps = {
   annotationType: string
@@ -13,7 +12,7 @@ type AddAnnotationProps = {
   submitUri: string
   buttonContent: string
   // Args to submitHandler is handlerArgs, which can be anything, or {} if not set
-  submitHandler: (args: any) => void
+  submitHandler: (args?: any) => Annotation | undefined
   onResponse: (response: AnnotationSolidResponse) => void
   placeholder: string
 }

@@ -4,7 +4,7 @@ import auth from "solid-auth-client";
 
 type PlaylistItemProps = {
     annotation: any
-    onRefreshClick: () => null
+    onRefreshClick: () => void
 }
 
 type PlaylistItemState = {
@@ -33,7 +33,9 @@ class PlaylistItem extends Component<PlaylistItemProps, PlaylistItemState> {
 
         this.setState({ resp: "success" });
       })
-      .then(this.props.onRefreshClick())
+      .then(() => {
+          this.props.onRefreshClick();
+      })
       .catch(() => {
         console.warn("Your annotation has been deleted, refreshing...");
       });

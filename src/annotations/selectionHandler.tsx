@@ -30,7 +30,7 @@ type SelectorType = {
 };
 
 type SelectionHandlerProps = {
-  selectorString: string
+  selectorString: string[]
   handleStringChange: (st: string[]) => void
 }
 

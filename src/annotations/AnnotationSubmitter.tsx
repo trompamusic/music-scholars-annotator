@@ -4,17 +4,16 @@ import React, {ChangeEvent, Component} from "react";
 import { v4 as uuidv4 } from "uuid";
 import AddAnnotation from "./AddAnnotation";
 
-export type AnnotationSolidResponse = any
 
 type AnnotationSubmitterProps = {
   annotationType: string
   uri: string
   submitUri: string
   placeholder: string
-  selectorString: string
   buttonContent: string
   onAnnoTypeChange: (e: ChangeEvent<HTMLInputElement>) => void
   creator: string
+  replyAnnotationTarget: AnnotationTarget[]
   replyAnnotationTargetId: string
   selection: Element[]
   onResponse: (response: AnnotationSolidResponse) => void
@@ -24,7 +23,7 @@ type AnnotationSubmitterProps = {
 export class AnnotationSubmitter extends Component<AnnotationSubmitterProps, {}> {
   private textArea = React.createRef<AddAnnotation>();
 
-  submitHandler = (handlerArgs: any) => {
+  submitHandler = (handlerArgs?: any) => {
     if (this.textArea.current) {
       this.textArea.current.wipeState();
     }
@@ -35,7 +34,7 @@ export class AnnotationSubmitter extends Component<AnnotationSubmitterProps, {}>
 
     switch (this.props.annotationType) {
       case "describing":
-        return {
+        return ({
           "@context": "https://www.w3.org/ns/anno.jsonld",
           target: this.props.selection.map((elem: Element) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
@@ -45,10 +44,10 @@ export class AnnotationSubmitter extends Component<AnnotationSubmitterProps, {}>
           motivation: "describing",
           created: new Date().toISOString(),
           creator: this.props.creator,
-        };
+        } as Annotation);
 
       case "linking":
-        return {
+        return ({
           "@context": "https://www.w3.org/ns/anno.jsonld",
           target: this.props.selection.map((elem: Element) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
@@ -58,10 +57,10 @@ export class AnnotationSubmitter extends Component<AnnotationSubmitterProps, {}>
           motivation: "linking",
           created: new Date().toISOString(),
           creator: this.props.creator,
-        };
+        } as Annotation);
 
       case "cueMedia":
-        return {
+        return ({
           "@context": "https://www.w3.org/ns/anno.jsonld",
           target: this.props.selection.map((elem: Element) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
@@ -71,10 +70,10 @@ export class AnnotationSubmitter extends Component<AnnotationSubmitterProps, {}>
           motivation: "trompa:cueMedia",
           created: new Date().toISOString(),
           creator: this.props.creator,
-        };
+        } as Annotation);
 
       case "image":
-        return {
+        return ({
           "@context": "https://www.w3.org/ns/anno.jsonld",
           target: this.props.selection.map((elem: Element) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
@@ -84,10 +83,10 @@ export class AnnotationSubmitter extends Component<AnnotationSubmitterProps, {}>
           motivation: "trompa:cueImage",
           created: new Date().toISOString(),
           creator: this.props.creator,
-        };
+        } as Annotation);
 
       case "playlist":
-        return {
+        return ({
           "@context": "https://www.w3.org/ns/anno.jsonld",
           target: this.props.selection.map((elem: Element) => {
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
@@ -97,10 +96,10 @@ export class AnnotationSubmitter extends Component<AnnotationSubmitterProps, {}>
           motivation: "trompa:playlist",
           created: new Date().toISOString(),
           creator: this.props.creator,
-        };
+        } as Annotation);
 
       case "replying":
-        return {
+        return ({
           "@context": "https://www.w3.org/ns/anno.jsonld",
           target: this.props.replyAnnotationTargetId, //this takes the annotation ID being replied to
           type: "Annotation",
@@ -108,7 +107,7 @@ export class AnnotationSubmitter extends Component<AnnotationSubmitterProps, {}>
           motivation: "replying",
           created: new Date().toISOString(),
           creator: this.props.creator,
-        };
+        } as Annotation);
 
       default:
         console.log(

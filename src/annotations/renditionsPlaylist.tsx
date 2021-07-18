@@ -4,7 +4,7 @@ import PlaylistItem from "./playlistItem";
 
 type RenditionsPlaylistProps = {
   allEntries: any[]
-  onRefreshClick: () => null
+  onRefreshClick: () => void
 }
 
 const RenditionsPlaylist :FunctionComponent<RenditionsPlaylistProps> = (props) => {

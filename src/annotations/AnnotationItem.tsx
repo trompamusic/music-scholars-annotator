@@ -20,12 +20,10 @@ import PlayLogo from "../graphics/play-solid.svg";
 import {ReactComponent as Trash} from "../graphics/trash-solid.svg";
 import {ReactComponent as InfoCircle} from "../graphics/info-circle-regular.svg";
 
-export type Annotation = any
-
 type AnnotationItemProps = {
   annotation: Annotation
   onRefreshClick: () => void
-  onAnnoReplyHandler: (replyTarget: string, replyTargetId: string) => void
+  onAnnoReplyHandler: (replyTarget: AnnotationTarget[], replyTargetId: string) => void
   onMediaClick: (id: string) => void
   showReplyHandler: () => void
   areRepliesVisible: boolean
@@ -88,7 +86,7 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
       });
     }
     auth
-      .fetch(this.props.annotation["@id"], { method: "DELETE" })
+      .fetch(this.props.annotation["@id"]!, { method: "DELETE" })
       .then(async (response) => {
         const data = await response.json();
         // check for error response
@@ -149,7 +147,7 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
     e.stopPropagation();
     const replyTarget = this.props.annotation.target;
     const replyTargetId = this.props.annotation["@id"];
-    this.props.onAnnoReplyHandler(replyTarget, replyTargetId);
+    this.props.onAnnoReplyHandler(replyTarget, replyTargetId!);
     console.log("reply target id", replyTargetId);
   };
 
@@ -180,7 +178,7 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
     auth
       .currentSession()
       .then((s) => {
-        getSolidDatasetWithAcl(this.props.annotation["@id"], {
+        getSolidDatasetWithAcl(this.props.annotation["@id"]!, {
           fetch: auth.fetch,
         })
           .then((datasetWithAcl) => {
