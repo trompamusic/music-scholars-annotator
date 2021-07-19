@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import SelectableScoreWrapper from "./containers/SelectableScoreWrapper";
 import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
 
 import { reducers } from 'meld-clients-core/lib/reducers';
@@ -7,6 +6,7 @@ import {createStore, applyMiddleware} from "redux";
 import thunk from "redux-thunk";
 import {Provider} from "react-redux";
 import ReduxPromise from 'redux-promise';
+import SolidWrapper from "./containers/SolidWrapper";
 
 
 const CE_URL = "https://api.trompamusic.eu"
@@ -23,7 +23,7 @@ export default class App extends Component {
         return (
             <Provider store={createStoreWithMiddleware(reducers)}>
             <ApolloProvider client={client}>
-                <SelectableScoreWrapper/>
+                <SolidWrapper />
             </ApolloProvider>
             </Provider>
         )
