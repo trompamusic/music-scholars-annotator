@@ -11,7 +11,6 @@ import {
 } from "@solid/react";
 
 import SelectableScoreApp from "./SelectableScoreApp";
-import Logo from "../graphics/top-bar-logo_0_0.png";
 
 const SolidWrapper = () => {
   data.context.extend({
@@ -35,7 +34,6 @@ const SolidWrapper = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src={Logo} alt="trompa logo" />
           </a>
           <p>
             <LoginButton className="loginButton" popup="auth-popup.html">
@@ -50,7 +48,6 @@ const SolidWrapper = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img src={Logo} alt="trompa logo" />
         </a>
         <h2>Music scholars annotation tool</h2>
         <p>
