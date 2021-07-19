@@ -8,6 +8,17 @@ body {
   color: orange;
 }
 
+@media (min-width: 1080px) {
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl,
+  .container-xxl {
+    max-width: 100% !important;
+  }
+}
+
 form.hide-submit input[type="submit"] {
   display: none;
 }
