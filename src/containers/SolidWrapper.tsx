@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, { ChangeEvent, useState } from "react";
 import data from "@solid/query-ldflex";
 
 import {
@@ -53,30 +53,35 @@ const SolidWrapper = () => {
           <img src={Logo} alt="trompa logo" />
         </a>
         <h2>Music scholars annotation tool</h2>
-        <p>
+        <p className="userInfo">
+          <span className="pathFind">
+            <span>SOLID POD path:</span>
+            <input
+              title="enter your preferred POD folder"
+              type="text"
+              placeholder="private/"
+              onChange={handleUserInput}
+              className="sizedTextBox"
+            />
+          </span>
           You are logged in as{" "}
-          <a href={userId?.toString()} target="_blank" rel="noopener noreferrer">
+          <a
+            href={userId?.toString()}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Value src="user.name" />
           </a>
+          <span title="close the current session and quit the app">
+            <LogoutButton className="logoutButton">Log out</LogoutButton>
+          </span>
         </p>
-        <p title="close the current session and quit the app">
-          <LogoutButton className="logoutButton">Log out</LogoutButton>
-        </p>
-        <p>Specify the annotation container path inside your Pod:</p>
-        <div>
-          <input
-            title="enter your preferred POD folder"
-            type="text"
-            placeholder="private/"
-            onChange={handleUserInput}
-            className="sizedTextBox"
-          />
-        </div>
+
         {typeof userPOD !== "undefined" ? (
           <SelectableScoreApp
             podUri={userPOD.toString()}
             submitUri={`${userPOD}` + userInput}
-            userId={userId ? userId.toString() : ''}
+            userId={userId ? userId.toString() : ""}
           />
         ) : (
           <div>Loading... </div>
@@ -84,6 +89,6 @@ const SolidWrapper = () => {
       </LoggedIn>
     </div>
   );
-}
+};
 
 export default SolidWrapper;

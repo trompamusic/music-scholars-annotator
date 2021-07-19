@@ -377,8 +377,14 @@ circle {
   user-select: none;
   position: relative;
   float: right;
-  bottom: 250px;
+  bottom: 185px;
   right: 0px;
+}
+
+.pathFind {
+  position: relative;
+
+  padding-right: 15px;
 }
 
 .scoreContainer div div svg {
@@ -611,6 +617,7 @@ circle {
   opacity: 0.5;
   color: white;
   border-radius: 4px;
+  margin-left: 5px;
 }
 
 .logoutButton:hover {
@@ -644,6 +651,12 @@ circle {
 .isClosed {
   border: 1px solid orange;
   background: rgba(241, 145, 0, 0.25);
+}
+
+.userInfo {
+  top: -125px;
+  float: right;
+  position: relative;
 }
 
 /* .selectionLegend {
