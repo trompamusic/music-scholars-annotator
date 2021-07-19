@@ -51,21 +51,25 @@ export default function Navigation() {
       </Navbar.Brand>
       <Nav className="me-auto">
         <Nav.Link as={Link} to="/">
-          Main app
+          Home
         </Nav.Link>
       </Nav>
       <Nav>
         {session && session.isLoggedIn ? (
-          <Navbar.Text>
+          <Navbar.Text style={{ display: "inline-flex", alignItems: "center" }}>
             <CombinedDataProvider
               datasetUrl={session.webId!}
               thingUrl={session.webId!}
             >
-              Logged in: <Text property={FOAF.name.iri.value} />
+              Logged in:{" "}
+              <Text
+                style={{ marginLeft: ".1vw" }}
+                property={FOAF.name.iri.value}
+              />
             </CombinedDataProvider>
             &emsp;
             <LogoutButton onLogout={() => setSession(undefined)}>
-              <Button>Log out</Button>
+              <Button className="logoutButton">Log out</Button>
             </LogoutButton>
           </Navbar.Text>
         ) : (
@@ -73,7 +77,7 @@ export default function Navigation() {
             oidcIssuer={trompaIdp}
             redirectUrl={window.location.origin}
           >
-            <Button>Log in</Button>
+            <Button className="loginButton">Log in</Button>
           </LoginButton>
         )}
       </Nav>

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, { ChangeEvent, useState } from "react";
 import data from "@solid/query-ldflex";
 
 import {
@@ -33,8 +33,7 @@ const SolidWrapper = () => {
             href="https://trompamusic.eu/"
             target="_blank"
             rel="noopener noreferrer"
-          >
-          </a>
+          ></a>
           <p>
             <LoginButton className="loginButton" popup="auth-popup.html">
               Log in with Solid
@@ -47,12 +46,14 @@ const SolidWrapper = () => {
           href="https://trompamusic.eu/"
           target="_blank"
           rel="noopener noreferrer"
-        >
-        </a>
-        <h2>Music scholars annotation tool</h2>
+        />
         <p>
           You are logged in as{" "}
-          <a href={userId?.toString()} target="_blank" rel="noopener noreferrer">
+          <a
+            href={userId?.toString()}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Value src="user.name" />
           </a>
         </p>
@@ -73,7 +74,7 @@ const SolidWrapper = () => {
           <SelectableScoreApp
             podUri={userPOD.toString()}
             submitUri={`${userPOD}` + userInput}
-            userId={userId ? userId.toString() : ''}
+            userId={userId ? userId.toString() : ""}
           />
         ) : (
           <div>Loading... </div>
@@ -81,6 +82,6 @@ const SolidWrapper = () => {
       </LoggedIn>
     </div>
   );
-}
+};
 
 export default SolidWrapper;
