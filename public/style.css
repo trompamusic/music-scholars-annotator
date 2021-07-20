@@ -240,9 +240,8 @@ circle {
 }
 
 .zoomOut {
-  margin-left: 1.5%;
-  position: absolute;
-  bottom: 95%;
+  position: relative;
+
   width: 25px;
   height: 25px;
   border: none;
@@ -257,9 +256,8 @@ circle {
 }
 
 .zoomIn {
-  margin-left: 4%;
-  position: absolute;
-  bottom: 95%;
+  position: relative;
+
   width: 25px;
   height: 25px;
   border: none;
@@ -274,8 +272,8 @@ circle {
 }
 
 .prevPageButton {
-  position: absolute;
-  bottom: 95%;
+  position: relative;
+
   width: 25px;
   height: 25px;
   border: none;
@@ -292,9 +290,8 @@ circle {
 }
 
 .nextPageButton {
-  margin-left: 6%;
-  position: absolute;
-  bottom: 95%;
+  position: relative;
+
   width: 25px;
   height: 25px;
   border: none;
@@ -388,7 +385,7 @@ circle {
   user-select: none;
   position: relative;
   float: right;
-  bottom: 250px;
+  bottom: 150px;
   right: 0px;
 }
 
@@ -512,7 +509,6 @@ circle {
 }
 
 .controls {
-  float: right;
   display: flex;
 }
 

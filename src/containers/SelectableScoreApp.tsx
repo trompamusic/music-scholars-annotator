@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Component} from "react";
+import React, { ChangeEvent, Component } from "react";
 import SelectableScore from "selectable-score/lib/selectable-score";
 import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
@@ -14,8 +14,8 @@ import SearchMinus from "../graphics/search-minus-solid.svg";
 import SearchPlus from "../graphics/search-plus-solid.svg";
 import HelpModal from "./HelpModal";
 import FileSelector from "./FileSelector";
-import { AnyAction, bindActionCreators, Dispatch} from "redux";
-import {connect} from "react-redux";
+import { AnyAction, bindActionCreators, Dispatch } from "redux";
+import { connect } from "react-redux";
 import FtempoSearch from "./FtempoSearch";
 
 //const vAdjust = 26; // num. pixels to nudge down anno measureBoxes+
@@ -31,53 +31,56 @@ const defaultVerovioWidth = (viewPortWidth > 1925) ? 2800 : 2000;
 // Selector to say if we're showing the annotation interface or F-tempo search
 enum ApplicationMode {
   Annotate = "Annotate",
-  Search = "Search"
+  Search = "Search",
 }
 
 type VerovioOptions = {
-  scale: number
-  adjustPageHeight: number
-  pageHeight: number
-  pageWidth: number
-  footer: string
-  unit: number
-}
+  scale: number;
+  adjustPageHeight: number;
+  pageHeight: number;
+  pageWidth: number;
+  footer: string;
+  unit: number;
+};
 
 type SelectableScoreAppProps = {
-  podUri: string
-  submitUri: string
-  userId: string
-  currentMedia?: string
+  podUri: string;
+  submitUri: string;
+  userId: string;
+  currentMedia?: string;
   // Bound from the SelectableScore redux
-  score: any
-}
+  score: any;
+};
 
 type SelectableScoreAppState = {
-  annoValue: string
-  selection: Element[],
-  annotationType: string
-  placeholder: string
-  uri: string
-  selectorString: string[]
-  buttonContent: string
-  replyAnnotationTarget: AnnotationTarget[]
-  currentAnnotation: Annotation[]
-  toggleAnnotationRetrieval: boolean
-  hasContent: boolean
-  fileSelected: boolean
-  currentMedia: string
-  seekTo: string
-  measuresToAnnotationsMap: { [key: string]: string[] },
-  annoToDisplay: any[],
-  helpWindowIsActive: boolean
-  replyAnnotationTargetId: string
-  areRepliesVisible: boolean
-  ftempoSearchCounter: number
-  applicationMode: ApplicationMode
-  vrvOptions: VerovioOptions
-}
+  annoValue: string;
+  selection: Element[];
+  annotationType: string;
+  placeholder: string;
+  uri: string;
+  selectorString: string[];
+  buttonContent: string;
+  replyAnnotationTarget: AnnotationTarget[];
+  currentAnnotation: Annotation[];
+  toggleAnnotationRetrieval: boolean;
+  hasContent: boolean;
+  fileSelected: boolean;
+  currentMedia: string;
+  seekTo: string;
+  measuresToAnnotationsMap: { [key: string]: string[] };
+  annoToDisplay: any[];
+  helpWindowIsActive: boolean;
+  replyAnnotationTargetId: string;
+  areRepliesVisible: boolean;
+  ftempoSearchCounter: number;
+  applicationMode: ApplicationMode;
+  vrvOptions: VerovioOptions;
+};
 
-class SelectableScoreApp extends Component<SelectableScoreAppProps, SelectableScoreAppState> {
+class SelectableScoreApp extends Component<
+  SelectableScoreAppProps,
+  SelectableScoreAppState
+> {
   constructor(props: Readonly<SelectableScoreAppProps>) {
     super(props);
     this.state = {
@@ -165,14 +168,14 @@ class SelectableScoreApp extends Component<SelectableScoreAppProps, SelectableSc
     //   newVrvOptions.pageHeight = 1500;
     // }
     console.log(
-        "ZOOM INCREASE",
-        newVrvOptions.scale,
-        "page w",
-        newVrvOptions.pageWidth,
-        "page h",
-        newVrvOptions.pageHeight
+      "ZOOM INCREASE",
+      newVrvOptions.scale,
+      "page w",
+      newVrvOptions.pageWidth,
+      "page h",
+      newVrvOptions.pageHeight
     );
-    this.setState({vrvOptions: newVrvOptions});
+    this.setState({ vrvOptions: newVrvOptions });
   };
 
   zoomOut = () => {
@@ -213,39 +216,39 @@ class SelectableScoreApp extends Component<SelectableScoreAppProps, SelectableSc
     //   newVrvOptions.pageHeight = 1500;
     // }
     console.log(
-        "ZOOM DECREASE",
-        newVrvOptions.scale,
-        "page w",
-        newVrvOptions.pageWidth,
-        "page h",
-        newVrvOptions.pageHeight
+      "ZOOM DECREASE",
+      newVrvOptions.scale,
+      "page w",
+      newVrvOptions.pageWidth,
+      "page h",
+      newVrvOptions.pageHeight
     );
-    this.setState({vrvOptions: newVrvOptions});
+    this.setState({ vrvOptions: newVrvOptions });
   };
 
   showReplyHandler = () => {
-    this.setState({areRepliesVisible: !this.state.areRepliesVisible});
+    this.setState({ areRepliesVisible: !this.state.areRepliesVisible });
   };
   activateModal = () => {
-    this.setState({helpWindowIsActive: true});
+    this.setState({ helpWindowIsActive: true });
   };
 
   deactivateModal = () => {
-    this.setState({helpWindowIsActive: false});
+    this.setState({ helpWindowIsActive: false });
   };
 
   convertCoords(elem: SVGGraphicsElement) {
     if (
-        document.getElementById(elem.getAttribute("id")!) &&
-        elem.style.display !== "none" &&
-        (elem.getBBox().x !== 0 || elem.getBBox().y !== 0)
+      document.getElementById(elem.getAttribute("id")!) &&
+      elem.style.display !== "none" &&
+      (elem.getBBox().x !== 0 || elem.getBBox().y !== 0)
     ) {
       //trims the box to fit within the measure and avoids overflowing slurs etc
       const staff1 = elem.getElementsByClassName("staff")[0];
       //magic from David Lewis
       const staffLines = Array.prototype.filter.call(
-          staff1.children,
-          (x) => x.tagName === "path"
+        staff1.children,
+        (x) => x.tagName === "path"
       );
       //sets the bounding box size to the stafflines size
       const bbox = staffLines[0].getBBox();
@@ -253,7 +256,9 @@ class SelectableScoreApp extends Component<SelectableScoreAppProps, SelectableSc
       const width = bbox.width;
       const y = elem.getBBox().y;
       const height = elem.getBBox().height;
-      const offset = elem.closest("svg")!.parentElement!.getBoundingClientRect();
+      const offset = elem
+        .closest("svg")!
+        .parentElement!.getBoundingClientRect();
       const matrix = elem.getScreenCTM()!;
       return {
         x: matrix.a * x + matrix.c * y + matrix.e - offset.left,
@@ -263,31 +268,34 @@ class SelectableScoreApp extends Component<SelectableScoreAppProps, SelectableSc
       };
     } else {
       console.warn("Element unavailable on page: ", elem.getAttribute("id"));
-      return {x: 0, y: 0, x2: 0, y2: 0};
+      return { x: 0, y: 0, x2: 0, y2: 0 };
     }
   }
 
   onAnnoTypeChange = (e: ChangeEvent<HTMLInputElement>) =>
-      this.setState({
-        annotationType: e.target.value,
-        placeholder: e.target.placeholder,
-        buttonContent: "Submit to your Solid POD",
-      });
+    this.setState({
+      annotationType: e.target.value,
+      placeholder: e.target.placeholder,
+      buttonContent: "Submit to your Solid POD",
+    });
 
   handleStringChange(selectorString: string[]) {
-    this.setState({selectorString});
+    this.setState({ selectorString });
   }
 
   handleSelectionChange(selection: Element[]) {
-    this.setState({selection});
+    this.setState({ selection });
   }
 
   onFileSelected = (uri: string) => {
-    this.setState({uri: uri, fileSelected: true});
+    this.setState({ uri: uri, fileSelected: true });
   };
 
   //////////// NEEDS TO WIPE TARGET REPLY AFTER RPELYING TO IT ALSO THE ANNOTATION TYPE HANDLING IS MESSY //////////////////
-  onAnnoReplyHandler = (replyTarget: AnnotationTarget[], replyTargetId: string) => {
+  onAnnoReplyHandler = (
+    replyTarget: AnnotationTarget[],
+    replyTargetId: string
+  ) => {
     this.setState({
       annotationType: "replying",
       placeholder: "you are replying to the selected annotation",
@@ -295,57 +303,57 @@ class SelectableScoreApp extends Component<SelectableScoreAppProps, SelectableSc
       replyAnnotationTarget: replyTarget,
       replyAnnotationTargetId: replyTargetId,
     });
-  }
+  };
 
   onResponse = (resp: any) => {
     console.log(resp);
     if (resp.status === 201) {
       this.setState(
-          {
-            toggleAnnotationRetrieval: true,
-          },
-          () => {
-            const loading = document.querySelector(".loading");
-            if (loading) {
-              loading.classList.remove("hidden");
-            }
-            this.setState({
-              toggleAnnotationRetrieval: false,
-              annotationType: "describing",
-              replyAnnotationTarget: [],
-              replyAnnotationTargetId: "",
-              placeholder: "Add your annotation...",
-              annoToDisplay: [],
-            });
+        {
+          toggleAnnotationRetrieval: true,
+        },
+        () => {
+          const loading = document.querySelector(".loading");
+          if (loading) {
+            loading.classList.remove("hidden");
           }
+          this.setState({
+            toggleAnnotationRetrieval: false,
+            annotationType: "describing",
+            replyAnnotationTarget: [],
+            replyAnnotationTargetId: "",
+            placeholder: "Add your annotation...",
+            annoToDisplay: [],
+          });
+        }
       );
     } else if (resp.status === 404) {
       alert("folder not found, check your annotation container path!");
     }
-  }
+  };
 
   onRefreshClick() {
     if (!this.state.hasContent) {
       return;
     } else
       this.setState(
-          {
-            toggleAnnotationRetrieval: true,
-          },
-          () => {
-            const loading = document.querySelector(".loading");
-            if (loading) {
-              loading.classList.remove("hidden");
-            }
-            this.setState({
-              toggleAnnotationRetrieval: false,
-              annotationType: "describing",
-              replyAnnotationTarget: [],
-              replyAnnotationTargetId: "",
-              placeholder: "Add your annotation...",
-              annoToDisplay: [],
-            });
+        {
+          toggleAnnotationRetrieval: true,
+        },
+        () => {
+          const loading = document.querySelector(".loading");
+          if (loading) {
+            loading.classList.remove("hidden");
           }
+          this.setState({
+            toggleAnnotationRetrieval: false,
+            annotationType: "describing",
+            replyAnnotationTarget: [],
+            replyAnnotationTargetId: "",
+            placeholder: "Add your annotation...",
+            annoToDisplay: [],
+          });
+        }
       );
   }
 
@@ -357,34 +365,34 @@ class SelectableScoreApp extends Component<SelectableScoreAppProps, SelectableSc
     const currentMedia = bodyMedia.split("#")[0];
     const seekTo = bodyMedia.split("#")[1].replace("t=", "");
     console.log("Setting up seek to: ", currentMedia, seekTo);
-    this.setState({currentMedia}, () => {
+    this.setState({ currentMedia }, () => {
       if (this.player.current) {
-        this.player.current.seekTo(parseInt(seekTo, 10))
+        this.player.current.seekTo(parseInt(seekTo, 10));
       }
     });
-  }
+  };
 
   onReceiveAnnotationContainerContent = (content: Annotation[]) => {
     if (!content || !content.length) {
       alert("no annotation to retrieve");
       const noLongerInFocusList = Array.from(
-          document.getElementsByClassName("inFocus")
+        document.getElementsByClassName("inFocus")
       );
       noLongerInFocusList.forEach((noFocusElement) =>
-          noFocusElement.classList.remove("inFocus")
+        noFocusElement.classList.remove("inFocus")
       );
       document.querySelectorAll(".measureBox").forEach((mb) => mb.remove());
       document
-          .querySelectorAll(".measureBoxBackground")
-          .forEach((mb) => mb.remove());
+        .querySelectorAll(".measureBoxBackground")
+        .forEach((mb) => mb.remove());
       this.setState(
-          {
-            hasContent: false,
-          },
-          () => {
-            console.log(this.state.hasContent, "no content to retrieve");
-            this.setState({hasContent: true});
-          }
+        {
+          hasContent: false,
+        },
+        () => {
+          console.log(this.state.hasContent, "no content to retrieve");
+          this.setState({ hasContent: true });
+        }
       );
       return;
     }
@@ -397,20 +405,20 @@ class SelectableScoreApp extends Component<SelectableScoreAppProps, SelectableSc
       // annotations, *not* MEI elements
       if (anno.motivation !== "replying") {
         const measures = anno.target
-            .map((jsonTarget: AnnotationTarget) => {
-              const targetId = jsonTarget.id;
-              const fragment = targetId.substr(targetId.lastIndexOf("#"));
-              const element = document.querySelector(fragment);
-              let measure = null;
-              if (element) {
-                measure = element.closest(".measure");
-              }
-              return measure;
-            })
-            .filter((el: Element | null) => el); // ensure element exists on screen
+          .map((jsonTarget: AnnotationTarget) => {
+            const targetId = jsonTarget.id;
+            const fragment = targetId.substr(targetId.lastIndexOf("#"));
+            const element = document.querySelector(fragment);
+            let measure = null;
+            if (element) {
+              measure = element.closest(".measure");
+            }
+            return measure;
+          })
+          .filter((el: Element | null) => el); // ensure element exists on screen
         distinctMeasures = Array.from(new Set(measures));
       }
-      return {annoId: anno["@id"]!, measures: distinctMeasures};
+      return { annoId: anno["@id"]!, measures: distinctMeasures };
     });
     let newMap: { [key: string]: string[] } = {};
     measuresToAnnotationsMapList.forEach((measureToAnnoMap) => {
@@ -425,191 +433,191 @@ class SelectableScoreApp extends Component<SelectableScoreAppProps, SelectableSc
     });
 
     this.setState(
-        {currentAnnotation: content, measuresToAnnotationsMap: newMap},
-        () => {
-          const noLongerInFocusList = Array.from(
-              document.getElementsByClassName("inFocus")
+      { currentAnnotation: content, measuresToAnnotationsMap: newMap },
+      () => {
+        const noLongerInFocusList = Array.from(
+          document.getElementsByClassName("inFocus")
+        );
+        noLongerInFocusList.forEach((noFocusElement) =>
+          noFocusElement.classList.remove("inFocus")
+        );
+        // delete any existing measure boxes so we can redraw from blank slate
+        document.querySelectorAll(".measureBox").forEach((mb) => mb.remove());
+        document
+          .querySelectorAll(".measureBoxBackground")
+          .forEach((mb) => mb.remove());
+        console.log("Mapped annotaitons ", newMap);
+        console.log("current annotations ", content);
+        // draw bounding boxes for all measures containing annotations
+        const annotatedMeasuresOnScreen = Object.keys(
+          this.state.measuresToAnnotationsMap
+        ).filter(
+          (measureId) => document.querySelectorAll("#" + measureId).length
+        );
+        console.log(
+          "Annotated measures on screen: ",
+          annotatedMeasuresOnScreen
+        );
+        annotatedMeasuresOnScreen.forEach((measureId) => {
+          const coords = this.convertCoords(
+            document.querySelector("#" + measureId)!
           );
-          noLongerInFocusList.forEach((noFocusElement) =>
-              noFocusElement.classList.remove("inFocus")
+          console.log("Coords: ", coords);
+
+          const measureBox = document.createElement("div");
+          const measureBoxBackground = document.createElement("div");
+
+          const coordsBox = {
+            left: Math.floor(coords.x),
+            top: Math.floor(coords.y),
+            width: Math.ceil(coords.x2 - coords.x),
+            height: Math.ceil(coords.y2 - coords.y),
+          };
+          console.log("Coords box: ", coordsBox);
+          measureBox.setAttribute("id", "measureBox-" + measureId);
+          measureBox.setAttribute("class", "measureBox");
+          measureBox.setAttribute(
+            "style",
+            "position: absolute;" +
+              "background: rgba(0, 0, 0, 0);" +
+              "left: " +
+              coordsBox.left +
+              "px;" +
+              "top: " +
+              coordsBox.top +
+              "px;" +
+              "width: " +
+              coordsBox.width +
+              "px;" +
+              "height: " +
+              coordsBox.height +
+              "px;" +
+              "z-index: 1"
           );
-          // delete any existing measure boxes so we can redraw from blank slate
-          document.querySelectorAll(".measureBox").forEach((mb) => mb.remove());
+
+          measureBoxBackground.setAttribute(
+            "id",
+            "measureBoxBackground-" + measureId
+          );
+          measureBoxBackground.setAttribute("class", "measureBoxBackground");
+          measureBoxBackground.classList.remove("isOpen");
+          measureBoxBackground.classList.add("isClosed");
+          measureBoxBackground.setAttribute(
+            "style",
+            "position: absolute;" +
+              // "background: rgba(241, 145, 0, 0.25);" +
+              // "border:1px solid orange;" +
+              "left: " +
+              coordsBox.left +
+              "px;" +
+              "top: " +
+              coordsBox.top +
+              "px;" +
+              "width: " +
+              coordsBox.width +
+              "px;" +
+              "height: " +
+              coordsBox.height +
+              "px;" +
+              "z-index: -1"
+          );
+          console.log("TRYING TO DRAW", measureBox);
           document
-              .querySelectorAll(".measureBoxBackground")
-              .forEach((mb) => mb.remove());
-          console.log("Mapped annotaitons ", newMap);
-          console.log("current annotations ", content);
-          // draw bounding boxes for all measures containing annotations
-          const annotatedMeasuresOnScreen = Object.keys(
-              this.state.measuresToAnnotationsMap
-          ).filter(
-              (measureId) => document.querySelectorAll("#" + measureId).length
-          );
-          console.log(
-              "Annotated measures on screen: ",
-              annotatedMeasuresOnScreen
-          );
-          annotatedMeasuresOnScreen.forEach((measureId) => {
-            const coords = this.convertCoords(
-                document.querySelector("#" + measureId)!
+            .querySelector(".annotationBoxesContainer")!
+            .appendChild(measureBox);
+          document
+            .querySelector(".annotationBoxesContainer")!
+            .appendChild(measureBoxBackground);
+
+          // FIXME: might need to work more on the onClick interaction
+          // e.preventDefault();
+          // const isBoxOpen = Array.from(e.currentTarget.classList).filter((c) =>
+          //   c.startsWith("measureBox")
+          // );
+          // if (isBoxOpen.length > 1) {
+          //   console.warn("too many open boxes", e.target);
+          // }
+          // // remove focus off previous inFocus elements (now outdated)
+          // const noLongerOpen = Array.from(
+          //   document.getElementsByClassName("isOpen")
+          // );
+          // noLongerOpen.forEach((noFocusElement) =>
+          //   noFocusElement.classList.remove("isOpen")
+          // );
+          // // add focus to newly inFocus elements
+          // const inOpenList = Array.from(
+          //   document.getElementsByClassName(isBoxOpen[0])
+          // );
+          // inOpenList.forEach((focusElement) =>
+          //   focusElement.classList.add("isOpen")
+          // );
+
+          measureBox.onclick = (e) => {
+            const noLongerInFocusList = Array.from(
+              document.getElementsByClassName("inFocus")
             );
-            console.log("Coords: ", coords);
-
-            const measureBox = document.createElement("div");
-            const measureBoxBackground = document.createElement("div");
-
-            const coordsBox = {
-              left: Math.floor(coords.x),
-              top: Math.floor(coords.y),
-              width: Math.ceil(coords.x2 - coords.x),
-              height: Math.ceil(coords.y2 - coords.y),
-            };
-            console.log("Coords box: ", coordsBox);
-            measureBox.setAttribute("id", "measureBox-" + measureId);
-            measureBox.setAttribute("class", "measureBox");
-            measureBox.setAttribute(
-                "style",
-                "position: absolute;" +
-                "background: rgba(0, 0, 0, 0);" +
-                "left: " +
-                coordsBox.left +
-                "px;" +
-                "top: " +
-                coordsBox.top +
-                "px;" +
-                "width: " +
-                coordsBox.width +
-                "px;" +
-                "height: " +
-                coordsBox.height +
-                "px;" +
-                "z-index: 1"
+            noLongerInFocusList.forEach((noFocusElement) =>
+              noFocusElement.classList.remove("inFocus")
             );
+            const bgBoxes = document.querySelectorAll(".measureBoxBackground");
+            const frontBox = (e.target as HTMLElement).closest(".measureBox");
+            bgBoxes.forEach((box) => {
+              box.classList.add("isClosed");
+              box.classList.remove("isOpen");
+              const bgBoxId = box.id.split("measureBoxBackground-")[1];
+              const frontBoxId = frontBox!.id.split("measureBox-")[1];
 
-            measureBoxBackground.setAttribute(
-                "id",
-                "measureBoxBackground-" + measureId
-            );
-            measureBoxBackground.setAttribute("class", "measureBoxBackground");
-            measureBoxBackground.classList.remove("isOpen");
-            measureBoxBackground.classList.add("isClosed");
-            measureBoxBackground.setAttribute(
-                "style",
-                "position: absolute;" +
-                // "background: rgba(241, 145, 0, 0.25);" +
-                // "border:1px solid orange;" +
-                "left: " +
-                coordsBox.left +
-                "px;" +
-                "top: " +
-                coordsBox.top +
-                "px;" +
-                "width: " +
-                coordsBox.width +
-                "px;" +
-                "height: " +
-                coordsBox.height +
-                "px;" +
-                "z-index: -1"
-            );
-            console.log("TRYING TO DRAW", measureBox);
-            document
-                .querySelector(".annotationBoxesContainer")!
-                .appendChild(measureBox);
-            document
-                .querySelector(".annotationBoxesContainer")!
-                .appendChild(measureBoxBackground);
-
-            // FIXME: might need to work more on the onClick interaction
-            // e.preventDefault();
-            // const isBoxOpen = Array.from(e.currentTarget.classList).filter((c) =>
-            //   c.startsWith("measureBox")
-            // );
-            // if (isBoxOpen.length > 1) {
-            //   console.warn("too many open boxes", e.target);
-            // }
-            // // remove focus off previous inFocus elements (now outdated)
-            // const noLongerOpen = Array.from(
-            //   document.getElementsByClassName("isOpen")
-            // );
-            // noLongerOpen.forEach((noFocusElement) =>
-            //   noFocusElement.classList.remove("isOpen")
-            // );
-            // // add focus to newly inFocus elements
-            // const inOpenList = Array.from(
-            //   document.getElementsByClassName(isBoxOpen[0])
-            // );
-            // inOpenList.forEach((focusElement) =>
-            //   focusElement.classList.add("isOpen")
-            // );
-
-            measureBox.onclick = (e) => {
-              const noLongerInFocusList = Array.from(
-                  document.getElementsByClassName("inFocus")
-              );
-              noLongerInFocusList.forEach((noFocusElement) =>
-                  noFocusElement.classList.remove("inFocus")
-              );
-              const bgBoxes = document.querySelectorAll(".measureBoxBackground");
-              const frontBox = (e.target as HTMLElement).closest(".measureBox");
-              bgBoxes.forEach((box) => {
-                box.classList.add("isClosed");
-                box.classList.remove("isOpen");
-                const bgBoxId = box.id.split("measureBoxBackground-")[1];
-                const frontBoxId = frontBox!.id.split("measureBox-")[1];
-
-                if (frontBoxId === bgBoxId) {
-                  box.classList.remove("isClosed");
-                  box.classList.add("isOpen");
-                  // box.setAttribute(
-                  //   "style",
-                  //   "position: absolute;" +
-                  //     "background: rgb(255, 255, 255);" +
-                  //     "border:1px solid orange;" +
-                  //     "left: " +
-                  //     coordsBox.left +
-                  //     "px;" +
-                  //     "top: " +
-                  //     coordsBox.top +
-                  //     "px;" +
-                  //     "width: " +
-                  //     coordsBox.width +
-                  //     "px;" +
-                  //     "height: " +
-                  //     coordsBox.height +
-                  //     "px;" +
-                  //     "z-index: -1"
-                  // );
-                }
-              });
-
-              const noLongerShowing = Array.from(
-                  document.getElementsByClassName("showReply")
-              );
-              console.log("no longer showing ", noLongerShowing);
-              //hides them
-
-              if (noLongerShowing.length) {
-                //const replyHolder = document.createElement("div");
-                if (this.state.areRepliesVisible) {
-                  this.setState({areRepliesVisible: false});
-                }
-                const annoContainer = document.querySelector(".listContainer");
-                console.log(annoContainer);
-                //annoContainer.appendChild(replyHolder);
-                noLongerShowing.forEach((noReplyShowing) => {
-                  noReplyShowing.classList.add("hiddenReply");
-                  annoContainer!.appendChild(noReplyShowing);
-                });
-                noLongerShowing.forEach((noReplyShowing) =>
-                    noReplyShowing.classList.remove("showReply")
-                );
+              if (frontBoxId === bgBoxId) {
+                box.classList.remove("isClosed");
+                box.classList.add("isOpen");
+                // box.setAttribute(
+                //   "style",
+                //   "position: absolute;" +
+                //     "background: rgb(255, 255, 255);" +
+                //     "border:1px solid orange;" +
+                //     "left: " +
+                //     coordsBox.left +
+                //     "px;" +
+                //     "top: " +
+                //     coordsBox.top +
+                //     "px;" +
+                //     "width: " +
+                //     coordsBox.width +
+                //     "px;" +
+                //     "height: " +
+                //     coordsBox.height +
+                //     "px;" +
+                //     "z-index: -1"
+                // );
               }
-              this.handleAnnoShowingUpdate(content, measureId);
-            };
-          });
-        }
+            });
+
+            const noLongerShowing = Array.from(
+              document.getElementsByClassName("showReply")
+            );
+            console.log("no longer showing ", noLongerShowing);
+            //hides them
+
+            if (noLongerShowing.length) {
+              //const replyHolder = document.createElement("div");
+              if (this.state.areRepliesVisible) {
+                this.setState({ areRepliesVisible: false });
+              }
+              const annoContainer = document.querySelector(".listContainer");
+              console.log(annoContainer);
+              //annoContainer.appendChild(replyHolder);
+              noLongerShowing.forEach((noReplyShowing) => {
+                noReplyShowing.classList.add("hiddenReply");
+                annoContainer!.appendChild(noReplyShowing);
+              });
+              noLongerShowing.forEach((noReplyShowing) =>
+                noReplyShowing.classList.remove("showReply")
+              );
+            }
+            this.handleAnnoShowingUpdate(content, measureId);
+          };
+        });
+      }
     );
 
     console.log("iteration succeded");
@@ -697,7 +705,7 @@ class SelectableScoreApp extends Component<SelectableScoreAppProps, SelectableSc
 
             default:
               console.log(
-                  "sorry, don't know what to do for this annotation boss"
+                "sorry, don't know what to do for this annotation boss"
               );
           }
         });
@@ -707,38 +715,40 @@ class SelectableScoreApp extends Component<SelectableScoreAppProps, SelectableSc
     if (loading) {
       loading.classList.add("hidden");
     }
-  }
+  };
 
   handleAnnoShowingUpdate = (content: Annotation[], measureId: string) => {
     let _annoIds = content.map((jsonIds) => {
       return jsonIds["@id"];
     });
     let _filteredAnnoIds = this.state.measuresToAnnotationsMap[measureId];
-    let compare = _annoIds.filter((anno) => anno && _filteredAnnoIds.includes(anno));
+    let compare = _annoIds.filter(
+      (anno) => anno && _filteredAnnoIds.includes(anno)
+    );
     // compare has all annotation IDs *for our measure*
     // we want those, PLUS all replying annotations (which aren't tied to measures)
     const annotationsToDisplay = [
       ...compare,
       ...content
-          .filter((anno) => anno.motivation === "replying") // get the replies
-          .map((anno) => anno["@id"]), // and return their IDs
+        .filter((anno) => anno.motivation === "replying") // get the replies
+        .map((anno) => anno["@id"]), // and return their IDs
     ];
     console.log("to display: ", annotationsToDisplay);
     this.setState({
       annoToDisplay: annotationsToDisplay,
     });
-  }
+  };
 
   handleScoreUpdate = (scoreElement: any) => {
     console.log("Received updated score DOM element: ", scoreElement);
     this.onRefreshClick();
-  }
+  };
 
   handlePageTurn() {
     document.querySelectorAll(".measureBox").forEach((mb) => mb.remove());
     document
-        .querySelectorAll(".measureBoxBackground")
-        .forEach((mb) => mb.remove());
+      .querySelectorAll(".measureBoxBackground")
+      .forEach((mb) => mb.remove());
   }
 
   onFtempoSearchButton = () => {
@@ -756,150 +766,154 @@ class SelectableScoreApp extends Component<SelectableScoreAppProps, SelectableSc
 
   render() {
     return (
-        <div>
-          {!this.state.fileSelected && (
-              <FileSelector
-                  onSelect={this.onFileSelected}
-                  defaultUrl={this.state.uri}
-                  placeholder="mahler four hands rendition..."
-              />
-          )}
-          {this.state.fileSelected && (
-              <div>
-                <div className="scoreContainer">
-                  <div className="annotationBoxesContainer"/>
-                  <SelectableScore
-                      uri={this.state.uri}
-                      annotationContainerUri={this.props.submitUri}
-                      vrvOptions={this.state.vrvOptions}
-                      onSelectionChange={this.handleSelectionChange}
-                      selectorString={this.state.selectorString}
-                      onScoreUpdate={this.handleScoreUpdate}
-                      onReceiveAnnotationContainerContent={
-                        this.onReceiveAnnotationContainerContent
-                      }
-                      toggleAnnotationRetrieval={this.state.toggleAnnotationRetrieval}
-                      selectionArea=".scoreContainer"
+      <div>
+        {!this.state.fileSelected && (
+          <FileSelector
+            onSelect={this.onFileSelected}
+            defaultUrl={this.state.uri}
+            placeholder="mahler four hands rendition..."
+          />
+        )}
+        {this.state.fileSelected && (
+          <div>
+            <div className="scoreContainer">
+              <div className="controls">
+                <div className="prevPageButton" onClick={this.handlePageTurn}>
+                  <PrevPageButton
+                    buttonContent={
+                      <img src={ArrowToLeft} alt="previous page" />
+                    }
+                    uri={this.state.uri}
                   />
                 </div>
-                <div className="controls">
-                  <div className="prevPageButton" onClick={this.handlePageTurn}>
-                    <PrevPageButton
-                        buttonContent={<img src={ArrowToLeft} alt="previous page"/>}
-                        uri={this.state.uri}
-                    />
-                  </div>
-                  <button onClick={this.zoomOut} className="zoomOut">
-                    <img src={SearchMinus} alt="zoom out"/>
-                  </button>
-                  {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
-                  <button onClick={this.zoomIn} className="zoomIn">
-                    <img src={SearchPlus} alt="zoom in"/>
-                  </button>
-                  <div className="nextPageButton" onClick={this.handlePageTurn}>
-                    <NextPageButton
-                        buttonContent={<img src={ArrowToRight} alt="next page"/>}
-                        uri={this.state.uri}
-                    />
-                  </div>
-                </div>
-              </div>
-          )}
-
-          {this.state.fileSelected && (
-              <FtempoSearch
-                  onButtonPress={this.onFtempoSearchButton}
-                  vrvToolkit={this.props.score.vrvTk}
-                  counter={this.state.ftempoSearchCounter}
-              />
-          )}
-
-          {/*selector for the component selection*/}
-          {this.state.applicationMode === ApplicationMode.Annotate && (
-              <div>
-                <SelectionHandler
-                    selectorString={this.state.selectorString}
-                    handleStringChange={this.handleStringChange}
-                />
-                {/*annotation submission component*/}
-                <AnnotationSubmitter
-                    onAnnoTypeChange={this.onAnnoTypeChange}
+                <button onClick={this.zoomOut} className="zoomOut">
+                  <img src={SearchMinus} alt="zoom out" />
+                </button>
+                {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
+                <button onClick={this.zoomIn} className="zoomIn">
+                  <img src={SearchPlus} alt="zoom in" />
+                </button>
+                <div className="nextPageButton" onClick={this.handlePageTurn}>
+                  <NextPageButton
+                    buttonContent={<img src={ArrowToRight} alt="next page" />}
                     uri={this.state.uri}
-                    submitUri={this.props.submitUri}
-                    selection={this.state.selection}
-                    onResponse={this.onResponse}
-                    onRefreshClick={this.onRefreshClick}
-                    annotationType={this.state.annotationType}
-                    placeholder={this.state.placeholder}
-                    replyAnnotationTarget={this.state.replyAnnotationTarget}
-                    buttonContent={this.state.buttonContent}
-                    creator={this.props.userId}
-                    replyAnnotationTargetId={this.state.replyAnnotationTargetId}
-                />
-
-                <RenditionsPlaylist
-                    allEntries={this.state.currentAnnotation}
-                    onRefreshClick={this.onRefreshClick}
-                />
-
-                <AnnotationList
-                    allEntries={this.state.currentAnnotation}
-                    filteringEntries={this.state.annoToDisplay}
-                    onAnnoReplyHandler={this.onAnnoReplyHandler}
-                    onMediaClick={this.onMediaClick}
-                    replyAnnotationTarget={this.state.replyAnnotationTarget}
-                    showReplyHandler={this.showReplyHandler}
-                    areRepliesVisible={this.state.areRepliesVisible}
-                    onRefreshClick={this.onRefreshClick}
-                />
-                <div className="loading hidden">
-                  Loading...
-                  <svg
-                      viewBox="0 0 100 100"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="loader"
-                      height="100%"
-                      width="100%"
-                  >
-                    <circle cx="50" cy="50" r="45"/>
-                  </svg>
+                  />
                 </div>
-                <ReactPlayer
-                    width="80%"
-                    height="80%"
-                    ref={this.player}
-                    url={this.state.currentMedia}
-                    controls={true}
-                    onReady={() => {
-                      if (this.state.seekTo && this.player.current) {
-                        console.log("Seeking to: ", this.state.seekTo);
-                        this.player.current.seekTo(Math.floor(Number(this.state.seekTo)));
-                        this.setState({seekTo: ""});
-                      }
-                    }}
-                />
               </div>
-          )}
+              <div className="annotationBoxesContainer" />
+              <SelectableScore
+                uri={this.state.uri}
+                annotationContainerUri={this.props.submitUri}
+                vrvOptions={this.state.vrvOptions}
+                onSelectionChange={this.handleSelectionChange}
+                selectorString={this.state.selectorString}
+                onScoreUpdate={this.handleScoreUpdate}
+                onReceiveAnnotationContainerContent={
+                  this.onReceiveAnnotationContainerContent
+                }
+                toggleAnnotationRetrieval={this.state.toggleAnnotationRetrieval}
+                selectionArea=".scoreContainer"
+              />
+            </div>
+          </div>
+        )}
 
+        {this.state.fileSelected && (
+          <FtempoSearch
+            onButtonPress={this.onFtempoSearchButton}
+            vrvToolkit={this.props.score.vrvTk}
+            counter={this.state.ftempoSearchCounter}
+          />
+        )}
+
+        {/*selector for the component selection*/}
+        {this.state.applicationMode === ApplicationMode.Annotate && (
           <div>
-            <button
-                onClick={this.activateModal}
-                style={{padding: "5px", marginTop: "5px", marginLeft: "5px"}}
-            >
-              help
-            </button>
-            <HelpModal
-                isOpen={this.state.helpWindowIsActive}
-                onRequestClose={this.deactivateModal}
+            <SelectionHandler
+              selectorString={this.state.selectorString}
+              handleStringChange={this.handleStringChange}
+            />
+            {/*annotation submission component*/}
+            <AnnotationSubmitter
+              onAnnoTypeChange={this.onAnnoTypeChange}
+              uri={this.state.uri}
+              submitUri={this.props.submitUri}
+              selection={this.state.selection}
+              onResponse={this.onResponse}
+              onRefreshClick={this.onRefreshClick}
+              annotationType={this.state.annotationType}
+              placeholder={this.state.placeholder}
+              replyAnnotationTarget={this.state.replyAnnotationTarget}
+              buttonContent={this.state.buttonContent}
+              creator={this.props.userId}
+              replyAnnotationTargetId={this.state.replyAnnotationTargetId}
+            />
+
+            <RenditionsPlaylist
+              allEntries={this.state.currentAnnotation}
+              onRefreshClick={this.onRefreshClick}
+            />
+
+            <AnnotationList
+              allEntries={this.state.currentAnnotation}
+              filteringEntries={this.state.annoToDisplay}
+              onAnnoReplyHandler={this.onAnnoReplyHandler}
+              onMediaClick={this.onMediaClick}
+              replyAnnotationTarget={this.state.replyAnnotationTarget}
+              showReplyHandler={this.showReplyHandler}
+              areRepliesVisible={this.state.areRepliesVisible}
+              onRefreshClick={this.onRefreshClick}
+            />
+            <div className="loading hidden">
+              Loading...
+              <svg
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+                className="loader"
+                height="100%"
+                width="100%"
+              >
+                <circle cx="50" cy="50" r="45" />
+              </svg>
+            </div>
+            <ReactPlayer
+              width="80%"
+              height="80%"
+              ref={this.player}
+              url={this.state.currentMedia}
+              controls={true}
+              onReady={() => {
+                if (this.state.seekTo && this.player.current) {
+                  console.log("Seeking to: ", this.state.seekTo);
+                  this.player.current.seekTo(
+                    Math.floor(Number(this.state.seekTo))
+                  );
+                  this.setState({ seekTo: "" });
+                }
+              }}
             />
           </div>
+        )}
+
+        <div>
+          <button
+            onClick={this.activateModal}
+            style={{ padding: "5px", marginTop: "5px", marginLeft: "5px" }}
+          >
+            help
+          </button>
+          <HelpModal
+            isOpen={this.state.helpWindowIsActive}
+            onRequestClose={this.deactivateModal}
+          />
         </div>
+      </div>
     );
   }
 }
 
-function mapStateToProps({score}: any) {
-  return {score};
+function mapStateToProps({ score }: any) {
+  return { score };
 }
 
 function mapDispatchToProps(dispatch: Dispatch<AnyAction>) {
