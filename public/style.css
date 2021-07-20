@@ -32,6 +32,10 @@ form.hide-submit input[type="submit"] {
   transition-duration: 0.4s;
 }
 
+.container__app {
+  padding-left: 0px;
+}
+
 .searchIcon:hover {
   background-color: rgb(204, 202, 202);
 }
