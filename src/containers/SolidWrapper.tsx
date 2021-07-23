@@ -1,21 +1,9 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 
 import SelectableScoreApp from "./SelectableScoreApp";
-import {useHistory, useLocation} from "react-router-dom";
 
-const SolidWrapper = () => {
+const SolidWrapper = (props: {resourceUri: string}) => {
     const [userInput, setUserInput] = useState("private/");
-    const userPOD = 'p';
-    const userId = 'i';
-
-    const history = useHistory();
-    const location = useLocation();
-    const query = new URLSearchParams(location.search);
-    const resource = query.get('resource');
-
-    if (!resource) {
-        history.push('/new');
-    }
 
     return (
         <div id="authWrapper">
@@ -32,10 +20,8 @@ const SolidWrapper = () => {
                 />
             </div>
                 <SelectableScoreApp
-                    resourceUri={resource!}
-                    podUri={userPOD.toString()}
-                    submitUri={`${userPOD}` + userInput}
-                    userId={userId ? userId.toString() : ""}
+                    resourceUri={props.resourceUri}
+                    submitUri={userInput}
                 />
         </div>
     );

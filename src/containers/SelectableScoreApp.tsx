@@ -44,9 +44,7 @@ type VerovioOptions = {
 
 type SelectableScoreAppProps = {
   resourceUri: string;
-  podUri: string;
   submitUri: string;
-  userId: string;
   currentMedia?: string;
   // Bound from the SelectableScore redux
   score: any;
@@ -816,6 +814,7 @@ class SelectableScoreApp extends Component<
             />
             {/*annotation submission component*/}
             <AnnotationSubmitter
+              creator='creator'
               onAnnoTypeChange={this.onAnnoTypeChange}
               uri={this.props.resourceUri}
               submitUri={this.props.submitUri}
@@ -826,7 +825,6 @@ class SelectableScoreApp extends Component<
               placeholder={this.state.placeholder}
               replyAnnotationTarget={this.state.replyAnnotationTarget}
               buttonContent={this.state.buttonContent}
-              creator={this.props.userId}
               replyAnnotationTargetId={this.state.replyAnnotationTargetId}
             />
 
