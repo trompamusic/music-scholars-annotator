@@ -53,6 +53,9 @@ export default function Navigation() {
         <Nav.Link as={Link} to="/">
           Home
         </Nav.Link>
+        <Nav.Link as={Link} to="/new">
+          New
+        </Nav.Link>
       </Nav>
       <Nav>
         {session && session.isLoggedIn ? (

@@ -11,7 +11,8 @@ import Navigation from "./containers/Navigation";
 import { SessionProvider } from "@inrupt/solid-ui-react";
 import { Container } from "react-bootstrap-v5";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch, Redirect, useLocation } from "react-router-dom";
+import ResourceLoader from "./containers/ResourceLoader";
 
 const CE_URL = "https://api.trompamusic.eu";
 
@@ -35,7 +36,13 @@ function App() {
             <Container fluid="lg" style={{ paddingLeft: "0px" }}>
               <Switch>
                 <Route exact path="/">
-                  <SolidWrapper />
+                  <Redirect to="/new" />
+                </Route>
+                <Route exact path="/new">
+                  <ResourceLoader/>
+                </Route>
+                <Route exact path="/annotate">
+                  <SolidWrapper/>
                 </Route>
               </Switch>
             </Container>

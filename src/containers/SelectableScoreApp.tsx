@@ -44,6 +44,7 @@ type VerovioOptions = {
 };
 
 type SelectableScoreAppProps = {
+  resourceUri: string;
   podUri: string;
   submitUri: string;
   userId: string;
@@ -57,14 +58,12 @@ type SelectableScoreAppState = {
   selection: Element[];
   annotationType: string;
   placeholder: string;
-  uri: string;
   selectorString: string[];
   buttonContent: string;
   replyAnnotationTarget: AnnotationTarget[];
   currentAnnotation: Annotation[];
   toggleAnnotationRetrieval: boolean;
   hasContent: boolean;
-  fileSelected: boolean;
   currentMedia: string;
   seekTo: string;
   measuresToAnnotationsMap: { [key: string]: string[] };
@@ -88,14 +87,12 @@ class SelectableScoreApp extends Component<
       selection: [],
       annotationType: "describing",
       placeholder: "Add your annotation...",
-      uri: "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei",
       selectorString: [],
       buttonContent: "Submit to your Solid POD",
       replyAnnotationTarget: [],
       currentAnnotation: [],
       toggleAnnotationRetrieval: false,
       hasContent: true,
-      fileSelected: false,
       currentMedia: this.props.currentMedia || "",
       seekTo: "",
       measuresToAnnotationsMap: {},
@@ -286,10 +283,6 @@ class SelectableScoreApp extends Component<
   handleSelectionChange(selection: Element[]) {
     this.setState({ selection });
   }
-
-  onFileSelected = (uri: string) => {
-    this.setState({ uri: uri, fileSelected: true });
-  };
 
   //////////// NEEDS TO WIPE TARGET REPLY AFTER RPELYING TO IT ALSO THE ANNOTATION TYPE HANDLING IS MESSY //////////////////
   onAnnoReplyHandler = (
@@ -767,14 +760,6 @@ class SelectableScoreApp extends Component<
   render() {
     return (
       <div>
-        {!this.state.fileSelected && (
-          <FileSelector
-            onSelect={this.onFileSelected}
-            defaultUrl={this.state.uri}
-            placeholder="mahler four hands rendition..."
-          />
-        )}
-        {this.state.fileSelected && (
           <div>
             <div className="scoreContainer">
               <div className="controls">
@@ -783,7 +768,7 @@ class SelectableScoreApp extends Component<
                     buttonContent={
                       <img src={ArrowToLeft} alt="previous page" />
                     }
-                    uri={this.state.uri}
+                    uri={this.props.resourceUri}
                   />
                 </div>
                 <button onClick={this.zoomOut} className="zoomOut">
@@ -796,13 +781,13 @@ class SelectableScoreApp extends Component<
                 <div className="nextPageButton" onClick={this.handlePageTurn}>
                   <NextPageButton
                     buttonContent={<img src={ArrowToRight} alt="next page" />}
-                    uri={this.state.uri}
+                    uri={this.props.resourceUri}
                   />
                 </div>
               </div>
               <div className="annotationBoxesContainer" />
               <SelectableScore
-                uri={this.state.uri}
+                uri={this.props.resourceUri}
                 annotationContainerUri={this.props.submitUri}
                 vrvOptions={this.state.vrvOptions}
                 onSelectionChange={this.handleSelectionChange}
@@ -816,15 +801,12 @@ class SelectableScoreApp extends Component<
               />
             </div>
           </div>
-        )}
 
-        {this.state.fileSelected && (
           <FtempoSearch
             onButtonPress={this.onFtempoSearchButton}
             vrvToolkit={this.props.score.vrvTk}
             counter={this.state.ftempoSearchCounter}
           />
-        )}
 
         {/*selector for the component selection*/}
         {this.state.applicationMode === ApplicationMode.Annotate && (
@@ -836,7 +818,7 @@ class SelectableScoreApp extends Component<
             {/*annotation submission component*/}
             <AnnotationSubmitter
               onAnnoTypeChange={this.onAnnoTypeChange}
-              uri={this.state.uri}
+              uri={this.props.resourceUri}
               submitUri={this.props.submitUri}
               selection={this.state.selection}
               onResponse={this.onResponse}
