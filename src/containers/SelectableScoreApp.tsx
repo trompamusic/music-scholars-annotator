@@ -13,7 +13,6 @@ import ArrowToRight from "../graphics/arrow-to-right-regular.svg";
 import SearchMinus from "../graphics/search-minus-solid.svg";
 import SearchPlus from "../graphics/search-plus-solid.svg";
 import HelpModal from "./HelpModal";
-import FileSelector from "./FileSelector";
 import { AnyAction, bindActionCreators, Dispatch } from "redux";
 import { connect } from "react-redux";
 import FtempoSearch from "./FtempoSearch";

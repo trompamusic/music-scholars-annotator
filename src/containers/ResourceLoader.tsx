@@ -67,8 +67,6 @@ class FtempoCatalogueSearchType {
     `;
 
     static processSearchResult = (result: any) => {
-        console.log("PROCESS SEARCH RESULT")
-        console.log(result)
         // Find the itemListElements of this ItemList, instead of a list of ItemLists
         if (Array.isArray(result) && result[0]) {
             return result[0].itemListElement;
