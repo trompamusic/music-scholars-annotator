@@ -31,6 +31,7 @@ const defaultVerovioWidth = (viewPortWidth > 1925) ? 2800 : 2000;
 enum ApplicationMode {
   Annotate = "Annotate",
   Search = "Search",
+  Ready = "Ready",
 }
 
 type VerovioOptions = {
@@ -99,7 +100,7 @@ class SelectableScoreApp extends Component<
       areRepliesVisible: false,
 
       ftempoSearchCounter: 1,
-      applicationMode: ApplicationMode.Annotate,
+      applicationMode: ApplicationMode.Ready,
       vrvOptions: {
         scale: defaultVerovioScale,
         adjustPageHeight: 0,
@@ -113,7 +114,7 @@ class SelectableScoreApp extends Component<
     this.handleStringChange = this.handleStringChange.bind(this);
     this.onRefreshClick = this.onRefreshClick.bind(this);
     this.convertCoords = this.convertCoords.bind(this);
-
+    this.annotate = this.annotate.bind(this);
     this.handlePageTurn = this.handlePageTurn.bind(this);
   }
 
@@ -754,57 +755,63 @@ class SelectableScoreApp extends Component<
     });
   };
 
+  annotate = () => {
+    this.setState({
+      applicationMode: ApplicationMode.Annotate,
+    });
+  };
+
   render() {
     return (
       <div>
-          <div>
-            <div className="scoreContainer">
-              <div className="controls">
-                <div className="prevPageButton" onClick={this.handlePageTurn}>
-                  <PrevPageButton
-                    buttonContent={
-                      <img src={ArrowToLeft} alt="previous page" />
-                    }
-                    uri={this.props.resourceUri}
-                  />
-                </div>
-                <button onClick={this.zoomOut} className="zoomOut">
-                  <img src={SearchMinus} alt="zoom out" />
-                </button>
-                {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
-                <button onClick={this.zoomIn} className="zoomIn">
-                  <img src={SearchPlus} alt="zoom in" />
-                </button>
-                <div className="nextPageButton" onClick={this.handlePageTurn}>
-                  <NextPageButton
-                    buttonContent={<img src={ArrowToRight} alt="next page" />}
-                    uri={this.props.resourceUri}
-                  />
-                </div>
+        <div>
+          <div className="scoreContainer">
+            <div className="controls">
+              <div className="prevPageButton" onClick={this.handlePageTurn}>
+                <PrevPageButton
+                  buttonContent={<img src={ArrowToLeft} alt="previous page" />}
+                  uri={this.props.resourceUri}
+                />
               </div>
-              <div className="annotationBoxesContainer" />
-              <SelectableScore
-                uri={this.props.resourceUri}
-                annotationContainerUri={this.props.submitUri}
-                vrvOptions={this.state.vrvOptions}
-                onSelectionChange={this.handleSelectionChange}
-                selectorString={this.state.selectorString}
-                onScoreUpdate={this.handleScoreUpdate}
-                onReceiveAnnotationContainerContent={
-                  this.onReceiveAnnotationContainerContent
-                }
-                toggleAnnotationRetrieval={this.state.toggleAnnotationRetrieval}
-                selectionArea=".scoreContainer"
-              />
+              <button onClick={this.zoomOut} className="zoomOut">
+                <img src={SearchMinus} alt="zoom out" />
+              </button>
+              {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
+              <button onClick={this.zoomIn} className="zoomIn">
+                <img src={SearchPlus} alt="zoom in" />
+              </button>
+              <div className="nextPageButton" onClick={this.handlePageTurn}>
+                <NextPageButton
+                  buttonContent={<img src={ArrowToRight} alt="next page" />}
+                  uri={this.props.resourceUri}
+                />
+              </div>
             </div>
+            <div className="annotationBoxesContainer" />
+            <SelectableScore
+              uri={this.props.resourceUri}
+              annotationContainerUri={this.props.submitUri}
+              vrvOptions={this.state.vrvOptions}
+              onSelectionChange={this.handleSelectionChange}
+              selectorString={this.state.selectorString}
+              onScoreUpdate={this.handleScoreUpdate}
+              onReceiveAnnotationContainerContent={
+                this.onReceiveAnnotationContainerContent
+              }
+              toggleAnnotationRetrieval={this.state.toggleAnnotationRetrieval}
+              selectionArea=".scoreContainer"
+            />
           </div>
+        </div>
 
-          <FtempoSearch
-            onButtonPress={this.onFtempoSearchButton}
-            vrvToolkit={this.props.score.vrvTk}
-            counter={this.state.ftempoSearchCounter}
-          />
+        <FtempoSearch
+          onButtonPress={this.onFtempoSearchButton}
+          vrvToolkit={this.props.score.vrvTk}
+          counter={this.state.ftempoSearchCounter}
+        />
 
+        <h3>Annotate the score using the Annotation Tools</h3>
+        <button onClick={this.annotate}>Make an annotation</button>
         {/*selector for the component selection*/}
         {this.state.applicationMode === ApplicationMode.Annotate && (
           <div>
@@ -814,7 +821,7 @@ class SelectableScoreApp extends Component<
             />
             {/*annotation submission component*/}
             <AnnotationSubmitter
-              creator='creator'
+              creator="creator"
               onAnnoTypeChange={this.onAnnoTypeChange}
               uri={this.props.resourceUri}
               submitUri={this.props.submitUri}
@@ -877,7 +884,7 @@ class SelectableScoreApp extends Component<
         <div>
           <button
             onClick={this.activateModal}
-            style={{ padding: "5px", marginTop: "5px", marginLeft: "5px" }}
+            style={{ padding: "5px", marginTop: "5px" }}
           >
             help
           </button>

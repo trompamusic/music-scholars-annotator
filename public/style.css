@@ -16,7 +16,12 @@ body {
   .container-xl,
   .container-xxl {
     max-width: 100% !important;
+    padding-left: 0.5% !important;
   }
+}
+
+.ftempoContainer {
+  max-width: 95vw;
 }
 
 form.hide-submit input[type="submit"] {
@@ -256,7 +261,9 @@ circle {
 }
 
 .zoomOut img {
-  width: 25px;
+  position: absolute;
+  left: 20%;
+  top: 20%;
 }
 
 .zoomIn {
@@ -272,7 +279,9 @@ circle {
 }
 
 .zoomIn img {
-  width: 25px;
+  position: absolute;
+  left: 20%;
+  top: 20%;
 }
 
 .prevPageButton {
@@ -287,7 +296,7 @@ circle {
   outline: none;
 }
 
-.prevPageButton svg {
+.prevPageButton img {
   position: absolute;
   left: 20%;
   top: 20%;
@@ -305,7 +314,7 @@ circle {
   outline: none;
 }
 
-.nextPageButton svg {
+.nextPageButton img {
   position: absolute;
   left: 20%;
   top: 20%;
@@ -389,7 +398,7 @@ circle {
   user-select: none;
   position: relative;
   float: right;
-  bottom: 150px;
+  top: -6vh;
   right: 0px;
 }
 
