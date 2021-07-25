@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 
 import SelectableScoreApp from "./SelectableScoreApp";
+import {useSession} from "@inrupt/solid-ui-react";
 
 const SolidWrapper = (props: {resourceUri: string}) => {
     const [userInput, setUserInput] = useState("private/");
+    const {session} = useSession();
 
     return (
         <div id="authWrapper">
@@ -22,6 +24,7 @@ const SolidWrapper = (props: {resourceUri: string}) => {
                 <SelectableScoreApp
                     resourceUri={props.resourceUri}
                     submitUri={userInput}
+                    solidSession={session}
                 />
         </div>
     );

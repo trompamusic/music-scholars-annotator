@@ -12,8 +12,8 @@ type AddAnnotationProps = {
   submitUri: string
   buttonContent: string
   // Args to submitHandler is handlerArgs, which can be anything, or {} if not set
-  submitHandler: (args?: any) => Annotation | undefined
-  onResponse: (response: AnnotationSolidResponse) => void
+  createAnnotationObject: (args?: any) => Annotation | undefined
+  saveAnnotation: (annotation: Annotation) => void;
   placeholder: string
 }
 
@@ -37,19 +37,20 @@ class AddAnnotation extends Component<AddAnnotationProps, AddAnnotationState> {
       console.log(this.state.seconds)
     );
 
+  saveAnnotation = () => {
+    const annotation = this.props.createAnnotationObject(this.state)
+    if (annotation) {
+      this.props.saveAnnotation(annotation);
+    } else {
+      console.log("annotation is empty, not saving");
+    }
+  }
+
   wipeState() {
     this.setState({ value: "", seconds: "" });
   }
 
   render() {
-    //packages the two states in one variable. The submithandlerArgs then are read with .value and .seconds from the submitHandler function
-    let value = this.state.value;
-    let seconds = this.state.seconds;
-    let handlerArgs = {
-      value,
-      seconds,
-    };
-
     return (
       <div>
         {this.props.annotationType === "playlist" && (
@@ -105,36 +106,18 @@ class AddAnnotation extends Component<AddAnnotationProps, AddAnnotationState> {
             />
           </div>
         )}
-        {this.state.value && (
-          <button
-            className="enabledSubmitButton"
-            title="click to post your annotation to your solid POD"
-          >
-            <ArrowAltToTop style={{width: '1em', height: '1em'}} />{" "}
-            <SubmitButton
-              buttonContent={this.props.buttonContent}
-              submitUri={this.props.submitUri}
-              submitHandler={this.props.submitHandler}
-              submitHandlerArgs={handlerArgs}
-              onResponse={this.props.onResponse}
-            />
-          </button>
-        )}
-        {!this.state.value && (
-          <button
-            className="disabledSubmitButton"
-            title="click to post your annotation to your solid POD"
-          >
-            <FileImport style={{width: '1em', height: '1em'}} />{" "}
-            <SubmitButton
-              buttonContent="Write something to begin..."
-              submitUri={this.props.submitUri}
-              submitHandler={this.props.submitHandler}
-              submitHandlerArgs={handlerArgs}
-              onResponse={this.props.onResponse}
-            />
-          </button>
-        )}
+        <button
+          className={this.state.value ? "enabledSubmitButton" : "disabledSubmitButton"}
+          title="click to post your annotation to your solid POD"
+          onClick={this.saveAnnotation}
+        >
+            {this.state.value && (<>
+            <ArrowAltToTop style={{width: '1em', height: '1em'}} /> {this.props.buttonContent}</>
+            )}
+            {!this.state.value && (<>
+              <FileImport style={{width: '1em', height: '1em'}}/>{" "}Write something to begin...
+              </>)}
+        </button>
 
         <button
           onClick={this.props.onRefreshClick}

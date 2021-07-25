@@ -1,5 +1,5 @@
-/* annotation submitter takes the handlerArgs passed from the addAnnotaiton script and builds the jsonLd structure of each annotation based on its motivation */
-/* it also renders the radio button array to selecte the annotation motivation  */
+/* annotation submitter takes the handlerArgs passed from the addAnnotation script and builds the jsonLd structure of each annotation based on its motivation */
+/* it also renders the radio button array to select the annotation motivation  */
 import React, { ChangeEvent, Component } from "react";
 import { v4 as uuidv4 } from "uuid";
 import AddAnnotation from "./AddAnnotation";
@@ -15,7 +15,7 @@ type AnnotationSubmitterProps = {
   replyAnnotationTarget: AnnotationTarget[];
   replyAnnotationTargetId: string;
   selection: Element[];
-  onResponse: (response: AnnotationSolidResponse) => void;
+  saveAnnotation: (annotation: Annotation) => void;
   onRefreshClick: () => void;
 };
 
@@ -25,7 +25,7 @@ export class AnnotationSubmitter extends Component<
 > {
   private textArea = React.createRef<AddAnnotation>();
 
-  submitHandler = (handlerArgs?: any) => {
+  createAnnotationObject = (handlerArgs?: any) => {
     if (this.textArea.current) {
       this.textArea.current.wipeState();
     }
@@ -68,7 +68,7 @@ export class AnnotationSubmitter extends Component<
             return { id: this.props.uri + "#" + elem.getAttribute("id") };
           }), //this takes the measure id selected by the user
           type: "Annotation",
-          body: [{ id: value + "#t=" + seconds }], //this takes the user link + time offest
+          body: [{ id: value + "#t=" + seconds }], //this takes the user link + time offset
           motivation: "trompa:cueMedia",
           created: new Date().toISOString(),
           creator: this.props.creator,
@@ -198,8 +198,8 @@ export class AnnotationSubmitter extends Component<
               annotationType={this.props.annotationType}
               submitUri={this.props.submitUri}
               placeholder={this.props.placeholder}
-              submitHandler={this.submitHandler}
-              onResponse={this.props.onResponse}
+              createAnnotationObject={this.createAnnotationObject}
+              saveAnnotation={this.props.saveAnnotation}
               onRefreshClick={this.props.onRefreshClick}
               buttonContent={this.props.buttonContent}
             />

@@ -16,6 +16,8 @@ import HelpModal from "./HelpModal";
 import { AnyAction, bindActionCreators, Dispatch } from "redux";
 import { connect } from "react-redux";
 import FtempoSearch from "./FtempoSearch";
+import { Session } from "@inrupt/solid-client-authn-browser";
+import { SolidClient } from "trompa-annotation-component/dist";
 
 //const vAdjust = 26; // num. pixels to nudge down anno measureBoxes+
 const defaultVerovioScale = 50;
@@ -49,6 +51,7 @@ type SelectableScoreAppProps = {
   currentMedia?: string;
   // Bound from the SelectableScore redux
   score: any;
+  solidSession: Session;
 };
 
 type SelectableScoreAppState = {
@@ -60,7 +63,6 @@ type SelectableScoreAppState = {
   buttonContent: string;
   replyAnnotationTarget: AnnotationTarget[];
   currentAnnotation: Annotation[];
-  toggleAnnotationRetrieval: boolean;
   hasContent: boolean;
   currentMedia: string;
   seekTo: string;
@@ -89,7 +91,6 @@ class SelectableScoreApp extends Component<
       buttonContent: "Submit to your Solid POD",
       replyAnnotationTarget: [],
       currentAnnotation: [],
-      toggleAnnotationRetrieval: false,
       hasContent: true,
       currentMedia: this.props.currentMedia || "",
       seekTo: "",
@@ -112,7 +113,6 @@ class SelectableScoreApp extends Component<
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleStringChange = this.handleStringChange.bind(this);
-    this.onRefreshClick = this.onRefreshClick.bind(this);
     this.convertCoords = this.convertCoords.bind(this);
     this.annotate = this.annotate.bind(this);
     this.handlePageTurn = this.handlePageTurn.bind(this);
@@ -282,7 +282,7 @@ class SelectableScoreApp extends Component<
     this.setState({ selection });
   }
 
-  //////////// NEEDS TO WIPE TARGET REPLY AFTER RPELYING TO IT ALSO THE ANNOTATION TYPE HANDLING IS MESSY //////////////////
+  //////////// NEEDS TO WIPE TARGET REPLY AFTER REPLYING TO IT ALSO THE ANNOTATION TYPE HANDLING IS MESSY //////////////////
   onAnnoReplyHandler = (
     replyTarget: AnnotationTarget[],
     replyTargetId: string
@@ -296,56 +296,40 @@ class SelectableScoreApp extends Component<
     });
   };
 
-  onResponse = (resp: any) => {
-    console.log(resp);
-    if (resp.status === 201) {
-      this.setState(
-        {
-          toggleAnnotationRetrieval: true,
-        },
-        () => {
-          const loading = document.querySelector(".loading");
-          if (loading) {
-            loading.classList.remove("hidden");
-          }
-          this.setState({
-            toggleAnnotationRetrieval: false,
-            annotationType: "describing",
-            replyAnnotationTarget: [],
-            replyAnnotationTargetId: "",
-            placeholder: "Add your annotation...",
-            annoToDisplay: [],
-          });
-        }
-      );
-    } else if (resp.status === 404) {
-      alert("folder not found, check your annotation container path!");
-    }
+  /**
+   * Called when the AnnotationSubmitter wants to save an annotation
+   */
+  saveAnnotation = async (annotation: any) => {
+    console.log("selectable score: about to save an annotation")
+    console.log(annotation);
+    const solidClient = new SolidClient()
+    await solidClient.saveAnnotation(annotation, this.props.solidSession, this.props.submitUri)
+    // TODO: we shouldn't reload all annotations - instead just update state and re-compute boxes
+    await this.onRefreshClick();
   };
 
-  onRefreshClick() {
-    if (!this.state.hasContent) {
-      return;
-    } else
-      this.setState(
-        {
-          toggleAnnotationRetrieval: true,
-        },
-        () => {
-          const loading = document.querySelector(".loading");
-          if (loading) {
-            loading.classList.remove("hidden");
-          }
-          this.setState({
-            toggleAnnotationRetrieval: false,
-            annotationType: "describing",
-            replyAnnotationTarget: [],
-            replyAnnotationTargetId: "",
-            placeholder: "Add your annotation...",
-            annoToDisplay: [],
-          });
-        }
-      );
+  /**
+   * Called when the "load annotations" <button> is clicked
+   */
+  onRefreshClick = async () => {
+    const solidClient = new SolidClient()
+    // TODO: correctly get the pod uri for this session
+    let podUrl = new URL(this.props.solidSession.info!.webId!).origin;
+    if (!podUrl.endsWith('/')) {
+      podUrl = podUrl + '/';
+    }
+    const containerUrl = podUrl + this.props.submitUri;
+    const annotations = await solidClient.fetchAnnotations(new URL(containerUrl), this.props.solidSession, {});
+    console.log("loaded annotations");
+    console.log(annotations);
+    this.setState({
+      annotationType: "describing",
+      replyAnnotationTarget: [],
+      replyAnnotationTargetId: "",
+      placeholder: "Add your annotation...",
+      annoToDisplay: [],
+    });
+    this.onReceiveAnnotationContainerContent(annotations);
   }
 
   onMediaClick = (bodyMedia: string) => {
@@ -363,7 +347,12 @@ class SelectableScoreApp extends Component<
     });
   };
 
+  /**
+   * Called when a bunch of annotations are loaded by selectablescore
+   * @param content array of annotations
+   */
   onReceiveAnnotationContainerContent = (content: Annotation[]) => {
+    // No annotations, undo all of the boxes on the score
     if (!content || !content.length) {
       alert("no annotation to retrieve");
       const noLongerInFocusList = Array.from(
@@ -376,19 +365,10 @@ class SelectableScoreApp extends Component<
       document
         .querySelectorAll(".measureBoxBackground")
         .forEach((mb) => mb.remove());
-      this.setState(
-        {
-          hasContent: false,
-        },
-        () => {
-          console.log(this.state.hasContent, "no content to retrieve");
-          this.setState({ hasContent: true });
-        }
-      );
       return;
     }
     // FIXME: Validate that these are (TROMPA?) Web Annotations
-    content = content.filter((c) => c["@id"]!.endsWith(".jsonld"));
+    content = content.filter((c) => c &&  c["@id"]!.endsWith(".jsonld"));
 
     let measuresToAnnotationsMapList = content.map((anno) => {
       let distinctMeasures: any[] = [];
@@ -437,7 +417,7 @@ class SelectableScoreApp extends Component<
         document
           .querySelectorAll(".measureBoxBackground")
           .forEach((mb) => mb.remove());
-        console.log("Mapped annotaitons ", newMap);
+        console.log("Mapped annotations ", newMap);
         console.log("current annotations ", content);
         // draw bounding boxes for all measures containing annotations
         const annotatedMeasuresOnScreen = Object.keys(
@@ -520,29 +500,6 @@ class SelectableScoreApp extends Component<
             .querySelector(".annotationBoxesContainer")!
             .appendChild(measureBoxBackground);
 
-          // FIXME: might need to work more on the onClick interaction
-          // e.preventDefault();
-          // const isBoxOpen = Array.from(e.currentTarget.classList).filter((c) =>
-          //   c.startsWith("measureBox")
-          // );
-          // if (isBoxOpen.length > 1) {
-          //   console.warn("too many open boxes", e.target);
-          // }
-          // // remove focus off previous inFocus elements (now outdated)
-          // const noLongerOpen = Array.from(
-          //   document.getElementsByClassName("isOpen")
-          // );
-          // noLongerOpen.forEach((noFocusElement) =>
-          //   noFocusElement.classList.remove("isOpen")
-          // );
-          // // add focus to newly inFocus elements
-          // const inOpenList = Array.from(
-          //   document.getElementsByClassName(isBoxOpen[0])
-          // );
-          // inOpenList.forEach((focusElement) =>
-          //   focusElement.classList.add("isOpen")
-          // );
-
           measureBox.onclick = (e) => {
             const noLongerInFocusList = Array.from(
               document.getElementsByClassName("inFocus")
@@ -561,25 +518,6 @@ class SelectableScoreApp extends Component<
               if (frontBoxId === bgBoxId) {
                 box.classList.remove("isClosed");
                 box.classList.add("isOpen");
-                // box.setAttribute(
-                //   "style",
-                //   "position: absolute;" +
-                //     "background: rgb(255, 255, 255);" +
-                //     "border:1px solid orange;" +
-                //     "left: " +
-                //     coordsBox.left +
-                //     "px;" +
-                //     "top: " +
-                //     coordsBox.top +
-                //     "px;" +
-                //     "width: " +
-                //     coordsBox.width +
-                //     "px;" +
-                //     "height: " +
-                //     coordsBox.height +
-                //     "px;" +
-                //     "z-index: -1"
-                // );
               }
             });
 
@@ -610,8 +548,6 @@ class SelectableScoreApp extends Component<
         });
       }
     );
-
-    console.log("iteration succeded");
 
     content.forEach((anno: Annotation) => {
       if (anno.motivation !== "replying") {
@@ -702,12 +638,15 @@ class SelectableScoreApp extends Component<
         });
       }
     });
-    const loading = document.querySelector(".loading");
-    if (loading) {
-      loading.classList.add("hidden");
-    }
   };
 
+  /**
+   * When clicking on a highlighted measure on the score, get a list
+   * of annotations (and all replies, even if they're not replies to
+   *  annotations in this measure)
+   * @param content all annotations that have been loaded
+   * @param measureId the fragment id of the measure that was selected
+   */
   handleAnnoShowingUpdate = (content: Annotation[], measureId: string) => {
     let _annoIds = content.map((jsonIds) => {
       return jsonIds["@id"];
@@ -730,9 +669,11 @@ class SelectableScoreApp extends Component<
     });
   };
 
-  handleScoreUpdate = (scoreElement: any) => {
+  handleScoreUpdate = async (scoreElement: any) => {
+    // TODO: We shouldn't re-retrieve annotations on score update, just re-filter
+    //  the list that we have
     console.log("Received updated score DOM element: ", scoreElement);
-    this.onRefreshClick();
+    await this.onRefreshClick();
   };
 
   handlePageTurn() {
@@ -790,15 +731,10 @@ class SelectableScoreApp extends Component<
             <div className="annotationBoxesContainer" />
             <SelectableScore
               uri={this.props.resourceUri}
-              annotationContainerUri={this.props.submitUri}
               vrvOptions={this.state.vrvOptions}
               onSelectionChange={this.handleSelectionChange}
               selectorString={this.state.selectorString}
               onScoreUpdate={this.handleScoreUpdate}
-              onReceiveAnnotationContainerContent={
-                this.onReceiveAnnotationContainerContent
-              }
-              toggleAnnotationRetrieval={this.state.toggleAnnotationRetrieval}
               selectionArea=".scoreContainer"
             />
           </div>
@@ -821,12 +757,12 @@ class SelectableScoreApp extends Component<
             />
             {/*annotation submission component*/}
             <AnnotationSubmitter
-              creator="creator"
+              creator={this.props.solidSession.info!.webId!}
               onAnnoTypeChange={this.onAnnoTypeChange}
               uri={this.props.resourceUri}
               submitUri={this.props.submitUri}
               selection={this.state.selection}
-              onResponse={this.onResponse}
+              saveAnnotation={this.saveAnnotation}
               onRefreshClick={this.onRefreshClick}
               annotationType={this.state.annotationType}
               placeholder={this.state.placeholder}
@@ -850,18 +786,6 @@ class SelectableScoreApp extends Component<
               areRepliesVisible={this.state.areRepliesVisible}
               onRefreshClick={this.onRefreshClick}
             />
-            <div className="loading hidden">
-              Loading...
-              <svg
-                viewBox="0 0 100 100"
-                xmlns="http://www.w3.org/2000/svg"
-                className="loader"
-                height="100%"
-                width="100%"
-              >
-                <circle cx="50" cy="50" r="45" />
-              </svg>
-            </div>
             <ReactPlayer
               width="80%"
               height="80%"
