@@ -12,7 +12,6 @@ import ArrowToLeft from "../graphics/arrow-to-left-regular.svg";
 import ArrowToRight from "../graphics/arrow-to-right-regular.svg";
 import SearchMinus from "../graphics/search-minus-solid.svg";
 import SearchPlus from "../graphics/search-plus-solid.svg";
-import HelpModal from "./HelpModal";
 import { AnyAction, bindActionCreators, Dispatch } from "redux";
 import { connect } from "react-redux";
 import FtempoSearch from "./FtempoSearch";
@@ -300,10 +299,14 @@ class SelectableScoreApp extends Component<
    * Called when the AnnotationSubmitter wants to save an annotation
    */
   saveAnnotation = async (annotation: any) => {
-    console.log("selectable score: about to save an annotation")
+    console.log("selectable score: about to save an annotation");
     console.log(annotation);
-    const solidClient = new SolidClient()
-    await solidClient.saveAnnotation(annotation, this.props.solidSession, this.props.submitUri)
+    const solidClient = new SolidClient();
+    await solidClient.saveAnnotation(
+      annotation,
+      this.props.solidSession,
+      this.props.submitUri
+    );
     // TODO: we shouldn't reload all annotations - instead just update state and re-compute boxes
     await this.onRefreshClick();
   };
@@ -312,14 +315,18 @@ class SelectableScoreApp extends Component<
    * Called when the "load annotations" <button> is clicked
    */
   onRefreshClick = async () => {
-    const solidClient = new SolidClient()
+    const solidClient = new SolidClient();
     // TODO: correctly get the pod uri for this session
     let podUrl = new URL(this.props.solidSession.info!.webId!).origin;
-    if (!podUrl.endsWith('/')) {
-      podUrl = podUrl + '/';
+    if (!podUrl.endsWith("/")) {
+      podUrl = podUrl + "/";
     }
     const containerUrl = podUrl + this.props.submitUri;
-    const annotations = await solidClient.fetchAnnotations(new URL(containerUrl), this.props.solidSession, {});
+    const annotations = await solidClient.fetchAnnotations(
+      new URL(containerUrl),
+      this.props.solidSession,
+      {}
+    );
     console.log("loaded annotations");
     console.log(annotations);
     this.setState({
@@ -330,7 +337,7 @@ class SelectableScoreApp extends Component<
       annoToDisplay: [],
     });
     this.onReceiveAnnotationContainerContent(annotations);
-  }
+  };
 
   onMediaClick = (bodyMedia: string) => {
     console.log("button click", bodyMedia);
@@ -368,7 +375,7 @@ class SelectableScoreApp extends Component<
       return;
     }
     // FIXME: Validate that these are (TROMPA?) Web Annotations
-    content = content.filter((c) => c &&  c["@id"]!.endsWith(".jsonld"));
+    content = content.filter((c) => c && c["@id"]!.endsWith(".jsonld"));
 
     let measuresToAnnotationsMapList = content.map((anno) => {
       let distinctMeasures: any[] = [];
@@ -740,14 +747,18 @@ class SelectableScoreApp extends Component<
           </div>
         </div>
 
-        <FtempoSearch
-          onButtonPress={this.onFtempoSearchButton}
-          vrvToolkit={this.props.score.vrvTk}
-          counter={this.state.ftempoSearchCounter}
-        />
+        {this.state.applicationMode === ApplicationMode.Ready && (
+          <div>
+            <FtempoSearch
+              onButtonPress={this.onFtempoSearchButton}
+              vrvToolkit={this.props.score.vrvTk}
+              counter={this.state.ftempoSearchCounter}
+            />
+            <h3>Annotate the score using the Annotation Tools</h3>
+            <button onClick={this.annotate}>Make an annotation</button>
+          </div>
+        )}
 
-        <h3>Annotate the score using the Annotation Tools</h3>
-        <button onClick={this.annotate}>Make an annotation</button>
         {/*selector for the component selection*/}
         {this.state.applicationMode === ApplicationMode.Annotate && (
           <div>
@@ -812,10 +823,6 @@ class SelectableScoreApp extends Component<
           >
             help
           </button>
-          <HelpModal
-            isOpen={this.state.helpWindowIsActive}
-            onRequestClose={this.deactivateModal}
-          />
         </div>
       </div>
     );

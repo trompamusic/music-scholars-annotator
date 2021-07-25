@@ -1,9 +1,10 @@
-import {useContext} from "react";
+import { useContext } from "react";
 import { Nav, Navbar } from "react-bootstrap-v5";
 import {
   CombinedDataProvider,
   LoginButton,
-  LogoutButton, SessionContext,
+  LogoutButton,
+  SessionContext,
   Text,
 } from "@inrupt/solid-ui-react";
 
@@ -30,6 +31,9 @@ export default function Navigation() {
         </Nav.Link>
         <Nav.Link as={Link} to="/new">
           New
+        </Nav.Link>
+        <Nav.Link as={Link} to="/help">
+          Help
         </Nav.Link>
       </Nav>
       <Nav>
