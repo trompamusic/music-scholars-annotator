@@ -67,7 +67,6 @@ type SelectableScoreAppState = {
   seekTo: string;
   measuresToAnnotationsMap: { [key: string]: string[] };
   annoToDisplay: any[];
-  helpWindowIsActive: boolean;
   replyAnnotationTargetId: string;
   areRepliesVisible: boolean;
   ftempoSearchCounter: number;
@@ -95,7 +94,6 @@ class SelectableScoreApp extends Component<
       seekTo: "",
       measuresToAnnotationsMap: {},
       annoToDisplay: [],
-      helpWindowIsActive: false,
       replyAnnotationTargetId: "",
       areRepliesVisible: false,
 
@@ -222,13 +220,6 @@ class SelectableScoreApp extends Component<
 
   showReplyHandler = () => {
     this.setState({ areRepliesVisible: !this.state.areRepliesVisible });
-  };
-  activateModal = () => {
-    this.setState({ helpWindowIsActive: true });
-  };
-
-  deactivateModal = () => {
-    this.setState({ helpWindowIsActive: false });
   };
 
   convertCoords(elem: SVGGraphicsElement) {
@@ -815,15 +806,6 @@ class SelectableScoreApp extends Component<
             />
           </div>
         )}
-
-        <div>
-          <button
-            onClick={this.activateModal}
-            style={{ padding: "5px", marginTop: "5px" }}
-          >
-            help
-          </button>
-        </div>
       </div>
     );
   }
