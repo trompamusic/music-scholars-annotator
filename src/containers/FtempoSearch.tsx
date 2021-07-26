@@ -7,6 +7,7 @@ import {
   AccordionItemHeading,
   AccordionItemPanel,
 } from "react-accessible-accordion";
+import {Button} from "react-bootstrap-v5";
 
 type FtempoSearchProps = {
   onButtonPress: (e: MouseEvent) => void;
@@ -92,7 +93,7 @@ export default class FtempoSearch extends Component<
       <div className="ftempoContainer">
         <h3>Search using F-TEMPO (experimental)</h3>
         {!this.state.searchReady && (
-          <button onClick={this.buttonPressed}>Show search options</button>
+          <Button variant="info" onClick={this.buttonPressed}>Show search options</Button>
         )}
         {this.state.searchReady && this.state.meiVoiceQueryStrings && (
           <>

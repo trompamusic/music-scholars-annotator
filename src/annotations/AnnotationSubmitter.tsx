@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import {ReactComponent as ArrowAltToTop} from "../graphics/arrow-alt-to-top-regular.svg";
 import {ReactComponent as FileImport} from "../graphics/file-import-regular.svg";
 import {ReactComponent as RedoAlt} from "../graphics/redo-alt-solid.svg";
+import {Form} from "react-bootstrap-v5";
 
 interface AnnotationSubmitterProps {
   uri: string;
@@ -152,25 +153,29 @@ const AnnotationSubmitter = (props: AnnotationSubmitterProps) => {
     {value: 'Linking', motivation: 'linking', title: 'adds a textual content to the annotation'},
     {value: 'Cue Media', motivation: 'trompa:cueMedia', title: 'links a media content to the annotation'},
     {value: 'Image', motivation: 'trompa:cueImage', title: 'links an image content to the annotation'},
-    {value: 'playlist', motivation: 'trompa:playlist', title: 'adds a textual content to the annotation'}
+    {value: 'Playlist', motivation: 'trompa:playlist', title: 'adds a textual content to the annotation'}
   ]
+
+  const bodyEmpty = () => {
+    return Object.keys(body).length === 0 && body.constructor === Object
+  }
 
   return (
     <div className="App">
       <div className="container__app">
         <h3>Annotation type</h3>
         {annotationTypeDefinitions.map((d) => {
-          return <label key={d.motivation}>
-            <input
-              title={d.title}
-              type="radio"
-              name="annotationType"
-              value={d.value}
-              onChange={() => {setMotivation(d.motivation); setBody({})}}
-              checked={motivation === d.motivation}
-            />
-            {d.value}
-          </label>
+          return <Form.Check
+            inline
+            key={d.motivation}
+            id={`annotationType-${d.motivation}`}
+            type="radio"
+            label={d.value}
+            name="annotationType"
+            value={d.value}
+            onChange={() => {setMotivation(d.motivation); setBody({})}}
+            checked={motivation === d.motivation}
+          />
         })}
 
         <div className="addAnnotations">
