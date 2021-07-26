@@ -29,7 +29,7 @@ const DescribingInput = ({body, setBody}: InputProps) => {
     value={body.value}
     placeholder="Add your annotation..."
     onChange={(e) => {
-      setBody([{ id: uuidv4(), type: "TextualBody", value: e.target.value }])
+      setBody({ id: uuidv4(), type: "TextualBody", value: e.target.value })
     }}
   />
 }
@@ -41,7 +41,7 @@ const CueImageInput = ({body, setBody}: InputProps) => {
     value={body.value}
     placeholder="Insert your image link..."
     onChange={(e) => {
-      setBody([{ id: e.target.value }])
+      setBody({ id: e.target.value })
     }}
   />
 }
@@ -54,14 +54,14 @@ const LinkingInput = ({body, setBody}: InputProps) => {
     value={body.value}
     placeholder="Insert your URI link..."
     onChange={(e) => {
-      setBody([{ id: e.target.value }])
+      setBody({ id: e.target.value })
     }}
   />
 }
 
 const CueMediaInput = ({body, setBody}: InputProps) => {
-  const value = body.value;
-  const seconds = body.seconds;
+  const value = body.value || "";
+  const seconds = body.seconds || "";
 
   return <div>
     <input
@@ -70,7 +70,7 @@ const CueMediaInput = ({body, setBody}: InputProps) => {
       name="value"
       placeholder="enter link here"
       onChange={(e) => {
-        setBody([{ id: e.target.value + "#t=" + seconds }])
+        setBody({ id: e.target.value + "#t=" + seconds })
       }}
       className="sizedTextBox"
     />
@@ -82,7 +82,7 @@ const CueMediaInput = ({body, setBody}: InputProps) => {
       name="seconds"
       value={seconds}
       onChange={(e) => {
-        setBody([{ id: value + "#t=" + e.target.value }])
+        setBody({ id: value + "#t=" + e.target.value })
       }}
       className="sizedTextBox"
     />
@@ -90,8 +90,12 @@ const CueMediaInput = ({body, setBody}: InputProps) => {
 }
 
 const PlaylistInput = ({body, setBody}: InputProps) => {
-  const value = body.value;
-  const title = body.title;
+  const value = body.value || "";
+  const title = body.title || "";
+  let id = body.id;
+  if (!id) {
+    id = uuidv4();
+  }
 
   return <div>
     <input
@@ -100,7 +104,7 @@ const PlaylistInput = ({body, setBody}: InputProps) => {
       name="value"
       placeholder="enter link here"
       onChange={(e) => {
-        setBody([{ id: uuidv4(), type: "TextualBody", title, value: e.target.value }])
+        setBody({id, type: "TextualBody", title, value: e.target.value })
       }}
       className="sizedTextBox"
     />
@@ -111,7 +115,7 @@ const PlaylistInput = ({body, setBody}: InputProps) => {
       name="seconds"
       value={title}
       onChange={(e) => {
-        setBody([{ id: uuidv4(), type: "TextualBody", title: e.target.value, value }])
+        setBody({ id, type: "TextualBody", title: e.target.value, value })
       }}
       className="sizedTextBox"
     />
@@ -131,11 +135,11 @@ const AnnotationSubmitter = (props: AnnotationSubmitterProps) => {
       }), //this takes the measure id selected by the user
       type: "Annotation",
       motivation: motivation,
-      body: body,
+      body: [body],
       created: new Date().toISOString(),
       creator: props.creator,
     } as Annotation);
-    if (body !== {}) {
+    if (!bodyEmpty()) {
       props.saveAnnotation(annotation);
       setBody({});
     } else {
@@ -176,15 +180,15 @@ const AnnotationSubmitter = (props: AnnotationSubmitterProps) => {
           {motivation === "trompa:cueImage" && (<CueImageInput body={body} setBody={setBody} />)}
           {motivation === "trompa:playlist" && (<PlaylistInput body={body} setBody={setBody} />)}
           <button
-            className={body !== {} ? "enabledSubmitButton" : "disabledSubmitButton"}
+            className={bodyEmpty() ? "disabledSubmitButton" : "enabledSubmitButton"}
             title="click to post your annotation to your solid POD"
             onClick={saveAnnotation}
           >
-            {body !== {} && (<>
+            {!bodyEmpty() && (<>
               <ArrowAltToTop style={{width: '1em', height: '1em'}} /> Submit to your Solid POD</>
             )}
-            {body === {} && (<>
-              <FileImport style={{width: '1em', height: '1em'}}/>{" "}Write something to begin...
+            {bodyEmpty() && (<>
+              <FileImport style={{width: '1em', height: '1em'}}/> Write something to begin...
             </>)}
           </button>
 
