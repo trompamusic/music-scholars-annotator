@@ -47,10 +47,6 @@ export default class SelectionHandler extends Component<
     selectorString: [],
   };
 
-  test() {
-    console.log("test");
-  }
-
   updateSelectorList(e: any, value: string) {
     if (e.target.checked) {
       //append to array
