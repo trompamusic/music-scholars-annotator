@@ -3,7 +3,7 @@ import SelectableScore from "selectable-score/lib/selectable-score";
 import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
 import AnnotationSubmitter from "../annotations/AnnotationSubmitter";
-import SelectionHandler from "../annotations/SelectionHandler";
+import SelectionHandler from "../annotations/selectionHandler";
 import AnnotationList from "../annotations/annotationList";
 import ReactPlayer from "react-player";
 import RenditionsPlaylist from "../annotations/renditionsPlaylist";
@@ -17,7 +17,7 @@ import { connect } from "react-redux";
 import FtempoSearch from "./FtempoSearch";
 import { Session } from "@inrupt/solid-client-authn-browser";
 import { SolidClient } from "trompa-annotation-component/dist";
-import {Button} from "react-bootstrap-v5";
+import { Button } from "react-bootstrap-v5";
 
 //const vAdjust = 26; // num. pixels to nudge down anno measureBoxes+
 const defaultVerovioScale = 50;
@@ -730,7 +730,9 @@ class SelectableScoreApp extends Component<
               counter={this.state.ftempoSearchCounter}
             />
             <h3>Annotate the score using the Annotation Tools</h3>
-            <Button variant="info" onClick={this.annotate}>Make an annotation</Button>
+            <Button variant="info" onClick={this.annotate}>
+              Make an annotation
+            </Button>
           </div>
         )}
 

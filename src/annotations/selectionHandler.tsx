@@ -1,7 +1,7 @@
 /* manages the rendering of the checkbox component mapping across the selectors const */
 /* and uses updateSelectorList to update the selectorString Prop passed from the selctableScore main app*/
 import React, { Component } from "react";
-import {Form} from "react-bootstrap-v5";
+import { Form } from "react-bootstrap-v5";
 
 const Selectors: SelectorType[] = [
   {
@@ -31,18 +31,25 @@ type SelectorType = {
 };
 
 type SelectionHandlerProps = {
-  selectorString: string[]
-  handleStringChange: (st: string[]) => void
-}
+  selectorString: string[];
+  handleStringChange: (st: string[]) => void;
+};
 
 type SelectionHandlerState = {
-  selectorString: string[]
-}
+  selectorString: string[];
+};
 
-export default class SelectionHandler extends Component<SelectionHandlerProps, SelectionHandlerState> {
+export default class SelectionHandler extends Component<
+  SelectionHandlerProps,
+  SelectionHandlerState
+> {
   state = {
     selectorString: [],
   };
+
+  test() {
+    console.log("test");
+  }
 
   updateSelectorList(e: any, value: string) {
     if (e.target.checked) {
@@ -76,15 +83,18 @@ export default class SelectionHandler extends Component<SelectionHandlerProps, S
       <div>
         <h3>Selection type</h3>
         <Form>
-          {Selectors.map(selector => {
-            return <Form.Check
-              inline
-              key={selector.name}
-              label={selector.name}
-              name="selector"
-              value={selector.value}
-              id={`selector-${selector.name}`}
-            />
+          {Selectors.map((selector) => {
+            return (
+              <Form.Check
+                inline
+                key={selector.name}
+                label={selector.name}
+                name="selector"
+                value={selector.value}
+                id={`selector-${selector.name}`}
+                onChange={(e) => this.updateSelectorList(e, selector.value)}
+              />
+            );
           })}
         </Form>
       </div>
