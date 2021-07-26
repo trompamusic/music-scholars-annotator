@@ -1,213 +1,205 @@
-/* annotation submitter takes the handlerArgs passed from the addAnnotation script and builds the jsonLd structure of each annotation based on its motivation */
-/* it also renders the radio button array to select the annotation motivation  */
-import React, { ChangeEvent, Component } from "react";
+import React, {useState} from "react";
 import { v4 as uuidv4 } from "uuid";
-import AddAnnotation from "./AddAnnotation";
+import {ReactComponent as ArrowAltToTop} from "../graphics/arrow-alt-to-top-regular.svg";
+import {ReactComponent as FileImport} from "../graphics/file-import-regular.svg";
+import {ReactComponent as RedoAlt} from "../graphics/redo-alt-solid.svg";
 
-type AnnotationSubmitterProps = {
-  annotationType: string;
+interface AnnotationSubmitterProps {
   uri: string;
-  submitUri: string;
-  placeholder: string;
-  buttonContent: string;
-  onAnnoTypeChange: (e: ChangeEvent<HTMLInputElement>) => void;
   creator: string;
-  replyAnnotationTarget: AnnotationTarget[];
-  replyAnnotationTargetId: string;
   selection: Element[];
   saveAnnotation: (annotation: Annotation) => void;
   onRefreshClick: () => void;
-};
+}
 
-export class AnnotationSubmitter extends Component<
-  AnnotationSubmitterProps,
-  {}
-> {
-  private textArea = React.createRef<AddAnnotation>();
+interface InputProps {
+  body: any;
+  setBody: (body: any) => void;
+}
 
-  createAnnotationObject = (handlerArgs?: any) => {
-    if (this.textArea.current) {
-      this.textArea.current.wipeState();
+/**
+ * An input for an `oa:describing` annotation
+ * @param onBodyChange a callback to set the body of an annotation with this input
+ */
+const DescribingInput = ({body, setBody}: InputProps) => {
+
+  return <textarea
+    className="textArea"
+    id="annotationContent"
+    value={body.value}
+    placeholder="Add your annotation..."
+    onChange={(e) => {
+      setBody([{ id: uuidv4(), type: "TextualBody", value: e.target.value }])
+    }}
+  />
+}
+
+const CueImageInput = ({body, setBody}: InputProps) => {
+  return <textarea
+    className="textArea"
+    id="annotationContent"
+    value={body.value}
+    placeholder="Insert your image link..."
+    onChange={(e) => {
+      setBody([{ id: e.target.value }])
+    }}
+  />
+}
+
+// TODO: This has the same body as CueImageInput, could be reused?
+const LinkingInput = ({body, setBody}: InputProps) => {
+  return <textarea
+    className="textArea"
+    id="annotationContent"
+    value={body.value}
+    placeholder="Insert your URI link..."
+    onChange={(e) => {
+      setBody([{ id: e.target.value }])
+    }}
+  />
+}
+
+const CueMediaInput = ({body, setBody}: InputProps) => {
+  const value = body.value;
+  const seconds = body.seconds;
+
+  return <div>
+    <input
+      type="text"
+      value={value}
+      name="value"
+      placeholder="enter link here"
+      onChange={(e) => {
+        setBody([{ id: e.target.value + "#t=" + seconds }])
+      }}
+      className="sizedTextBox"
+    />
+    <span> jump to: </span>
+    <input
+      type="text"
+      pattern="[0-9]"
+      placeholder="seconds"
+      name="seconds"
+      value={seconds}
+      onChange={(e) => {
+        setBody([{ id: value + "#t=" + e.target.value }])
+      }}
+      className="sizedTextBox"
+    />
+  </div>
+}
+
+const PlaylistInput = ({body, setBody}: InputProps) => {
+  const value = body.value;
+  const title = body.title;
+
+  return <div>
+    <input
+      type="text"
+      value={value}
+      name="value"
+      placeholder="enter link here"
+      onChange={(e) => {
+        setBody([{ id: uuidv4(), type: "TextualBody", title, value: e.target.value }])
+      }}
+      className="sizedTextBox"
+    />
+    <span> with title: </span>
+    <input
+      type="text"
+      placeholder="title"
+      name="seconds"
+      value={title}
+      onChange={(e) => {
+        setBody([{ id: uuidv4(), type: "TextualBody", title: e.target.value, value }])
+      }}
+      className="sizedTextBox"
+    />
+  </div>
+}
+
+const AnnotationSubmitter = (props: AnnotationSubmitterProps) => {
+
+  const [motivation, setMotivation] = useState('describing');
+  const [body, setBody] = useState({});
+
+  const saveAnnotation = () => {
+    const annotation = ({
+      "@context": "https://www.w3.org/ns/anno.jsonld",
+      target: props.selection.map((elem: Element) => {
+        return { id: props.uri + "#" + elem.getAttribute("id") };
+      }), //this takes the measure id selected by the user
+      type: "Annotation",
+      motivation: motivation,
+      body: body,
+      created: new Date().toISOString(),
+      creator: props.creator,
+    } as Annotation);
+    if (body !== {}) {
+      props.saveAnnotation(annotation);
+      setBody({});
+    } else {
+      console.log("annotation is empty, not saving");
     }
-    //adds different annotations based on selection
-    //let replyAnnotationTargetId = this.props.replyAnnotationTargetId;
-    let value = handlerArgs.value;
-    let seconds = handlerArgs.seconds;
+  }
 
-    switch (this.props.annotationType) {
-      case "describing":
-        return {
-          "@context": "https://www.w3.org/ns/anno.jsonld",
-          target: this.props.selection.map((elem: Element) => {
-            return { id: this.props.uri + "#" + elem.getAttribute("id") };
-          }), //this takes the measure id selected by the user
-          type: "Annotation",
-          body: [{ id: uuidv4(), type: "TextualBody", value }], //this takes the user input
-          motivation: "describing",
-          created: new Date().toISOString(),
-          creator: this.props.creator,
-        } as Annotation;
+  const annotationTypeDefinitions = [
+    {value: 'Describing', motivation: 'describing', title: 'links external resources to the annotation'},
+    {value: 'Linking', motivation: 'linking', title: 'adds a textual content to the annotation'},
+    {value: 'Cue Media', motivation: 'trompa:cueMedia', title: 'links a media content to the annotation'},
+    {value: 'Image', motivation: 'trompa:cueImage', title: 'links an image content to the annotation'},
+    {value: 'playlist', motivation: 'trompa:playlist', title: 'adds a textual content to the annotation'}
+  ]
 
-      case "linking":
-        return {
-          "@context": "https://www.w3.org/ns/anno.jsonld",
-          target: this.props.selection.map((elem: Element) => {
-            return { id: this.props.uri + "#" + elem.getAttribute("id") };
-          }), //this takes the measure id selected by the user
-          type: "Annotation",
-          body: [{ id: value }], //this takes the user URI
-          motivation: "linking",
-          created: new Date().toISOString(),
-          creator: this.props.creator,
-        } as Annotation;
-
-      case "cueMedia":
-        return {
-          "@context": "https://www.w3.org/ns/anno.jsonld",
-          target: this.props.selection.map((elem: Element) => {
-            return { id: this.props.uri + "#" + elem.getAttribute("id") };
-          }), //this takes the measure id selected by the user
-          type: "Annotation",
-          body: [{ id: value + "#t=" + seconds }], //this takes the user link + time offset
-          motivation: "trompa:cueMedia",
-          created: new Date().toISOString(),
-          creator: this.props.creator,
-        } as Annotation;
-
-      case "image":
-        return {
-          "@context": "https://www.w3.org/ns/anno.jsonld",
-          target: this.props.selection.map((elem: Element) => {
-            return { id: this.props.uri + "#" + elem.getAttribute("id") };
-          }), //this takes the measure id selected by the user
-          type: "Annotation",
-          body: [{ id: value }], //this takes the user image link
-          motivation: "trompa:cueImage",
-          created: new Date().toISOString(),
-          creator: this.props.creator,
-        } as Annotation;
-
-      case "playlist":
-        return {
-          "@context": "https://www.w3.org/ns/anno.jsonld",
-          target: this.props.selection.map((elem: Element) => {
-            return { id: this.props.uri + "#" + elem.getAttribute("id") };
-          }), //this takes the measure id selected by the user
-          type: "Annotation",
-          body: [{ id: uuidv4(), type: "TextualBody", seconds, value }], //this takes the user input
-          motivation: "trompa:playlist",
-          created: new Date().toISOString(),
-          creator: this.props.creator,
-        } as Annotation;
-
-      case "replying":
-        return {
-          "@context": "https://www.w3.org/ns/anno.jsonld",
-          target: this.props.replyAnnotationTargetId, //this takes the annotation ID being replied to
-          type: "Annotation",
-          body: [{ id: uuidv4(), type: "TextualBody", value }], //this takes the user input
-          motivation: "replying",
-          created: new Date().toISOString(),
-          creator: this.props.creator,
-        } as Annotation;
-
-      default:
-        console.log(
-          "no annotation found, have you selected the annotation type?"
-        );
-    }
-  };
-
-  render() {
-    return (
-      <div className="App">
-        <div className="container__app">
-          <h3>Annotation type</h3>
-          <label>
+  return (
+    <div className="App">
+      <div className="container__app">
+        <h3>Annotation type</h3>
+        {annotationTypeDefinitions.map((d) => {
+          return <label key={d.motivation}>
             <input
-              title="adds a textual content to the annotation"
+              title={d.title}
               type="radio"
               name="annotationType"
-              value="describing"
-              placeholder="Add your annotation..."
-              onChange={this.props.onAnnoTypeChange}
-              checked={this.props.annotationType === "describing"}
+              value={d.value}
+              onChange={() => {setMotivation(d.motivation); setBody({})}}
+              checked={motivation === d.motivation}
             />
-            Describing
+            {d.value}
           </label>
-          <label>
-            <input
-              title="links external resources to the annotation"
-              type="radio"
-              value="linking"
-              name="annotationType"
-              placeholder="Insert your URI link..."
-              onChange={this.props.onAnnoTypeChange}
-              checked={this.props.annotationType === "linking"}
-            />
-            Linking
-          </label>
-          <label>
-            <input
-              title="links a media content to the annotation"
-              type="radio"
-              value="cueMedia"
-              name="annotationType"
-              onChange={this.props.onAnnoTypeChange}
-              checked={this.props.annotationType === "cueMedia"}
-            />
-            Cue Media
-          </label>
-          <label>
-            <input
-              title="links an image content to the annotation"
-              type="radio"
-              value="image"
-              name="annotationType"
-              placeholder="Insert your image link..."
-              onChange={this.props.onAnnoTypeChange}
-              checked={this.props.annotationType === "image"}
-            />
-            Image
-          </label>
-          <label>
-            <input
-              title="playlist"
-              type="radio"
-              value="playlist"
-              name="annotationType"
-              onChange={this.props.onAnnoTypeChange}
-              checked={this.props.annotationType === "playlist"}
-            />
-            Playlist
-          </label>
-          <label>
-            <input
-              title="will be used when the reply button is clicked"
-              type="radio"
-              value="reply"
-              name="annotationType"
-              disabled={true}
-              checked={this.props.annotationType === "replying"}
-            />
-            Reply
-          </label>
-          <div className="addAnnotations">
-            <AddAnnotation
-              ref={this.textArea}
-              annotationType={this.props.annotationType}
-              submitUri={this.props.submitUri}
-              placeholder={this.props.placeholder}
-              createAnnotationObject={this.createAnnotationObject}
-              saveAnnotation={this.props.saveAnnotation}
-              onRefreshClick={this.props.onRefreshClick}
-              buttonContent={this.props.buttonContent}
-            />
-          </div>
+        })}
+
+        <div className="addAnnotations">
+          {motivation === "describing" && (<DescribingInput body={body} setBody={setBody} />)}
+          {motivation === "linking" && (<LinkingInput body={body} setBody={setBody} />)}
+          {motivation === "trompa:cueMedia" && (<CueMediaInput body={body} setBody={setBody} />)}
+          {motivation === "trompa:cueImage" && (<CueImageInput body={body} setBody={setBody} />)}
+          {motivation === "trompa:playlist" && (<PlaylistInput body={body} setBody={setBody} />)}
+          <button
+            className={body !== {} ? "enabledSubmitButton" : "disabledSubmitButton"}
+            title="click to post your annotation to your solid POD"
+            onClick={saveAnnotation}
+          >
+            {body !== {} && (<>
+              <ArrowAltToTop style={{width: '1em', height: '1em'}} /> Submit to your Solid POD</>
+            )}
+            {body === {} && (<>
+              <FileImport style={{width: '1em', height: '1em'}}/>{" "}Write something to begin...
+            </>)}
+          </button>
+
+          <button
+            onClick={props.onRefreshClick}
+            className="refreshButton"
+            title="click to display the annotation contained in your solid POD"
+          >
+            <RedoAlt style={{width: '1em', height: '1em'}} />
+            <span>{""} Fetch Annotations</span>
+          </button>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default AnnotationSubmitter;

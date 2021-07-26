@@ -56,10 +56,7 @@ type SelectableScoreAppProps = {
 type SelectableScoreAppState = {
   annoValue: string;
   selection: Element[];
-  annotationType: string;
-  placeholder: string;
   selectorString: string[];
-  buttonContent: string;
   replyAnnotationTarget: AnnotationTarget[];
   currentAnnotation: Annotation[];
   hasContent: boolean;
@@ -83,10 +80,7 @@ class SelectableScoreApp extends Component<
     this.state = {
       annoValue: "",
       selection: [],
-      annotationType: "describing",
-      placeholder: "Add your annotation...",
       selectorString: [],
-      buttonContent: "Submit to your Solid POD",
       replyAnnotationTarget: [],
       currentAnnotation: [],
       hasContent: true,
@@ -257,13 +251,6 @@ class SelectableScoreApp extends Component<
     }
   }
 
-  onAnnoTypeChange = (e: ChangeEvent<HTMLInputElement>) =>
-    this.setState({
-      annotationType: e.target.value,
-      placeholder: e.target.placeholder,
-      buttonContent: "Submit to your Solid POD",
-    });
-
   handleStringChange(selectorString: string[]) {
     this.setState({ selectorString });
   }
@@ -272,15 +259,13 @@ class SelectableScoreApp extends Component<
     this.setState({ selection });
   }
 
-  //////////// NEEDS TO WIPE TARGET REPLY AFTER REPLYING TO IT ALSO THE ANNOTATION TYPE HANDLING IS MESSY //////////////////
+  //////////// NEEDS TO WIPE TARGET REPLY AFTER REPLYING TO IT ALSO THE ANNOTATION TYPE HANDLING IS MESSY
+  // TODO: Don't make reply handler change the annotator field - use an input box below the listed annotation
   onAnnoReplyHandler = (
     replyTarget: AnnotationTarget[],
     replyTargetId: string
   ) => {
     this.setState({
-      annotationType: "replying",
-      placeholder: "you are replying to the selected annotation",
-      buttonContent: "Reply to selected Solid annotation",
       replyAnnotationTarget: replyTarget,
       replyAnnotationTargetId: replyTargetId,
     });
@@ -321,10 +306,8 @@ class SelectableScoreApp extends Component<
     console.log("loaded annotations");
     console.log(annotations);
     this.setState({
-      annotationType: "describing",
       replyAnnotationTarget: [],
       replyAnnotationTargetId: "",
-      placeholder: "Add your annotation...",
       annoToDisplay: [],
     });
     this.onReceiveAnnotationContainerContent(annotations);
@@ -760,17 +743,10 @@ class SelectableScoreApp extends Component<
             {/*annotation submission component*/}
             <AnnotationSubmitter
               creator={this.props.solidSession.info!.webId!}
-              onAnnoTypeChange={this.onAnnoTypeChange}
               uri={this.props.resourceUri}
-              submitUri={this.props.submitUri}
               selection={this.state.selection}
               saveAnnotation={this.saveAnnotation}
               onRefreshClick={this.onRefreshClick}
-              annotationType={this.state.annotationType}
-              placeholder={this.state.placeholder}
-              replyAnnotationTarget={this.state.replyAnnotationTarget}
-              buttonContent={this.state.buttonContent}
-              replyAnnotationTargetId={this.state.replyAnnotationTargetId}
             />
 
             <RenditionsPlaylist
