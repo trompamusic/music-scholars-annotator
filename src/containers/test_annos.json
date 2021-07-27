@@ -1,0 +1,243 @@
+[
+  {
+    "@context": "http://www.w3.org/ns/anno.jsonld",
+    "target": [
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000000117950056"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000000150699876"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000000934655397"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001474512156"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000002094105590"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000000804202156"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001094592931"
+      }
+    ],
+    "type": "Annotation",
+    "motivation": "describing",
+    "body": [
+      {
+        "id": "6ec08433-be32-40d1-987a-426fe5308226",
+        "type": "TextualBody",
+        "value": "first page describin"
+      }
+    ],
+    "created": "2021-07-25T21:07:26.231Z",
+    "creator": "https://alastair.trompa-solid.upf.edu/profile/card#me",
+    "@id": "https://alastair.trompa-solid.upf.edu/private/32d27116-aeb0-4a68-84cb-ae7f8f1aeefe.jsonld",
+    "@type": "Annotation"
+  },
+  {
+    "@context": "http://www.w3.org/ns/anno.jsonld",
+    "target": [
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001824242285"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000000674434895"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000000223925561"
+      }
+    ],
+    "type": "Annotation",
+    "body": [
+      {
+        "id": "434d666e-44e1-4a4f-9d75-bdf6c0f2e2d5",
+        "type": "TextualBody",
+        "value": "fooi"
+      }
+    ],
+    "motivation": "describing",
+    "created": "2021-07-25T16:54:11.714Z",
+    "creator": "https://alastair.trompa-solid.upf.edu/profile/card#me",
+    "@id": "https://alastair.trompa-solid.upf.edu/private/35073c22-6998-4764-80a4-99e183da3bc6.jsonld"
+  },
+  {
+    "@context": "https://www.w3.org/ns/anno.jsonld",
+    "target": [
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001903200967"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001638530360"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001245095769"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001768090704"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000000677115049"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001450901801"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001165653124"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001565503992"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000000822886877"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000000312814799"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000000389752621"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001627227326"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001962174296"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001897936777"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000000660052420"
+      }
+    ],
+    "type": "Annotation",
+    "body": [
+      {
+        "id": "edbf9fbd-3fd8-48ef-8c9b-1577c66afbf2",
+        "type": "TextualBody",
+        "value": "Important notes"
+      }
+    ],
+    "motivation": "describing",
+    "created": "2021-07-17T09:27:20.504Z",
+    "@id": "https://alastair.trompa-solid.upf.edu/private/4af1756a-6c5b-430f-8d1a-c247cff60e74.jsonld"
+  },
+  {
+    "@context": "https://www.w3.org/ns/anno.jsonld",
+    "target": "https://alastair.trompa-solid.upf.edu/private/4af1756a-6c5b-430f-8d1a-c247cff60e74.jsonld",
+    "type": "Annotation",
+    "body": [
+      {
+        "id": "50cc93f6-33e6-4b1b-9c7c-f934635b9b80",
+        "type": "TextualBody",
+        "value": "I made a reply!"
+      }
+    ],
+    "motivation": "replying",
+    "created": "2021-07-17T18:23:58.401Z",
+    "@id": "https://alastair.trompa-solid.upf.edu/private/4e31a233-3f05-46c7-95a6-c94d86163c82.jsonld"
+  },
+  {
+    "@context": "https://www.w3.org/ns/anno.jsonld",
+    "target": [
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001641255232"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001251597513"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001043034567"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000000269926936"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001186851730"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000000209554151"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000002139358171"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000000688319293"
+      },
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000000444072427"
+      }
+    ],
+    "type": "Annotation",
+    "body": [
+      {
+        "id": "http://example.com"
+      }
+    ],
+    "motivation": "linking",
+    "created": "2021-07-18T17:19:31.887Z",
+    "creator": "https://alastair.trompa-solid.upf.edu/profile/card#me",
+    "@id": "https://alastair.trompa-solid.upf.edu/private/ad7f0497-b4c4-4a8c-9b8d-08690ee3ef50.jsonld"
+  },
+  {
+    "@context": "https://www.w3.org/ns/anno.jsonld",
+    "target": "https://alastair.trompa-solid.upf.edu/private/ad7f0497-b4c4-4a8c-9b8d-08690ee3ef50.jsonld",
+    "type": "Annotation",
+    "body": [
+      {
+        "id": "b69dcb7b-3fb8-48af-989a-64ae2dfb1f65",
+        "type": "TextualBody",
+        "value": "Whho it's a reply to example!"
+      }
+    ],
+    "motivation": "replying",
+    "created": "2021-07-18T17:19:48.345Z",
+    "creator": "https://alastair.trompa-solid.upf.edu/profile/card#me",
+    "@id": "https://alastair.trompa-solid.upf.edu/private/ce661c89-cb46-4d1f-b51b-c175337b5bed.jsonld"
+  },
+  {
+    "@context": "http://www.w3.org/ns/anno.jsonld",
+    "target": [
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#measure-0000000615649283"
+      }
+    ],
+    "type": "Annotation",
+    "body": [
+      {
+        "id": "c3e8ad02-1fec-4353-8cc2-1c24a9fd256a",
+        "type": "TextualBody",
+        "value": "measure!"
+      }
+    ],
+    "motivation": "describing",
+    "created": "2021-07-25T17:04:40.044Z",
+    "creator": "https://alastair.trompa-solid.upf.edu/profile/card#me",
+    "@id": "https://alastair.trompa-solid.upf.edu/private/d3f3ca4e-e507-47a1-bb0f-171d815e693f.jsonld",
+    "@type": "Annotation"
+  },
+  {
+    "@context": "http://www.w3.org/ns/anno.jsonld",
+    "target": [
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001589384680"
+      }
+    ],
+    "type": "Annotation",
+    "body": [
+      {
+        "id": "81e6e59f-e8b0-41b8-8d74-917abfd5bcd0",
+        "type": "TextualBody",
+        "value": "2nd line"
+      }
+    ],
+    "motivation": "describing",
+    "created": "2021-07-25T16:50:40.196Z",
+    "creator": "https://alastair.trompa-solid.upf.edu/profile/card#me",
+    "@id": "https://alastair.trompa-solid.upf.edu/private/e77ae333-49bb-4677-a885-09156dad07cb.jsonld",
+    "@type": "Annotation"
+  }
+]

@@ -19,6 +19,9 @@ import {
 import PlayLogo from "../graphics/play-solid.svg";
 import {ReactComponent as Trash} from "../graphics/trash-solid.svg";
 import {ReactComponent as InfoCircle} from "../graphics/info-circle-regular.svg";
+import {ReactComponent as LockSolid} from "../graphics/lock-solid.svg";
+import {ReactComponent as LockOpenSolid} from "../graphics/lock-open-solid.svg";
+
 
 type AnnotationItemProps = {
   annotation: Annotation
@@ -66,7 +69,6 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
     this.revokePublic = this.revokePublic.bind(this);
     this.updateDatasetAcl = this.updateDatasetAcl.bind(this);
     this.deleteAnno = this.deleteAnno.bind(this);
-    // this.changeContent = this.changeContent.bind(this);
   }
 
   deleteAnno(e: MouseEvent<HTMLButtonElement>) {
@@ -142,6 +144,7 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
       }
     }
   };
+
   onClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -459,24 +462,7 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
             checked={false}
             onChange={this.grantPublic}
             icons={{
-              unchecked: (
-                <svg
-                  aria-hidden="true"
-                  focusable="false"
-                  data-prefix="fas"
-                  data-icon="lock"
-                  className="svg-inline--fa fa-lock fa-w-14"
-                  role="img"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 576 512"
-                  vertical-align="middle"
-                >
-                  <path
-                    fill="white"
-                    d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z"
-                  ></path>
-                </svg>
-              ),
+              unchecked: <LockSolid/>,
             }}
           />
         );
@@ -486,23 +472,7 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
             checked={true}
             onChange={this.revokePublic}
             icons={{
-              checked: (
-                <svg
-                  aria-hidden="true"
-                  focusable="false"
-                  data-prefix="fas"
-                  data-icon="lock-open"
-                  className="svg-inline--fa fa-lock-open fa-w-18"
-                  role="img"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 576 512"
-                >
-                  <path
-                    fill="white"
-                    d="M423.5 0C339.5.3 272 69.5 272 153.5V224H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48h-48v-71.1c0-39.6 31.7-72.5 71.3-72.9 40-.4 72.7 32.1 72.7 72v80c0 13.3 10.7 24 24 24h32c13.3 0 24-10.7 24-24v-80C576 68 507.5-.3 423.5 0z"
-                  ></path>
-                </svg>
-              ),
+              checked: <LockOpenSolid/>
             }}
           />
         );
@@ -668,7 +638,7 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
                     alignContent: "center",
                     textAlign: "center",
                   }}
-                ></img>{" "}
+                />{" "}
                 play{" "}
               </button>
             </p>

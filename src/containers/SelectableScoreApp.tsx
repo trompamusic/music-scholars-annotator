@@ -4,7 +4,7 @@ import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
 import AnnotationSubmitter from "../annotations/AnnotationSubmitter";
 import SelectionHandler from "../annotations/SelectionHandler";
-import AnnotationList from "../annotations/annotationList";
+import AnnotationList from "../annotations/AnnotationList";
 import ReactPlayer from "react-player";
 import RenditionsPlaylist from "../annotations/renditionsPlaylist";
 
@@ -64,7 +64,7 @@ type SelectableScoreAppState = {
   currentMedia: string;
   seekTo: string;
   measuresToAnnotationsMap: { [key: string]: string[] };
-  annoToDisplay: any[];
+  annoToDisplay: string[];
   replyAnnotationTargetId: string;
   areRepliesVisible: boolean;
   ftempoSearchCounter: number;
@@ -91,7 +91,6 @@ class SelectableScoreApp extends Component<
       annoToDisplay: [],
       replyAnnotationTargetId: "",
       areRepliesVisible: false,
-
       ftempoSearchCounter: 1,
       applicationMode: ApplicationMode.Ready,
       vrvOptions: {
@@ -103,11 +102,6 @@ class SelectableScoreApp extends Component<
         unit: 6,
       },
     };
-    this.handleSelectionChange = this.handleSelectionChange.bind(this);
-    this.handleStringChange = this.handleStringChange.bind(this);
-    this.convertCoords = this.convertCoords.bind(this);
-    this.annotate = this.annotate.bind(this);
-    this.handlePageTurn = this.handlePageTurn.bind(this);
   }
 
   private player = React.createRef<ReactPlayer>();
@@ -217,7 +211,7 @@ class SelectableScoreApp extends Component<
     this.setState({ areRepliesVisible: !this.state.areRepliesVisible });
   };
 
-  convertCoords(elem: SVGGraphicsElement) {
+  convertCoords = (elem: SVGGraphicsElement) => {
     if (
       document.getElementById(elem.getAttribute("id")!) &&
       elem.style.display !== "none" &&
@@ -252,11 +246,11 @@ class SelectableScoreApp extends Component<
     }
   }
 
-  handleStringChange(selectorString: string[]) {
+  handleStringChange = (selectorString: string[]) => {
     this.setState({ selectorString });
   }
 
-  handleSelectionChange(selection: Element[]) {
+  handleSelectionChange = (selection: Element[]) => {
     this.setState({ selection });
   }
 
@@ -305,7 +299,7 @@ class SelectableScoreApp extends Component<
       {}
     );
     console.log("loaded annotations");
-    console.log(annotations);
+    console.log(JSON.stringify(annotations));
     this.setState({
       replyAnnotationTarget: [],
       replyAnnotationTargetId: "",
@@ -631,7 +625,7 @@ class SelectableScoreApp extends Component<
    */
   handleAnnoShowingUpdate = (content: Annotation[], measureId: string) => {
     let _annoIds = content.map((jsonIds) => {
-      return jsonIds["@id"];
+      return jsonIds["@id"]!;
     });
     let _filteredAnnoIds = this.state.measuresToAnnotationsMap[measureId];
     let compare = _annoIds.filter(
@@ -643,7 +637,7 @@ class SelectableScoreApp extends Component<
       ...compare,
       ...content
         .filter((anno) => anno.motivation === "replying") // get the replies
-        .map((anno) => anno["@id"]), // and return their IDs
+        .map((anno) => anno["@id"]!), // and return their IDs
     ];
     console.log("to display: ", annotationsToDisplay);
     this.setState({
@@ -658,7 +652,7 @@ class SelectableScoreApp extends Component<
     await this.onRefreshClick();
   };
 
-  handlePageTurn() {
+  handlePageTurn = () => {
     document.querySelectorAll(".measureBox").forEach((mb) => mb.remove());
     document
       .querySelectorAll(".measureBoxBackground")
@@ -679,8 +673,13 @@ class SelectableScoreApp extends Component<
   };
 
   annotate = () => {
+    const annotations: Annotation[] = require('./test_annos.json');
+    const non_reply = annotations.filter((a) => {return a.motivation !== "replying"});
+    const anno_ids = non_reply.map(a => {return a["@id"]!})
     this.setState({
       applicationMode: ApplicationMode.Annotate,
+      currentAnnotation: non_reply,
+      annoToDisplay: anno_ids,
     });
   };
 
