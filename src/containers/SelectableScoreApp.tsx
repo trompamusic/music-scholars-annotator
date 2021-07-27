@@ -682,6 +682,7 @@ class SelectableScoreApp extends Component<
     this.setState({
       applicationMode: ApplicationMode.Annotate,
     });
+    this.onRefreshClick();
   };
 
   render() {
