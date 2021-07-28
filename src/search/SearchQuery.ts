@@ -66,10 +66,12 @@ export function parseMei(document: Document) {
   });
   let ret: { [key: string]: { label: string; notes: string } } = {};
   Object.keys(staffs).forEach(function (i) {
-    ret[i] = {
-      label: staffs[i].label,
-      notes: pitchesToIntervalMapping(staffs[i].notes),
-    };
+    if (staffs[i].label) {
+      ret[i] = {
+        label: staffs[i].label,
+        notes: pitchesToIntervalMapping(staffs[i].notes),
+      };
+    }
   });
   return ret;
 }
