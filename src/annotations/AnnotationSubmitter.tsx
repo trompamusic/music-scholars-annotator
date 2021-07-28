@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { ReactComponent as ArrowAltToTop } from "../graphics/arrow-alt-to-top-regular.svg";
 import { ReactComponent as FileImport } from "../graphics/file-import-regular.svg";
-import { ReactComponent as RedoAlt } from "../graphics/redo-alt-solid.svg";
 import { Form } from "react-bootstrap-v5";
 
 interface AnnotationSubmitterProps {
@@ -247,15 +246,6 @@ const AnnotationSubmitter = (props: AnnotationSubmitterProps) => {
               </>
             )}
           </button>
-
-          {/* <button
-            onClick={props.onRefreshClick}
-            className="refreshButton"
-            title="click to display the annotation contained in your solid POD"
-          >
-            <RedoAlt style={{width: '1em', height: '1em'}} />
-            <span>{""} Fetch Annotations</span>
-          </button> */}
         </div>
       </div>
     </div>
