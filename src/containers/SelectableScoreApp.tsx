@@ -17,7 +17,7 @@ import { connect } from "react-redux";
 import FtempoSearch from "./FtempoSearch";
 import { Session } from "@inrupt/solid-client-authn-browser";
 import { SolidClient } from "trompa-annotation-component/dist";
-import {Button} from "react-bootstrap-v5";
+import { Button } from "react-bootstrap-v5";
 
 //const vAdjust = 26; // num. pixels to nudge down anno measureBoxes+
 const defaultVerovioScale = 50;
@@ -244,15 +244,15 @@ class SelectableScoreApp extends Component<
       console.warn("Element unavailable on page: ", elem.getAttribute("id"));
       return { x: 0, y: 0, x2: 0, y2: 0 };
     }
-  }
+  };
 
   handleStringChange = (selectorString: string[]) => {
     this.setState({ selectorString });
-  }
+  };
 
   handleSelectionChange = (selection: Element[]) => {
     this.setState({ selection });
-  }
+  };
 
   //////////// NEEDS TO WIPE TARGET REPLY AFTER REPLYING TO IT ALSO THE ANNOTATION TYPE HANDLING IS MESSY
   // TODO: Don't make reply handler change the annotator field - use an input box below the listed annotation
@@ -273,10 +273,7 @@ class SelectableScoreApp extends Component<
     console.log("selectable score: about to save an annotation");
     console.log(annotation);
     const solidClient = new SolidClient(this.props.solidSession);
-    await solidClient.saveAnnotation(
-      annotation,
-      this.props.submitUri
-    );
+    await solidClient.saveAnnotation(annotation, this.props.submitUri);
     // TODO: we shouldn't reload all annotations - instead just update state and re-compute boxes
     await this.onRefreshClick();
   };
@@ -655,7 +652,7 @@ class SelectableScoreApp extends Component<
     document
       .querySelectorAll(".measureBoxBackground")
       .forEach((mb) => mb.remove());
-  }
+  };
 
   onFtempoSearchButton = () => {
     // TODO: This is a quick hack. At the moment SelectableScore doesn't trigger
@@ -671,9 +668,13 @@ class SelectableScoreApp extends Component<
   };
 
   annotate = () => {
-    const annotations: Annotation[] = require('./test_annos.json');
-    const non_reply = annotations.filter((a) => {return a.motivation !== "replying"});
-    const anno_ids = non_reply.map(a => {return a["@id"]!})
+    const annotations: Annotation[] = require("./test_annos.json");
+    const non_reply = annotations.filter((a) => {
+      return a.motivation !== "replying";
+    });
+    const anno_ids = non_reply.map((a) => {
+      return a["@id"]!;
+    });
     this.setState({
       applicationMode: ApplicationMode.Annotate,
       currentAnnotation: non_reply,
@@ -727,7 +728,9 @@ class SelectableScoreApp extends Component<
               counter={this.state.ftempoSearchCounter}
             />
             <h3>Annotate the score using the Annotation Tools</h3>
-            <Button variant="info" onClick={this.annotate}>Make an annotation</Button>
+            <Button variant="info" onClick={this.annotate}>
+              Make an annotation
+            </Button>
           </div>
         )}
 

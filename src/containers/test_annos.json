@@ -200,5 +200,68 @@
     "creator": "https://alastair.trompa-solid.upf.edu/profile/card#me",
     "@id": "https://alastair.trompa-solid.upf.edu/private/e77ae333-49bb-4677-a885-09156dad07cb.jsonld",
     "@type": "Annotation"
+  },
+  {
+    "@context": "http://www.w3.org/ns/anno.jsonld",
+    "target": [
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001589384680"
+      }
+    ],
+    "type": "Annotation",
+    "body": [
+      {
+        "id": "81e6e59f-e8b0-41b8-8d74-917abfd5bcd0",
+        "type": "TextualBody",
+        "value": "2nd line"
+      }
+    ],
+    "motivation": "describing",
+    "created": "2021-07-25T16:50:40.196Z",
+    "creator": "https://alastair.trompa-solid.upf.edu/profile/card#me",
+    "@id": "https://alastair.trompa-solid.upf.edu/private/e77ae333-49bb-4677-a885-09156dad07cb.jsonld",
+    "@type": "Annotation"
+  },
+  {
+    "@context": "http://www.w3.org/ns/anno.jsonld",
+    "target": [
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001589384680"
+      }
+    ],
+    "type": "Annotation",
+    "body": [
+      {
+        "id": "81e6e59f-e8b0-41b8-8d74-917abfd5bcd0",
+        "type": "TextualBody",
+        "value": "2nd line"
+      }
+    ],
+    "motivation": "trompa:cueImage",
+    "created": "2021-07-25T16:50:40.196Z",
+    "creator": "https://alastair.trompa-solid.upf.edu/profile/card#me",
+    "@id": "https://alastair.trompa-solid.upf.edu/private/e77ae333-49bb-4677-a885-09156dad07cb.jsonld",
+    "@type": "Annotation"
+  },
+  {
+    "@context": "http://www.w3.org/ns/anno.jsonld",
+    "target": [
+      {
+        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001589384680"
+      }
+    ],
+    "type": "Annotation",
+    "body": [
+      {
+        "id": "81e6e59f-e8b0-41b8-8d74-917abfd5bcd0",
+        "type": "TextualBody",
+        "value": "2nd line"
+      }
+    ],
+    "motivation": "trompa:cueMedia",
+    "created": "2021-07-25T16:50:40.196Z",
+    "creator": "https://alastair.trompa-solid.upf.edu/profile/card#me",
+    "@id": "https://alastair.trompa-solid.upf.edu/private/e77ae333-49bb-4677-a885-09156dad07cb.jsonld",
+    "@type": "Annotation"
   }
 ]
