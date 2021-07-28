@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/music-scholars-annotator/precache-manifest.7d8d925827143f4ea9f4b6a7898c223c.js"
+  "/music-scholars-annotator/precache-manifest.562ea10e9459a39031ab898e803c09d2.js"
 );
 
 self.addEventListener('message', (event) => {
