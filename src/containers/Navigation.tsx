@@ -9,7 +9,7 @@ import {
 } from "@inrupt/solid-ui-react";
 
 import { FOAF } from "@inrupt/lit-generated-vocab-common";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { Button } from "react-bootstrap-v5";
 import React from "react";
 
@@ -18,6 +18,8 @@ import Logo from "../graphics/top-bar-logo_0_0.png";
 export default function Navigation() {
   const trompaIdp = "https://trompa-solid.upf.edu";
   const { session } = useContext(SessionContext);
+  const location = useLocation();
+  const history = useHistory();
 
   return (
     <Navbar bg="light" expand="xl">
@@ -50,14 +52,24 @@ export default function Navigation() {
               />
             </CombinedDataProvider>
             &emsp;
-            <LogoutButton>
+            <LogoutButton
+              onLogout={() => {
+                // Tell react-router to "reload" this page so that we refresh all items that check the user session
+                history.go(0);
+              }}
+            >
               <Button className="logoutButton">Log out</Button>
             </LogoutButton>
           </Navbar.Text>
         ) : (
           <LoginButton
             oidcIssuer={trompaIdp}
-            redirectUrl={window.location.origin}
+            redirectUrl={
+              window.location.origin +
+              location.pathname +
+              location.search +
+              location.hash
+            }
           >
             <Button className="loginButton">Log in</Button>
           </LoginButton>

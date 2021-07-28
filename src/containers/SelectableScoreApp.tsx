@@ -723,10 +723,19 @@ class SelectableScoreApp extends Component<
               </Button>
 
               <h3>Annotate the score using the Annotation Tools</h3>
+              {!this.props.solidSession.info.isLoggedIn && (
+                <>
+                  <small>You must be logged in to perform annotations</small>
+                  <br />
+                </>
+              )}
               <Button
                 variant="info"
                 onClick={this.annotate}
-                disabled={!this.state.scoreReady}
+                disabled={
+                  !this.state.scoreReady ||
+                  !this.props.solidSession.info.isLoggedIn
+                }
               >
                 Make an annotation
               </Button>
