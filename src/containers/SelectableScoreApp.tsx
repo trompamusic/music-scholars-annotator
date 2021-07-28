@@ -318,6 +318,164 @@ class SelectableScoreApp extends Component<
     });
   };
 
+  addScoreHightlightClass = (content: Annotation[]) => {
+    content.forEach((anno: Annotation) => {
+      if (anno.motivation !== "replying") {
+        anno.target.forEach((jsonTarget: AnnotationTarget) => {
+          const targetId = jsonTarget.id;
+          const fragment = targetId.substr(targetId.lastIndexOf("#"));
+          const element = document.querySelector(fragment);
+          if (!element) {
+            return console.warn("no content has been found");
+          }
+          const annoId = anno["@id"]!;
+          const annoIdFragment = annoId.substr(annoId.lastIndexOf("/") + 1);
+          element.classList.add("focus-" + annoIdFragment);
+        });
+      }
+    });
+  };
+
+  drawBoxesOnMeasures(
+    content: Annotation[],
+    newMap: { [key: string]: string[] }
+  ) {
+    const noLongerInFocusList = Array.from(
+      document.getElementsByClassName("inFocus")
+    );
+    noLongerInFocusList.forEach((noFocusElement) =>
+      noFocusElement.classList.remove("inFocus")
+    );
+    // delete any existing measure boxes so we can redraw from blank slate
+    document.querySelectorAll(".measureBox").forEach((mb) => mb.remove());
+    document
+      .querySelectorAll(".measureBoxBackground")
+      .forEach((mb) => mb.remove());
+    console.log("Mapped annotations ", newMap);
+    console.log("current annotations ", content);
+    // draw bounding boxes for all measures containing annotations
+    const annotatedMeasuresOnScreen = Object.keys(
+      this.state.measuresToAnnotationsMap
+    ).filter((measureId) => document.querySelectorAll("#" + measureId).length);
+    console.log("Annotated measures on screen: ", annotatedMeasuresOnScreen);
+    annotatedMeasuresOnScreen.forEach((measureId) => {
+      const coords = this.convertCoords(
+        document.querySelector("#" + measureId)!
+      );
+      console.log("Coords: ", coords);
+
+      const measureBox = document.createElement("div");
+      const measureBoxBackground = document.createElement("div");
+
+      const coordsBox = {
+        left: Math.floor(coords.x),
+        top: Math.floor(coords.y),
+        width: Math.ceil(coords.x2 - coords.x),
+        height: Math.ceil(coords.y2 - coords.y),
+      };
+      console.log("Coords box: ", coordsBox);
+      measureBox.setAttribute("id", "measureBox-" + measureId);
+      measureBox.setAttribute("class", "measureBox");
+      measureBox.setAttribute(
+        "style",
+        "position: absolute;" +
+          "background: rgba(0, 0, 0, 0);" +
+          "left: " +
+          coordsBox.left +
+          "px;" +
+          "top: " +
+          coordsBox.top +
+          "px;" +
+          "width: " +
+          coordsBox.width +
+          "px;" +
+          "height: " +
+          coordsBox.height +
+          "px;" +
+          "z-index: 1"
+      );
+
+      measureBoxBackground.setAttribute(
+        "id",
+        "measureBoxBackground-" + measureId
+      );
+      measureBoxBackground.setAttribute("class", "measureBoxBackground");
+      measureBoxBackground.classList.remove("isOpen");
+      measureBoxBackground.classList.add("isClosed");
+      measureBoxBackground.setAttribute(
+        "style",
+        "position: absolute;" +
+          // "background: rgba(241, 145, 0, 0.25);" +
+          // "border:1px solid orange;" +
+          "left: " +
+          coordsBox.left +
+          "px;" +
+          "top: " +
+          coordsBox.top +
+          "px;" +
+          "width: " +
+          coordsBox.width +
+          "px;" +
+          "height: " +
+          coordsBox.height +
+          "px;" +
+          "z-index: -1"
+      );
+      console.log("TRYING TO DRAW", measureBox);
+      document
+        .querySelector(".annotationBoxesContainer")!
+        .appendChild(measureBox);
+      document
+        .querySelector(".annotationBoxesContainer")!
+        .appendChild(measureBoxBackground);
+
+      measureBox.onclick = (e) => {
+        const noLongerInFocusList = Array.from(
+          document.getElementsByClassName("inFocus")
+        );
+        noLongerInFocusList.forEach((noFocusElement) =>
+          noFocusElement.classList.remove("inFocus")
+        );
+        const bgBoxes = document.querySelectorAll(".measureBoxBackground");
+        const frontBox = (e.target as HTMLElement).closest(".measureBox");
+        bgBoxes.forEach((box) => {
+          box.classList.add("isClosed");
+          box.classList.remove("isOpen");
+          const bgBoxId = box.id.split("measureBoxBackground-")[1];
+          const frontBoxId = frontBox!.id.split("measureBox-")[1];
+
+          if (frontBoxId === bgBoxId) {
+            box.classList.remove("isClosed");
+            box.classList.add("isOpen");
+          }
+        });
+
+        const noLongerShowing = Array.from(
+          document.getElementsByClassName("showReply")
+        );
+        console.log("no longer showing ", noLongerShowing);
+        //hides them
+
+        if (noLongerShowing.length) {
+          //const replyHolder = document.createElement("div");
+          if (this.state.areRepliesVisible) {
+            this.setState({ areRepliesVisible: false });
+          }
+          const annoContainer = document.querySelector(".listContainer");
+          console.log(annoContainer);
+          //annoContainer.appendChild(replyHolder);
+          noLongerShowing.forEach((noReplyShowing) => {
+            noReplyShowing.classList.add("hiddenReply");
+            annoContainer!.appendChild(noReplyShowing);
+          });
+          noLongerShowing.forEach((noReplyShowing) =>
+            noReplyShowing.classList.remove("showReply")
+          );
+        }
+        this.handleAnnoShowingUpdate(content, measureId);
+      };
+    });
+  }
   /**
    * Called when a bunch of annotations are loaded by selectablescore
    * @param content array of annotations
@@ -377,238 +535,11 @@ class SelectableScoreApp extends Component<
     this.setState(
       { currentAnnotation: content, measuresToAnnotationsMap: newMap },
       () => {
-        const noLongerInFocusList = Array.from(
-          document.getElementsByClassName("inFocus")
-        );
-        noLongerInFocusList.forEach((noFocusElement) =>
-          noFocusElement.classList.remove("inFocus")
-        );
-        // delete any existing measure boxes so we can redraw from blank slate
-        document.querySelectorAll(".measureBox").forEach((mb) => mb.remove());
-        document
-          .querySelectorAll(".measureBoxBackground")
-          .forEach((mb) => mb.remove());
-        console.log("Mapped annotations ", newMap);
-        console.log("current annotations ", content);
-        // draw bounding boxes for all measures containing annotations
-        const annotatedMeasuresOnScreen = Object.keys(
-          this.state.measuresToAnnotationsMap
-        ).filter(
-          (measureId) => document.querySelectorAll("#" + measureId).length
-        );
-        console.log(
-          "Annotated measures on screen: ",
-          annotatedMeasuresOnScreen
-        );
-        annotatedMeasuresOnScreen.forEach((measureId) => {
-          const coords = this.convertCoords(
-            document.querySelector("#" + measureId)!
-          );
-          console.log("Coords: ", coords);
-
-          const measureBox = document.createElement("div");
-          const measureBoxBackground = document.createElement("div");
-
-          const coordsBox = {
-            left: Math.floor(coords.x),
-            top: Math.floor(coords.y),
-            width: Math.ceil(coords.x2 - coords.x),
-            height: Math.ceil(coords.y2 - coords.y),
-          };
-          console.log("Coords box: ", coordsBox);
-          measureBox.setAttribute("id", "measureBox-" + measureId);
-          measureBox.setAttribute("class", "measureBox");
-          measureBox.setAttribute(
-            "style",
-            "position: absolute;" +
-              "background: rgba(0, 0, 0, 0);" +
-              "left: " +
-              coordsBox.left +
-              "px;" +
-              "top: " +
-              coordsBox.top +
-              "px;" +
-              "width: " +
-              coordsBox.width +
-              "px;" +
-              "height: " +
-              coordsBox.height +
-              "px;" +
-              "z-index: 1"
-          );
-
-          measureBoxBackground.setAttribute(
-            "id",
-            "measureBoxBackground-" + measureId
-          );
-          measureBoxBackground.setAttribute("class", "measureBoxBackground");
-          measureBoxBackground.classList.remove("isOpen");
-          measureBoxBackground.classList.add("isClosed");
-          measureBoxBackground.setAttribute(
-            "style",
-            "position: absolute;" +
-              // "background: rgba(241, 145, 0, 0.25);" +
-              // "border:1px solid orange;" +
-              "left: " +
-              coordsBox.left +
-              "px;" +
-              "top: " +
-              coordsBox.top +
-              "px;" +
-              "width: " +
-              coordsBox.width +
-              "px;" +
-              "height: " +
-              coordsBox.height +
-              "px;" +
-              "z-index: -1"
-          );
-          console.log("TRYING TO DRAW", measureBox);
-          document
-            .querySelector(".annotationBoxesContainer")!
-            .appendChild(measureBox);
-          document
-            .querySelector(".annotationBoxesContainer")!
-            .appendChild(measureBoxBackground);
-
-          measureBox.onclick = (e) => {
-            const noLongerInFocusList = Array.from(
-              document.getElementsByClassName("inFocus")
-            );
-            noLongerInFocusList.forEach((noFocusElement) =>
-              noFocusElement.classList.remove("inFocus")
-            );
-            const bgBoxes = document.querySelectorAll(".measureBoxBackground");
-            const frontBox = (e.target as HTMLElement).closest(".measureBox");
-            bgBoxes.forEach((box) => {
-              box.classList.add("isClosed");
-              box.classList.remove("isOpen");
-              const bgBoxId = box.id.split("measureBoxBackground-")[1];
-              const frontBoxId = frontBox!.id.split("measureBox-")[1];
-
-              if (frontBoxId === bgBoxId) {
-                box.classList.remove("isClosed");
-                box.classList.add("isOpen");
-              }
-            });
-
-            const noLongerShowing = Array.from(
-              document.getElementsByClassName("showReply")
-            );
-            console.log("no longer showing ", noLongerShowing);
-            //hides them
-
-            if (noLongerShowing.length) {
-              //const replyHolder = document.createElement("div");
-              if (this.state.areRepliesVisible) {
-                this.setState({ areRepliesVisible: false });
-              }
-              const annoContainer = document.querySelector(".listContainer");
-              console.log(annoContainer);
-              //annoContainer.appendChild(replyHolder);
-              noLongerShowing.forEach((noReplyShowing) => {
-                noReplyShowing.classList.add("hiddenReply");
-                annoContainer!.appendChild(noReplyShowing);
-              });
-              noLongerShowing.forEach((noReplyShowing) =>
-                noReplyShowing.classList.remove("showReply")
-              );
-            }
-            this.handleAnnoShowingUpdate(content, measureId);
-          };
-        });
+        this.drawBoxesOnMeasures(content, newMap);
       }
     );
 
-    content.forEach((anno: Annotation) => {
-      if (anno.motivation !== "replying") {
-        anno.target.forEach((jsonTarget: AnnotationTarget) => {
-          const bodies = anno.body;
-          const targetId = jsonTarget.id;
-          const fragment = targetId.substr(targetId.lastIndexOf("#"));
-          const element = document.querySelector(fragment);
-          if (!element) {
-            return console.warn("no content has been found");
-          }
-          const annoId = anno["@id"]!;
-          const annoIdFragment = annoId.substr(annoId.lastIndexOf("/") + 1);
-          //checks what's the motivation of the target
-          switch (anno.motivation) {
-            case "describing":
-              if (bodies.length) {
-                if ("value" in bodies[0]) {
-                  // const title = document.createElementNS(
-                  //   "http://www.w3.org/2000/svg",
-                  //   "title"
-                  // );
-                  // Embeds the annotation text into this title node
-                  //title.innerHTML = bodies[0]["value"];
-                  //element.insertBefore(title, element.firstChild);
-                  //element.classList.add(anno.anno.motivation);
-                  element.classList.add("focus-" + annoIdFragment);
-                }
-              }
-              break;
-            case "linking":
-              if (bodies.length) {
-                // make the target clickable, linking to the (first) body URI
-                // element.addEventListener(
-                //   "click",
-                //   function () {
-                //     //appends http fragment to avoid partial linking error
-                //     const URL = bodies[0]["id"];
-                //     if (URL.startsWith("http")) {
-                //       window.open(URL, "_blank");
-                //     } else {
-                //       const appendURL = "https://" + URL;
-                //       window.open(appendURL, "_blank");
-                //     }
-                //   },
-                //   true
-                // );
-                // and turn the cursor into a pointer as a hint that it's clickable
-                element.classList.add("focus-" + annoIdFragment);
-                //element.classList.add(anno.anno.motivation);
-                element.classList.add("focus-" + annoIdFragment);
-              }
-              break;
-            case "trompa:cueMedia":
-              if (bodies.length) {
-                // make the target clickable, seeking player to the (first) body media cue
-                // element.onMediaClick = () => {
-                //   //appends http fragment to avoid partial linking error
-                //   const mediaCue = bodies[0]["id"];
-                //   // TODO validate properly
-                //   const currentMedia = mediaCue.split("#")[0];
-                //   const seekTo = mediaCue.split("#")[1].replace("t=", "");
-                //   console.log("Setting up seek to: ", currentMedia, seekTo);
-                //   this.setState({ currentMedia }, () =>
-                //     this.player.current.seekTo(seekTo)
-                //   );
-                // };
-                // and turn the cursor into a pointer as a hint that it's clickable
-                element.classList.add("focus-" + annoIdFragment);
-                //element.classList.add("cueMedia");
-              }
-              break;
-            case "trompa:cueImage":
-              if (bodies.length) {
-                element.classList.add("focus-" + annoIdFragment);
-                //element.classList.add("cueMedia");
-              }
-              break;
-            case "trompa:playlist": {
-              return;
-            }
-
-            default:
-              console.log(
-                "sorry, don't know what to do for this annotation boss"
-              );
-          }
-        });
-      }
-    });
+    this.addScoreHightlightClass(content);
   };
 
   /**
