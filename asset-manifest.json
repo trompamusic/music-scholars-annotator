@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/music-scholars-annotator/static/css/main.b0687008.chunk.css",
-    "main.js": "/music-scholars-annotator/static/js/main.6e438f32.chunk.js",
-    "main.js.map": "/music-scholars-annotator/static/js/main.6e438f32.chunk.js.map",
+    "main.js": "/music-scholars-annotator/static/js/main.160bd493.chunk.js",
+    "main.js.map": "/music-scholars-annotator/static/js/main.160bd493.chunk.js.map",
     "runtime-main.js": "/music-scholars-annotator/static/js/runtime-main.a54c3767.js",
     "runtime-main.js.map": "/music-scholars-annotator/static/js/runtime-main.a54c3767.js.map",
     "static/css/2.86fbe410.chunk.css": "/music-scholars-annotator/static/css/2.86fbe410.chunk.css",
@@ -15,7 +15,7 @@
     "static/js/5.21643c8e.chunk.js": "/music-scholars-annotator/static/js/5.21643c8e.chunk.js",
     "static/js/5.21643c8e.chunk.js.map": "/music-scholars-annotator/static/js/5.21643c8e.chunk.js.map",
     "index.html": "/music-scholars-annotator/index.html",
-    "precache-manifest.562ea10e9459a39031ab898e803c09d2.js": "/music-scholars-annotator/precache-manifest.562ea10e9459a39031ab898e803c09d2.js",
+    "precache-manifest.7f19550adef4e69eda1b3beed71dd792.js": "/music-scholars-annotator/precache-manifest.7f19550adef4e69eda1b3beed71dd792.js",
     "service-worker.js": "/music-scholars-annotator/service-worker.js",
     "static/css/2.86fbe410.chunk.css.map": "/music-scholars-annotator/static/css/2.86fbe410.chunk.css.map",
     "static/css/main.b0687008.chunk.css.map": "/music-scholars-annotator/static/css/main.b0687008.chunk.css.map",
@@ -37,6 +37,6 @@
     "static/css/2.86fbe410.chunk.css",
     "static/js/2.943bb3c8.chunk.js",
     "static/css/main.b0687008.chunk.css",
-    "static/js/main.6e438f32.chunk.js"
+    "static/js/main.160bd493.chunk.js"
   ]
 }

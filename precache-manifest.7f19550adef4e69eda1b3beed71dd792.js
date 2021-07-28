@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6c4b2d56bb0819990ddbc9a2217a0686",
+    "revision": "147c2156b7b8422210fab249c4ae9a6d",
     "url": "/music-scholars-annotator/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/music-scholars-annotator/static/css/2.86fbe410.chunk.css"
   },
   {
-    "revision": "2abf022697bbf5d911f9",
+    "revision": "80221c3dbe35c8386649",
     "url": "/music-scholars-annotator/static/css/main.b0687008.chunk.css"
   },
   {
@@ -40,8 +40,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/music-scholars-annotator/static/js/5.21643c8e.chunk.js"
   },
   {
-    "revision": "2abf022697bbf5d911f9",
-    "url": "/music-scholars-annotator/static/js/main.6e438f32.chunk.js"
+    "revision": "80221c3dbe35c8386649",
+    "url": "/music-scholars-annotator/static/js/main.160bd493.chunk.js"
   },
   {
     "revision": "16261d671791a8894737",
