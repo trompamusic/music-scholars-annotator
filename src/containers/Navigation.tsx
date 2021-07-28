@@ -31,9 +31,6 @@ export default function Navigation() {
         <Nav.Link as={Link} to="/">
           Home
         </Nav.Link>
-        <Nav.Link as={Link} to="/new">
-          New
-        </Nav.Link>
         <Nav.Link as={Link} to="/help">
           Help
         </Nav.Link>
@@ -66,9 +63,10 @@ export default function Navigation() {
             oidcIssuer={trompaIdp}
             redirectUrl={
               window.location.origin +
+              "/music-scholars-annotator" +
+              "/#" +
               location.pathname +
-              location.search +
-              location.hash
+              location.search
             }
           >
             <Button className="loginButton">Log in</Button>

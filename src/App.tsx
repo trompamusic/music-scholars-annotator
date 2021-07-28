@@ -34,16 +34,19 @@ function App() {
   // redirect back to where they were.
   const onSessionRestore = (url: string) => {
     const u = new URL(url);
-    history.push(u.pathname + u.search);
-  }
+    history.push(u.hash.substring(1));
+  };
 
   return (
-    <SessionProvider sessionId="trompa-music-scholars-annotator" onSessionRestore={onSessionRestore}>
+    <SessionProvider
+      sessionId="trompa-music-scholars-annotator"
+      onSessionRestore={onSessionRestore}
+    >
       <Provider store={createStoreWithMiddleware(reducers)}>
         <ApolloProvider client={client}>
           <Navigation />
           <Container fluid="lg" style={{ paddingLeft: "0px" }}>
-            <AnnotatorRouter/>
+            <AnnotatorRouter />
           </Container>
         </ApolloProvider>
       </Provider>
