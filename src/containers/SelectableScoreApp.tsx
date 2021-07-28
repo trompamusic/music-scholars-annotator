@@ -19,7 +19,7 @@ import { Session } from "@inrupt/solid-client-authn-browser";
 import { SolidClient } from "trompa-annotation-component/dist";
 import { Button } from "react-bootstrap-v5";
 
-//const vAdjust = 26; // num. pixels to nudge down anno measureBoxes+
+const vAdjust = 25; // num. pixels to nudge down anno measureBoxes+
 const defaultVerovioScale = 50;
 
 let viewPortHeight = window.outerHeight;
@@ -422,7 +422,7 @@ class SelectableScoreApp extends Component<
 
           const coordsBox = {
             left: Math.floor(coords.x),
-            top: Math.floor(coords.y),
+            top: Math.floor(coords.y) + vAdjust,
             width: Math.ceil(coords.x2 - coords.x),
             height: Math.ceil(coords.y2 - coords.y),
           };

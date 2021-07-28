@@ -1,5 +1,5 @@
 /* item that contains the annotation contents, the renderSwitch function assign specific display to the specfic anntation based on its motivation*/
-import React, {ChangeEvent, Component, MouseEvent} from "react";
+import React, { ChangeEvent, Component, MouseEvent } from "react";
 import auth from "solid-auth-client";
 import Toggle from "react-toggle";
 import {
@@ -13,39 +13,46 @@ import {
   setPublicResourceAccess,
   saveAclFor,
   getPublicAccess,
-  getAgentAccessAll, AclDataset,
+  getAgentAccessAll,
+  AclDataset,
 } from "@inrupt/solid-client";
 
 import PlayLogo from "../graphics/play-solid.svg";
-import {ReactComponent as Trash} from "../graphics/trash-solid.svg";
-import {ReactComponent as InfoCircle} from "../graphics/info-circle-regular.svg";
+import { ReactComponent as Trash } from "../graphics/trash-solid.svg";
+import { ReactComponent as InfoCircle } from "../graphics/info-circle-regular.svg";
 
 type AnnotationItemProps = {
-  annotation: Annotation
-  onRefreshClick: () => void
-  onAnnoReplyHandler: (replyTarget: AnnotationTarget[], replyTargetId: string) => void
-  onMediaClick: (id: string) => void
-  showReplyHandler: () => void
-  areRepliesVisible: boolean
-  replyAnnotationTarget: any[]
-}
+  annotation: Annotation;
+  onRefreshClick: () => void;
+  onAnnoReplyHandler: (
+    replyTarget: AnnotationTarget[],
+    replyTargetId: string
+  ) => void;
+  onMediaClick: (id: string) => void;
+  showReplyHandler: () => void;
+  areRepliesVisible: boolean;
+  replyAnnotationTarget: any[];
+};
 
 type AnnotationItemState = {
-  isClicked: boolean
-  userMayModifyAccess: boolean
-  resourceAcl?: AclDataset
-  aclModified: number
-  datasetWithAcl?: AclDataset
-  userId?: string
-  isPictureShowing: boolean
-  previewButtonContent: string
-  showRepliesButtonContent: string
-  isConfirmVisible: boolean
-  isVisible: boolean
-  resp: string
-}
+  isClicked: boolean;
+  userMayModifyAccess: boolean;
+  resourceAcl?: AclDataset;
+  aclModified: number;
+  datasetWithAcl?: AclDataset;
+  userId?: string;
+  isPictureShowing: boolean;
+  previewButtonContent: string;
+  showRepliesButtonContent: string;
+  isConfirmVisible: boolean;
+  isVisible: boolean;
+  resp: string;
+};
 
-class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState> {
+class AnnotationItem extends Component<
+  AnnotationItemProps,
+  AnnotationItemState
+> {
   constructor(props: Readonly<AnnotationItemProps>) {
     super(props);
     this.state = {
@@ -75,13 +82,21 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
 
     if (testReplyRetrieval) {
       testReplyRetrieval.forEach((replyTargetAnno) => {
-        const replyTargetAnnoId = (replyTargetAnno as HTMLElement).dataset.replyAnnotationTarget;
+        const replyTargetAnnoId = (replyTargetAnno as HTMLElement).dataset
+          .replyAnnotationTarget;
         const rootAnnoTargetId = (parent as HTMLElement)!.dataset.selfId;
         if (replyTargetAnnoId === rootAnnoTargetId) {
-          console.log("replies found: ", (replyTargetAnno as HTMLElement).dataset.selfId);
+          console.log(
+            "replies found: ",
+            (replyTargetAnno as HTMLElement).dataset.selfId
+          );
           auth
-            .fetch((replyTargetAnno as HTMLElement).dataset.selfId!, { method: "DELETE" })
-            .then(() => {console.log("replies deleted")});
+            .fetch((replyTargetAnno as HTMLElement).dataset.selfId!, {
+              method: "DELETE",
+            })
+            .then(() => {
+              console.log("replies deleted");
+            });
         }
       });
     }
@@ -98,7 +113,7 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
 
         this.setState({ resp: "success" });
       })
-        // @ts-ignore
+      // @ts-ignore
       .then(this.props.onRefreshClick())
       .catch(() => {
         console.warn("Your annotation has been deleted, refreshing...");
@@ -239,7 +254,10 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
       );
   }
 
-  shouldComponentUpdate(nextProps: Readonly<AnnotationItemProps>, nextState: Readonly<AnnotationItemState>) {
+  shouldComponentUpdate(
+    nextProps: Readonly<AnnotationItemProps>,
+    nextState: Readonly<AnnotationItemState>
+  ) {
     if (this.state.aclModified !== nextState.aclModified) {
       // user has enacted an ACL change. Request a re-render accordingly.
       return true;
@@ -298,7 +316,8 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
     const replyTargetAnnos = document.querySelectorAll(".replyAnno");
     if (replyTargetAnnos.length) {
       replyTargetAnnos.forEach((replyTargetAnno) => {
-        const replyTargetAnnoId = (replyTargetAnno as HTMLElement).dataset.replyAnnotationTarget;
+        const replyTargetAnnoId = (replyTargetAnno as HTMLElement).dataset
+          .replyAnnotationTarget;
 
         const rootAnnoTargetId = (rootAnno as HTMLElement)!.dataset.selfId;
 
@@ -412,9 +431,6 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
 
   renderSwitch = () => {
     const date = this.props.annotation.created;
-    let todaysDateISO = new Date().toISOString();
-    let creationDate = date.split("T")[0];
-    let compareDate = String(todaysDateISO.split("T")[0]);
     let permission;
     let modifyPermissionsElement;
     let replies = document.querySelectorAll(".replyAnno");
@@ -435,13 +451,14 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
       // @ts-ignore
       if (getPublicAccess(this.state.datasetWithAcl).read)
         permission = "public";
-      else { // @ts-ignore
+      else {
+        // @ts-ignore
         if (Object.keys(getAgentAccessAll(this.state.datasetWithAcl)) > 1)
-                /* declare it as shared if it has any access info for more than one (assumed to be user)
-                 * TODO check assumptions...
-                 */
-                permission = "shared";
-              else permission = "private";
+          /* declare it as shared if it has any access info for more than one (assumed to be user)
+           * TODO check assumptions...
+           */
+          permission = "shared";
+        else permission = "private";
       }
     } else {
       permission = "unknown";
@@ -525,17 +542,15 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
           </div>
         </div>
         <div style={{ paddingTop: "1.5%" }}>
-          {compareDate === creationDate && (
-            <button className="deleteButton" onClick={this.showConfirm}>
-              <Trash />
-            </button>
-          )}
+          <button className="deleteButton" onClick={this.showConfirm}>
+            <Trash />
+          </button>
           <button
             className="infoButton"
             onMouseEnter={this.showDetails}
             onMouseLeave={this.showDetails}
           >
-            <InfoCircle/>
+            <InfoCircle />
           </button>
           permissions: {modifyPermissionsElement}
         </div>
@@ -720,14 +735,14 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
           >
             <div className="quoteContent">
               <button className="deleteButton" onClick={this.deleteAnno}>
-                <Trash/>
+                <Trash />
               </button>
               <button
                 className="infoButton"
                 onMouseEnter={this.showReplyDetails}
                 onMouseLeave={this.showReplyDetails}
               >
-                <InfoCircle/>
+                <InfoCircle />
               </button>
               <p>Reply: {bodyD}</p>
               <span className="hiddenDetails">
