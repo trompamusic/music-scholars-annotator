@@ -4,16 +4,11 @@
 import React from "react";
 
 import AnnotationItem from "./AnnotationItem";
+import {CardColumns} from "react-bootstrap-v5";
 
 type AnnoListProps = {
   filteringEntries: any[];
-  allEntries: any[];
-  onAnnoReplyHandler: (replyTarget: AnnotationTarget[], replyTargetId: string) => void;
-  onMediaClick: (body: string) => void;
-  replyAnnotationTarget: any[];
-  showReplyHandler: () => void;
-  areRepliesVisible: boolean;
-  onRefreshClick: () => void;
+  annotations: Annotation[];
 };
 
 export class AnnotationList extends React.Component<AnnoListProps> {
@@ -21,73 +16,37 @@ export class AnnotationList extends React.Component<AnnoListProps> {
     order: "desc",
   };
 
+  dummy = () => {
+
+  }
+
   render() {
     const { order } = this.state;
-    const filtering = this.props.allEntries.filter((anno) =>
-      this.props.filteringEntries.includes(anno["@id"])
-    );
+    // const filtering = this.props.annotations.filter((anno) =>
+    //   this.props.filteringEntries.includes(anno["@id"])
+    // );
+    const filtering = this.props.annotations.filter((an) => {return an.motivation !== "replying"});
     const sortedFilteredAnno = filtering.sort((a, b) => {
       const isReverse = order === "asc" ? 1 : -1;
       return isReverse * a.created.localeCompare(b.created);
     });
 
-    function onClick(e: any) {
-      // e.preventDefault();
-      // e.stopPropagation();
-      console.log("i am being clicked");
-      // figure out this element's focus Id
-      const focusId: any = Array.from(e.currentTarget.classList).filter(
-        (c: any) => c.startsWith("focus-")
-      );
-      if (focusId.length > 1) {
-        console.warn("Element with multiple focus Ids!", e.target);
-      }
-      // remove focus off previous inFocus elements (now outdated)
-      const noLongerInFocusList = Array.from(
-        document.getElementsByClassName("inFocus")
-      );
-      noLongerInFocusList.forEach((noFocusElement) =>
-        noFocusElement.classList.remove("inFocus")
-      );
-      // add focus to newly inFocus elements
-      const inFocusList = Array.from(
-        document.getElementsByClassName(focusId[0])
-      );
-      inFocusList.forEach((focusElement) =>
-        focusElement.classList.add("inFocus")
-      );
-      // scroll page to highlighted item
-      // document
-      //   .querySelector(".inFocus")
-      //   .scrollIntoView({ behavior: "smooth" });
-    }
-
     return (
-      <div className="listContainer" id="listContainer">
-        {sortedFilteredAnno.map((item: any) => {
-          const annoIdFragment = item["@id"].substr(
-            item["@id"].lastIndexOf("/") + 1
-          );
-          return (
-            <div
-              className={"focus-" + annoIdFragment}
-              onClick={onClick}
-              key={item["@id"]}
-              id={annoIdFragment}
-            >
-              <AnnotationItem
-                annotation={item}
-                onAnnoReplyHandler={this.props.onAnnoReplyHandler}
-                onMediaClick={this.props.onMediaClick}
-                replyAnnotationTarget={this.props.replyAnnotationTarget}
-                showReplyHandler={this.props.showReplyHandler}
-                areRepliesVisible={this.props.areRepliesVisible}
-                onRefreshClick={this.props.onRefreshClick}
-              />
-            </div>
-          );
+      <CardColumns>
+        {sortedFilteredAnno.map((item: Annotation) => {
+          const replies = this.props.annotations.filter((a) => {return a["target"] === item["@id"]});
+          return <AnnotationItem
+            key={item["@id"]}
+            annotation={{annotation: item, replies}}
+            onAnnoReplyHandler={this.dummy}
+            onMediaClick={this.dummy}
+            replyAnnotationTarget={[]}
+            showReplyHandler={this.dummy}
+            areRepliesVisible={true}
+            onRefreshClick={this.dummy}
+          />
         })}
-      </div>
+      </CardColumns>
     );
   }
 }

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Component } from "react";
+import React, { Component } from "react";
 import SelectableScore from "selectable-score/lib/selectable-score";
 import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
@@ -272,10 +272,9 @@ class SelectableScoreApp extends Component<
   saveAnnotation = async (annotation: any) => {
     console.log("selectable score: about to save an annotation");
     console.log(annotation);
-    const solidClient = new SolidClient();
+    const solidClient = new SolidClient(this.props.solidSession);
     await solidClient.saveAnnotation(
       annotation,
-      this.props.solidSession,
       this.props.submitUri
     );
     // TODO: we shouldn't reload all annotations - instead just update state and re-compute boxes
@@ -286,7 +285,7 @@ class SelectableScoreApp extends Component<
    * Called when the "load annotations" <button> is clicked
    */
   onRefreshClick = async () => {
-    const solidClient = new SolidClient();
+    const solidClient = new SolidClient(this.props.solidSession);
     // TODO: correctly get the pod uri for this session
     let podUrl = new URL(this.props.solidSession.info!.webId!).origin;
     if (!podUrl.endsWith("/")) {
@@ -295,7 +294,6 @@ class SelectableScoreApp extends Component<
     const containerUrl = podUrl + this.props.submitUri;
     const annotations = await solidClient.fetchAnnotations(
       new URL(containerUrl),
-      this.props.solidSession,
       {}
     );
     console.log("loaded annotations");
@@ -754,16 +752,16 @@ class SelectableScoreApp extends Component<
               onRefreshClick={this.onRefreshClick}
             />
 
-            <AnnotationList
-              allEntries={this.state.currentAnnotation}
-              filteringEntries={this.state.annoToDisplay}
-              onAnnoReplyHandler={this.onAnnoReplyHandler}
-              onMediaClick={this.onMediaClick}
-              replyAnnotationTarget={this.state.replyAnnotationTarget}
-              showReplyHandler={this.showReplyHandler}
-              areRepliesVisible={this.state.areRepliesVisible}
-              onRefreshClick={this.onRefreshClick}
-            />
+            {/*<AnnotationList*/}
+            {/*  allEntries={this.state.currentAnnotation}*/}
+            {/*  filteringEntries={this.state.annoToDisplay}*/}
+            {/*  onAnnoReplyHandler={this.onAnnoReplyHandler}*/}
+            {/*  onMediaClick={this.onMediaClick}*/}
+            {/*  replyAnnotationTarget={this.state.replyAnnotationTarget}*/}
+            {/*  showReplyHandler={this.showReplyHandler}*/}
+            {/*  areRepliesVisible={this.state.areRepliesVisible}*/}
+            {/*  onRefreshClick={this.onRefreshClick}*/}
+            {/*/>*/}
             <ReactPlayer
               width="80%"
               height="80%"

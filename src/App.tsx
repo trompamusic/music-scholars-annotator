@@ -38,7 +38,7 @@ function App() {
   }
 
   return (
-    <SessionProvider sessionId="trompa-music-scholars-annotator" onSessionRestore={onSessionRestore}>
+    <SessionProvider sessionId="trompa-music-scholars-annotator" /*onSessionRestore={onSessionRestore}*/>
       <Provider store={createStoreWithMiddleware(reducers)}>
         <ApolloProvider client={client}>
           <Navigation />

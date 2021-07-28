@@ -1,4 +1,4 @@
-/* item that contains the annotation contents, the renderSwitch function assign specific display to the specfic anntation based on its motivation*/
+/* item that contains the annotation contents, the renderSwitch function assign specific display to the specific annotation based on its motivation*/
 import React, {ChangeEvent, Component, MouseEvent} from "react";
 import auth from "solid-auth-client";
 import Toggle from "react-toggle";
@@ -21,10 +21,15 @@ import {ReactComponent as Trash} from "../graphics/trash-solid.svg";
 import {ReactComponent as InfoCircle} from "../graphics/info-circle-regular.svg";
 import {ReactComponent as LockSolid} from "../graphics/lock-solid.svg";
 import {ReactComponent as LockOpenSolid} from "../graphics/lock-open-solid.svg";
+import {Button, Card, Collapse} from "react-bootstrap-v5";
 
+type AnnotationInput = {
+  annotation: Annotation
+  replies: Annotation[]
+}
 
 type AnnotationItemProps = {
-  annotation: Annotation
+  annotation: AnnotationInput
   onRefreshClick: () => void
   onAnnoReplyHandler: (replyTarget: AnnotationTarget[], replyTargetId: string) => void
   onMediaClick: (id: string) => void
@@ -46,6 +51,8 @@ type AnnotationItemState = {
   isConfirmVisible: boolean
   isVisible: boolean
   resp: string
+  showDetails: boolean
+  showReplies: boolean
 }
 
 class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState> {
@@ -64,6 +71,8 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
       isConfirmVisible: false,
       isVisible: false,
       resp: "",
+      showDetails: false,
+      showReplies: false
     };
     this.grantPublic = this.grantPublic.bind(this);
     this.revokePublic = this.revokePublic.bind(this);
@@ -88,7 +97,7 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
       });
     }
     auth
-      .fetch(this.props.annotation["@id"]!, { method: "DELETE" })
+      .fetch(this.props.annotation.annotation["@id"]!, { method: "DELETE" })
       .then(async (response) => {
         const data = await response.json();
         // check for error response
@@ -107,25 +116,7 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
       });
   }
 
-  showDetails = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const parent = (e.target as HTMLElement).closest(".rootAnno");
-    const details = parent!.querySelector(".hiddenDetails");
-    if (details && !this.state.isVisible) {
-      this.setState({ isVisible: true });
-      details.classList.remove("hiddenDetails");
-      details.classList.add("showDetails");
-    } else {
-      if (this.state.isVisible) {
-        this.setState({ isVisible: false });
-        const visibleDetails = parent!.querySelector(".showDetails");
-        visibleDetails!.classList.remove("showDetails");
-        visibleDetails!.classList.add("hiddenDetails");
-      }
-    }
-  };
-
+  /*
   showReplyDetails = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -144,18 +135,19 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
       }
     }
   };
+   */
 
-  onClick = (e: MouseEvent<HTMLButtonElement>) => {
+  onReplyClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    const replyTarget = this.props.annotation.target;
-    const replyTargetId = this.props.annotation["@id"];
+    const replyTarget = this.props.annotation.annotation.target;
+    const replyTargetId = this.props.annotation.annotation["@id"];
     this.props.onAnnoReplyHandler(replyTarget, replyTargetId!);
     console.log("reply target id", replyTargetId);
   };
 
   componentDidMount() {
-    this.updateDatasetAcl();
+    //this.updateDatasetAcl();
   }
 
   showConfirm = (e: MouseEvent<HTMLButtonElement>) => {
@@ -181,7 +173,7 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
     auth
       .currentSession()
       .then((s) => {
-        getSolidDatasetWithAcl(this.props.annotation["@id"]!, {
+        getSolidDatasetWithAcl(this.props.annotation.annotation["@id"]!, {
           fetch: auth.fetch,
         })
           .then((datasetWithAcl) => {
@@ -191,13 +183,13 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
               if (!hasAccessibleAcl(datasetWithAcl)) {
                 console.warn(
                   "You do not have permission to modify access on ",
-                  this.props.annotation["@id"]
+                  this.props.annotation.annotation["@id"]
                 );
               }
               if (!hasFallbackAcl(datasetWithAcl)) {
                 console.warn(
                   "You do not have permission to view access rights list on ",
-                  this.props.annotation["@id"]
+                  this.props.annotation.annotation["@id"]
                 );
               } else {
                 // @ts-ignore
@@ -232,7 +224,7 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
           .catch((e) =>
             console.error(
               "Couldn't get Solid dataset with ACL: ",
-              this.props.annotation["@id"],
+              this.props.annotation.annotation["@id"],
               e
             )
           );
@@ -242,18 +234,18 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
       );
   }
 
-  shouldComponentUpdate(nextProps: Readonly<AnnotationItemProps>, nextState: Readonly<AnnotationItemState>) {
-    if (this.state.aclModified !== nextState.aclModified) {
-      // user has enacted an ACL change. Request a re-render accordingly.
-      return true;
-    }
-    return false;
-  }
+  // shouldComponentUpdate(nextProps: Readonly<AnnotationItemProps>, nextState: Readonly<AnnotationItemState>) {
+  //   if (this.state.aclModified !== nextState.aclModified) {
+  //     // user has enacted an ACL change. Request a re-render accordingly.
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   onPlayClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    const bodyMedia: string = this.props.annotation.body[0].id;
+    const bodyMedia: string = this.props.annotation.annotation.body[0].id;
     this.props.onMediaClick(bodyMedia);
   };
 
@@ -414,14 +406,14 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
   }
 
   renderSwitch = () => {
-    const date = this.props.annotation.created;
+    const date = this.props.annotation.annotation.created;
     let todaysDateISO = new Date().toISOString();
     let creationDate = date.split("T")[0];
     let compareDate = String(todaysDateISO.split("T")[0]);
     let permission;
     let modifyPermissionsElement;
     let replies = document.querySelectorAll(".replyAnno");
-    const selfId = this.props.annotation["@id"];
+    const selfId = this.props.annotation.annotation["@id"];
     var areRepliesPresent = false;
     /* check to see if any available replies are present, if not the toggle replies is hidden */
     if (replies.length) {
@@ -502,8 +494,8 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
           )}
           <button
             className="infoButton"
-            onMouseEnter={this.showDetails}
-            onMouseLeave={this.showDetails}
+            // onMouseEnter={this.showDetails}
+            // onMouseLeave={this.showDetails}
           >
             <InfoCircle/>
           </button>
@@ -533,7 +525,7 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
           <button
             className="replyButton"
             name="replyButton"
-            onClick={this.onClick}
+            onClick={this.onReplyClick}
           >
             Reply
           </button>
@@ -542,13 +534,13 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
     );
 
     //stuff that i am carrying around: the annotation's ID you are replying to, the body (currently sits under annotation.source) and the annotation's specific ID
-    const motivation = this.props.annotation.motivation;
-    const bodyD = this.props.annotation.body[0].value;
-    const bodyL = this.props.annotation.body[0].id;
-    const bodyMedia = this.props.annotation.body[0].id;
-    const target = this.props.annotation.target[0].id;
-    const repTarget = this.props.annotation.target;
-    const creator = this.props.annotation.creator || "unknown";
+    const motivation = this.props.annotation.annotation.motivation;
+    const bodyD = this.props.annotation.annotation.body[0].value;
+    const bodyL = this.props.annotation.annotation.body[0].id;
+    const bodyMedia = this.props.annotation.annotation.body[0].id;
+    const target = this.props.annotation.annotation.target[0].id;
+    const repTarget = this.props.annotation.annotation.target;
+    const creator = this.props.annotation.annotation.creator || "unknown";
 
     switch (motivation) {
       case "describing":
@@ -693,9 +685,9 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
                 <Trash/>
               </button>
               <button
-                className="infoButton"
-                onMouseEnter={this.showReplyDetails}
-                onMouseLeave={this.showReplyDetails}
+                className="float-right"
+                // onMouseEnter={this.showReplyDetails}
+                // onMouseLeave={this.showReplyDetails}
               >
                 <InfoCircle/>
               </button>
@@ -728,7 +720,39 @@ class AnnotationItem extends Component<AnnotationItemProps, AnnotationItemState>
   };
 
   render() {
-    return <div className="annoItemContainer">{this.renderSwitch()}</div>;
+    //return <div className="annoItemContainer">{this.renderSwitch()}</div>;
+
+    return <><Card className="ml-3">
+      <Card.Body>
+        <Card.Subtitle as="h6" className="text-muted">motivation: {this.props.annotation.annotation.motivation}</Card.Subtitle>
+        <Card.Text>
+          &nbsp;{this.props.annotation.annotation.body[0]!.value!}
+          <Button
+            className="float-end"
+            onClick={() => {this.setState({showDetails: !this.state.showDetails})}}
+          >i</Button>
+        </Card.Text>
+        <Card.Text className="float-end">
+          {this.props.annotation.replies.length > 0 &&
+            <Button onClick={() => {this.setState({showReplies: !this.state.showReplies})}}>
+              {this.state.showReplies ? "Hide" : "Show"} replies
+            </Button>
+          }
+          <Button>Reply</Button>
+        </Card.Text>
+      </Card.Body>
+      <Collapse in={this.state.showDetails}>
+        <Card.Footer>
+          <small>Created on:{this.props.annotation.annotation.created}<br/>
+          Permissions: x</small>
+
+        </Card.Footer>
+      </Collapse>
+    </Card>
+      {this.state.showReplies && this.props.annotation.replies.map((reply) => {
+        return <Card style={{marginLeft: "1em"}} key={reply["@id"]}><Card.Body><Card.Text>Reply: {reply.body[0]!.value!}</Card.Text></Card.Body></Card>
+      })}
+      </>
   }
 }
 

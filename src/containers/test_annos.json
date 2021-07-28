@@ -3,45 +3,6 @@
     "@context": "http://www.w3.org/ns/anno.jsonld",
     "target": [
       {
-        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000000117950056"
-      },
-      {
-        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000000150699876"
-      },
-      {
-        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000000934655397"
-      },
-      {
-        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001474512156"
-      },
-      {
-        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000002094105590"
-      },
-      {
-        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000000804202156"
-      },
-      {
-        "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001094592931"
-      }
-    ],
-    "type": "Annotation",
-    "motivation": "describing",
-    "body": [
-      {
-        "id": "6ec08433-be32-40d1-987a-426fe5308226",
-        "type": "TextualBody",
-        "value": "first page describin"
-      }
-    ],
-    "created": "2021-07-25T21:07:26.231Z",
-    "creator": "https://alastair.trompa-solid.upf.edu/profile/card#me",
-    "@id": "https://alastair.trompa-solid.upf.edu/private/32d27116-aeb0-4a68-84cb-ae7f8f1aeefe.jsonld",
-    "@type": "Annotation"
-  },
-  {
-    "@context": "http://www.w3.org/ns/anno.jsonld",
-    "target": [
-      {
         "id": "https://raw.githubusercontent.com/trompamusic-encodings/Mahler_Symphony_No4_Doblinger-4hands/master/Mahler_No4_1-Doblinger-4hands.mei#note-0000001824242285"
       },
       {

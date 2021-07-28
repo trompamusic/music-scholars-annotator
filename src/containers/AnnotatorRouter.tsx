@@ -11,6 +11,7 @@ import React from "react";
 import { useSession } from "@inrupt/solid-ui-react";
 import { Col, Row } from "react-bootstrap-v5";
 import HelpPage from "./HelpPage";
+import AnnotationList from "../annotations/AnnotationList";
 /**
  * Check if the user is logged in with a solid session. If not, show a message informing
  * them that they need to be logged in.
@@ -29,6 +30,7 @@ const AnnotatorRouter = () => {
     history.push("/new");
   }
 
+  /*
   if (!session.info.isLoggedIn) {
     return (
       <Row>
@@ -38,6 +40,7 @@ const AnnotatorRouter = () => {
       </Row>
     );
   }
+   */
 
   return (
     <Switch>
@@ -53,8 +56,21 @@ const AnnotatorRouter = () => {
       <Route exact path="/help">
         <HelpPage />
       </Route>
+      <Route exact path="/list">
+        <TestAnnoList />
+      </Route>
     </Switch>
   );
 };
+
+const TestAnnoList = () => {
+  const annotations: Annotation[] = require('./test_annos.json');
+  return <Row>
+    <Col>
+      <AnnotationList filteringEntries={[]} annotations={annotations} />
+    </Col>
+    <Col />
+  </Row>
+}
 
 export default AnnotatorRouter;
