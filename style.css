@@ -8,6 +8,22 @@ body {
   color: orange;
 }
 
+@media (min-width: 1080px) {
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl,
+  .container-xxl {
+    max-width: 100% !important;
+    padding-left: 0.5% !important;
+  }
+}
+
+.ftempoContainer {
+  max-width: 95vw;
+}
+
 form.hide-submit input[type="submit"] {
   display: none;
 }
@@ -19,6 +35,10 @@ form.hide-submit input[type="submit"] {
   border-radius: 4px;
   background-color: rgb(218, 218, 218);
   transition-duration: 0.4s;
+}
+
+.container__app {
+  padding-left: 0px;
 }
 
 .searchIcon:hover {
@@ -229,9 +249,8 @@ circle {
 }
 
 .zoomOut {
-  margin-left: 1.5%;
-  position: absolute;
-  bottom: 95%;
+  position: relative;
+
   width: 25px;
   height: 25px;
   border: none;
@@ -242,13 +261,14 @@ circle {
 }
 
 .zoomOut img {
-  width: 25px;
+  position: absolute;
+  left: 20%;
+  top: 20%;
 }
 
 .zoomIn {
-  margin-left: 4%;
-  position: absolute;
-  bottom: 95%;
+  position: relative;
+
   width: 25px;
   height: 25px;
   border: none;
@@ -259,12 +279,14 @@ circle {
 }
 
 .zoomIn img {
-  width: 25px;
+  position: absolute;
+  left: 20%;
+  top: 20%;
 }
 
 .prevPageButton {
-  position: absolute;
-  bottom: 95%;
+  position: relative;
+
   width: 25px;
   height: 25px;
   border: none;
@@ -274,16 +296,15 @@ circle {
   outline: none;
 }
 
-.prevPageButton svg {
+.prevPageButton img {
   position: absolute;
   left: 20%;
   top: 20%;
 }
 
 .nextPageButton {
-  margin-left: 6%;
-  position: absolute;
-  bottom: 95%;
+  position: relative;
+
   width: 25px;
   height: 25px;
   border: none;
@@ -293,7 +314,7 @@ circle {
   outline: none;
 }
 
-.nextPageButton svg {
+.nextPageButton img {
   position: absolute;
   left: 20%;
   top: 20%;
@@ -377,7 +398,7 @@ circle {
   user-select: none;
   position: relative;
   float: right;
-  bottom: 250px;
+  top: -6vh;
   right: 0px;
 }
 
@@ -501,7 +522,6 @@ circle {
 }
 
 .controls {
-  float: right;
   display: flex;
 }
 
@@ -600,8 +620,8 @@ circle {
 }
 
 .logoutButton {
-  background-color: #f4511e;
-  border: none;
+  background: #f4511e !important;
+  border: none !important;
   padding: 5px 12px;
   text-align: center;
   font-size: 12px;
@@ -618,8 +638,8 @@ circle {
 }
 
 .loginButton {
-  background-color: #4caf50;
-  border: none;
+  background-color: #4caf50 !important;
+  border: none !important;
   padding: 14px 40px;
   text-align: center;
   font-size: 16px;
@@ -629,7 +649,6 @@ circle {
   opacity: 0.5;
   color: white;
   border-radius: 4px;
-  width: 250px;
 }
 
 .loginButton:hover {
