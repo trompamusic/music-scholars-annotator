@@ -92,8 +92,4 @@ export class AnnotationList extends React.Component<AnnoListProps> {
   }
 }
 
-// AnnotationList.propTypes = {
-//   entries: PropTypes.array.isRequired,
-// };
-
 export default AnnotationList;

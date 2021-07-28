@@ -6,6 +6,7 @@ declare module 'selectable-score/lib/submit-button.js';
 declare module 'selectable-score/lib/selectable-score';
 declare module 'selectable-score/lib/next-page-button.js';
 declare module 'selectable-score/lib/prev-page-button.js';
+declare module 'trompa-multimodal-component';
 
 type AnnotationSolidResponse = any
 

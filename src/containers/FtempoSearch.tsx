@@ -1,4 +1,4 @@
-import React, {MouseEvent, Component} from "react";
+import React, { MouseEvent, Component } from "react";
 import { parseMei } from "../search/SearchQuery";
 import {
   Accordion,
@@ -7,35 +7,40 @@ import {
   AccordionItemHeading,
   AccordionItemPanel,
 } from "react-accessible-accordion";
+import {Button} from "react-bootstrap-v5";
 
 type FtempoSearchProps = {
-  onButtonPress: (e: MouseEvent) => void,
-  vrvToolkit: any,
-  counter: number,
+  onButtonPress: (e: MouseEvent) => void;
+  vrvToolkit: any;
+  counter: number;
 };
 
-
-
 type FtempoSearchState = {
-  searchReady: boolean,
-  selectedOption?: string,
-  meiVoiceQueryStrings: {[key: string]: {label: string, notes: string}},
-  searchResults?: object[]
-}
+  searchReady: boolean;
+  selectedOption?: string;
+  meiVoiceQueryStrings: { [key: string]: { label: string; notes: string } };
+  searchResults?: object[];
+};
 
-
-export default class FtempoSearch extends Component<FtempoSearchProps, FtempoSearchState> {
+export default class FtempoSearch extends Component<
+  FtempoSearchProps,
+  FtempoSearchState
+> {
   constructor(props: FtempoSearchProps) {
     super(props);
     this.state = {
       searchReady: false,
       selectedOption: undefined,
       meiVoiceQueryStrings: {},
-      searchResults: undefined
+      searchResults: undefined,
     };
   }
 
-  componentDidUpdate(prevProps: Readonly<FtempoSearchProps>, prevState: Readonly<FtempoSearchState>, snapshot: any) {
+  componentDidUpdate(
+    prevProps: Readonly<FtempoSearchProps>,
+    prevState: Readonly<FtempoSearchState>,
+    snapshot: any
+  ) {
     if (this.props.counter !== prevProps.counter) {
       const mei = this.props.vrvToolkit.getMEI();
       const meiDoc = new DOMParser().parseFromString(mei, "text/xml");
@@ -57,17 +62,16 @@ export default class FtempoSearch extends Component<FtempoSearchProps, FtempoSea
   onValueChange = (event: any) => {
     this.setState({
       selectedOption: event.target.value,
-      searchResults: undefined
+      searchResults: undefined,
     });
   };
 
   doSearch = () => {
     if (!this.state.selectedOption) {
-      return
+      return;
     }
-    const selectedVoice = this.state.meiVoiceQueryStrings[
-      this.state.selectedOption
-    ];
+    const selectedVoice =
+      this.state.meiVoiceQueryStrings[this.state.selectedOption];
     if (selectedVoice && selectedVoice.notes) {
       const query = { codestring: selectedVoice.notes };
       fetch("https://uk-dev-ftempo.rism.digital/api/query", {
@@ -86,15 +90,16 @@ export default class FtempoSearch extends Component<FtempoSearchProps, FtempoSea
 
   render() {
     return (
-      <div>
+      <div className="ftempoContainer">
         <h3>Search using F-TEMPO (experimental)</h3>
         {!this.state.searchReady && (
-          <button onClick={this.buttonPressed}>Show search options</button>
+          <Button variant="info" onClick={this.buttonPressed}>Show search options</Button>
         )}
         {this.state.searchReady && this.state.meiVoiceQueryStrings && (
           <>
             <p>
-              Search this score on F-TEMPO: select a single voice from this list as query
+              Search this score on F-TEMPO: select a single voice from this list
+              as query
             </p>
             <ul>
               {Object.keys(this.state.meiVoiceQueryStrings).map((e) => {
@@ -135,7 +140,9 @@ export default class FtempoSearch extends Component<FtempoSearchProps, FtempoSea
                   <AccordionItemPanel>
                     <img
                       src={
-                        "https://uk-dev-ftempo.rism.digital/img/jpg/" + i.id + ".jpg"
+                        "https://uk-dev-ftempo.rism.digital/img/jpg/" +
+                        i.id +
+                        ".jpg"
                       }
                       alt=""
                     />
