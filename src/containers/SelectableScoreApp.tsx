@@ -345,7 +345,7 @@ class SelectableScoreApp extends Component<
       return;
     }
     // FIXME: Validate that these are (TROMPA?) Web Annotations
-    content = content.filter((c) => c && c["@id"]!.endsWith(".jsonld"));
+    content = content.filter((c) => c && c["@id"]?.endsWith(".jsonld"));
 
     let measuresToAnnotationsMapList = content.map((anno) => {
       let distinctMeasures: any[] = [];
