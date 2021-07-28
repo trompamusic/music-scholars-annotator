@@ -278,12 +278,8 @@ class SelectableScoreApp extends Component<
   saveAnnotation = async (annotation: any) => {
     console.log("selectable score: about to save an annotation");
     console.log(annotation);
-    const solidClient = new SolidClient();
-    await solidClient.saveAnnotation(
-      annotation,
-      this.props.solidSession,
-      this.props.submitUri
-    );
+    const solidClient = new SolidClient(this.props.solidSession);
+    await solidClient.saveAnnotation(annotation, this.props.submitUri);
     // TODO: we shouldn't reload all annotations - instead just update state and re-compute boxes
     await this.onRefreshClick();
   };
@@ -292,7 +288,7 @@ class SelectableScoreApp extends Component<
    * Called when the "load annotations" <button> is clicked
    */
   onRefreshClick = async () => {
-    const solidClient = new SolidClient();
+    const solidClient = new SolidClient(this.props.solidSession);
     // TODO: correctly get the pod uri for this session
     let podUrl = new URL(this.props.solidSession.info!.webId!).origin;
     if (!podUrl.endsWith("/")) {
@@ -301,7 +297,6 @@ class SelectableScoreApp extends Component<
     const containerUrl = podUrl + this.props.submitUri;
     const annotations = await solidClient.fetchAnnotations(
       new URL(containerUrl),
-      this.props.solidSession,
       {}
     );
     console.log("loaded annotations");
