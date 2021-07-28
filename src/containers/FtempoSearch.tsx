@@ -1,4 +1,4 @@
-import React, { MouseEvent, Component } from "react";
+import React, { Component } from "react";
 import { parseMei } from "../search/SearchQuery";
 import {
   Accordion,
@@ -7,16 +7,12 @@ import {
   AccordionItemHeading,
   AccordionItemPanel,
 } from "react-accessible-accordion";
-import {Button} from "react-bootstrap-v5";
 
 type FtempoSearchProps = {
-  onButtonPress: (e: MouseEvent) => void;
   vrvToolkit: any;
-  counter: number;
 };
 
 type FtempoSearchState = {
-  searchReady: boolean;
   selectedOption?: string;
   meiVoiceQueryStrings: { [key: string]: { label: string; notes: string } };
   searchResults?: object[];
@@ -28,36 +24,15 @@ export default class FtempoSearch extends Component<
 > {
   constructor(props: FtempoSearchProps) {
     super(props);
+    const mei = props.vrvToolkit.getMEI();
+    const meiDoc = new DOMParser().parseFromString(mei, "text/xml");
+    console.debug(meiDoc);
     this.state = {
-      searchReady: false,
       selectedOption: undefined,
-      meiVoiceQueryStrings: {},
+      meiVoiceQueryStrings: parseMei(meiDoc),
       searchResults: undefined,
     };
   }
-
-  componentDidUpdate(
-    prevProps: Readonly<FtempoSearchProps>,
-    prevState: Readonly<FtempoSearchState>,
-    snapshot: any
-  ) {
-    if (this.props.counter !== prevProps.counter) {
-      const mei = this.props.vrvToolkit.getMEI();
-      const meiDoc = new DOMParser().parseFromString(mei, "text/xml");
-      console.debug(meiDoc);
-      // TODO: not working?
-      if (meiDoc.documentElement.nodeName === "parsererror") {
-        return "";
-      }
-      this.setState({ meiVoiceQueryStrings: parseMei(meiDoc) });
-    }
-  }
-
-  buttonPressed = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    this.setState({ searchReady: true });
-    this.props.onButtonPress(event);
-  };
 
   onValueChange = (event: any) => {
     this.setState({
@@ -92,10 +67,7 @@ export default class FtempoSearch extends Component<
     return (
       <div className="ftempoContainer">
         <h3>Search using F-TEMPO (experimental)</h3>
-        {!this.state.searchReady && (
-          <Button variant="info" onClick={this.buttonPressed}>Show search options</Button>
-        )}
-        {this.state.searchReady && this.state.meiVoiceQueryStrings && (
+        {this.state.meiVoiceQueryStrings && (
           <>
             <p>
               Search this score on F-TEMPO: select a single voice from this list

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Component } from "react";
+import React, { Component } from "react";
 import SelectableScore from "selectable-score/lib/selectable-score";
 import NextPageButton from "selectable-score/lib/next-page-button.js";
 import PrevPageButton from "selectable-score/lib/prev-page-button.js";
@@ -67,7 +67,7 @@ type SelectableScoreAppState = {
   annoToDisplay: any[];
   replyAnnotationTargetId: string;
   areRepliesVisible: boolean;
-  ftempoSearchCounter: number;
+  scoreReady: boolean;
   applicationMode: ApplicationMode;
   vrvOptions: VerovioOptions;
 };
@@ -92,7 +92,7 @@ class SelectableScoreApp extends Component<
       replyAnnotationTargetId: "",
       areRepliesVisible: false,
 
-      ftempoSearchCounter: 1,
+      scoreReady: false,
       applicationMode: ApplicationMode.Ready,
       vrvOptions: {
         scale: defaultVerovioScale,
@@ -660,19 +660,6 @@ class SelectableScoreApp extends Component<
       .forEach((mb) => mb.remove());
   }
 
-  onFtempoSearchButton = () => {
-    // TODO: This is a quick hack. At the moment SelectableScore doesn't trigger
-    //  handleScoreUpdate on initial page load, only after a page is turned or zoomed
-    //  So in order to make sure that we pass this.props.score.vrvTk to <FtempoSearch>,
-    //  we just randomly update state when the user presses a button to make sure that
-    //  we re-render
-    console.debug(`state update ${this.state.ftempoSearchCounter}`);
-    this.setState({
-      ftempoSearchCounter: this.state.ftempoSearchCounter + 1,
-      applicationMode: ApplicationMode.Search,
-    });
-  };
-
   annotate = () => {
     this.setState({
       applicationMode: ApplicationMode.Annotate,
@@ -714,25 +701,43 @@ class SelectableScoreApp extends Component<
               selectorString={this.state.selectorString}
               onScoreUpdate={this.handleScoreUpdate}
               selectionArea=".scoreContainer"
+              onScoreReady={() => {
+                this.setState({ scoreReady: true });
+              }}
             />
           </div>
         </div>
 
-        {this.state.applicationMode === ApplicationMode.Ready && (
-          <div>
-            <FtempoSearch
-              onButtonPress={this.onFtempoSearchButton}
-              vrvToolkit={this.props.score.vrvTk}
-              counter={this.state.ftempoSearchCounter}
-            />
-            <h3>Annotate the score using the Annotation Tools</h3>
-            <Button variant="info" onClick={this.annotate}>
-              Make an annotation
-            </Button>
-          </div>
+        <div>
+          {this.state.applicationMode === ApplicationMode.Ready && (
+            <>
+              <h3>Search using F-TEMPO (experimental)</h3>
+              <Button
+                variant="info"
+                onClick={() => {
+                  this.setState({ applicationMode: ApplicationMode.Search });
+                }}
+                disabled={!this.state.scoreReady}
+              >
+                Show search options
+              </Button>
+
+              <h3>Annotate the score using the Annotation Tools</h3>
+              <Button
+                variant="info"
+                onClick={this.annotate}
+                disabled={!this.state.scoreReady}
+              >
+                Make an annotation
+              </Button>
+            </>
+          )}
+        </div>
+
+        {this.state.applicationMode === ApplicationMode.Search && (
+          <FtempoSearch vrvToolkit={this.props.score.vrvTk} />
         )}
 
-        {/*selector for the component selection*/}
         {this.state.applicationMode === ApplicationMode.Annotate && (
           <div>
             <SelectionHandler
