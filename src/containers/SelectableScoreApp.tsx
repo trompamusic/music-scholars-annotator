@@ -106,6 +106,10 @@ class SelectableScoreApp extends Component<
 
   private player = React.createRef<ReactPlayer>();
 
+  resetZoom = () => {
+    const newVrvOptions = Object.assign({}, this.state.vrvOptions);
+    newVrvOptions.scale = defaultVerovioScale;
+  };
   zoomIn = () => {
     let step = 5;
     let initialZoom = this.state.vrvOptions.scale;
@@ -629,6 +633,7 @@ class SelectableScoreApp extends Component<
                 <img src={SearchMinus} alt="zoom out" />
               </button>
               {/* pass anything as buttonContent that you'd like to function as a clickable next page button */}
+
               <button onClick={this.zoomIn} className="zoomIn">
                 <img src={SearchPlus} alt="zoom in" />
               </button>
@@ -638,6 +643,13 @@ class SelectableScoreApp extends Component<
                   uri={this.props.resourceUri}
                 />
               </div>
+              <span style={{ alignContent: "center", marginLeft: "1%" }}>
+                {" "}
+                zoom level: {this.state.vrvOptions.scale}
+              </span>
+              {this.state.vrvOptions.scale !== 50 && (
+                <Button onClick={() => this.resetZoom}>Reset zoom</Button>
+              )}
             </div>
             <div className="annotationBoxesContainer" />
             <SelectableScore
