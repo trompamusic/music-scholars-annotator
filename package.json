@@ -46,7 +46,7 @@
     "fibers": "^5.0.0",
     "graphql": "^14.7.0",
     "meld-clients-core": "oerc-music/meld-clients-core#new-solid-auth-tooling",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
     "react-accessible-accordion": "^3.3.4",
