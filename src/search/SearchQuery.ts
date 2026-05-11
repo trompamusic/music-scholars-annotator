@@ -52,6 +52,10 @@ export function parseMei(document: Document) {
     const measureStaffs = measure.getElementsByTagName("staff");
     Array.from(measureStaffs).forEach(function (staff) {
       const measureStaffId = staff.attributes.getNamedItem("n")?.value!;
+      if (!staffs[measureStaffId]) {
+        // staff appears in <measure> but was not declared in <staffDef> — skip
+        return;
+      }
       const notes = staff.getElementsByTagName("note");
       Array.from(notes).forEach(function (note) {
         const nattrs = note.attributes;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { parseMei } from "../search/SearchQuery";
 import {
   Accordion,
@@ -14,33 +14,54 @@ interface FtempoSearchProps {
 }
 
 const FtempoSearch = (props: FtempoSearchProps) => {
-  const mei = props.vrvToolkit.getMEI();
-  const meiDoc = new DOMParser().parseFromString(mei, "text/xml");
-  const meiVoiceQueryStrings = parseMei(meiDoc);
+  const meiVoiceQueryStrings = useMemo(() => {
+    const mei = props.vrvToolkit.getMEI();
+    const doc = new DOMParser().parseFromString(mei, "text/xml");
+    return parseMei(doc);
+  }, [props.vrvToolkit]);
+
   const [selectedOption, setSelectedOption] = useState<string | undefined>(
     undefined
   );
-  const [searchResults, setSearchResults] = useState<object[]>([]);
+  const [searchResults, setSearchResults] = useState<object[] | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const doSearch = () => {
     if (!selectedOption) {
       return;
     }
     const selectedVoice = meiVoiceQueryStrings[selectedOption];
-    if (selectedVoice && selectedVoice.notes) {
-      const query = { codestring: selectedVoice.notes };
-      fetch("https://search.f-tempo.org/api/query", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(query),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setSearchResults(data);
-        });
+    if (!selectedVoice || !selectedVoice.notes) {
+      setError("This voice has no notes to query.");
+      setSearchResults(null);
+      return;
     }
+    setError(null);
+    setLoading(true);
+    setSearchResults(null);
+    fetch("https://search.f-tempo.org/api/query", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ codestring: selectedVoice.notes }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status} ${response.statusText}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setSearchResults(data);
+      })
+      .catch((err) => {
+        setError(err?.message ?? "Search failed.");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -53,35 +74,39 @@ const FtempoSearch = (props: FtempoSearchProps) => {
             as query
           </p>
           <ul>
-            {Object.keys(meiVoiceQueryStrings).map((e) => {
+            {Object.keys(meiVoiceQueryStrings).map((key) => {
               return (
                 <Form.Check
-                  key={e}
+                  key={key}
                   type="radio"
                   name="voice"
-                  value={e}
-                  id={"voice-" + e}
-                  checked={selectedOption === e}
+                  value={key}
+                  id={"voice-" + key}
+                  checked={selectedOption === key}
                   onChange={(e) => {
                     setSelectedOption(e.target.value);
-                    setSearchResults([]);
+                    setSearchResults(null);
+                    setError(null);
                   }}
-                  label={meiVoiceQueryStrings[e].label}
+                  label={meiVoiceQueryStrings[key].label}
                 />
               );
             })}
-            {/*<li><label><input type="radio" name="voice" value="all" checked={this.state.selectedOption === "all"} onChange={this.onValueChange} />All voices</label></li>*/}
           </ul>
           <Button
             variant="success"
             onClick={doSearch}
-            disabled={!selectedOption}
+            disabled={!selectedOption || loading}
           >
-            Search
+            {loading ? "Searching…" : "Search"}
           </Button>
         </>
       )}
-      {searchResults.length > 0 && (
+      {error && <p style={{ color: "#b00020", marginTop: "1em" }}>{error}</p>}
+      {searchResults && searchResults.length === 0 && !loading && !error && (
+        <p style={{ marginTop: "1em" }}>No matching scores found.</p>
+      )}
+      {searchResults && searchResults.length > 0 && (
         <Accordion allowZeroExpanded>
           {searchResults.map((i: any) => {
             return (
@@ -92,9 +117,7 @@ const FtempoSearch = (props: FtempoSearchProps) => {
                 <AccordionItemPanel>
                   <img
                     src={
-                      "https://search.f-tempo.org/img/jpg/" +
-                      i.id +
-                      ".jpg"
+                      "https://search.f-tempo.org/img/jpg/" + i.id + ".jpg"
                     }
                     alt=""
                   />
