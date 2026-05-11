@@ -24,6 +24,80 @@ body {
   max-width: 95vw;
 }
 
+.scoreLayout.withSidePanel {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.scoreLayout.withSidePanel .scoreContainer {
+  flex: 1 1 auto;
+  float: none;
+  top: 0;
+  min-width: 0;
+}
+
+.scoreLayout.withSidePanel .sidePanel {
+  flex: 0 0 35%;
+  max-width: none;
+}
+
+.scoreLayout.withSidePanel .ftempoContainer {
+  max-width: none;
+}
+
+.scoreLayout.withSidePanel .accordion {
+  width: 100%;
+}
+
+.sidePanelTabs {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 0.75rem;
+}
+
+.sidePanelTab {
+  background: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: #666;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.sidePanelTab:hover:not(:disabled) {
+  color: #222;
+}
+
+.sidePanelTab.active {
+  color: #222;
+  border-bottom-color: #007bff;
+}
+
+.sidePanelTab:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.sidePanelClose {
+  margin-left: auto;
+  background: none;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  color: #666;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.sidePanelClose:hover {
+  color: #222;
+}
+
 form.hide-submit input[type="submit"] {
   display: none;
 }

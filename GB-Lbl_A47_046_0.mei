@@ -1,0 +1,983 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-model href="http://www.aruspix.net/mei-page-based-2013-11-05.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<mei xmlns="http://www.music-encoding.org/ns/mei" meiversion="2013">
+    <meiHead>
+        <fileDesc>
+            <titleStmt>
+                <title />
+            </titleStmt>
+            <pubStmt>
+                <date>Sat Apr  1 13:33:28 2017</date>
+            </pubStmt>
+        </fileDesc>
+        <encodingDesc>
+            <projectDesc>
+                <p>Encoded with Aruspix version command line</p>
+            </projectDesc>
+        </encodingDesc>
+    </meiHead>
+    <music>
+        <body>
+            <mdiv>
+                <pages type="transcription">
+                    <!--Coordinates in MEI axis direction-->
+                    <page xml:id="m-978cc27b-ea42-45cf-831d-ce94e4b71635" page.width="2530" page.height="3950" page.leftmar="0" page.rightmar="0">
+                        <system xml:id="m-5df97fd6-a60a-4608-bdaa-f2490ac4fe4b" system.leftmar="60" system.rightmar="1" uly="3800">
+                            <staff xml:id="m-10f52a6c-7c3e-49fa-8b52-b135300d89cf" label="mensural" uly="3800" n="1">
+                                <layer xml:id="m-8a3e2131-3cc0-4271-bb30-5e3ae214a2dd" n="1">
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-fbc0816b-836a-4164-bffb-695e102c164a" ulx="62" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-8a70bbad-3c91-44d3-aa8f-3379f56586b9" ulx="158" />
+                                    <mensur sign="C" slash="1" xml:id="m-77d5311a-4039-4747-b156-7d0444c1b7d5" ulx="264" />
+                                    <barLine xml:id="m-7b241e7c-c5e4-46f6-a145-1028e3b7c800" ulx="320" />
+                                    <mensur sign="C" slash="1" xml:id="m-fbe55cf6-4fb2-4ab5-980e-5ed7146f18af" ulx="380" />
+                                    <note pname="b" oct="4" dur="longa" xml:id="m-9edbdcb5-e94f-42f7-a591-e850cc603f29" ulx="452" />
+                                    <barLine xml:id="m-c26338df-066c-449d-ba4c-3e22f9277da0" ulx="522" />
+                                    <barLine xml:id="m-e3994e1c-f545-4241-8c9f-c9735863b742" ulx="566" />
+                                    <dot ploc="e" oloc="5" xml:id="m-6d4d50e2-5bc0-4a20-9eeb-7d8c393e181a" ulx="608" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-60be7af9-62b4-4e21-b38a-9a2294a1a78f" ulx="630" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-cffe75b0-c604-452e-a10b-145923b60701" ulx="992" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-fadbb06c-327f-4ea4-aea4-6d494f6626fb" ulx="1054" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-df7487ac-a452-4559-a924-43237e29f465" ulx="1086" />
+                                    <note pname="c" oct="5" dur="semibrevis" xml:id="m-7345d9fc-1158-4b7e-8987-2e713c20a325" ulx="1132" />
+                                    <dot ploc="c" oloc="5" xml:id="m-f01aa7d6-1620-4c9f-b663-0ba00a0cf588" ulx="1182" />
+                                    <barLine xml:id="m-370ca1f0-19f1-4583-abbb-2ad2257c9813" ulx="1240" />
+                                    <note pname="b" oct="4" dur="brevis" xml:id="m-a8c8bb38-93c2-455c-b584-edbe85c32012" ulx="1346" />
+                                    <dot ploc="c" oloc="5" xml:id="m-d054aafa-570d-4831-95ee-26292710f47c" ulx="1442" />
+                                    <clef line="4" shape="C" xml:id="m-7748e588-b163-4cf3-a88e-75413e7810c5" ulx="1492" />
+                                    <custos pname="e" oct="4" xml:id="m-c898dafb-7e7b-444d-a2e2-393b03fdbb30" ulx="1604" />
+                                    <note pname="a" oct="3" dur="longa" xml:id="m-aafa0262-5aaf-41ed-b059-00389c74268d" ulx="1646" />
+                                    <accid accid="f" ploc="g" oloc="3" xml:id="m-dd79fe85-0f80-4b18-83b2-edd793587d94" ulx="1696" />
+                                    <mensur sign="C" slash="1" xml:id="m-d9688135-5ca2-4904-a80e-aaff21243022" ulx="1794" />
+                                    <accid accid="f" ploc="g" oloc="3" xml:id="m-fc9b1ce5-45d1-497e-bef9-4987276787c4" ulx="1878" />
+                                    <rest dur="brevis" ploc="a" oloc="3" xml:id="m-4e5c3773-0849-41e5-b866-2f51616a694f" ulx="1996" />
+                                    <barLine xml:id="m-4d292e81-e879-436f-834f-a5f4eb82c8a8" ulx="2020" />
+                                    <barLine xml:id="m-56e07167-e03a-4257-a28c-7ed501b458db" ulx="2066" />
+                                    <clef line="4" shape="C" xml:id="m-64e351c0-5296-4e99-98be-c277d336038b" ulx="2130" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-c8ef3286-a5fb-4d6a-8ec9-3e8aa03411e9" system.leftmar="0" system.rightmar="406" uly="3684">
+                            <staff xml:id="m-e472230d-baf1-4fe9-a8e1-a427e18fb8dc" label="mensural" uly="3684" n="1">
+                                <layer xml:id="m-94a3fff1-69ad-4987-97df-4ea94b4d0b35" n="1">
+                                    <custos pname="f" oct="4" xml:id="m-1cbe1685-b4f3-4c67-8180-6591f8733f6e" ulx="2" />
+                                    <custos pname="e" oct="5" xml:id="m-d192b208-b1ed-49e8-9438-204f90a0e9bf" ulx="64" />
+                                    <note pname="b" oct="4" dur="semiminima" xml:id="m-71f75b98-76bc-49e8-9f40-cf639c71e5ec" ulx="88" />
+                                    <custos pname="d" oct="5" xml:id="m-9b6c9958-1b24-4dc0-a9d2-c14b1596b0ba" ulx="158" />
+                                    <custos pname="b" oct="4" xml:id="m-dbe97e00-3811-453e-870d-16ed6751442a" ulx="198" />
+                                    <dot ploc="c" oloc="5" xml:id="m-dcbe9515-3293-4e75-bdd7-fc7d34bbf84d" ulx="264" />
+                                    <custos pname="d" oct="4" xml:id="m-7fde5539-903e-4aec-96be-465f6d8dc4cb" ulx="300" />
+                                    <clef line="4" shape="F" xml:id="m-eac92af9-7d11-4fa8-bced-9fd93e38efd4" ulx="330" />
+                                    <custos pname="b" oct="3" xml:id="m-9afcd3a4-f561-4d30-a58f-27a6ac7b8688" ulx="378" />
+                                    <note pname="g" oct="2" dur="brevis" xml:id="m-29f057da-9005-4a87-841a-c16d7d6e3c78" ulx="418" />
+                                    <clef line="3" shape="F" xml:id="m-33d0ca4c-3993-475d-9dfa-5005bf070139" ulx="456" />
+                                    <custos pname="g" oct="3" xml:id="m-59ab317c-c84d-449b-a7f3-7033c9d21fa5" ulx="490" />
+                                    <accid accid="f" ploc="e" oloc="3" xml:id="m-b967f144-1c3b-42aa-a22e-1d83ea307a7c" ulx="536" />
+                                    <clef line="4" shape="C" xml:id="m-27c602e7-b6fd-47fa-8e54-e04da7d51e17" ulx="624" />
+                                    <clef line="2" shape="G" xml:id="m-c8f3e220-0f39-44b8-a844-7e04991eaefb" ulx="676" />
+                                    <clef line="2" shape="G" xml:id="m-cfcd9873-1639-455d-82ff-babf2724ff53" ulx="738" />
+                                    <accid accid="f" ploc="d" oloc="5" xml:id="m-e7e18e71-f3ef-4941-8d8d-5af4231d99ee" ulx="778" />
+                                    <custos pname="g" oct="5" xml:id="m-05bf2625-9315-40ea-8427-fe1d25ca02d3" ulx="852" />
+                                    <custos pname="a" oct="4" xml:id="m-83b2587b-78b8-465a-a2a5-690005e2d1a4" ulx="912" />
+                                    <dot ploc="d" oloc="4" xml:id="m-096fc8be-08f6-46bb-99c5-291e694ec076" ulx="982" />
+                                    <accid accid="f" ploc="d" oloc="5" xml:id="m-3c16e8f4-eecd-4bdb-9181-ccac907bdedd" ulx="1034" />
+                                    <accid accid="f" ploc="d" oloc="5" xml:id="m-bdfd5efc-98c5-4fc3-a9e3-a57e4fcce87b" ulx="1080" />
+                                    <clef line="2" shape="C" xml:id="m-1d976bee-9ceb-47e4-918a-6c3a44ae6ba9" ulx="1200" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-7d847e0c-5bc8-4509-870c-c84db47207de" ulx="1312" />
+                                    <custos pname="b" oct="4" xml:id="m-25b36fa6-0161-49f3-8492-a1b82dfb17f8" ulx="1372" />
+                                    <clef line="4" shape="C" xml:id="m-7ff20d4a-ca50-46ba-b2a7-7c1a0bc5e926" ulx="1410" />
+                                    <custos pname="g" oct="3" xml:id="m-f5bf7c06-4860-4285-a06a-35e844165a66" ulx="1706" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-e9b99aa4-20c7-4832-9227-70b502673e80" ulx="1748" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-48ac9af6-d4c4-486f-a2e7-89e0dab43904" ulx="1794" />
+                                    <dot ploc="f" oloc="4" xml:id="m-2d16cf69-dac0-49b5-bd3f-141cc2f62f78" ulx="1848" />
+                                    <clef line="4" shape="C" xml:id="m-7d408923-0de2-4004-8bad-e69210751c27" ulx="1872" />
+                                    <note pname="c" oct="3" dur="semibrevis" colored="true" xml:id="m-7cbececd-3d35-4ed4-9a10-9910f6711e95" ulx="1920" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-675be811-2117-410a-b27e-5ab49327520b" ulx="1942" />
+                                    <rest dur="semibrevis" ploc="e" oloc="4" xml:id="m-8bf0adc1-5ebd-4786-a88e-2327f4017334" ulx="1988" />
+                                    <accid accid="f" ploc="c" oloc="4" xml:id="m-979e2c4e-1ebd-44b2-bf43-df0c71e022a7" ulx="2020" />
+                                    <note pname="g" oct="4" dur="semiminima" xml:id="m-fcd0c02b-0123-43a2-9755-de3159400dcc" ulx="2092" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-6375ffde-8d18-4449-aede-3569893c1cf2" system.leftmar="0" system.rightmar="1" uly="3540">
+                            <staff xml:id="m-db5ba32e-57da-4aad-8968-062c987ef0e5" label="mensural" uly="3540" n="1">
+                                <layer xml:id="m-42cb0b41-a846-4b50-8f19-75ed9f6aa100" n="1">
+                                    <custos pname="d" oct="4" xml:id="m-a9bf2574-9c41-4401-bae8-8860b86c074b" ulx="2" />
+                                    <note pname="g" oct="4" dur="brevis" xml:id="m-1f050f3a-908d-45b0-a462-76cb7723d5b9" ulx="26" />
+                                    <clef line="4" shape="C" xml:id="m-0f87fdff-ffd2-427d-a62c-088677aee11a" ulx="62" />
+                                    <clef line="3" shape="C" xml:id="m-fa6b0abc-3997-4462-96ea-ea6bf49bc1ed" ulx="122" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-1486c2e1-d5e3-4d02-98bd-a5452b4da9b7" ulx="224" />
+                                    <clef line="4" shape="C" xml:id="m-88c03198-7141-452b-a2ce-095b30e01c58" ulx="298" />
+                                    <mensur sign="C" slash="1" xml:id="m-4c06564a-9f22-4ce7-a477-d9eaab92280a" ulx="360" />
+                                    <note pname="a" oct="3" dur="longa" xml:id="m-c4c99ab5-290b-43cd-b488-66c56cb17244" ulx="484" />
+                                    <note pname="d" oct="4" dur="semibrevis" xml:id="m-5a53ec26-fd34-40eb-89d5-dc57f415025f" ulx="634" />
+                                    <mensur sign="C" slash="1" xml:id="m-95b05531-ff9a-494c-9637-6c6a1bb359ce" ulx="676" />
+                                    <accid accid="f" ploc="g" oloc="3" xml:id="m-3bad145f-21fd-4a39-8b9e-494218f9c0ac" ulx="738" />
+                                    <mensur sign="C" slash="1" xml:id="m-65419beb-4ff1-46ee-81a2-76bb34c2b2ea" ulx="850" />
+                                    <clef line="3" shape="C" xml:id="m-df40e079-0f4a-46f7-aea0-228b48776431" ulx="930" />
+                                    <custos pname="b" oct="3" xml:id="m-329aa7bd-570d-40e9-8363-e9fdffc1bad7" ulx="1028" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-d11e80f7-1791-4de8-9173-6eca57a62e18" ulx="1098" />
+                                    <clef line="2" shape="G" xml:id="m-57bca023-e87c-4dfe-9b4e-12ea0b99cdbb" ulx="1194" />
+                                    <barLine xml:id="m-247789e9-77b5-4e14-ae12-61f3399b4fcd" ulx="1274" />
+                                    <note pname="d" oct="4" dur="brevis" xml:id="m-95da0c0a-3a02-413c-8584-fb3d6052b53a" ulx="1314" />
+                                    <note pname="a" oct="4" dur="semiminima" xml:id="m-1e1b98dd-fefa-4619-8567-b314ce7cb75e" ulx="1336" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-f5533cce-4ca5-4fa0-b5af-0bfe79826e1c" ulx="1394" />
+                                    <note pname="f" oct="4" dur="semiminima" xml:id="m-9e25bec5-5a48-4eda-b083-6205c94cdc40" ulx="1456" />
+                                    <dot ploc="e" oloc="5" xml:id="m-21fd1b33-c2c6-4e91-a118-784b0a03b7a3" ulx="1506" />
+                                    <mensur sign="C" slash="1" xml:id="m-5ce42181-928e-4ed4-9c29-ab8b09271562" ulx="1520" />
+                                    <mensur sign="C" slash="1" xml:id="m-997a504c-131f-4d52-ae82-35908ed257ad" ulx="1612" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-92c122d6-169f-4cbd-9c3b-aab68b8f2d42" ulx="1668" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-4eb7f224-24a1-4bca-b001-2c6a151ce189" ulx="1734" />
+                                    <rest dur="semibrevis" ploc="g" oloc="4" xml:id="m-3e277cc7-cf3c-4d19-b57f-d756786f11f4" ulx="1792" />
+                                    <barLine xml:id="m-abfd2571-137a-404a-8023-3b22aaf67169" ulx="1806" />
+                                    <barLine xml:id="m-ebcb7489-92b0-43ce-8daf-4c10b9cc78b0" ulx="1860" />
+                                    <accid accid="f" ploc="c" oloc="5" xml:id="m-10bbd218-0af9-499b-9ef4-469b717543e8" ulx="1892" />
+                                    <note pname="a" oct="5" dur="semiminima" xml:id="m-a9beb3d5-64ef-40d7-bcb7-154da754987c" ulx="1926" />
+                                    <mensur sign="C" slash="1" xml:id="m-86c4867d-f51a-46ab-a6ce-0d00eb3904cb" ulx="1990" />
+                                    <note pname="e" oct="5" dur="semiminima" xml:id="m-986bb2c0-0c5c-4aef-968c-1bc27283434e" ulx="2038" />
+                                    <clef line="3" shape="C" xml:id="m-03905b23-a9d3-4693-acdc-5fd7103bcd2d" ulx="2096" />
+                                    <mensur sign="C" slash="1" xml:id="m-e2c82ba7-aea3-44d1-9d6f-f38c2cc0587f" ulx="2146" />
+                                    <clef line="1" shape="C" xml:id="m-da3ee142-43a9-47ca-872e-3b89c90ebbb7" ulx="2178" />
+                                    <custos pname="f" oct="4" xml:id="m-643ddc45-6699-4dd1-8365-664eee7375a9" ulx="2214" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-4de3fbd0-8583-4807-b973-23e8b49b924c" ulx="2254" />
+                                    <rest dur="brevis" ploc="e" oloc="4" xml:id="m-939ba43b-160e-4634-a2c7-cc36d936cc6f" ulx="2304" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-5a99ebe8-4e84-4047-ad0d-6e56c6aa8bdf" ulx="2350" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-63a6a034-ff6f-45b9-b7af-ec9b49fa7efd" ulx="2426" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-043356e6-8f50-4828-8f90-b92cdda2c527" system.leftmar="0" system.rightmar="46" uly="3312">
+                            <staff xml:id="m-3eea4661-e404-4106-af07-2d28f2e0ea98" label="mensural" uly="3312" n="1">
+                                <layer xml:id="m-37e169b7-9b5b-4d50-ae2d-cd0c2164802d" n="1">
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-381d7f43-3c89-4931-90df-8859b359f66d" ulx="2" />
+                                    <barLine xml:id="m-d2b6d0c9-81ab-4c1a-9a7b-369c7619adb3" ulx="228" />
+                                    <note pname="d" oct="5" dur="brevis" xml:id="m-d2d505f7-9b79-41ce-a75c-be1f03203dc0" ulx="272" />
+                                    <note pname="f" oct="5" dur="semiminima" xml:id="m-73d6d65f-b88e-405b-bc34-e6dd910a9c15" ulx="294" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-f0fcf262-19a0-4f94-8192-18266bc7c97c" ulx="342" />
+                                    <custos pname="b" oct="4" xml:id="m-d7c66802-d439-4607-ac03-0c8d606a384d" ulx="424" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-7c607c60-bcf5-4645-9d0d-2d95a61395d6" ulx="458" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-7fd53ce6-973f-41d0-b983-24f2825d2f2a" ulx="506" />
+                                    <mensur sign="C" slash="1" xml:id="m-df326f44-91f8-4947-80ed-d3afed2b24bb" ulx="760" />
+                                    <barLine xml:id="m-ac0eb990-a71c-4fa8-9ffc-ccd147f9fb42" ulx="810" />
+                                    <note pname="b" oct="4" dur="longa" xml:id="m-b9bb7b85-a0c2-44ac-bc69-f6a7a116489a" ulx="862" />
+                                    <custos pname="f" oct="4" xml:id="m-b60d7662-e9f6-44e1-88f1-632252d65682" ulx="978" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-4788331f-f1a4-4259-bfab-0592633fe830" ulx="1002" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-8e330da2-9142-4023-98a1-adcde4bb4ca5" ulx="1062" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-5a94ad5f-f852-4b39-a45f-38a602bce6a0" ulx="1240" />
+                                    <note pname="d" oct="4" dur="semiminima" xml:id="m-6a6c39e7-0450-46c5-9fc6-17490a617be1" ulx="1412" />
+                                    <custos pname="a" oct="4" xml:id="m-82393e84-b268-4635-8d6c-ed6b8af513cb" ulx="1458" />
+                                    <note pname="d" oct="4" dur="semiminima" xml:id="m-0c4801d5-f1a7-4213-8e75-4583f9534e2b" ulx="1498" />
+                                    <note pname="b" oct="4" dur="longa" xml:id="m-3767d29f-055b-4463-83f1-ce88fc24a738" ulx="1544" />
+                                    <clef line="3" shape="C" xml:id="m-ef51805a-b8af-4dbb-a071-e50ed1b6bb6e" ulx="1608" />
+                                    <custos pname="b" oct="3" xml:id="m-bbd0e722-3ad8-45e7-a37e-cc8f1a999efe" ulx="1702" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-9c840e62-51ae-4f15-aea2-86dfbef5e4a0" ulx="1772" />
+                                    <custos pname="g" oct="4" xml:id="m-c96a5f0d-d606-4ab8-94ce-f71fbdd76ecf" ulx="1832" />
+                                    <note pname="e" oct="4" dur="longa" xml:id="m-c785ee7d-d0a6-4698-beac-d74f6c714ea0" ulx="1854" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-b7964c51-2a74-4fdf-a195-9d64c29830a9" ulx="1944" />
+                                    <accid accid="f" ploc="d" oloc="4" xml:id="m-b1c87c81-908f-4e3e-b54d-86e2fd2390d4" ulx="2050" />
+                                    <clef line="4" shape="C" xml:id="m-f917a442-171a-47f7-82c7-b01c8f10e5d8" ulx="2112" />
+                                    <note pname="g" oct="3" dur="longa" xml:id="m-e28731c4-c18f-413c-8c16-a3b79b50de7e" ulx="2162" />
+                                    <mensur sign="C" slash="1" xml:id="m-4bd61449-68c9-42e3-a4be-032e456d608f" ulx="2228" />
+                                    <accid accid="f" ploc="d" oloc="4" xml:id="m-13e5b814-1f56-430b-9759-8e6767747325" ulx="2276" />
+                                    <accid accid="f" ploc="g" oloc="3" xml:id="m-5d5954cf-de00-4159-94cb-3ae7ac283d19" ulx="2308" />
+                                    <dot ploc="d" oloc="4" xml:id="m-2f6f0e64-3083-4d69-b2b1-1d8f983fa8fa" ulx="2364" />
+                                    <clef line="2" shape="G" xml:id="m-640fca46-46f4-4bb7-9be5-868771a0ef25" ulx="2380" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-099b3ef5-eefd-439a-9ba1-4503e8894db1" system.leftmar="66" system.rightmar="1" uly="3104">
+                            <staff xml:id="m-2697414a-4ac5-46af-82bb-5d8833dbfc73" label="mensural" uly="3104" n="1">
+                                <layer xml:id="m-e0b2d4d2-aa8f-4afa-9703-fd99994ed2c9" n="1">
+                                    <clef line="4" shape="C" xml:id="m-70430a26-0ade-4dc5-8b8d-5d9d80395c32" ulx="68" />
+                                    <note pname="e" oct="3" dur="minima" xml:id="m-81731b56-a91b-49b5-98b9-e09b99ae5405" ulx="160" />
+                                    <note pname="f" oct="3" dur="semibrevis" xml:id="m-351ce93f-c9d8-4157-97a4-94556fcec214" ulx="202" />
+                                    <barLine xml:id="m-991654d6-ed52-4653-858e-f7ed6976cc7f" ulx="266" />
+                                    <accid accid="f" ploc="g" oloc="3" xml:id="m-93c68f8d-d7b9-4bfb-b436-38c63627c0b0" ulx="320" />
+                                    <accid accid="f" ploc="g" oloc="3" xml:id="m-a3ee0361-8e20-4a61-b65b-fae0125f50f9" ulx="428" />
+                                    <note pname="a" oct="3" dur="longa" xml:id="m-3c6126b9-e896-45e1-a115-aa42d1be7201" ulx="670" />
+                                    <accid accid="f" ploc="g" oloc="3" xml:id="m-e9cb7687-610d-4384-a55d-b2dae334cb04" ulx="758" />
+                                    <barLine xml:id="m-fb2929af-56b7-4ab6-af38-93099ae2f946" ulx="976" />
+                                    <note pname="d" oct="4" dur="semibrevis" xml:id="m-5a7c810a-ce07-401f-b7e7-ffbc4a38ce68" ulx="1026" />
+                                    <accid accid="f" ploc="g" oloc="3" xml:id="m-c45ee939-4305-4e94-9ddf-bc6efc5c845c" ulx="1060" />
+                                    <rest dur="brevis" ploc="c" oloc="4" xml:id="m-c77f2dbf-cfb0-4a81-a5ac-872c5980d1aa" ulx="1122" />
+                                    <note pname="a" oct="3" dur="longa" xml:id="m-64c24376-c3d1-493d-a9ab-462f08c27e10" ulx="1142" />
+                                    <barLine xml:id="m-2291a5e5-f86b-40b7-83c6-cc4a9957710c" ulx="1276" />
+                                    <mensur sign="C" slash="1" xml:id="m-72fa23db-37ce-44ff-b901-426dc222dbb3" ulx="1308" />
+                                    <accid accid="f" ploc="g" oloc="3" xml:id="m-c3bf7610-b6ce-4c37-89b0-6ca4cf54e5a8" ulx="1356" />
+                                    <barLine xml:id="m-c975a8b5-a3c7-4e09-a3da-fcc6748ebb25" ulx="1482" />
+                                    <barLine xml:id="m-29665c06-79c9-46da-81db-fee52005e8a6" ulx="1578" />
+                                    <barLine xml:id="m-95f568ab-87db-404c-9cb6-3fdcb174ffa9" ulx="1658" />
+                                    <barLine xml:id="m-0b83eaff-ba37-4d03-a817-76945f8006a8" ulx="1698" />
+                                    <note pname="c" oct="3" dur="minima" xml:id="m-6174f263-ceeb-41e8-8b2b-4070c1c24df0" ulx="1766" />
+                                    <note pname="b" oct="3" dur="longa" xml:id="m-50a3daef-cfdf-4393-a643-32586acd3fdb" ulx="1808" />
+                                    <clef line="3" shape="F" xml:id="m-dc4683a2-8fcf-4572-96c1-988bd51b4568" ulx="1892" />
+                                    <accid accid="f" ploc="e" oloc="3" xml:id="m-16debdf5-746e-4bbf-b29f-0ba52fe2b8f6" ulx="2052" />
+                                    <barLine xml:id="m-537f3f83-b89b-46bc-9e2a-53c759808d76" ulx="2176" />
+                                    <barLine xml:id="m-efe00072-150a-42b2-93d2-7d7d90a1f481" ulx="2220" />
+                                    <rest dur="minima" ploc="c" oloc="4" xml:id="m-eabf6bf7-9062-4f11-8310-4c35318457d2" ulx="2262" />
+                                    <accid accid="f" ploc="e" oloc="3" xml:id="m-884acffc-e3c0-4f9a-b253-448409a6899d" ulx="2282" />
+                                    <note pname="f" oct="3" dur="longa" xml:id="m-6d580e99-d92d-401f-bd3f-6301bec29e33" ulx="2366" />
+                                    <accid accid="f" ploc="e" oloc="3" xml:id="m-475c8a2b-6869-4004-93bc-e0c0d2ab9717" ulx="2412" />
+                                    <barLine xml:id="m-b6ba162a-f203-4a95-aa6f-9b9f67a9a6f6" ulx="2474" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-afd9b976-7f00-4ef7-b068-88e10b9af267" system.leftmar="0" system.rightmar="1" uly="2844">
+                            <staff xml:id="m-71a3342b-2211-4b2c-aa84-5c5fce28a68c" label="mensural" uly="2844" n="1">
+                                <layer xml:id="m-7a2f52bb-407a-4375-85ef-59452f958719" n="1">
+                                    <mensur sign="C" slash="1" xml:id="m-1a0614ed-6773-4756-ba45-bb8021933211" ulx="2" />
+                                    <barLine xml:id="m-7a49ae9c-4aad-4b3d-bdbc-2af3e5eb0e7c" ulx="44" />
+                                    <note pname="d" oct="4" dur="brevis" xml:id="m-e90da49f-9332-4df1-b98e-87e00c6cde5a" ulx="88" />
+                                    <note pname="a" oct="4" dur="longa" xml:id="m-76b80ae3-8176-471b-913f-acd6377b5ec8" ulx="108" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-4e7ff5b9-5d92-467e-8bbc-e824ef11584a" ulx="194" />
+                                    <clef line="4" shape="C" xml:id="m-242870bd-34b9-4fb8-9cf2-97073fe014b5" ulx="270" />
+                                    <clef line="3" shape="C" xml:id="m-587c4a62-ba75-4c96-b180-04226027de6f" ulx="376" />
+                                    <accid accid="f" ploc="e" oloc="4" xml:id="m-b47b643d-d72d-4d1d-ae72-e5f7a2a9f426" ulx="404" />
+                                    <note pname="e" oct="3" dur="semibrevis" xml:id="m-72008600-f86d-4247-b53e-15d92038ae02" ulx="458" />
+                                    <dot ploc="a" oloc="4" xml:id="m-73b1aa0f-712b-44b2-8e86-7cf83e7dbf06" ulx="488" />
+                                    <note pname="c" oct="4" dur="longa" xml:id="m-01f207e6-8a9d-4152-92f6-8fa1c90ab28c" ulx="514" />
+                                    <barLine xml:id="m-f8839f6b-bdc5-4b35-81a8-95f80b831746" ulx="590" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-695c552b-e045-4b3f-9e39-688d32e5da0d" ulx="642" />
+                                    <clef line="4" shape="C" xml:id="m-9e985c8a-9603-4f20-8101-d8bfa2a57efb" ulx="868" />
+                                    <accid accid="f" ploc="g" oloc="3" xml:id="m-3bc6ed55-45cf-4cb2-8343-bfee24c94171" ulx="968" />
+                                    <clef line="2" shape="C" xml:id="m-355d4ea6-bad3-4c04-9972-b8a44af96eb2" ulx="1030" />
+                                    <custos pname="b" oct="3" xml:id="m-7bec582d-e721-4335-b244-d69892e33af1" ulx="1084" />
+                                    <note pname="e" oct="4" dur="longa" xml:id="m-b8b236ed-8b18-4bc1-b014-f96dfc28598f" ulx="1130" />
+                                    <dot ploc="c" oloc="5" xml:id="m-a0a9e05d-fefd-458e-931a-9aec3e83fb95" ulx="1290" />
+                                    <accid accid="f" ploc="d" oloc="4" xml:id="m-04857395-7c9c-4d6a-85d1-93cccc281205" ulx="1312" />
+                                    <rest dur="minima" ploc="b" oloc="4" xml:id="m-f344738e-a97b-473a-a4f2-47c5d837df25" ulx="1366" />
+                                    <clef line="2" shape="G" xml:id="m-990faf4a-3da8-41fd-ba83-2ae1fa8f48cd" ulx="1382" />
+                                    <barLine xml:id="m-df65da67-27b8-4129-bac3-803159b8a4e9" ulx="1508" />
+                                    <custos pname="f" oct="4" xml:id="m-dc61cbf9-733f-4cd2-b474-c79d8ad444f8" ulx="1558" />
+                                    <clef line="3" shape="C" xml:id="m-329ce86a-1066-45f5-9339-7d2dbcbdc096" ulx="1614" />
+                                    <custos pname="d" oct="4" xml:id="m-7eba3047-7f82-467a-aea3-c19f06ddd8f3" ulx="1670" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-c5480b83-a934-4518-bfbd-5c7b9497a10d" ulx="1708" />
+                                    <rest dur="semibrevis" ploc="g" oloc="4" xml:id="m-b39099f6-45b9-4481-8661-f2e98483f36a" ulx="1772" />
+                                    <barLine xml:id="m-2301479e-45b7-4143-8779-f85344686074" ulx="1798" />
+                                    <note pname="b" oct="3" dur="longa" xml:id="m-a013d176-a5bc-46d5-b381-97493b95a76d" ulx="1840" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-07f79d99-a855-41d1-b698-e691e8f785de" ulx="1934" />
+                                    <note pname="f" oct="4" dur="semiminima" xml:id="m-48bfee29-a8af-4db6-8d26-7adbc53e7f6c" ulx="1994" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-67f7ccbb-6c91-4249-ab49-d5ec95089c92" ulx="2058" />
+                                    <clef line="3" shape="C" xml:id="m-a8e9c1c0-9c06-48a5-a9b0-9de5a1dc1222" ulx="2152" />
+                                    <note pname="d" oct="4" dur="minima" xml:id="m-ec355941-2855-4c69-8ca8-6ce605924a97" ulx="2204" />
+                                    <clef line="4" shape="C" xml:id="m-763f657f-57b2-4347-8e12-759c20bd7c81" ulx="2230" />
+                                    <note pname="c" oct="4" dur="longa" xml:id="m-7d0b029e-5e82-49c2-b6e1-80b94734f8f9" ulx="2332" />
+                                    <note pname="a" oct="3" dur="longa" xml:id="m-85dac82d-2ac0-4619-87c9-8f9dd7873fe2" ulx="2386" />
+                                    <note pname="c" oct="4" dur="semibrevis" xml:id="m-85b9ee17-4900-40f5-91fe-08ab18e2ec26" ulx="2488" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-c521703f-a83b-4347-a108-5c02cee3310a" system.leftmar="0" system.rightmar="1" uly="2640">
+                            <staff xml:id="m-736caba2-b2d7-4a2e-8319-9218682c5976" label="mensural" uly="2640" n="1">
+                                <layer xml:id="m-fcc401ed-773d-435d-a8c2-984f835edf9a" n="1">
+                                    <barLine xml:id="m-ade3e03c-1e53-4a9d-b4f3-03d5c790329d" ulx="4" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-c29733ea-1d0d-4531-8f3a-3e33b9feb6f0" ulx="50" />
+                                    <note pname="a" oct="4" dur="longa" xml:id="m-d66ebc54-818d-440a-992b-eae9ce8938f1" ulx="190" />
+                                    <barLine xml:id="m-85c7dc86-be0b-4ea9-b6f7-35c75d088022" ulx="292" />
+                                    <rest dur="brevis" ploc="g" oloc="4" xml:id="m-47eb45a9-9148-46ad-817f-9b1d3d1a356c" ulx="340" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-e8d44382-7209-4f52-b07b-ad7cd03c4a9c" ulx="374" />
+                                    <mensur sign="C" slash="1" xml:id="m-9c54bf89-7373-4b50-a0e4-9d10c25f8ce9" ulx="720" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-a01d983c-5b59-460e-a3b4-240c1ec9cac9" ulx="770" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-398854e7-b648-4693-8791-d953cbc81459" ulx="830" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-513ee687-c01a-471e-8db2-e62cf5e3d75a" ulx="876" />
+                                    <barLine xml:id="m-0660d0d5-5c0b-44ef-a7fc-f3ef37a5b77b" ulx="940" />
+                                    <mensur sign="C" slash="1" xml:id="m-ebdf34bb-629f-4490-9411-c5c39474f18e" ulx="984" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-b3c46e3b-a7d4-4bc9-b254-61106e9d5191" ulx="1062" />
+                                    <rest dur="brevis" ploc="b" oloc="4" xml:id="m-f94b218f-29cf-43d3-acb0-3028d88012d8" ulx="1132" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-4d7d8f91-657a-4ef5-84d7-e34b801a1017" ulx="1158" />
+                                    <barLine xml:id="m-45bd4319-1bc2-4a7a-bc1e-4dfd2b7cad0d" ulx="1484" />
+                                    <note pname="c" oct="5" dur="semibrevis" xml:id="m-de5bbb61-ef1e-4045-a3ce-17cc476fc55f" ulx="1576" />
+                                    <dot ploc="e" oloc="5" xml:id="m-c26b5133-acee-499c-9e1c-cd7adf9e296f" ulx="1616" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-4cc2ce8e-035e-4855-948a-a21a92439b5f" ulx="1650" />
+                                    <accid accid="s" ploc="c" oloc="5" xml:id="m-03d8f2cf-3e2f-46f9-b023-62b0187310f6" ulx="1768" />
+                                    <clef line="4" shape="C" xml:id="m-77620ae8-bdf8-4927-be77-fc8dd3e0e241" ulx="1808" />
+                                    <accid accid="f" ploc="g" oloc="3" xml:id="m-818065b2-9e42-471e-9f76-c8d5b849e988" ulx="2256" />
+                                    <barLine xml:id="m-418f1ad8-f139-4da2-b1ed-3ba3bfdc17f4" ulx="2314" />
+                                    <barLine xml:id="m-e7a07346-894e-4fed-8898-b5c2387519e7" ulx="2402" />
+                                    <barLine xml:id="m-7f4d9ce0-5f45-408b-a4f8-9b6c0934b70b" ulx="2472" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-3046281c-8889-4de8-8133-4bd451ca74f4" system.leftmar="0" system.rightmar="19" uly="2536">
+                            <staff xml:id="m-f9f51a4f-26c2-4665-960d-e9f9adcd2154" label="mensural" uly="2536" n="1">
+                                <layer xml:id="m-72186ea7-8119-436c-8d78-f26f8dca709f" n="1">
+                                    <accid accid="f" ploc="b" oloc="4" xml:id="m-87d6431f-ddf3-4fbb-b2fb-ecf750ed67d3" ulx="12" />
+                                    <accid accid="f" ploc="b" oloc="4" xml:id="m-c1a67b6f-4419-4a37-8d55-6d325ff66876" ulx="76" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-785a2a6b-c1c1-4dc9-90d3-26dfd25fc970" ulx="122" />
+                                    <note pname="c" oct="5" dur="semiminima" xml:id="m-7f1362e9-2623-4ffb-8f55-563c9486fce9" ulx="188" />
+                                    <dot ploc="c" oloc="5" xml:id="m-72ab6380-5a44-4f6a-87ef-c37f97e3a175" ulx="232" />
+                                    <rest dur="minima" ploc="d" oloc="5" xml:id="m-29def1e1-84c9-4ac2-bd71-67bc5170fe08" ulx="264" />
+                                    <note pname="c" oct="5" dur="semiminima" xml:id="m-aa7632f2-37ff-4ed5-864b-644598484113" ulx="292" />
+                                    <clef line="2" shape="G" xml:id="m-86bfe048-84e7-4223-b396-03fb52b6f556" ulx="360" />
+                                    <accid accid="f" ploc="d" oloc="5" xml:id="m-dc6f60be-7c22-40c2-8933-f0b4227990fe" ulx="428" />
+                                    <rest dur="brevis" ploc="d" oloc="5" xml:id="m-f210a83c-88ab-427c-989a-cd78bc9739fd" ulx="468" />
+                                    <rest dur="brevis" ploc="d" oloc="5" xml:id="m-e2e7c2e2-5f0d-4d9e-ba3a-2e04a09de279" ulx="538" />
+                                    <note pname="d" oct="5" dur="semibrevis" lig="recta" xml:id="m-46b94e69-7db1-4974-a2cc-53b6568232c6" ulx="598" />
+                                    <rest dur="brevis" ploc="d" oloc="5" xml:id="m-0ae50046-a2bb-4726-b1b5-382748b8096f" ulx="658" />
+                                    <note pname="e" oct="5" dur="semiminima" xml:id="m-960afa2b-ba72-4d5f-ba11-355e3ddf410d" ulx="716" />
+                                    <dot ploc="f" oloc="4" xml:id="m-5164b11c-4dc2-4e02-961e-92e27e518c3f" ulx="758" />
+                                    <accid accid="f" ploc="c" oloc="5" xml:id="m-abee5440-3b3c-49a0-aa1a-461dd46e8fb9" ulx="780" />
+                                    <dot ploc="d" oloc="4" xml:id="m-decb224d-3443-4a03-930c-1cb7d32a0931" ulx="828" />
+                                    <note pname="e" oct="5" dur="semiminima" xml:id="m-6c0e5d28-22c2-4a95-8e67-5d22ea19926a" ulx="872" />
+                                    <note pname="c" oct="4" dur="semibrevis" xml:id="m-3cc190c7-38bb-4552-9105-4293808662a6" ulx="918" />
+                                    <accid accid="f" ploc="c" oloc="5" xml:id="m-b5e61f49-c652-4da5-bef7-1be5076eaddb" ulx="946" />
+                                    <accid accid="f" ploc="c" oloc="5" xml:id="m-3399dac0-a684-45ea-8804-169b25d688ac" ulx="986" />
+                                    <accid accid="f" ploc="d" oloc="5" xml:id="m-f8e9daf6-b485-415e-88ff-b37f2de23952" ulx="1074" />
+                                    <note pname="d" oct="4" dur="longa" xml:id="m-b5ec3112-6ed1-4d23-add4-a435caf955be" ulx="1118" />
+                                    <note pname="e" oct="5" dur="semibrevis" xml:id="m-46975baa-6e6b-498a-80fc-65a6913cab57" ulx="1182" />
+                                    <note pname="e" oct="5" dur="semiminima" xml:id="m-a25bd079-1305-4ebb-be22-ae4f51438dd3" ulx="1214" />
+                                    <accid accid="f" ploc="c" oloc="5" xml:id="m-dccdd756-9cf9-4f34-90f6-7854db135eff" ulx="1280" />
+                                    <note pname="d" oct="5" dur="longa" xml:id="m-fa809e3f-2260-4d37-867b-d324355d029b" ulx="1346" />
+                                    <dot ploc="f" oloc="4" xml:id="m-ba4dbbe2-1534-4d1b-9c67-7ce693304c08" ulx="1384" />
+                                    <accid accid="f" ploc="d" oloc="5" xml:id="m-8937fa40-ce23-49d7-be2b-4d5a8c3f7396" ulx="1404" />
+                                    <accid accid="f" ploc="d" oloc="5" xml:id="m-dbad58f5-b8ed-4c02-80ee-3eba17739cf9" ulx="1430" />
+                                    <clef line="3" shape="C" xml:id="m-1ea170ba-98c5-4444-aaf8-8ad7a8682680" ulx="1480" />
+                                    <clef line="4" shape="C" xml:id="m-2189c8ad-d3d7-4066-92a3-b423f3533e99" ulx="2068" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-f20552c5-cea7-4e35-b22d-e63791021692" ulx="2276" />
+                                    <rest dur="minima" ploc="e" oloc="4" xml:id="m-a4280484-e5af-4293-898b-2f6fb93e9ab4" ulx="2324" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-8cc146a8-46fb-4f5e-b3fa-b0bfb76dd556" ulx="2402" />
+                                    <accid accid="f" ploc="g" oloc="3" xml:id="m-dada24ad-57c2-41f2-bc11-b61baa08c525" ulx="2474" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-423668d7-46b0-440f-8bbc-7e56d30a4a21" system.leftmar="0" system.rightmar="1" uly="2388">
+                            <staff xml:id="m-6b2f76ec-2b34-410c-9605-228bfe4c25c0" label="mensural" uly="2388" n="1">
+                                <layer xml:id="m-2ffa736a-cc76-4756-9306-ffa5320ea38f" n="1">
+                                    <custos pname="f" oct="4" xml:id="m-37be4146-9ff6-4c37-b9d9-d70f7afe994e" ulx="2" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-98c9faff-db86-46ba-8547-2978519af26e" ulx="30" />
+                                    <barLine xml:id="m-4f4de3ab-fcd1-4a7f-a352-1deffdb8f3cb" ulx="86" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-08adac5d-7229-40db-b786-6aeaae90f0c7" ulx="140" />
+                                    <clef line="4" shape="C" xml:id="m-f4ad3998-3652-48f2-9e84-bed940f0eb1d" ulx="336" />
+                                    <note pname="f" oct="4" dur="semibrevis" xml:id="m-dde8691d-e92f-4dd0-9be3-4afd7e5d2951" ulx="440" />
+                                    <mensur sign="C" slash="1" xml:id="m-a43e1bb4-154d-4acb-a69c-8772e915ad72" ulx="470" />
+                                    <dot ploc="c" oloc="3" xml:id="m-dbc83a70-7952-480f-a33c-97020ccb3e01" ulx="520" />
+                                    <barLine xml:id="m-b4ce54ec-2852-4fba-8671-eb18b75c91dd" ulx="538" />
+                                    <accid accid="f" ploc="g" oloc="3" xml:id="m-b44ec940-30df-431a-9afa-40e2d992eb04" ulx="596" />
+                                    <clef line="4" shape="C" xml:id="m-8e3297d0-c560-4705-9234-edbbe836d715" ulx="852" />
+                                    <note pname="e" oct="4" dur="brevis" xml:id="m-9bef9bc5-2641-40c8-a7b5-b73fa348c4dc" ulx="986" />
+                                    <clef line="3" shape="F" xml:id="m-1121aec0-64c0-42b1-b65e-ab898f301be3" ulx="1020" />
+                                    <barLine xml:id="m-27ac9a67-ed5d-4055-9a22-a74554579633" ulx="1082" />
+                                    <accid accid="f" ploc="g" oloc="3" xml:id="m-921094da-ce4a-43da-94cf-5e8bfc4d06a7" ulx="1144" />
+                                    <accid accid="f" ploc="e" oloc="3" xml:id="m-f109be05-e72a-4df4-8338-36746a239c28" ulx="1178" />
+                                    <note pname="a" oct="3" dur="longa" xml:id="m-83428c6c-9e6d-454b-b113-34ef52110f97" ulx="1298" />
+                                    <mensur sign="C" slash="1" xml:id="m-d8e84871-f600-4b81-88f4-2f409338aff5" ulx="1430" />
+                                    <clef line="3" shape="C" xml:id="m-71b6869e-7dc0-41a5-85c5-2c5deb1d9fdc" ulx="1508" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-348e566a-5013-4e27-8b44-b1b526f949e7" ulx="1586" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-e5b0149b-7118-4672-9e9f-d9edb1f335b1" ulx="1658" />
+                                    <rest dur="semibrevis" ploc="g" oloc="4" xml:id="m-463e645e-8e80-4ebb-b493-a713eb482f00" ulx="1716" />
+                                    <mensur sign="C" slash="1" xml:id="m-a43efb5f-e880-4e37-8f9c-c4cbde74c545" ulx="1742" />
+                                    <note pname="e" oct="3" dur="minima" xml:id="m-2d4348ae-7405-47f6-807f-0f3421a94930" ulx="1824" />
+                                    <rest dur="brevis" ploc="c" oloc="4" xml:id="m-40426239-d3d0-4070-842f-832980459661" ulx="1868" />
+                                    <barLine xml:id="m-1bdecc28-e547-4993-b9eb-ea304a220b2d" ulx="1882" />
+                                    <barLine xml:id="m-0cba2886-0e06-44e6-8749-04b5948d6a4b" ulx="1942" />
+                                    <note pname="f" oct="4" dur="semiminima" xml:id="m-7dbdfd2b-b076-4505-bb32-2c6b807dbf63" ulx="1992" />
+                                    <barLine xml:id="m-335564a7-0e71-49fd-bfaa-0e80c2ef2062" ulx="2024" />
+                                    <barLine xml:id="m-7193d8d9-613e-4dac-9dcd-6d67648cf811" ulx="2084" />
+                                    <dot ploc="f" oloc="4" xml:id="m-cd120349-34fb-4673-a3e7-7e6cfb3865d3" ulx="2140" />
+                                    <note pname="e" oct="3" dur="semibrevis" xml:id="m-242c9c3b-81b2-47bb-8d25-67d2d369734e" ulx="2154" />
+                                    <dot ploc="a" oloc="4" xml:id="m-08ee63a6-4a0e-44dd-9ccd-65a67d7d2c36" ulx="2188" />
+                                    <mensur sign="C" slash="1" xml:id="m-58542dd4-d93f-4e6b-955c-ecf7f78026fa" ulx="2212" />
+                                    <custos pname="b" oct="3" xml:id="m-0bc7e255-5caf-4dd1-bcdc-b6c759ce750c" ulx="2264" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-2affe5b6-ac25-4581-bf6c-441c89816fac" ulx="2330" />
+                                    <dot ploc="f" oloc="4" xml:id="m-31b18041-63b2-4f7f-82c9-6e7f69a25fc9" ulx="2386" />
+                                    <clef line="2" shape="G" xml:id="m-47bf44b4-4d61-4ae7-a340-fec3ce3f3ef8" ulx="2404" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-051c4c4f-1d2d-4f61-a9ff-157d03e3447f" system.leftmar="0" system.rightmar="1" uly="2148">
+                            <staff xml:id="m-cd409c1d-613f-4c41-be1c-ca9d49d66909" label="mensural" uly="2148" n="1">
+                                <layer xml:id="m-19732e89-7245-4d85-9598-238b57b23ede" n="1">
+                                    <clef line="3" shape="C" xml:id="m-c68c3025-fc34-44df-b8de-cd39b5d3ae79" ulx="22" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-a0157e5a-9812-4fab-85e2-c4a5292d17ce" ulx="104" />
+                                    <barLine xml:id="m-aa140d8f-0ca5-4e8e-9f52-08404415eeac" ulx="178" />
+                                    <note pname="b" oct="3" dur="longa" xml:id="m-c4410ea0-3c01-436b-830b-3962639e1a7d" ulx="228" />
+                                    <mensur sign="C" slash="1" xml:id="m-a59d10b4-f03b-4b41-9648-56e1c6c82800" ulx="288" />
+                                    <custos pname="d" oct="4" xml:id="m-5db0930e-d67b-42c3-bf08-2fa104185aa4" ulx="332" />
+                                    <note pname="g" oct="3" dur="semiminima" xml:id="m-2fe39093-1677-4161-a195-ab7546150cd1" ulx="372" />
+                                    <custos pname="d" oct="4" xml:id="m-62f4e971-c456-4cd1-92bc-dfce80a44902" ulx="426" />
+                                    <clef line="2" shape="G" xml:id="m-cc15fa45-0ae1-4387-a89c-5a09b87edfa9" ulx="454" />
+                                    <note pname="g" oct="5" dur="fusa" xml:id="m-90e5fdce-45b2-4881-a7f9-9d9995bbf322" ulx="588" />
+                                    <rest dur="longa" ploc="g" oloc="4" xml:id="m-7449df16-482e-42f8-ae8e-cab3f7764757" ulx="680" />
+                                    <accid accid="f" ploc="c" oloc="5" xml:id="m-1047c1de-b6d9-4891-91a7-3ffd379ac599" ulx="714" />
+                                    <mensur sign="C" slash="1" xml:id="m-24c6b542-d5e8-4cbb-b3cb-fab41abbb8c0" ulx="768" />
+                                    <mensur sign="C" slash="1" xml:id="m-8e3941e2-629f-4d5b-932d-54c56a0298bd" ulx="832" />
+                                    <barLine xml:id="m-a3ace178-d11f-488e-9a55-7ef427f70bec" ulx="892" />
+                                    <accid accid="f" ploc="d" oloc="5" xml:id="m-47e0b208-b004-461a-9df5-15a6d4158c1f" ulx="938" />
+                                    <note pname="d" oct="5" dur="longa" xml:id="m-acc6daac-8a29-42c0-9179-bfacd13ef566" ulx="958" />
+                                    <accid accid="f" ploc="c" oloc="5" xml:id="m-c8005532-d959-4e99-b8a7-a9400d6f48ac" ulx="1050" />
+                                    <clef line="4" shape="C" xml:id="m-fafeae9e-e8f2-44e4-9d14-1c573a27ba88" ulx="1100" />
+                                    <mensur sign="C" slash="1" xml:id="m-731e6d52-5715-40e2-b795-bec3281adea7" ulx="1200" />
+                                    <clef line="2" shape="G" xml:id="m-22a9ef39-cdd5-4e5c-9ec1-16ff31e40d6f" ulx="1292" />
+                                    <barLine xml:id="m-a2439905-bff0-4165-8a28-d5fc3744d751" ulx="1464" />
+                                    <custos pname="c" oct="5" xml:id="m-3a0fbcdd-fba2-4d43-8bcb-7ebd0fb8a92a" ulx="1572" />
+                                    <clef line="2" shape="C" xml:id="m-61a31cf7-fe6f-4115-bd09-6c6d049e8d02" ulx="1606" />
+                                    <clef line="3" shape="F" xml:id="m-7fed9958-f940-425e-a4d5-be2071eec5c8" ulx="1662" />
+                                    <note pname="f" oct="3" dur="longa" xml:id="m-578be66e-b048-4c87-b1a9-29a0f5a41f1b" ulx="1724" />
+                                    <mensur sign="C" slash="1" xml:id="m-292e64f1-0f2b-43fe-8156-9a1822a52c9a" ulx="1780" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-1a344a42-0257-487a-bc67-074f9fe76d60" ulx="1828" />
+                                    <clef line="3" shape="C" xml:id="m-ffb5cb8e-aa39-43f9-afb5-6007327d1c5a" ulx="1852" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-380c823f-c538-426e-8c1b-2b2999e5b3dd" ulx="1926" />
+                                    <mensur sign="C" slash="1" xml:id="m-afee93d8-29a1-40e4-b851-9c9e9ea8dc1e" ulx="1988" />
+                                    <clef line="3" shape="C" xml:id="m-cea39b58-a77b-48aa-9fa0-8b98b54bf659" ulx="2032" />
+                                    <clef line="3" shape="C" xml:id="m-47e7a653-3b05-4c90-a422-4a3c4afa09e0" ulx="2122" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-8306e07b-a65d-46e3-b508-ec39d3d8cd70" ulx="2174" />
+                                    <clef line="4" shape="C" xml:id="m-419410ea-5f3b-4e53-9608-14a3e0598d36" ulx="2334" />
+                                    <accid accid="f" ploc="g" oloc="3" xml:id="m-d0c42279-87f2-4735-a9e5-d2e1a505eea6" ulx="2404" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-79053a23-ad7f-43d6-b4e5-bf3077b1cd4d" system.leftmar="0" system.rightmar="130" uly="1984">
+                            <staff xml:id="m-d23c9915-243e-4e2f-8f05-8377befe4102" label="mensural" uly="1984" n="1">
+                                <layer xml:id="m-c55f7b13-3ac8-45cb-9331-64f37f2ea2c4" n="1">
+                                    <rest dur="minima" ploc="d" oloc="5" xml:id="m-6cd15eb7-13cb-4a9c-b025-b7da5ead185d" ulx="10" />
+                                    <mensur sign="C" slash="1" xml:id="m-a193cd78-2243-41f3-a4e6-b426a1edc384" ulx="30" />
+                                    <note pname="b" oct="3" dur="semiminima" xml:id="m-36ac370a-a5b8-4180-8f6a-59d42a7ca10d" ulx="94" />
+                                    <note pname="b" oct="3" dur="semiminima" xml:id="m-1af9b185-eeb2-41ba-bd3a-d10db0bd52d2" ulx="148" />
+                                    <note pname="b" oct="3" dur="minima" xml:id="m-883e808b-b8ae-4c2d-b965-ed95792062db" ulx="218" />
+                                    <rest dur="minima" ploc="e" oloc="4" xml:id="m-6274a1b6-7ab6-4beb-bcf8-4d1757ba7c50" ulx="252" />
+                                    <note pname="b" oct="3" dur="fusa" xml:id="m-9e6ec4d9-54c6-4dfb-b346-cc5e9091df25" ulx="270" />
+                                    <clef line="1" shape="C" xml:id="m-f6951440-d4b2-49c7-a349-6493bae1e45a" ulx="320" />
+                                    <rest dur="brevis" ploc="e" oloc="4" xml:id="m-f7267855-a5f1-4ac0-84f7-234d36a52338" ulx="372" />
+                                    <note pname="b" oct="3" dur="fusa" xml:id="m-3644e0a6-67d4-4ca6-9803-2215c976dd9f" ulx="418" />
+                                    <note pname="b" oct="3" dur="fusa" xml:id="m-31353bcc-4035-4287-93b8-e682efb6d944" ulx="486" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-b33a2864-6564-4968-8d75-f05c84326821" ulx="526" />
+                                    <note pname="d" oct="4" dur="brevis" xml:id="m-d3db6f4d-7260-480b-bc7c-041a36238406" ulx="608" />
+                                    <accid accid="f" ploc="b" oloc="4" xml:id="m-3cf1d140-359f-4700-804a-51dc8c2acba8" ulx="650" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-4ad94aed-1655-4a94-ba0e-38ec78a6c383" ulx="700" />
+                                    <rest dur="brevis" ploc="c" oloc="4" xml:id="m-27be1eb9-53ff-4fe7-ac21-bdab395bdc13" ulx="878" />
+                                    <note pname="b" oct="3" dur="semiminima" xml:id="m-f4a02992-5b67-4a93-aa6e-9ff3fb6dfe95" ulx="922" />
+                                    <rest dur="minima" ploc="e" oloc="4" xml:id="m-ec49ce29-a313-480b-87a0-d9945891c74c" ulx="958" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-e9b57805-f071-4cc3-8806-c626de737dab" ulx="972" />
+                                    <clef line="2" shape="G" xml:id="m-242db248-8a46-4025-94a4-3f13512f0f35" ulx="1022" />
+                                    <clef line="3" shape="C" xml:id="m-1b0fb84a-637c-4750-b1dd-95871559cbd7" ulx="1110" />
+                                    <mensur sign="C" slash="1" xml:id="m-e819db38-94e7-482a-b24f-3d11560c45ac" ulx="1170" />
+                                    <clef line="3" shape="C" xml:id="m-4667a608-d4ef-4bfc-bc67-8c0a87a1ee9f" ulx="1250" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-5585b0d5-68b2-4b4c-a7e2-6a9c6a17f962" ulx="1322" />
+                                    <note pname="f" oct="4" dur="semiminima" xml:id="m-360757dd-2208-4c07-88bc-07bb103029d8" ulx="1370" />
+                                    <note pname="e" oct="3" dur="semibrevis" xml:id="m-4f0b5c85-7888-4dd3-9c79-42acd58eae5e" ulx="1428" />
+                                    <note pname="e" oct="3" dur="semiminima" xml:id="m-e129701c-ec4d-4574-ad2b-0259232104f2" ulx="1488" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-7fb226b6-36e4-44b4-8d34-18528364a618" ulx="1550" />
+                                    <accid accid="f" ploc="e" oloc="4" xml:id="m-fbef6420-43cc-494f-a123-84450c62a224" ulx="1606" />
+                                    <note pname="c" oct="4" dur="longa" xml:id="m-83a5369b-28c6-42b8-bcd5-185c35359d79" ulx="1656" />
+                                    <dot ploc="a" oloc="4" xml:id="m-e4d57822-7827-4623-b04f-07af9515d792" ulx="1734" />
+                                    <accid accid="f" ploc="e" oloc="4" xml:id="m-a6d11115-664b-400d-adb2-0ce01d5f2127" ulx="1756" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-fc7b80ad-4c1a-4689-8497-9e248b9a9d67" ulx="1822" />
+                                    <note pname="d" oct="4" dur="longa" xml:id="m-55656ea7-7a0e-4c90-be64-c9665723d02a" ulx="1876" />
+                                    <note pname="c" oct="4" dur="longa" xml:id="m-92413a5b-46ce-4d34-854f-1f93af78b446" ulx="1922" />
+                                    <clef line="1" shape="C" xml:id="m-61c6df9c-1a62-47f4-9a5d-544c389e9daf" ulx="1982" />
+                                    <custos pname="d" oct="4" xml:id="m-d38b50a5-4178-40ef-8691-798593e4be54" ulx="2016" />
+                                    <note pname="b" oct="3" dur="fusa" xml:id="m-7880e6da-fb10-4c80-92f1-8e9176b34025" ulx="2034" />
+                                    <dot ploc="e" oloc="5" xml:id="m-b70927ce-b795-4fc5-b4df-3784f282349b" ulx="2074" />
+                                    <note pname="b" oct="3" dur="minima" xml:id="m-e86d3110-931e-450f-b003-70debe3e08d7" ulx="2090" />
+                                    <clef line="2" shape="C" xml:id="m-ab086cf5-b427-4675-92d0-0408ec21eb69" ulx="2132" />
+                                    <rest dur="brevis" ploc="a" oloc="3" xml:id="m-d7745a27-8f63-4cce-9334-0383324d423f" ulx="2190" />
+                                    <mensur sign="C" slash="1" xml:id="m-46e50f96-f52c-40cf-93d0-61621d45e979" ulx="2232" />
+                                    <note pname="g" oct="3" dur="semiminima" xml:id="m-5d131859-0638-4ed0-a1c6-aaac2314c499" ulx="2292" />
+                                    <accid accid="f" ploc="g" oloc="4" xml:id="m-f7879e40-0ff8-4e74-9469-0775a6119c8c" ulx="2356" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-d68c5745-a0fd-45f1-b938-eb9daa259afa" system.leftmar="27" system.rightmar="130" uly="1884">
+                            <staff xml:id="m-9165dcfc-63b4-44d7-9a76-39e394597823" label="mensural" uly="1884" n="1">
+                                <layer xml:id="m-59eb661f-cfb2-4b5a-80f4-113d2326ee56" n="1">
+                                    <mensur sign="C" slash="1" xml:id="m-d686890f-4565-4e3f-b101-102bf9c75663" ulx="29" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-ed9230bb-75a2-4d06-b74f-b7627f953b82" ulx="91" />
+                                    <note pname="c" oct="5" dur="semiminima" xml:id="m-ec9a8031-784a-4398-b039-1a834311a498" ulx="153" />
+                                    <note pname="g" oct="4" dur="fusa" xml:id="m-4c716959-bc10-4338-b8d3-2db42dd797d8" ulx="211" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-aacd5222-966f-4d3b-8580-a54000f80860" ulx="271" />
+                                    <clef line="2" shape="G" xml:id="m-34c5c844-b126-4c8e-a85c-fef914a7e329" ulx="321" />
+                                    <rest dur="minima" ploc="f" oloc="5" xml:id="m-62e9088a-5764-44fb-b5d7-02d4fb83395f" ulx="387" />
+                                    <note pname="a" oct="4" dur="semiminima" xml:id="m-d661d9a5-0b2f-4ef6-95aa-9cde5db23f75" ulx="413" />
+                                    <note pname="e" oct="5" dur="semiminima" xml:id="m-6d356e53-f3ff-4508-a781-a02926852415" ulx="473" />
+                                    <note pname="b" oct="4" dur="longa" xml:id="m-ee3ea43f-c6c2-4e16-aa8e-c563c814c255" ulx="527" />
+                                    <clef line="4" shape="F" xml:id="m-33b79ffe-bcef-41af-839c-5285d1cc0d54" ulx="643" />
+                                    <accid accid="f" ploc="c" oloc="3" xml:id="m-97d6663e-0e62-47b9-b38b-3d8cc3b7e1e7" ulx="707" />
+                                    <rest dur="semiminima" ploc="f" oloc="3" xml:id="m-51f62bb4-cc81-4fd3-a931-a8f3fbb67ba2" ulx="883" />
+                                    <accid accid="f" ploc="c" oloc="3" xml:id="m-16675bc0-8a92-447e-aa5b-60b6f09d19ba" ulx="917" />
+                                    <accid accid="f" ploc="c" oloc="3" xml:id="m-bc2756dc-dac1-475a-976a-0b8f86edd8ef" ulx="979" />
+                                    <accid accid="f" ploc="c" oloc="3" xml:id="m-5c5c968a-6dc6-4251-a36f-a19fdd6532fa" ulx="1037" />
+                                    <dot ploc="b" oloc="3" xml:id="m-afdbe98a-eba7-486d-92ce-853d4a60723d" ulx="1087" />
+                                    <clef line="3" shape="C" xml:id="m-567acff6-e122-489d-9018-21729b107f2b" ulx="1111" />
+                                    <mensur sign="C" slash="1" xml:id="m-6f2b8035-a43c-4d73-a86d-0e0c9a29bf58" ulx="1179" />
+                                    <note pname="e" oct="3" dur="semibrevis" xml:id="m-6ca7c4fc-c77a-44b2-8786-df671765c0e6" ulx="1251" />
+                                    <rest dur="minima" ploc="g" oloc="4" xml:id="m-b81e07f9-5d43-4b39-9cdc-410bb980a99c" ulx="1285" />
+                                    <clef line="1" shape="C" xml:id="m-3810b27c-14bf-4004-acd8-16a4c1227da3" ulx="1301" />
+                                    <note pname="f" oct="4" dur="semiminima" xml:id="m-9aeb364b-b12d-48af-bae0-b442b5c4496d" ulx="1379" />
+                                    <mensur sign="C" slash="1" xml:id="m-225204ba-ead7-47a1-980d-06d9fe69e87b" ulx="1429" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-6ef81c15-7a04-4cd7-95a6-f36003ed710c" ulx="1547" />
+                                    <clef line="4" shape="F" xml:id="m-b20a56a5-93ed-4d3b-bc11-a6bdc0f26c94" ulx="1611" />
+                                    <mensur sign="C" slash="1" xml:id="m-34554f91-7fe3-4847-b31f-5ee76c24aa72" ulx="1689" />
+                                    <rest dur="longa" ploc="b" oloc="2" xml:id="m-bf726557-15a9-4f19-9113-bcee3089e7f5" ulx="1755" />
+                                    <accid accid="f" ploc="e" oloc="3" xml:id="m-8160b268-5ed6-45bf-bfe4-3d1b9e264dc5" ulx="1769" />
+                                    <accid accid="f" ploc="c" oloc="3" xml:id="m-7ceaed90-1597-4a8f-a531-8660283f57e9" ulx="1819" />
+                                    <clef line="4" shape="F" xml:id="m-04c0b6b4-7314-423a-8adc-0ab71ec449d8" ulx="1887" />
+                                    <note pname="c" oct="3" dur="semiminima" xml:id="m-a3646b1e-698a-4c73-a7e6-d5d7ea8c5a56" ulx="1967" />
+                                    <note pname="b" oct="2" dur="minima" xml:id="m-b964cfac-90fa-4d9e-bafc-35105cb357b7" ulx="2033" />
+                                    <clef line="4" shape="C" xml:id="m-cfdb799c-76c0-4972-9288-e6154b13e3d8" ulx="2077" />
+                                    <clef line="2" shape="G" xml:id="m-5c8ceb7a-5690-4328-8d74-a59f9dd63f93" ulx="2131" />
+                                    <custos pname="e" oct="5" xml:id="m-8a8d2119-199e-457a-9fac-2abc7725e10a" ulx="2183" />
+                                    <note pname="g" oct="4" dur="minima" xml:id="m-17f129de-da31-475f-8cfc-12b86f809153" ulx="2231" />
+                                    <note pname="a" oct="4" dur="semiminima" xml:id="m-cf15bd2b-74ac-4317-a95c-61935a398521" ulx="2291" />
+                                    <note pname="e" oct="5" dur="minima" xml:id="m-ed6b14c2-09e0-4b58-a417-45f7278410aa" ulx="2353" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-730e7926-f452-4a3e-a6bb-ba1fc230afa4" system.leftmar="0" system.rightmar="28" uly="1716">
+                            <staff xml:id="m-582f03d6-962c-4222-aeab-12dd52163375" label="mensural" uly="1716" n="1">
+                                <layer xml:id="m-21eef604-0bd1-456e-9413-23de8864833c" n="1">
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-f8af53ad-1837-411c-ad2e-b0d7e888515e" ulx="12" />
+                                    <barLine xml:id="m-0049c32e-2ca2-4b07-9234-8fd58c39430e" ulx="182" />
+                                    <mensur sign="C" slash="1" xml:id="m-3268f632-4b76-42e7-8ec2-69e77d0c055a" ulx="242" />
+                                    <barLine xml:id="m-9ff4629e-e7f2-467c-b5fc-841d079bf0f9" ulx="304" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-46ff6897-8247-4196-8c4a-9505661b1e9b" ulx="392" />
+                                    <mensur sign="C" slash="1" xml:id="m-65595c57-e418-4ca5-a35e-7e216396407e" ulx="580" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-137a9b8c-cbc2-4808-9308-08c68fa31cb0" ulx="640" />
+                                    <note pname="c" oct="5" dur="semibrevis" xml:id="m-798f7fe6-481d-4685-94e7-2f1510144e0b" ulx="744" />
+                                    <custos pname="a" oct="4" xml:id="m-70b09f50-8bcb-4122-b497-5cf7798a67f5" ulx="796" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-605e0396-9242-471c-bc46-9d335fa235a7" ulx="838" />
+                                    <rest dur="minima" ploc="b" oloc="4" xml:id="m-db2ab76a-3af4-4e96-92e0-b39a900b7b0e" ulx="892" />
+                                    <note pname="e" oct="5" dur="semibrevis" xml:id="m-726972e4-eebb-4fee-a472-87fbd95c8de0" ulx="938" />
+                                    <dot ploc="e" oloc="5" xml:id="m-e181c38c-8999-4a0d-b323-4307f3074f87" ulx="986" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-a759e7f0-3256-454a-bb23-818130b81822" ulx="1046" />
+                                    <clef line="3" shape="C" xml:id="m-f0aac1fe-5bc0-4e14-af5c-9d1a526a9422" ulx="1098" />
+                                    <custos pname="b" oct="3" xml:id="m-10c50af4-9b77-49b9-aa89-d68e0a290074" ulx="1150" />
+                                    <barLine xml:id="m-48988aec-55f6-401a-815e-a2c594d68308" ulx="1178" />
+                                    <clef line="2" shape="G" xml:id="m-f693059c-2772-4a84-beac-b0802ba33227" ulx="1276" />
+                                    <mensur sign="C" slash="1" xml:id="m-796eebe6-9c5e-4dc7-922f-b3dec9059cdc" ulx="1322" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-fe05d095-1542-462e-8a72-968a6606215a" ulx="1402" />
+                                    <barLine xml:id="m-64cca044-7344-4ad1-aa77-452efe31eb87" ulx="1460" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-22c0a35d-5025-42c5-9c46-09d59eaef920" ulx="1532" />
+                                    <barLine xml:id="m-57bdc5ff-956e-44b7-adbc-a165b924a221" ulx="1590" />
+                                    <note pname="f" oct="4" dur="semiminima" xml:id="m-43d253b9-7a9d-436b-8fa5-d797dd918eb6" ulx="1652" />
+                                    <rest dur="minima" ploc="g" oloc="4" xml:id="m-73dd3b0b-d370-4083-8d97-5755358caa69" ulx="1698" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-d11ec0df-3141-4ead-b9f1-07e65e063632" ulx="1714" />
+                                    <note pname="b" oct="4" dur="longa" xml:id="m-69868add-49f7-419f-a423-ce1cbcb28556" ulx="1764" />
+                                    <clef line="3" shape="F" xml:id="m-788a329e-0f14-4e11-aac1-bd3709c98881" ulx="1842" />
+                                    <note pname="d" oct="4" dur="semibrevis" xml:id="m-adb91cd4-e586-4a9c-86a6-4bff3cdef8f4" ulx="1882" />
+                                    <dot ploc="b" oloc="3" xml:id="m-87078511-b1b2-4732-af01-3708a7d51f9e" ulx="1946" />
+                                    <note pname="f" oct="3" dur="longa" xml:id="m-66a4f007-cade-4204-8554-cbfbd91d7f41" ulx="1976" />
+                                    <accid accid="f" ploc="e" oloc="3" xml:id="m-0401102e-a2e2-4210-ad06-5462471ea5a2" ulx="2078" />
+                                    <barLine xml:id="m-e6a5df5b-5b0c-4153-ac76-2cc92d397a5a" ulx="2124" />
+                                    <clef line="4" shape="C" xml:id="m-981e7e53-1b3a-4474-a3e2-6eb081891096" ulx="2166" />
+                                    <note pname="a" oct="3" dur="longa" xml:id="m-c961f859-094b-4d32-b9fd-12aa3a1e236c" ulx="2226" />
+                                    <dot ploc="d" oloc="4" xml:id="m-2b73718e-6bd2-4294-99fc-e63727d36e68" ulx="2280" />
+                                    <dot ploc="d" oloc="4" xml:id="m-96d17098-681e-465f-a388-4e40f5d48860" ulx="2328" />
+                                    <dot ploc="d" oloc="4" xml:id="m-6843b7cf-4aa4-4df7-89f3-4b3e1e803b2f" ulx="2372" />
+                                    <note pname="a" oct="3" dur="longa" xml:id="m-6e02650e-c549-4756-ac40-ce0fcc05a2f6" ulx="2406" />
+                                    <custos pname="c" oct="4" xml:id="m-c3124a4e-3866-42ea-a395-cfdf8095d180" ulx="2470" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-9f2ac74e-5337-487b-9729-4e1f7909f053" system.leftmar="0" system.rightmar="310" uly="1588">
+                            <staff xml:id="m-c2665f9c-0195-4b57-ae61-8d625104387e" label="mensural" uly="1588" n="1">
+                                <layer xml:id="m-46cf169f-41d2-47b4-82fc-8b21b17ca798" n="1">
+                                    <mensur sign="C" slash="1" xml:id="m-788f7a17-d3bf-4861-8900-30e5f6dd93eb" ulx="6" />
+                                    <clef line="1" shape="C" xml:id="m-61f5605c-4594-4221-938f-b2da8b5e0663" ulx="32" />
+                                    <clef line="3" shape="F" xml:id="m-a4af1008-284e-483b-bd74-28fa6b05cf98" ulx="64" />
+                                    <note pname="b" oct="3" dur="semibrevis" xml:id="m-273ef235-9c46-4fe7-b234-2a77ce73dabb" ulx="116" />
+                                    <clef line="2" shape="C" xml:id="m-1daa4867-6ba3-4d67-85fa-51d48cba1df1" ulx="156" />
+                                    <accid accid="f" ploc="g" oloc="4" xml:id="m-f08ad050-4fde-43f7-9d26-3a2cdaa03f58" ulx="248" />
+                                    <note pname="b" oct="4" dur="semibrevis" xml:id="m-b4d21fdb-a2dc-4ccc-9bb7-b1221998019c" ulx="304" />
+                                    <clef line="4" shape="C" xml:id="m-bedf2e12-886f-4372-8c8d-984ee71e1d8f" ulx="348" />
+                                    <accid accid="f" ploc="c" oloc="4" xml:id="m-b611f9e5-c264-43d2-9d9c-8f57de66f1db" ulx="422" />
+                                    <rest dur="brevis" ploc="c" oloc="4" xml:id="m-0d8c7e75-27e2-474a-bd9f-49ac87e0a971" ulx="464" />
+                                    <rest dur="brevis" ploc="c" oloc="4" xml:id="m-aa349cf9-ec65-4719-b728-40950b700949" ulx="520" />
+                                    <accid accid="f" ploc="c" oloc="4" xml:id="m-753f4622-043d-4e94-b278-df54c93c4353" ulx="552" />
+                                    <note pname="e" oct="4" dur="brevis" colored="true" xml:id="m-b7adc071-ac04-4dd0-8233-560546bd2747" ulx="586" />
+                                    <accid accid="f" ploc="c" oloc="4" xml:id="m-6744e049-4826-4561-abab-2494c6916de6" ulx="612" />
+                                    <accid accid="f" ploc="c" oloc="4" xml:id="m-c804068b-fe04-4c08-ab38-ebd8e47e7a4b" ulx="652" />
+                                    <clef line="3" shape="C" xml:id="m-12b5482d-3f11-44a7-a992-8ab2b02efa9b" ulx="704" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-193586fe-7c14-456e-9e77-0f0f21e8fed1" ulx="1058" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-bbba01d5-fd83-46a9-9914-d11ee379d123" ulx="1106" />
+                                    <clef line="2" shape="C" xml:id="m-947d6041-bc56-473d-a8bd-c28f0c15d1b1" ulx="1166" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-9b454da2-c2cf-40ea-aab0-a735a058e4b1" ulx="1208" />
+                                    <accid accid="f" ploc="g" oloc="4" xml:id="m-447e6bcd-6169-42f8-ac05-81e91fd7c6fc" ulx="1240" />
+                                    <clef line="3" shape="C" xml:id="m-bda27b3f-3077-4292-97f5-67c4bbd58364" ulx="1304" />
+                                    <accid accid="f" ploc="e" oloc="4" xml:id="m-be5b9416-d3e1-46ed-a44b-12488915de92" ulx="1334" />
+                                    <accid accid="f" ploc="d" oloc="4" xml:id="m-ff3306d8-0c90-46e2-aed1-67275b91aa4e" ulx="1402" />
+                                    <custos pname="g" oct="3" xml:id="m-ce3f6b54-38d1-449e-adb7-76a6fbd093b1" ulx="1458" />
+                                    <accid accid="f" ploc="d" oloc="4" xml:id="m-48c64940-ef2c-4bca-a336-d78aa3bae8ae" ulx="1478" />
+                                    <rest dur="semiminima" ploc="e" oloc="4" xml:id="m-de36a505-a30a-4574-8de8-806948308252" ulx="1534" />
+                                    <accid accid="f" ploc="e" oloc="4" xml:id="m-0dcf4e78-7f94-4b31-be1e-62a82b2cf8a0" ulx="1598" />
+                                    <custos pname="b" oct="3" xml:id="m-8bcb8fba-5fd7-4118-912c-84ec977283bd" ulx="1650" />
+                                    <accid accid="f" ploc="d" oloc="4" xml:id="m-7851d654-18cf-4f13-9602-9f5c078941f8" ulx="1694" />
+                                    <clef line="2" shape="G" xml:id="m-5ada506d-efab-44ad-a3c3-ff054ace0976" ulx="1760" />
+                                    <clef line="2" shape="C" xml:id="m-96b6e34d-89ef-46bc-8aa1-dbef1928c65e" ulx="1870" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-2415cfd7-7ba0-416c-b5d7-01de431c2afb" ulx="2066" />
+                                    <note pname="a" oct="4" dur="fusa" xml:id="m-17390b2c-4df9-4e94-aac7-a4be5059cc98" ulx="2118" />
+                                    <custos pname="b" oct="3" xml:id="m-92dd5da6-8be0-49cb-976f-dfc7ddd557f4" ulx="2164" />
+                                    <note pname="d" oct="5" dur="semiminima" xml:id="m-56c770a4-9d92-4596-a889-1cf2efafca4d" ulx="2196" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-3e0eea59-2837-4d01-a80f-c7c94283f579" system.leftmar="0" system.rightmar="1" uly="1472">
+                            <staff xml:id="m-9af1bdb3-1ce9-4de0-84fc-812b3644462f" label="mensural" uly="1472" n="1">
+                                <layer xml:id="m-d844e05f-22a8-4480-a07d-b13e5097efc8" n="1">
+                                    <rest dur="brevis" ploc="b" oloc="4" xml:id="m-e60ba5d6-f244-4fc6-9fc4-e09bf637eb58" ulx="6" />
+                                    <barLine xml:id="m-c847a092-a625-4b6c-a60b-bf81ceb84104" ulx="30" />
+                                    <mensur sign="C" slash="1" xml:id="m-2aef94e8-2881-4b2a-a2a4-671a7a0e70f0" ulx="86" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-eebc585a-1db1-4fe9-bbc4-01a874208a9d" ulx="138" />
+                                    <dot ploc="e" oloc="5" xml:id="m-6d686541-a0fc-4a15-961f-3076a28357b8" ulx="254" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-57e384ee-9610-4ef7-ac2e-a0d9eb86543c" ulx="296" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-aa9d21cc-6186-4a03-8b61-85597789598a" ulx="386" />
+                                    <barLine xml:id="m-e8085d18-8f5f-4d99-9307-35939f5d7f03" ulx="452" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-0be79abf-611a-42d0-83a3-8e77f0281f65" ulx="498" />
+                                    <barLine xml:id="m-8f9c4b9b-4936-4a7b-8b39-a50f4523e655" ulx="560" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-8426fcbb-340a-4f7f-9008-45d0f1b930fb" ulx="606" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-8b8963fe-8d20-4ad9-97d6-51af27d33c53" ulx="728" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-67727f0b-f137-4374-8605-e6d207fac78d" ulx="790" />
+                                    <barLine xml:id="m-169db655-bd99-4204-b80a-d1d8e031f629" ulx="898" />
+                                    <note pname="b" oct="3" dur="semiminima" xml:id="m-37c42f7a-3f5d-4932-b3c0-928d73f15310" ulx="960" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-786c16c1-85f3-4a1e-9ade-1a2f7b1482a1" ulx="1018" />
+                                    <note pname="c" oct="5" dur="semibrevis" xml:id="m-e89e6ff4-82df-4f9b-93d2-95defacf53af" ulx="1080" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-3d71dbcc-6489-44b8-8b7a-7df61f8121f8" ulx="1102" />
+                                    <barLine xml:id="m-2ad54678-9d8f-41a0-a998-eaa7cfd79d96" ulx="1234" />
+                                    <mensur sign="C" slash="1" xml:id="m-52d39d8e-2720-464d-bc9a-a025c55d3523" ulx="1272" />
+                                    <barLine xml:id="m-c290ef54-eaab-4c0a-9c41-ec29a6094663" ulx="1352" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-9eb1dfe0-bc63-418d-85ec-c5ec83f01e76" ulx="1418" />
+                                    <barLine xml:id="m-4f8edeca-8e2d-492b-8144-deab35635f0f" ulx="1482" />
+                                    <custos pname="d" oct="5" xml:id="m-61d585da-5dd5-44de-b6b5-ace8510c0925" ulx="1528" />
+                                    <barLine xml:id="m-05bd2121-db8e-4633-add2-570d3bfa505f" ulx="1556" />
+                                    <mensur sign="C" slash="1" xml:id="m-98d2f70b-c98b-4a86-b762-4bd0744bd90e" ulx="1604" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-c19d5cde-fc3f-4cf3-880a-2c7e0e36d945" ulx="1678" />
+                                    <barLine xml:id="m-6a4bb95f-b510-44b0-b2e2-efa80f8361db" ulx="1764" />
+                                    <mensur sign="C" slash="1" xml:id="m-51b720a7-bbbe-4157-8c39-0f14dc8798c7" ulx="1804" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-c70c6c48-045d-48bb-a149-8ba6824034ab" ulx="1886" />
+                                    <mensur sign="C" slash="1" xml:id="m-44809de4-f2c6-46f1-8591-249862ade2c0" ulx="2010" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-76f90ee5-e7a4-49d6-a044-54bdc0563e54" ulx="2084" />
+                                    <mensur sign="C" slash="1" xml:id="m-200f17be-d469-4d6f-9484-99116c7dd204" ulx="2226" />
+                                    <rest dur="brevis" ploc="g" oloc="4" xml:id="m-5e986f96-467c-4006-a230-c632374b968c" ulx="2274" />
+                                    <clef line="3" shape="C" xml:id="m-7e775448-8a95-41ff-9e19-4b9326623058" ulx="2296" />
+                                    <note pname="e" oct="3" dur="longa" xml:id="m-a51236a7-4c77-494e-8a55-3b566704c64e" ulx="2346" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-b9c7b79f-fcbe-4f0b-9616-185de358a128" ulx="2414" />
+                                    <barLine xml:id="m-772a5361-33d8-4b61-9b65-06c362443572" ulx="2480" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-3e142188-098b-4667-a1c0-79c5fc22efeb" system.leftmar="30" system.rightmar="1" uly="1376">
+                            <staff xml:id="m-1f877e9a-2343-45e4-9dbd-683262c6174f" label="mensural" uly="1376" n="1">
+                                <layer xml:id="m-13d9747f-7c47-4ca2-b33e-e5f01ce81bfa" n="1">
+                                    <rest dur="brevis" ploc="b" oloc="4" xml:id="m-a80faba4-45a9-4645-b74c-c20d2e9af4e7" ulx="32" />
+                                    <dot ploc="a" oloc="4" xml:id="m-8460748e-cc21-4f54-8e47-9c4c07dc0761" ulx="76" />
+                                    <custos pname="e" oct="5" xml:id="m-f521cce4-13e2-49b6-8919-d771ea7ca372" ulx="96" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-5eb2e22a-f129-4bf7-b017-0f6d5fa1e1be" ulx="138" />
+                                    <clef line="4" shape="C" xml:id="m-7161b99c-bc1b-44fd-951e-c13d983f570e" ulx="194" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-edd98d25-1af8-4ad5-8701-8f79d8814f78" ulx="226" />
+                                    <note pname="a" oct="3" dur="longa" xml:id="m-1f5be24d-2ffa-41c2-b4a1-7f0f65dbc9f4" ulx="268" />
+                                    <note pname="b" oct="2" dur="minima" xml:id="m-58790215-80b2-41be-b3c2-d1c60615120c" ulx="348" />
+                                    <accid accid="f" ploc="c" oloc="4" xml:id="m-b43dcf86-ca38-47d3-941e-a165d88ebc64" ulx="378" />
+                                    <custos pname="d" oct="4" xml:id="m-111f26b9-6abe-4b4c-96ec-4f5b9accac4f" ulx="444" />
+                                    <clef line="2" shape="G" xml:id="m-2dacef78-7c07-4799-a1e1-66b149952c1b" ulx="486" />
+                                    <accid accid="f" ploc="b" oloc="4" xml:id="m-ec04996c-b4c4-4ff9-be5f-e07c4b312ddc" ulx="518" />
+                                    <custos pname="e" oct="5" xml:id="m-283afdc4-4085-4e15-9ce9-355116105216" ulx="556" />
+                                    <clef line="2" shape="G" xml:id="m-ef57243f-a908-4c06-bc51-23f64ee22da3" ulx="594" />
+                                    <note pname="e" oct="5" dur="semiminima" xml:id="m-6cad40fa-a764-4ef5-ab99-46507dd6fa54" ulx="672" />
+                                    <accid accid="f" ploc="d" oloc="5" xml:id="m-478bb4dc-eccc-4809-9504-cffff6c2865f" ulx="780" />
+                                    <accid accid="f" ploc="c" oloc="5" xml:id="m-f3c8d20b-3a06-4066-8bf8-c3a96c2f8da4" ulx="848" />
+                                    <note pname="e" oct="5" dur="semiminima" xml:id="m-d99e8a89-8e2f-4f52-8c39-6bb0c4e14d88" ulx="900" />
+                                    <note pname="d" oct="5" dur="brevis" xml:id="m-5afd639e-990b-40a7-8c23-104dd23de500" ulx="962" />
+                                    <dot ploc="c" oloc="5" xml:id="m-8c05ee64-d882-4314-8bd7-0ac82e5fb7bc" ulx="998" />
+                                    <accid accid="f" ploc="c" oloc="5" xml:id="m-c64287c4-aab0-4e86-ae1e-fdd3d72ace35" ulx="1022" />
+                                    <note pname="b" oct="4" dur="longa" xml:id="m-94fe5c12-5677-48bd-bdf0-17e37a6e74dc" ulx="1098" />
+                                    <note pname="e" oct="5" dur="brevis" colored="true" xml:id="m-2bd69636-124c-47f2-86c0-6dcd6011e6d4" ulx="1176" />
+                                    <custos pname="b" oct="4" xml:id="m-8d8eab81-e6ef-44b6-bc6e-ba9a860ae28f" ulx="1202" />
+                                    <rest dur="minima" ploc="f" oloc="5" xml:id="m-101fe2b0-0c8c-477e-9a12-b22aff54a8e9" ulx="1250" />
+                                    <clef line="2" shape="G" xml:id="m-e9dfbbf7-1f3a-4d48-975b-a1ec92aab79a" ulx="1264" />
+                                    <clef line="4" shape="C" xml:id="m-0f1ea644-5e79-4066-8dcb-31aa2958bc5d" ulx="1322" />
+                                    <note pname="d" oct="4" dur="brevis" colored="true" xml:id="m-0ff3faf5-e0f5-4016-ab18-b3bcf86c3eee" ulx="1422" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-2de9ad86-ba17-4a70-9f8a-e2c1f0186e52" ulx="1442" />
+                                    <accid accid="f" ploc="c" oloc="4" xml:id="m-845be7f7-f6c7-4551-80f8-81ba5a8d1039" ulx="1488" />
+                                    <rest dur="semiminima" ploc="f" oloc="3" xml:id="m-1737f493-9d17-46af-896a-7b3104c55246" ulx="1532" />
+                                    <note pname="d" oct="4" dur="semibrevis" xml:id="m-76c27c1a-d12e-4bc3-9161-f8e9ac2712e5" ulx="1548" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-c265d1cf-7495-4b78-a866-73f25f2b00c1" ulx="1602" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-ad87ca1f-2de6-413f-aa68-1244a0fc0e4e" ulx="1688" />
+                                    <custos pname="e" oct="3" xml:id="m-537b0dcb-f866-4e39-adab-7402a50de482" ulx="1742" />
+                                    <rest dur="brevis" ploc="c" oloc="4" xml:id="m-4caf7da7-32c2-48f6-a7ad-298dd633a220" ulx="1764" />
+                                    <rest dur="minima" ploc="e" oloc="4" xml:id="m-72e57c4c-3844-4684-846f-7c71d41b1ed9" ulx="1784" />
+                                    <note pname="d" oct="4" dur="semiminima" xml:id="m-b6be6c25-7bfd-42eb-8dad-865a5497cd5e" ulx="1804" />
+                                    <dot ploc="d" oloc="4" xml:id="m-4ed23d83-9801-4eed-a831-869ae566d2e9" ulx="1852" />
+                                    <note pname="d" oct="4" dur="semiminima" xml:id="m-9559d153-285f-4a57-9462-fb053a939470" ulx="1890" />
+                                    <note pname="a" oct="3" dur="semiminima" xml:id="m-f528a91a-7568-4fd3-82d6-3baa82485b6c" ulx="1952" />
+                                    <accid accid="f" ploc="c" oloc="4" xml:id="m-3cbe33d1-c4d2-4fe4-9a6a-a4221bf9de43" ulx="2012" />
+                                    <note pname="g" oct="3" dur="semiminima" xml:id="m-f49115a1-c7eb-4e4d-b329-60b2df966e8e" ulx="2120" />
+                                    <custos pname="d" oct="4" xml:id="m-8a2c13fc-8fea-4d7d-a53a-8c9a68665b20" ulx="2178" />
+                                    <note pname="d" oct="4" dur="brevis" colored="true" xml:id="m-79d1b458-be69-4aa0-92eb-2c9bc40c6118" ulx="2228" />
+                                    <clef line="1" shape="C" xml:id="m-ea2aacb2-af69-412b-8956-90368aff00e6" ulx="2262" />
+                                    <accid accid="f" ploc="b" oloc="4" xml:id="m-ea4a7409-60e8-450c-b2da-53f62f6a9f6a" ulx="2310" />
+                                    <dot ploc="e" oloc="5" xml:id="m-3138cf1d-8c02-4d96-8a18-92d78dca986a" ulx="2382" />
+                                    <accid accid="f" ploc="g" oloc="4" xml:id="m-401f956c-2c5c-42d2-8f6a-e06b70efb3bb" ulx="2418" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-c94a1435-a283-4a4f-aba3-bacedba6bd1a" ulx="2480" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-f625288d-bdc3-40bf-bc55-fb31ba170640" system.leftmar="0" system.rightmar="1" uly="1244">
+                            <staff xml:id="m-6f05a46b-d43c-41a9-b906-2f087b27ace0" label="mensural" uly="1244" n="1">
+                                <layer xml:id="m-f0c4bab2-7d7d-48e8-8f65-8f7a4149b3c9" n="1">
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-b772c840-d7b2-4677-a4e2-ceb7d182fbf6" ulx="2" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-b3caf0b6-c87e-4df0-a3bd-8cd771890eef" ulx="170" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-70476e3f-8864-4c62-aa7b-d070cc51e6af" ulx="224" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-f8b4aa8e-2ead-47bf-aa29-8356fec719da" ulx="272" />
+                                    <barLine xml:id="m-5c452852-320d-454b-9ee5-0902f0569d7f" ulx="332" />
+                                    <barLine xml:id="m-8fdab2b4-5dde-474d-bcdd-3c169277fae8" ulx="374" />
+                                    <barLine xml:id="m-6d09e554-d7d4-4479-8c26-8c3cba0b22e0" ulx="484" />
+                                    <note pname="a" oct="4" dur="semibrevis" xml:id="m-59650f84-f3b7-4560-99a4-c8dbc5ead75a" ulx="522" />
+                                    <barLine xml:id="m-9e0d0445-82d6-4458-9e8f-ff2d0827fee8" ulx="556" />
+                                    <barLine xml:id="m-4e1fcd8b-9205-4515-bb15-8782d0071077" ulx="594" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-c78cafbe-ae07-4c6a-84bb-367a9a14346d" ulx="654" />
+                                    <custos pname="a" oct="4" xml:id="m-ca0d7087-261e-4f4a-9ab2-2749c08fd72c" ulx="718" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-a76ab43d-af1f-4e55-b74e-7bd817a2b42b" ulx="740" />
+                                    <barLine xml:id="m-d6f040e1-241c-42b9-9b4c-4d34fceeca78" ulx="796" />
+                                    <rest dur="minima" ploc="g" oloc="4" xml:id="m-03fb2a86-f76f-4865-a9aa-098ef1311959" ulx="826" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-be64e03c-5085-42fb-bbbe-788d9f6189b8" ulx="848" />
+                                    <barLine xml:id="m-ce558fbb-7fab-4f2a-ad83-a337bae2572c" ulx="910" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-216ce648-984b-4d51-9317-5ec9b35a4b47" ulx="952" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-09c81ab8-22be-4f5e-8c16-11a2bb95d53b" ulx="1018" />
+                                    <mensur sign="C" slash="1" xml:id="m-2085644e-1f13-4b1d-a771-c3bac61fbce3" ulx="1184" />
+                                    <barLine xml:id="m-62c64e99-04d7-4839-b27f-5524789f3a37" ulx="1264" />
+                                    <note pname="f" oct="5" dur="semibrevis" xml:id="m-9a46205c-da4f-4e30-9aa6-5b03fb63edfe" ulx="1312" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-d477a07b-b7be-4a7f-8a5b-cda876da75fd" ulx="1342" />
+                                    <clef line="3" shape="C" xml:id="m-b5842b8d-c825-42dc-b0f0-02c18bc38f2a" ulx="1468" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-946257d8-3ef9-4a4c-9ba4-0dc57674078b" ulx="1712" />
+                                    <clef line="3" shape="C" xml:id="m-deef3e65-3a75-4d80-9346-d40ee6ef5f62" ulx="1830" />
+                                    <barLine xml:id="m-e65e9aff-1645-44f2-bddc-285ace916280" ulx="1896" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-ca0a8a38-aaff-4716-8c42-48ee60526586" ulx="1952" />
+                                    <note pname="c" oct="4" dur="longa" xml:id="m-63b7d7e7-c992-4918-bd54-be6f633f7b9f" ulx="2072" />
+                                    <barLine xml:id="m-479d2e90-07d3-4866-8818-30a39105e564" ulx="2204" />
+                                    <barLine xml:id="m-ff3caa2c-7285-4398-afe6-cb15f9a26b42" ulx="2240" />
+                                    <mensur sign="C" slash="1" xml:id="m-9b8b9dab-a68a-4203-8c48-e6d12b7321ba" ulx="2296" />
+                                    <barLine xml:id="m-68418720-a5db-44ba-9428-a8a5932f4261" ulx="2438" />
+                                    <clef line="2" shape="C" xml:id="m-8573ba37-0ff4-40f7-9b21-dec654d91d1a" ulx="2486" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-a6ad968a-f652-4031-b219-eb582dac6dc2" system.leftmar="0" system.rightmar="1" uly="1140">
+                            <staff xml:id="m-5465b9b5-5f1c-44c1-a0da-d7e22b499aac" label="mensural" uly="1140" n="1">
+                                <layer xml:id="m-05906af8-9216-4903-851a-ba8beb26019c" n="1">
+                                    <dot ploc="a" oloc="4" xml:id="m-e4698544-f6a4-49bd-97b9-be0d4d24fad9" ulx="2" />
+                                    <custos pname="e" oct="5" xml:id="m-c5e3693b-61ec-4040-8a63-855a586f6de2" ulx="26" />
+                                    <note pname="c" oct="5" dur="brevis" xml:id="m-b26a2f1a-7c28-47a8-922b-1c7ac13b5bda" ulx="60" />
+                                    <custos pname="g" oct="4" xml:id="m-2bb3300a-72ff-4d7d-851e-bf99357fc123" ulx="102" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-84e3bd55-a128-4682-b9fe-3cbff0b6299d" ulx="208" />
+                                    <note pname="d" oct="4" dur="semiminima" xml:id="m-21791abb-547a-4051-a7bb-4e4d74ff51c3" ulx="270" />
+                                    <rest dur="brevis" ploc="b" oloc="4" xml:id="m-f3fe9314-150c-405a-8a66-aa15e83ab403" ulx="336" />
+                                    <dot ploc="d" oloc="4" xml:id="m-0451cbb6-7098-4234-a6d5-b62e97019550" ulx="374" />
+                                    <custos pname="c" oct="5" xml:id="m-3575cd96-a066-421f-a642-41bbdd88ebb0" ulx="396" />
+                                    <rest dur="brevis" ploc="b" oloc="4" xml:id="m-07bbff8a-a1fc-4ffe-a152-3e5cc61934db" ulx="484" />
+                                    <dot ploc="a" oloc="4" xml:id="m-9e4e8577-031b-4a99-8b17-3f69e29838b6" ulx="528" />
+                                    <custos pname="e" oct="5" xml:id="m-604cfea9-c5f9-42f9-80bb-9e8a27bfe1b2" ulx="556" />
+                                    <rest dur="brevis" ploc="b" oloc="4" xml:id="m-d424c976-6c32-4355-80dd-8d228e225a57" ulx="594" />
+                                    <accid accid="f" ploc="b" oloc="4" xml:id="m-decd322a-3146-459c-b097-7c7ded8cb56c" ulx="638" />
+                                    <accid accid="f" ploc="b" oloc="4" xml:id="m-87f1e6d8-9631-4dc6-8157-23ce456a6408" ulx="664" />
+                                    <custos pname="b" oct="3" xml:id="m-079b3c80-e49e-4bb3-90b5-4f8206c256a3" ulx="712" />
+                                    <accid accid="f" ploc="b" oloc="4" xml:id="m-f2ca0966-d566-4ac4-bde5-d3d5ddcf045e" ulx="790" />
+                                    <rest dur="brevis" ploc="b" oloc="4" xml:id="m-da1a5e88-a366-4b50-9544-f05ec577d1a9" ulx="854" />
+                                    <note pname="c" oct="5" dur="semiminima" xml:id="m-e9e4d4ff-7169-4a0a-b613-b772579bb5bc" ulx="912" />
+                                    <note pname="b" oct="3" dur="semibrevis" xml:id="m-7cf97bf1-d06b-455f-a6a5-652df2b0c910" ulx="968" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-c2ecbb1e-0785-4e7b-9d04-8a0f0129cd53" ulx="1012" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-3061beeb-a716-49f7-9e26-7ced318bce3b" ulx="1068" />
+                                    <mensur sign="C" slash="1" xml:id="m-f4ff2d44-388a-4571-a723-7b275bc187fc" ulx="1134" />
+                                    <clef line="3" shape="C" xml:id="m-efd28529-7611-4a9a-9de9-98294e3c2ed2" ulx="1172" />
+                                    <accid accid="f" ploc="e" oloc="4" xml:id="m-5bc75d59-6af6-4ed0-b8d7-f8cd10160745" ulx="1198" />
+                                    <note pname="e" oct="4" dur="longa" xml:id="m-81a53e4d-ffbb-4710-bf10-8330c025f74a" ulx="1264" />
+                                    <custos pname="g" oct="3" xml:id="m-7bd9316e-d2d3-45f2-8fdb-9a265d73b8eb" ulx="1308" />
+                                    <note pname="f" oct="4" dur="semibrevis" xml:id="m-73947953-1775-4683-a778-28ceb4a6cecf" ulx="1342" />
+                                    <clef line="2" shape="G" xml:id="m-3a2caaad-02d1-47e0-9364-98ffab27d7ed" ulx="1374" />
+                                    <note pname="e" oct="5" dur="semiminima" xml:id="m-c01d9282-142b-421b-8076-0778b485036d" ulx="1722" />
+                                    <note pname="e" oct="5" dur="semiminima" xml:id="m-42892c51-bff9-4f95-9f5e-3f065cac8d71" ulx="1778" />
+                                    <clef line="2" shape="G" xml:id="m-cfa09825-fff3-4856-b18d-737646b61ee0" ulx="1822" />
+                                    <note pname="c" oct="5" dur="brevis" xml:id="m-23e7c543-5543-47f2-bfb1-51fa2b464823" ulx="1886" />
+                                    <note pname="e" oct="5" dur="semibrevis" xml:id="m-74de19c1-b447-47c7-a4ed-3e65efe1df5c" ulx="1920" />
+                                    <accid accid="f" ploc="c" oloc="5" xml:id="m-3e237c8c-70cc-4674-b176-ccb4f97c68b5" ulx="1952" />
+                                    <accid accid="f" ploc="c" oloc="5" xml:id="m-254775ad-d6a5-458b-824f-e9f9878d57a9" ulx="2026" />
+                                    <clef line="2" shape="C" xml:id="m-89b51991-e0c8-42b7-add7-c78f2a35c563" ulx="2070" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-7e983441-7706-45a0-8916-7fb57e26c412" ulx="2148" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-9a2f48e4-77bc-4c5e-8055-f6633df553b7" ulx="2200" />
+                                    <note pname="a" oct="4" dur="semiminima" xml:id="m-a678876c-c63a-4454-bd85-8371f87f28d3" ulx="2300" />
+                                    <dot ploc="a" oloc="4" xml:id="m-48c93a34-b1f2-4fc5-83ab-028f3562aa59" ulx="2336" />
+                                    <note pname="e" oct="4" dur="longa" xml:id="m-a57c0ed5-e071-4787-8323-a3652c85f884" ulx="2358" />
+                                    <note pname="a" oct="4" dur="semiminima" xml:id="m-f95df64a-ab09-4034-a439-2390e937f5ed" ulx="2446" />
+                                    <clef line="3" shape="C" xml:id="m-f1a8ddb3-a0f3-4469-85a5-f3e10ebb35d6" ulx="2486" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-70fc07f4-f409-40e7-9379-839e6dcbd4d8" system.leftmar="0" system.rightmar="1" uly="1012">
+                            <staff xml:id="m-c2d524c4-cd7b-4068-917e-fa6848e29c59" label="mensural" uly="1012" n="1">
+                                <layer xml:id="m-00cec769-4887-4e12-a134-2336e9afcfcf" n="1">
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-b7d05400-eebb-4d23-b086-d010111659ae" ulx="12" />
+                                    <note pname="b" oct="3" dur="minima" xml:id="m-f2836ea0-715b-46c3-b7c7-c9b0f5146788" ulx="66" />
+                                    <custos pname="f" oct="4" xml:id="m-bfe98d83-0998-4956-9d8c-80e7b3aa12ea" ulx="112" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-0b30e247-1e7a-460a-9e2a-253bf732dbea" ulx="132" />
+                                    <mensur sign="C" slash="1" xml:id="m-7cc95aa7-3a7c-466f-a884-8d5f52dbd644" ulx="184" />
+                                    <barLine xml:id="m-f88744d6-43ff-4b2a-981d-cac0627f8abc" ulx="266" />
+                                    <dot ploc="e" oloc="5" xml:id="m-cd33ea64-a76e-4b35-86b2-158854e68978" ulx="310" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-7d0e5ece-241c-470a-9906-909cc7053135" ulx="326" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-f7d760a6-c42e-4d67-8ffa-b85a7a91866d" ulx="390" />
+                                    <note pname="b" oct="3" dur="minima" xml:id="m-9cfe5288-998f-479e-9449-f40770b20d20" ulx="450" />
+                                    <clef line="4" shape="C" xml:id="m-600d6712-abc7-44e5-9c2b-d9eccf5b5d1c" ulx="496" />
+                                    <custos pname="d" oct="3" xml:id="m-a337e963-dcbc-4e60-9764-b16f1c395991" ulx="692" />
+                                    <note pname="f" oct="3" dur="brevis" xml:id="m-4b1bc2b2-03ac-4672-a4fd-e4d15e92e9bf" ulx="750" />
+                                    <custos pname="d" oct="4" xml:id="m-82a043c4-77a4-4f4e-ab9e-c0d01ea44481" ulx="780" />
+                                    <note pname="f" oct="3" dur="brevis" xml:id="m-2ddd0322-2d5a-4e5e-9cc5-8a391bb2c809" ulx="818" />
+                                    <clef line="1" shape="C" xml:id="m-759379a4-fbec-4f5f-b61d-46c62ce07110" ulx="858" />
+                                    <custos pname="d" oct="5" xml:id="m-91767cda-6065-4b7b-aed6-f3e2d36b0665" ulx="1004" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-11a181e8-604b-4aca-b3fd-dd889b676182" ulx="1028" />
+                                    <note pname="g" oct="4" dur="semiminima" xml:id="m-815546a0-4816-4cfe-a2a0-1f1140093926" ulx="1076" />
+                                    <note pname="g" oct="4" dur="longa" xml:id="m-1b03715c-6e34-43e7-bb9a-aa9ff53bb2e0" ulx="1104" />
+                                    <clef line="2" shape="G" xml:id="m-854aecd4-d81f-4676-8975-39e62b2ba1fb" ulx="1166" />
+                                    <note pname="b" oct="4" dur="longa" xml:id="m-db9e2de3-d665-45c4-9a68-6842585943a5" ulx="1358" />
+                                    <note pname="b" oct="4" dur="longa" xml:id="m-3542fd58-3d46-47eb-8101-902f298080e4" ulx="1532" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-86fc37b8-0924-41fa-a994-f629a0a28e3f" ulx="1646" />
+                                    <barLine xml:id="m-7278ebce-931f-4210-9187-e983e6a272b6" ulx="1876" />
+                                    <note pname="d" oct="4" dur="minima" xml:id="m-c186843f-57d2-4e71-8ab0-0eeae2a8b23e" ulx="1932" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-bc1709d2-1dd3-43a2-bcde-f5567d05a761" ulx="1980" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-871ecbd3-f0b4-4ec3-b231-b9e14540adc3" ulx="2054" />
+                                    <barLine xml:id="m-608734b4-15a9-43ac-8f21-7623fadd24fe" ulx="2112" />
+                                    <barLine xml:id="m-98eaf788-f3c9-4ac2-a428-be1dd8d811eb" ulx="2156" />
+                                    <dot ploc="e" oloc="5" xml:id="m-a472675b-b475-4e28-9b21-1a05151d85af" ulx="2268" />
+                                    <barLine xml:id="m-1a0e41cc-c383-408b-8ad0-e68518cd8dce" ulx="2376" />
+                                    <rest dur="semiminima" ploc="d" oloc="5" xml:id="m-135c2705-0d10-462c-9d36-9545b602d439" ulx="2414" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-dd6c6c3b-f44f-42cb-a50d-26d7a1051b1d" ulx="2448" />
+                                    <barLine xml:id="m-43605733-72cb-4398-bc4a-dc02cb6b5edc" ulx="2502" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-528c5331-e25d-4c40-8a06-eab06e0898ac" system.leftmar="0" system.rightmar="1" uly="896">
+                            <staff xml:id="m-b9a6f3f7-6b25-4994-863a-1f7682158706" label="mensural" uly="896" n="1">
+                                <layer xml:id="m-3168cbfb-b657-4cb8-be8d-c36c8bdd4006" n="1">
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-9820c2b2-d820-4dcc-8aa3-7e8827f211a2" ulx="14" />
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-5421e687-4206-4fe7-84e8-44b2eb0a3720" ulx="66" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-21912756-977a-4db1-8398-ff600fe5b0f2" ulx="130" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-c1454416-20d7-4a54-977b-a19f12608a8a" ulx="184" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-f85f8c5d-7fd2-4ba2-bced-e0d5b9515ccf" ulx="266" />
+                                    <rest dur="brevis" ploc="b" oloc="4" xml:id="m-22ec9d84-6394-4858-80a8-174c46808a3a" ulx="330" />
+                                    <note pname="c" oct="5" dur="semibrevis" xml:id="m-2c0b52cf-0bed-4201-a115-157bc4ef912b" ulx="392" />
+                                    <dot ploc="c" oloc="5" xml:id="m-a01ab695-48aa-4b04-98e8-4bff34fe5390" ulx="450" />
+                                    <barLine xml:id="m-eb940ce3-63fb-4661-a1f4-4a66c80f07d0" ulx="500" />
+                                    <dot ploc="e" oloc="5" xml:id="m-4098f252-e51f-46dc-b428-27ae6cf613f2" ulx="648" />
+                                    <custos pname="b" oct="3" xml:id="m-4d4fbd60-518a-4dda-b133-4f2e71e4cd2c" ulx="668" />
+                                    <note pname="d" oct="5" dur="semibrevis" xml:id="m-e90fbd95-4cc6-42d7-a079-7a0aab081849" ulx="690" />
+                                    <dot ploc="a" oloc="4" xml:id="m-09a9b6d3-37a7-467d-8dfc-d5e90dcb410b" ulx="750" />
+                                    <mensur num="3" xml:id="m-ba503729-07cf-4c09-9776-c40cda7ceabb" ulx="770" />
+                                    <dot ploc="c" oloc="5" xml:id="m-95bdc3a2-8ecd-4ea0-8a10-5f5723565b4d" ulx="824" />
+                                    <clef line="4" shape="C" xml:id="m-bb2b4c33-3a37-49e2-8726-20f74ebc157e" ulx="858" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-20e8aea0-9ce8-4b9e-965d-d3532678930a" ulx="1024" />
+                                    <accid accid="f" ploc="b" oloc="3" xml:id="m-c6aae0cf-2d45-42a4-b2b2-112339552634" ulx="1104" />
+                                    <dot ploc="c" oloc="3" xml:id="m-32856ac4-679b-4f56-bc97-346176818788" ulx="1154" />
+                                    <note pname="d" oct="4" dur="fusa" xml:id="m-dca49b49-b80c-4da8-b7b0-40499389aba7" ulx="1168" />
+                                    <custos pname="g" oct="3" xml:id="m-1d179e29-ee3b-454c-b66d-e5e594a19f87" ulx="1212" />
+                                    <custos pname="e" oct="4" xml:id="m-4e4597d5-da48-40f0-8f4c-ab3e91eca201" ulx="1250" />
+                                    <clef line="3" shape="C" xml:id="m-bda49285-37f9-42a4-9585-39cc8f5baa2b" ulx="1274" />
+                                    <rest dur="brevis" ploc="e" oloc="4" xml:id="m-aba77c33-4a77-42fe-96d7-da34e4edc671" ulx="1296" />
+                                    <dot ploc="a" oloc="4" xml:id="m-74f61f3a-1b70-42cc-91bf-6fcd4df15b80" ulx="1344" />
+                                    <note pname="e" oct="3" dur="semibrevis" xml:id="m-d75f06d1-385b-4984-b32b-7c6dddbe1d36" ulx="1370" />
+                                    <accid accid="f" ploc="d" oloc="4" xml:id="m-a8cf8d7b-8dfe-4850-baba-97261e5eb51c" ulx="1438" />
+                                    <custos pname="f" oct="3" xml:id="m-2e23ba37-ab5d-4a2b-8bf0-de79be4a11b4" ulx="1500" />
+                                    <clef line="4" shape="C" xml:id="m-c46d81dd-4694-4fb9-86b4-2b1e1a94d60a" ulx="1572" />
+                                    <rest dur="semibrevis" ploc="d" oloc="3" xml:id="m-98cf2458-18a8-4849-8c3e-bfcd29652a00" ulx="1680" />
+                                    <accid accid="f" ploc="c" oloc="4" xml:id="m-8ec293aa-2542-4c2b-8212-ea66d849acfa" ulx="1708" />
+                                    <clef line="4" shape="F" xml:id="m-34b29b9e-4e51-453f-9594-3b53b8e3170e" ulx="1756" />
+                                    <accid accid="f" ploc="e" oloc="3" xml:id="m-10708f51-363e-4aaa-af54-a2bbc344a939" ulx="1808" />
+                                    <note pname="g" oct="3" dur="semiminima" xml:id="m-353ca6c1-01fd-4ffb-a8a3-b1a371d2c658" ulx="1878" />
+                                    <accid accid="f" ploc="e" oloc="3" xml:id="m-a582bc8d-e1b8-4c19-989a-486fd9e298bd" ulx="1930" />
+                                    <note pname="a" oct="3" dur="semibrevis" xml:id="m-5c0d5e6e-b2a9-40b4-ac4b-875eaefffe31" ulx="1982" />
+                                    <note pname="g" oct="3" dur="semibrevis" xml:id="m-0b42b6fa-2beb-4f06-ba60-d0b66ded9cd4" ulx="2008" />
+                                    <accid accid="f" ploc="e" oloc="3" xml:id="m-a58c76e5-2401-4b66-8a60-70c4745f6908" ulx="2054" />
+                                    <note pname="g" oct="3" dur="semiminima" xml:id="m-5414e82c-0caa-4313-8b0e-2596d4510d5b" ulx="2118" />
+                                    <custos pname="c" oct="3" xml:id="m-06e48934-e6bb-4943-8e42-d30deb4fffef" ulx="2162" />
+                                    <custos pname="a" oct="3" xml:id="m-554d5378-6988-4412-822c-f98928c66b98" ulx="2190" />
+                                    <clef line="4" shape="C" xml:id="m-52b10c64-dfdc-4179-9ae9-3ed8941201f8" ulx="2250" />
+                                    <accid accid="f" ploc="c" oloc="4" xml:id="m-f8302546-be79-4961-8e07-a0e3672fa988" ulx="2404" />
+                                    <note pname="d" oct="4" dur="semiminima" xml:id="m-a236e390-f2f3-4be6-aae2-8854ea8229de" ulx="2438" />
+                                    <custos pname="c" oct="4" xml:id="m-816a0def-cbb9-43fa-8283-e9ce37195b4d" ulx="2484" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-e50807d9-b6c0-4fda-8fd1-ebfe51d32e29" system.leftmar="0" system.rightmar="1" uly="764">
+                            <staff xml:id="m-ef2ecd8c-9386-4a00-bed6-58308de9d715" label="mensural" uly="764" n="1">
+                                <layer xml:id="m-e1d3ae98-7979-4d54-b0a8-39ca31e154fe" n="1">
+                                    <accid accid="f" ploc="f" oloc="4" xml:id="m-31bf0894-3cae-4d2a-8624-bf4f68ee49d0" ulx="2" />
+                                    <dot ploc="c" oloc="5" xml:id="m-49a89a8a-73ee-43cc-bf05-5684f075f8b5" ulx="24" />
+                                    <clef line="2" shape="G" xml:id="m-34a33e80-9be1-44d3-ab72-20e8c9fd03af" ulx="40" />
+                                    <custos pname="a" oct="4" xml:id="m-83b451e6-cec1-458e-951c-91c6d761c5d6" ulx="298" />
+                                    <note pname="e" oct="5" dur="semibrevis" xml:id="m-98606d5a-5803-45c7-8e39-166622768faa" ulx="330" />
+                                    <note pname="d" oct="4" dur="longa" xml:id="m-c718c1a0-855d-4901-b3e8-d20c928d2858" ulx="368" />
+                                    <clef line="4" shape="C" xml:id="m-34467068-6935-42da-a559-8edd5516ce41" ulx="424" />
+                                    <mensur sign="C" slash="1" xml:id="m-52d8d839-0416-4555-84de-592ab50f7ef8" ulx="716" />
+                                    <accid accid="f" ploc="g" oloc="3" xml:id="m-203553a7-ceb6-435f-bc18-e28ca1ef2bd8" ulx="804" />
+                                    <rest dur="minima" ploc="e" oloc="4" xml:id="m-1b9bc766-6679-48f1-ad02-0ac703acc585" ulx="858" />
+                                    <barLine xml:id="m-4821cad4-34bc-4b24-9380-534d46183c44" ulx="880" />
+                                    <rest dur="brevis" ploc="a" oloc="3" xml:id="m-899043c2-f0cd-4f87-b07a-1bda9083972c" ulx="924" />
+                                    <barLine xml:id="m-8fbde32c-217c-48c6-b3fd-6938237e410f" ulx="966" />
+                                    <barLine xml:id="m-7b3654e6-b05c-4972-943b-506a9093ea22" ulx="1004" />
+                                    <clef line="2" shape="G" xml:id="m-39bead92-a338-4a6e-94f2-0ebcec415785" ulx="1092" />
+                                    <barLine xml:id="m-055e5e7f-f559-4aaf-af48-418e02263611" ulx="1216" />
+                                    <barLine xml:id="m-1cb597fe-134c-4427-822b-7088407a0477" ulx="1262" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-bf2003a9-6fdc-49fb-bd5d-4919454254c9" ulx="1292" />
+                                    <note pname="f" oct="5" dur="semibrevis" xml:id="m-2fcf8ddb-2b29-4b46-8f9b-7bbf85210a39" ulx="1320" />
+                                    <clef line="2" shape="G" xml:id="m-3fab4d17-96cd-49d7-a450-79fb66a76499" ulx="1340" />
+                                    <rest dur="minima" ploc="f" oloc="5" xml:id="m-898c8687-14d5-436d-8291-f236cb7e42bc" ulx="1518" />
+                                    <note pname="d" oct="4" dur="semibrevis" xml:id="m-c9afb1cc-aad5-45a9-8a6c-d0d50f459314" ulx="1538" />
+                                    <rest dur="minima" ploc="f" oloc="5" xml:id="m-58cbc32a-e0e5-4298-bc9a-4a8361d66083" ulx="1578" />
+                                    <clef line="4" shape="C" xml:id="m-3bbd5930-f58d-4bb0-908a-5d75e8fe0d23" ulx="1592" />
+                                    <clef line="3" shape="F" xml:id="m-5ddc9e9f-ec38-4a5b-a96d-8fe2f6a3722b" ulx="1708" />
+                                    <barLine xml:id="m-738e2245-4387-4f61-8bf3-ed75a3b2304a" ulx="1748" />
+                                    <rest dur="semibrevis" ploc="c" oloc="4" xml:id="m-108897f6-88d3-4373-a148-062f1935bdce" ulx="1790" />
+                                    <accid accid="f" ploc="e" oloc="3" xml:id="m-99c6de02-f906-4e2e-8dd4-35eda5a875ff" ulx="1814" />
+                                    <clef line="2" shape="C" xml:id="m-8c5369c2-36b4-4aee-8773-157ce2069810" ulx="2160" />
+                                    <note pname="e" oct="4" dur="longa" xml:id="m-aa23526c-a705-4f1a-ad22-9d76b9ee7b9a" ulx="2354" />
+                                    <mensur sign="C" slash="1" xml:id="m-890ac0dc-e456-4b51-90e0-820dd5f95808" ulx="2452" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-555f378f-a452-47d1-b37c-c28dd252a9fc" system.leftmar="381" system.rightmar="1" uly="292">
+                            <staff xml:id="m-a6a65a09-9d7d-42a4-8262-2acdde00f0bb" label="mensural" uly="292" n="1">
+                                <layer xml:id="m-e2f95eac-702b-4d6f-844f-1257a73ceb47" n="1">
+                                    <clef line="4" shape="C" xml:id="m-a43407ea-6d48-43e1-a657-664da8b65aac" ulx="393" />
+                                    <accid accid="f" ploc="g" oloc="3" xml:id="m-1f2e1d90-a76e-477b-9a45-e4cfbcb4b3ab" ulx="1575" />
+                                    <note pname="c" oct="3" dur="minima" xml:id="m-61ca7352-7b0a-45e4-adeb-686e34380103" ulx="1715" />
+                                    <mensur sign="C" slash="1" xml:id="m-9a2eab1e-fe54-4469-a0ec-250efcdad4c5" ulx="1757" />
+                                    <mensur sign="C" slash="1" xml:id="m-3098b7c6-154c-42ed-91ab-52792762cdfc" ulx="1837" />
+                                    <mensur sign="C" slash="1" xml:id="m-c11d9faa-4679-4d4f-97ca-4b07ba4e0e7f" ulx="1901" />
+                                    <note pname="a" oct="3" dur="longa" xml:id="m-a5e05f4d-2203-4856-aef3-c10db53d10cb" ulx="1947" />
+                                    <barLine xml:id="m-cd79a0e5-2eae-401b-b6d7-4427bb752a08" ulx="2037" />
+                                    <mensur sign="C" slash="1" xml:id="m-cb30a912-9e49-4a64-bdd3-64e567d8349e" ulx="2083" />
+                                    <note pname="a" oct="3" dur="longa" xml:id="m-191c6462-7fa6-4564-a29c-f1bd0b0107f8" ulx="2129" />
+                                    <note pname="b" oct="3" dur="longa" xml:id="m-b8990fcb-02e1-4274-ac3c-4c311b3bd2c1" ulx="2177" />
+                                    <rest dur="minima" ploc="e" oloc="4" xml:id="m-5a88c4b7-26fa-44de-a715-779c204df01b" ulx="2243" />
+                                    <note pname="a" oct="3" dur="longa" xml:id="m-37d64d80-d7b9-4c02-b277-006e120fb570" ulx="2291" />
+                                    <custos pname="g" oct="3" xml:id="m-09a6b1c2-12fe-48a9-867c-6504e4cf3ace" ulx="2365" />
+                                    <rest dur="minima" ploc="e" oloc="4" xml:id="m-d325336b-4750-410f-b7f2-8d5ebf22ed4c" ulx="2441" />
+                                    <clef line="3" shape="C" xml:id="m-24236f5b-5b5d-41e2-9369-775eee1d8cc6" ulx="2459" />
+                                </layer>
+                            </staff>
+                        </system>
+                        <system xml:id="m-f38d313b-dd42-4d44-aab2-d2ed73c92919" system.leftmar="381" system.rightmar="1" uly="220">
+                            <staff xml:id="m-2331bfd9-8cd0-4ba4-85c3-e7b8301f0d30" label="mensural" uly="220" n="1">
+                                <layer xml:id="m-c86864f7-2f88-4bb7-a63a-f7ac9a10dd17" n="1">
+                                    <clef line="4" shape="C" xml:id="m-c52bf53a-2e16-484c-94fc-7432f2216885" ulx="383" />
+                                    <dot ploc="b" oloc="3" xml:id="m-769aa24b-9d7e-445c-b7c0-7ffa586b33de" ulx="1551" />
+                                    <note pname="a" oct="3" dur="longa" xml:id="m-d51f9bff-615e-44cf-94d1-8b3b1387faf3" ulx="1575" />
+                                    <custos pname="g" oct="3" xml:id="m-a8a9d810-e972-4f87-9578-5a7e713af3d8" ulx="1641" />
+                                    <clef line="2" shape="G" xml:id="m-d0731468-9075-4977-90a1-df6b8e023f51" ulx="1703" />
+                                    <custos pname="c" oct="5" xml:id="m-5b396115-65c3-4e8c-a346-424ac8adfd24" ulx="1757" />
+                                    <accid accid="f" ploc="a" oloc="4" xml:id="m-fe928508-8bd7-49e2-90f0-71cec1ccb01e" ulx="1781" />
+                                    <accid accid="f" ploc="c" oloc="5" xml:id="m-d1c870e8-6792-4f1b-98a9-31e553f50957" ulx="1835" />
+                                    <note pname="f" oct="4" dur="minima" xml:id="m-09c47b64-4953-4032-8f4c-3393bd4a9256" ulx="1895" />
+                                    <barLine xml:id="m-1e9ff883-5c84-4add-8324-68b19c377781" ulx="1963" />
+                                    <note pname="a" oct="4" dur="semiminima" xml:id="m-f59ef410-1789-4ad4-9203-c3d04a6feb4e" ulx="2021" />
+                                    <note pname="a" oct="4" dur="semiminima" xml:id="m-febfd26d-f044-480e-bcc9-12ca20b410f4" ulx="2081" />
+                                    <clef line="2" shape="G" xml:id="m-fb9a1986-4294-4874-a084-58042b46e3dd" ulx="2129" />
+                                    <accid accid="f" ploc="c" oloc="5" xml:id="m-ce17b140-c7f6-4f08-9cbb-aaf5f6566090" ulx="2207" />
+                                    <note pname="c" oct="4" dur="minima" xml:id="m-2905087c-b635-40bf-b98e-9b68e0d664b4" ulx="2283" />
+                                    <custos pname="b" oct="4" xml:id="m-f36c8a51-48a1-43f4-8324-f6c909138f7a" ulx="2309" />
+                                    <note pname="f" oct="5" dur="brevis" xml:id="m-8022c49a-723f-484b-abdd-5adbe7ce7b78" ulx="2365" />
+                                    <accid accid="f" ploc="c" oloc="5" xml:id="m-8a6447c1-70ce-4e66-b443-c356cc8a5bbd" ulx="2399" />
+                                    <clef line="2" shape="G" xml:id="m-2ffaa390-f64e-4e1e-acee-44e78dd0e856" ulx="2459" />
+                                </layer>
+                            </staff>
+                        </system>
+                    </page>
+                </pages>
+            </mdiv>
+        </body>
+    </music>
+</mei>

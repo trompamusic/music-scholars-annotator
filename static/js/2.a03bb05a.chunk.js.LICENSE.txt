@@ -11,18 +11,17 @@ object-assign
 */
 
 /*!
+	Copyright (c) 2018 Jed Watson.
+	Licensed under the MIT License (MIT), see
+	http://jedwatson.github.io/classnames
+*/
+
+/*!
        * The buffer module from node.js, for the browser.
        *
        * @author   Feross Aboukhadijeh <http://feross.org>
        * @license  MIT
        */
-
-/*!
-      Copyright (c) 2011, Yahoo! Inc. All rights reserved.
-      Code licensed under the BSD License:
-      http://developer.yahoo.com/yui/license.html
-      version: 2.9.0
-      */
 
 /*!
      * The buffer module from node.js, for the browser.
@@ -39,10 +38,12 @@ object-assign
     */
 
 /*!
-  Copyright (c) 2018 Jed Watson.
-  Licensed under the MIT License (MIT), see
-  http://jedwatson.github.io/classnames
-*/
+ * Copyright (c) 2016-2021 Digital Bazaar, Inc. All rights reserved.
+ */
+
+/*!
+ * Copyright (c) 2016-2022 Digital Bazaar, Inc. All rights reserved.
+ */
 
 /*!
  * The buffer module from node.js, for the browser.
@@ -52,25 +53,25 @@ object-assign
  */
 
 /*!
- * wavesurfer.js 4.6.0 (2021-03-05)
+ * wavesurfer.js 6.6.4 (2023-06-10)
  * https://wavesurfer-js.org
  * @license BSD-3-Clause
  */
 
 /*!
- * wavesurfer.js cursor plugin 4.6.0 (2021-03-05)
+ * wavesurfer.js cursor plugin 6.6.4 (2023-06-10)
  * https://wavesurfer-js.org
  * @license BSD-3-Clause
  */
 
 /*!
- * wavesurfer.js regions plugin 4.6.0 (2021-03-05)
+ * wavesurfer.js regions plugin 6.6.4 (2023-06-10)
  * https://wavesurfer-js.org
  * @license BSD-3-Clause
  */
 
 /*!
- * wavesurfer.js timeline plugin 4.6.0 (2021-03-05)
+ * wavesurfer.js timeline plugin 6.6.4 (2023-06-10)
  * https://wavesurfer-js.org
  * @license BSD-3-Clause
  */
@@ -122,6 +123,8 @@ PERFORMANCE OF THIS SOFTWARE.
 
 /*! ./observer */
 
+/*! ./orientation */
+
 /*! ./peakcache */
 
 /*! ./prevent-click */
@@ -129,6 +132,8 @@ PERFORMANCE OF THIS SOFTWARE.
 /*! ./region.js */
 
 /*! ./request-animation-frame */
+
+/*! ./silence-mode */
 
 /*! ./style */
 
@@ -140,15 +145,6 @@ PERFORMANCE OF THIS SOFTWARE.
 
 /*! ./webaudio */
 
-/*! CryptoJS v3.1.2 core-fix.js
-       * code.google.com/p/crypto-js
-       * (c) 2009-2013 by Jeff Mott. All rights reserved.
-       * code.google.com/p/crypto-js/wiki/License
-       * THIS IS FIX of 'core.js' to fix Hmac issue.
-       * https://code.google.com/p/crypto-js/issues/detail?id=84
-       * https://crypto-js.googlecode.com/svn-history/r667/branches/3.x/src/core.js
-       */
-
 /*! Mike Samuel (c) 2009 | code.google.com/p/json-sans-eval
        */
 
@@ -159,104 +155,112 @@ PERFORMANCE OF THIS SOFTWARE.
 /*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
 /*!***********************!*\
-          !*** ./src/drawer.js ***!
-          \***********************/
+        !*** ./src/drawer.js ***!
+        \***********************/
 
 /*!*************************!*\
-          !*** ./src/util/max.js ***!
-          \*************************/
+        !*** ./src/util/max.js ***!
+        \*************************/
 
 /*!*************************!*\
-          !*** ./src/util/min.js ***!
-          \*************************/
+        !*** ./src/util/min.js ***!
+        \*************************/
 
 /*!*************************!*\
-          !*** ./src/webaudio.js ***!
-          \*************************/
+        !*** ./src/webaudio.js ***!
+        \*************************/
 
 /*!**************************!*\
-          !*** ./src/peakcache.js ***!
-          \**************************/
+        !*** ./src/peakcache.js ***!
+        \**************************/
 
 /*!***************************!*\
-          !*** ./src/util/clamp.js ***!
-          \***************************/
+        !*** ./src/util/clamp.js ***!
+        \***************************/
 
 /*!***************************!*\
-          !*** ./src/util/fetch.js ***!
-          \***************************/
+        !*** ./src/util/fetch.js ***!
+        \***************************/
 
 /*!***************************!*\
-          !*** ./src/util/frame.js ***!
-          \***************************/
+        !*** ./src/util/frame.js ***!
+        \***************************/
 
 /*!***************************!*\
-          !*** ./src/util/index.js ***!
-          \***************************/
+        !*** ./src/util/index.js ***!
+        \***************************/
 
 /*!***************************!*\
-          !*** ./src/util/style.js ***!
-          \***************************/
+        !*** ./src/util/style.js ***!
+        \***************************/
 
 /*!***************************!*\
-          !*** ./src/wavesurfer.js ***!
-          \***************************/
+        !*** ./src/wavesurfer.js ***!
+        \***************************/
 
 /*!****************************!*\
-          !*** ./src/util/absMax.js ***!
-          \****************************/
+        !*** ./src/util/absMax.js ***!
+        \****************************/
 
 /*!****************************!*\
-          !*** ./src/util/get-id.js ***!
-          \****************************/
+        !*** ./src/util/get-id.js ***!
+        \****************************/
 
 /*!*****************************!*\
-          !*** ./src/mediaelement.js ***!
-          \*****************************/
+        !*** ./src/mediaelement.js ***!
+        \*****************************/
 
 /*!******************************!*\
-          !*** ./src/util/observer.js ***!
-          \******************************/
+        !*** ./src/util/observer.js ***!
+        \******************************/
+
+/*!*********************************!*\
+        !*** ./src/util/orientation.js ***!
+        \*********************************/
+
+/*!**********************************!*\
+        !*** ./src/util/silence-mode.js ***!
+        \**********************************/
 
 /*!***********************************!*\
-          !*** ./src/drawer.canvasentry.js ***!
-          \***********************************/
+        !*** ./src/drawer.canvasentry.js ***!
+        \***********************************/
 
 /*!***********************************!*\
-          !*** ./src/drawer.multicanvas.js ***!
-          \***********************************/
+        !*** ./src/drawer.multicanvas.js ***!
+        \***********************************/
 
 /*!***********************************!*\
-          !*** ./src/util/prevent-click.js ***!
-          \***********************************/
+        !*** ./src/util/prevent-click.js ***!
+        \***********************************/
 
 /*!************************************!*\
-          !*** ./src/plugin/cursor/index.js ***!
-          \************************************/
+        !*** ./src/plugin/cursor/index.js ***!
+        \************************************/
 
 /*!*************************************!*\
-          !*** ./src/plugin/regions/index.js ***!
-          \*************************************/
+        !*** ./src/plugin/regions/index.js ***!
+        \*************************************/
 
 /*!**************************************!*\
-          !*** ./src/mediaelement-webaudio.js ***!
-          \**************************************/
+        !*** ./src/mediaelement-webaudio.js ***!
+        \**************************************/
 
 /*!**************************************!*\
-          !*** ./src/plugin/regions/region.js ***!
-          \**************************************/
+        !*** ./src/plugin/regions/region.js ***!
+        \**************************************/
 
 /*!**************************************!*\
-          !*** ./src/plugin/timeline/index.js ***!
-          \**************************************/
+        !*** ./src/plugin/timeline/index.js ***!
+        \**************************************/
 
 /*!****************************************!*\
-          !*** ./node_modules/debounce/index.js ***!
-          \****************************************/
+        !*** ./node_modules/debounce/index.js ***!
+        \****************************************/
 
 /*!*********************************************!*\
-          !*** ./src/util/request-animation-frame.js ***!
-          \*********************************************/
+        !*** ./src/util/request-animation-frame.js ***!
+        \*********************************************/
 
 /**
    * @file Web Cryptography API shim
@@ -265,12 +269,39 @@ PERFORMANCE OF THIS SOFTWARE.
    */
 
 /**
- * @license
- * Lodash <https://lodash.com/>
- * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
- * Released under MIT license <https://lodash.com/license>
- * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
- * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * A JavaScript implementation of the JSON-LD API.
+ *
+ * @author Dave Longley
+ *
+ * @license BSD 3-Clause License
+ * Copyright (c) 2011-2022 Digital Bazaar, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
+ *
+ * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *
+ * Neither the name of the Digital Bazaar, Inc. nor the names of its
+ * contributors may be used to endorse or promote products derived from
+ * this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+ * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ * TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 /**
