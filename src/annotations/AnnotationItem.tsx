@@ -194,7 +194,7 @@ class AnnotationItem extends Component<
       .currentSession()
       .then((s) => {
         getSolidDatasetWithAcl(this.props.annotation["@id"]!, {
-          fetch: auth.fetch,
+          fetch: auth.fetch as typeof fetch,
         })
           .then((datasetWithAcl) => {
             console.log("Got dataset: ", datasetWithAcl);
@@ -397,7 +397,7 @@ class AnnotationItem extends Component<
         control: true,
       });
       // @ts-ignore
-      saveAclFor(this.state.datasetWithAcl!, updatedAcl, { fetch: auth.fetch })
+      saveAclFor(this.state.datasetWithAcl!, updatedAcl, { fetch: auth.fetch as typeof fetch })
         .then(() => this.updateDatasetAcl())
         .catch((e) => console.error("Could not grant public access: ", e));
     });
@@ -423,7 +423,7 @@ class AnnotationItem extends Component<
       });
 
       // @ts-ignore
-      saveAclFor(this.state.datasetWithAcl!, updatedAcl, { fetch: auth.fetch })
+      saveAclFor(this.state.datasetWithAcl!, updatedAcl, { fetch: auth.fetch as typeof fetch })
         .then(() => this.updateDatasetAcl())
         .catch((e) => console.error("Could not revoke public access: ", e));
     });
