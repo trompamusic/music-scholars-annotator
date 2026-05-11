@@ -24,6 +24,29 @@ body {
   max-width: 95vw;
 }
 
+.scoreLayout.withSearch {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.scoreLayout.withSearch .scoreContainer {
+  flex: 1 1 auto;
+  float: none;
+  top: 0;
+  min-width: 0;
+}
+
+.scoreLayout.withSearch .ftempoContainer {
+  flex: 0 0 35%;
+  max-width: none;
+}
+
+.scoreLayout.withSearch .ftempoContainer .accordion {
+  width: 100%;
+}
+
 form.hide-submit input[type="submit"] {
   display: none;
 }

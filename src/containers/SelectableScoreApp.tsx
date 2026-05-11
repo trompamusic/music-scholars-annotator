@@ -668,9 +668,11 @@ class SelectableScoreApp extends Component<
   };
 
   render() {
+    const inSearchMode =
+      this.state.applicationMode === ApplicationMode.Search;
     return (
       <div>
-        <div>
+        <div className={"scoreLayout" + (inSearchMode ? " withSearch" : "")}>
           <div className="scoreContainer">
             <div className="controls">
               <div className="prevPageButton" onClick={this.handlePageTurn}>
@@ -706,6 +708,9 @@ class SelectableScoreApp extends Component<
               }}
             />
           </div>
+          {inSearchMode && (
+            <FtempoSearch vrvToolkit={this.props.score.vrvTk} />
+          )}
         </div>
 
         <div>
@@ -742,10 +747,6 @@ class SelectableScoreApp extends Component<
             </>
           )}
         </div>
-
-        {this.state.applicationMode === ApplicationMode.Search && (
-          <FtempoSearch vrvToolkit={this.props.score.vrvTk} />
-        )}
 
         {this.state.applicationMode === ApplicationMode.Annotate && (
           <div>
