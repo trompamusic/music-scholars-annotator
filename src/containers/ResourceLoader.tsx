@@ -1,116 +1,6 @@
 import React, { useState } from "react";
-import MultiModalComponent, {
-  SearchConfig,
-  SearchResult,
-} from "trompa-multimodal-component";
 import { Button, Col, Form, Row } from "react-bootstrap-v5";
 import { useHistory } from "react-router-dom";
-import gql from "graphql-tag";
-
-const CE_URL = "https://api.trompamusic.eu";
-
-const MUSIC_COMPOSITION_FRAGMENT = gql`
-  fragment MusicCompositionFrag on MusicComposition {
-    identifier
-    contributor
-    name
-    source
-    title
-    composer {
-      name
-    }
-    workExample(filter: { encodingFormat: "application/mei+xml" }) {
-      ... on MediaObject {
-        identifier
-        source
-        contentUrl
-        encodingFormat
-      }
-    }
-  }
-`;
-
-const EARLY_MUSIC_WORKS = gql`
-  ${MUSIC_COMPOSITION_FRAGMENT}
-  query ($query: String!) {
-    allResults: ItemList(identifier: "e91489d7-a776-40dd-8abf-0c934922bd99") {
-      identifier
-      name
-      itemListElement(filter: { name_regexp: $query }) {
-        __typename
-        ...MusicCompositionFrag
-      }
-    }
-  }
-`;
-
-class FtempoCatalogueSearchType {
-  name = "MusicComposition";
-
-  static filters = [];
-
-  static preprocessQuery = (query: string) => {
-    return `(?i).*${query}.*`;
-  };
-
-  static searchAllQuery = EARLY_MUSIC_WORKS;
-
-  static searchQuery = gql`
-    ${MUSIC_COMPOSITION_FRAGMENT}
-    query ($filter: _ThingInterfaceFilter) {
-      results: ItemList(identifier: "e91489d7-a776-40dd-8abf-0c934922bd99") {
-        identifier
-        name
-        itemListElement(filter: $filter, first: 50) {
-          ...MusicCompositionFrag
-        }
-      }
-    }
-  `;
-
-  static processSearchResult = (result: any) => {
-    // Find the itemListElements of this ItemList, instead of a list of ItemLists
-    if (Array.isArray(result) && result[0]) {
-      return result[0].itemListElement;
-    }
-
-    return [];
-  };
-}
-
-const searchConfig = new SearchConfig({
-  searchTypes: [FtempoCatalogueSearchType],
-});
-
-const renderSearchResult = (
-  type: string,
-  item: any,
-  onClick: (item: any) => void
-) => {
-  if (type === "MusicComposition") {
-    let composer = null;
-    if (item.composer.length > 0) {
-      composer = item.composer[0].name;
-    }
-    return (
-      <SearchResult
-        variant="default"
-        type="Composition"
-        heading={composer}
-        title={item.name || item.title}
-        source={item.source}
-        onClick={() => onClick(item)}
-      />
-    );
-  }
-  return (
-    <SearchResult
-      title={item.title}
-      variant="default"
-      onClick={() => onClick(item)}
-    />
-  );
-};
 
 const sampleScores = [
   {
@@ -192,19 +82,6 @@ export default function ResourceLoader() {
             </Col>
           </Row>
         </Form>
-        <p>or</p>
-        <h3>Search the TROMPA early music database</h3>
-        <MultiModalComponent
-          config={searchConfig}
-          uri={CE_URL}
-          renderSearchResult={renderSearchResult}
-          placeholderText="Search for a composition..."
-          onResultClick={(node: any) => {
-            if (node.workExample.length) {
-              loadUrl(node.workExample[0].contentUrl);
-            }
-          }}
-        />
       </Col>
       <Col sm={2} />
     </Row>

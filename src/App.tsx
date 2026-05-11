@@ -1,5 +1,4 @@
 import React from "react";
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 
 import { reducers } from "meld-clients-core/lib/reducers";
 import { createStore, applyMiddleware } from "redux";
@@ -12,13 +11,6 @@ import { Container } from "react-bootstrap-v5";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useHistory } from "react-router-dom";
 import AnnotatorRouter from "./containers/AnnotatorRouter";
-
-const CE_URL = "https://api.trompamusic.eu";
-
-const client = new ApolloClient({
-  uri: CE_URL,
-  cache: new InMemoryCache(),
-});
 
 function App() {
   const createStoreWithMiddleware = applyMiddleware(
@@ -40,12 +32,10 @@ function App() {
   return (
     <SessionProvider sessionId="trompa-music-scholars-annotator" onSessionRestore={onSessionRestore}>
       <Provider store={createStoreWithMiddleware(reducers)}>
-        <ApolloProvider client={client}>
-          <Navigation />
-          <Container fluid="lg" style={{ paddingLeft: "0px" }}>
-            <AnnotatorRouter/>
-          </Container>
-        </ApolloProvider>
+        <Navigation />
+        <Container fluid="lg" style={{ paddingLeft: "0px" }}>
+          <AnnotatorRouter/>
+        </Container>
       </Provider>
     </SessionProvider>
   );

@@ -23,7 +23,7 @@ export default function Navigation() {
 
   return (
     <Navbar bg="light" expand="xl">
-      <Navbar.Brand href="#home">
+      <Navbar.Brand as={Link} to="/">
         <img src={Logo} alt="Trompa logo" />
         Music scholars annotation tool
       </Navbar.Brand>
