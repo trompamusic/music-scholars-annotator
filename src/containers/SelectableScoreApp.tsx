@@ -670,9 +670,15 @@ class SelectableScoreApp extends Component<
   render() {
     const inSearchMode =
       this.state.applicationMode === ApplicationMode.Search;
+    const inAnnotateMode =
+      this.state.applicationMode === ApplicationMode.Annotate;
+    const layoutClass =
+      "scoreLayout" +
+      (inSearchMode ? " withSearch" : "") +
+      (inAnnotateMode ? " withAnnotate" : "");
     return (
       <div>
-        <div className={"scoreLayout" + (inSearchMode ? " withSearch" : "")}>
+        <div className={layoutClass}>
           <div className="scoreContainer">
             <div className="controls">
               <div className="prevPageButton" onClick={this.handlePageTurn}>
@@ -711,6 +717,54 @@ class SelectableScoreApp extends Component<
           {inSearchMode && (
             <FtempoSearch vrvToolkit={this.props.score.vrvTk} />
           )}
+          {inAnnotateMode && (
+            <div className="annotateContainer">
+              <SelectionHandler
+                selectorString={this.state.selectorString}
+                handleStringChange={this.handleStringChange}
+              />
+              {/*annotation submission component*/}
+              <AnnotationSubmitter
+                creator={this.props.solidSession.info!.webId!}
+                uri={this.props.resourceUri}
+                selection={this.state.selection}
+                saveAnnotation={this.saveAnnotation}
+                onRefreshClick={this.onRefreshClick}
+              />
+
+              <RenditionsPlaylist
+                allEntries={this.state.currentAnnotation}
+                onRefreshClick={this.onRefreshClick}
+              />
+
+              <AnnotationList
+                allEntries={this.state.currentAnnotation}
+                filteringEntries={this.state.annoToDisplay}
+                onAnnoReplyHandler={this.onAnnoReplyHandler}
+                onMediaClick={this.onMediaClick}
+                replyAnnotationTarget={this.state.replyAnnotationTarget}
+                showReplyHandler={this.showReplyHandler}
+                areRepliesVisible={this.state.areRepliesVisible}
+                onRefreshClick={this.onRefreshClick}
+              />
+              <ReactPlayer
+                width="80%"
+                height="80%"
+                ref={this.player}
+                url={this.state.currentMedia}
+                controls={true}
+                onReady={() => {
+                  if (this.state.seekTo && this.player.current) {
+                    console.log("Seeking to: ", this.state.seekTo);
+                    this.player.current.seekTo(
+                      Math.floor(Number(this.state.seekTo))
+                    );
+                    this.setState({ seekTo: "" });
+                  }
+                }}
+              />
+            </div>
+          )}
         </div>
 
         <div>
@@ -748,54 +802,6 @@ class SelectableScoreApp extends Component<
           )}
         </div>
 
-        {this.state.applicationMode === ApplicationMode.Annotate && (
-          <div>
-            <SelectionHandler
-              selectorString={this.state.selectorString}
-              handleStringChange={this.handleStringChange}
-            />
-            {/*annotation submission component*/}
-            <AnnotationSubmitter
-              creator={this.props.solidSession.info!.webId!}
-              uri={this.props.resourceUri}
-              selection={this.state.selection}
-              saveAnnotation={this.saveAnnotation}
-              onRefreshClick={this.onRefreshClick}
-            />
-
-            <RenditionsPlaylist
-              allEntries={this.state.currentAnnotation}
-              onRefreshClick={this.onRefreshClick}
-            />
-
-            <AnnotationList
-              allEntries={this.state.currentAnnotation}
-              filteringEntries={this.state.annoToDisplay}
-              onAnnoReplyHandler={this.onAnnoReplyHandler}
-              onMediaClick={this.onMediaClick}
-              replyAnnotationTarget={this.state.replyAnnotationTarget}
-              showReplyHandler={this.showReplyHandler}
-              areRepliesVisible={this.state.areRepliesVisible}
-              onRefreshClick={this.onRefreshClick}
-            />
-            <ReactPlayer
-              width="80%"
-              height="80%"
-              ref={this.player}
-              url={this.state.currentMedia}
-              controls={true}
-              onReady={() => {
-                if (this.state.seekTo && this.player.current) {
-                  console.log("Seeking to: ", this.state.seekTo);
-                  this.player.current.seekTo(
-                    Math.floor(Number(this.state.seekTo))
-                  );
-                  this.setState({ seekTo: "" });
-                }
-              }}
-            />
-          </div>
-        )}
       </div>
     );
   }

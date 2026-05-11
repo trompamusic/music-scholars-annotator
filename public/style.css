@@ -24,21 +24,24 @@ body {
   max-width: 95vw;
 }
 
-.scoreLayout.withSearch {
+.scoreLayout.withSearch,
+.scoreLayout.withAnnotate {
   display: flex;
   flex-direction: row-reverse;
   align-items: flex-start;
   gap: 1rem;
 }
 
-.scoreLayout.withSearch .scoreContainer {
+.scoreLayout.withSearch .scoreContainer,
+.scoreLayout.withAnnotate .scoreContainer {
   flex: 1 1 auto;
   float: none;
   top: 0;
   min-width: 0;
 }
 
-.scoreLayout.withSearch .ftempoContainer {
+.scoreLayout.withSearch .ftempoContainer,
+.scoreLayout.withAnnotate .annotateContainer {
   flex: 0 0 35%;
   max-width: none;
 }
