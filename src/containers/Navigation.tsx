@@ -16,7 +16,7 @@ import React from "react";
 import Logo from "../graphics/top-bar-logo_0_0.png";
 
 export default function Navigation() {
-  const trompaIdp = "https://trompa-solid.upf.edu";
+  const solidIdp = "https://solidcommunity.net";
   const { session } = useContext(SessionContext);
   const location = useLocation();
   const history = useHistory();
@@ -63,7 +63,7 @@ export default function Navigation() {
           </Navbar.Text>
         ) : (
           <LoginButton
-            oidcIssuer={trompaIdp}
+            oidcIssuer={solidIdp}
             redirectUrl={
               window.location.origin +
               location.pathname +
