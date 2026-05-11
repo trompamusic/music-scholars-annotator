@@ -672,10 +672,10 @@ class SelectableScoreApp extends Component<
       this.state.applicationMode === ApplicationMode.Search;
     const inAnnotateMode =
       this.state.applicationMode === ApplicationMode.Annotate;
+    const showSidePanel = inSearchMode || inAnnotateMode;
+    const isLoggedIn = this.props.solidSession.info.isLoggedIn;
     const layoutClass =
-      "scoreLayout" +
-      (inSearchMode ? " withSearch" : "") +
-      (inAnnotateMode ? " withAnnotate" : "");
+      "scoreLayout" + (showSidePanel ? " withSidePanel" : "");
     return (
       <div>
         <div className={layoutClass}>
@@ -714,55 +714,104 @@ class SelectableScoreApp extends Component<
               }}
             />
           </div>
-          {inSearchMode && (
-            <FtempoSearch vrvToolkit={this.props.score.vrvTk} />
-          )}
-          {inAnnotateMode && (
-            <div className="annotateContainer">
-              <SelectionHandler
-                selectorString={this.state.selectorString}
-                handleStringChange={this.handleStringChange}
-              />
-              {/*annotation submission component*/}
-              <AnnotationSubmitter
-                creator={this.props.solidSession.info!.webId!}
-                uri={this.props.resourceUri}
-                selection={this.state.selection}
-                saveAnnotation={this.saveAnnotation}
-                onRefreshClick={this.onRefreshClick}
-              />
-
-              <RenditionsPlaylist
-                allEntries={this.state.currentAnnotation}
-                onRefreshClick={this.onRefreshClick}
-              />
-
-              <AnnotationList
-                allEntries={this.state.currentAnnotation}
-                filteringEntries={this.state.annoToDisplay}
-                onAnnoReplyHandler={this.onAnnoReplyHandler}
-                onMediaClick={this.onMediaClick}
-                replyAnnotationTarget={this.state.replyAnnotationTarget}
-                showReplyHandler={this.showReplyHandler}
-                areRepliesVisible={this.state.areRepliesVisible}
-                onRefreshClick={this.onRefreshClick}
-              />
-              <ReactPlayer
-                width="80%"
-                height="80%"
-                ref={this.player}
-                url={this.state.currentMedia}
-                controls={true}
-                onReady={() => {
-                  if (this.state.seekTo && this.player.current) {
-                    console.log("Seeking to: ", this.state.seekTo);
-                    this.player.current.seekTo(
-                      Math.floor(Number(this.state.seekTo))
-                    );
-                    this.setState({ seekTo: "" });
+          {showSidePanel && (
+            <div className="sidePanel">
+              <div className="sidePanelTabs">
+                <button
+                  className={
+                    "sidePanelTab" + (inSearchMode ? " active" : "")
                   }
-                }}
-              />
+                  onClick={() =>
+                    this.setState({
+                      applicationMode: ApplicationMode.Search,
+                    })
+                  }
+                >
+                  Search
+                </button>
+                <button
+                  className={
+                    "sidePanelTab" + (inAnnotateMode ? " active" : "")
+                  }
+                  onClick={() =>
+                    this.setState({
+                      applicationMode: ApplicationMode.Annotate,
+                    })
+                  }
+                  disabled={!isLoggedIn}
+                  title={
+                    !isLoggedIn
+                      ? "You must be logged in to perform annotations"
+                      : undefined
+                  }
+                >
+                  Annotate
+                </button>
+                <button
+                  className="sidePanelClose"
+                  onClick={() =>
+                    this.setState({ applicationMode: ApplicationMode.Ready })
+                  }
+                  title="Close panel"
+                >
+                  ✕
+                </button>
+              </div>
+              <div
+                className="sidePanelContent"
+                style={{ display: inSearchMode ? "block" : "none" }}
+              >
+                <FtempoSearch vrvToolkit={this.props.score.vrvTk} />
+              </div>
+              <div
+                className="sidePanelContent"
+                style={{ display: inAnnotateMode ? "block" : "none" }}
+              >
+                <SelectionHandler
+                  selectorString={this.state.selectorString}
+                  handleStringChange={this.handleStringChange}
+                />
+                {/*annotation submission component*/}
+                <AnnotationSubmitter
+                  creator={this.props.solidSession.info!.webId!}
+                  uri={this.props.resourceUri}
+                  selection={this.state.selection}
+                  saveAnnotation={this.saveAnnotation}
+                  onRefreshClick={this.onRefreshClick}
+                />
+
+                <RenditionsPlaylist
+                  allEntries={this.state.currentAnnotation}
+                  onRefreshClick={this.onRefreshClick}
+                />
+
+                <AnnotationList
+                  allEntries={this.state.currentAnnotation}
+                  filteringEntries={this.state.annoToDisplay}
+                  onAnnoReplyHandler={this.onAnnoReplyHandler}
+                  onMediaClick={this.onMediaClick}
+                  replyAnnotationTarget={this.state.replyAnnotationTarget}
+                  showReplyHandler={this.showReplyHandler}
+                  areRepliesVisible={this.state.areRepliesVisible}
+                  onRefreshClick={this.onRefreshClick}
+                />
+                <ReactPlayer
+                  width="80%"
+                  height="80%"
+                  ref={this.player}
+                  url={this.state.currentMedia}
+                  controls={true}
+                  onReady={() => {
+                    if (this.state.seekTo && this.player.current) {
+                      console.log("Seeking to: ", this.state.seekTo);
+                      this.player.current.seekTo(
+                        Math.floor(Number(this.state.seekTo))
+                      );
+                      this.setState({ seekTo: "" });
+                    }
+                  }}
+                />
+              </div>
             </div>
           )}
         </div>
