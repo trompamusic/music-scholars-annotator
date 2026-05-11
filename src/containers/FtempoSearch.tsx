@@ -29,7 +29,7 @@ const FtempoSearch = (props: FtempoSearchProps) => {
     const selectedVoice = meiVoiceQueryStrings[selectedOption];
     if (selectedVoice && selectedVoice.notes) {
       const query = { codestring: selectedVoice.notes };
-      fetch("https://uk-dev-ftempo.rism.digital/api/query", {
+      fetch("https://search.f-tempo.org/api/query", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -92,7 +92,7 @@ const FtempoSearch = (props: FtempoSearchProps) => {
                 <AccordionItemPanel>
                   <img
                     src={
-                      "https://uk-dev-ftempo.rism.digital/img/jpg/" +
+                      "https://search.f-tempo.org/img/jpg/" +
                       i.id +
                       ".jpg"
                     }
