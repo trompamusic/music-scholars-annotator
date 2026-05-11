@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/music-scholars-annotator/static/js/main.101afe6c.chunk.js",
-    "main.js.map": "/music-scholars-annotator/static/js/main.101afe6c.chunk.js.map",
+    "main.js": "/music-scholars-annotator/static/js/main.44e41087.chunk.js",
+    "main.js.map": "/music-scholars-annotator/static/js/main.44e41087.chunk.js.map",
     "runtime-main.js": "/music-scholars-annotator/static/js/runtime-main.f3023b88.js",
     "runtime-main.js.map": "/music-scholars-annotator/static/js/runtime-main.f3023b88.js.map",
     "static/css/2.222ec614.chunk.css": "/music-scholars-annotator/static/css/2.222ec614.chunk.css",
-    "static/js/2.6d2bbdba.chunk.js": "/music-scholars-annotator/static/js/2.6d2bbdba.chunk.js",
-    "static/js/2.6d2bbdba.chunk.js.map": "/music-scholars-annotator/static/js/2.6d2bbdba.chunk.js.map",
+    "static/js/2.199883ab.chunk.js": "/music-scholars-annotator/static/js/2.199883ab.chunk.js",
+    "static/js/2.199883ab.chunk.js.map": "/music-scholars-annotator/static/js/2.199883ab.chunk.js.map",
     "index.html": "/music-scholars-annotator/index.html",
-    "precache-manifest.e674e0e6bb5a4c3f30ca6fb2dfd49911.js": "/music-scholars-annotator/precache-manifest.e674e0e6bb5a4c3f30ca6fb2dfd49911.js",
+    "precache-manifest.3a7538bb09087d72d2fdd0e21e2633e1.js": "/music-scholars-annotator/precache-manifest.3a7538bb09087d72d2fdd0e21e2633e1.js",
     "service-worker.js": "/music-scholars-annotator/service-worker.js",
     "static/css/2.222ec614.chunk.css.map": "/music-scholars-annotator/static/css/2.222ec614.chunk.css.map",
-    "static/js/2.6d2bbdba.chunk.js.LICENSE.txt": "/music-scholars-annotator/static/js/2.6d2bbdba.chunk.js.LICENSE.txt",
+    "static/js/2.199883ab.chunk.js.LICENSE.txt": "/music-scholars-annotator/static/js/2.199883ab.chunk.js.LICENSE.txt",
     "static/media/arrow-alt-to-top-regular.ee4119b1.svg": "/music-scholars-annotator/static/media/arrow-alt-to-top-regular.ee4119b1.svg",
     "static/media/arrow-to-left-regular.svg": "/music-scholars-annotator/static/media/arrow-to-left-regular.1bf90cef.svg",
     "static/media/arrow-to-right-regular.svg": "/music-scholars-annotator/static/media/arrow-to-right-regular.f0cdfa6a.svg",
@@ -25,7 +25,7 @@
   "entrypoints": [
     "static/js/runtime-main.f3023b88.js",
     "static/css/2.222ec614.chunk.css",
-    "static/js/2.6d2bbdba.chunk.js",
-    "static/js/main.101afe6c.chunk.js"
+    "static/js/2.199883ab.chunk.js",
+    "static/js/main.44e41087.chunk.js"
   ]
 }
