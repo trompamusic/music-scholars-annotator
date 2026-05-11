@@ -57,7 +57,9 @@ const FtempoSearch = (props: FtempoSearchProps) => {
         setSearchResults(data);
       })
       .catch((err) => {
-        setError(err?.message ?? "Search failed.");
+        console.error("F-TEMPO search failed", err);
+        const detail = err?.message ? ` ${err.message}` : "";
+        setError(`Error when performing search. Please try again later.${detail}`);
       })
       .finally(() => {
         setLoading(false);
